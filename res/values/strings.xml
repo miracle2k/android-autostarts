@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Autostarts Manager</string>
+    <string name="app_name">Autostarts</string>
+
+    <string name="no_receivers">No applications are autostarting.</string>
+    <string name="no_receivers_filters">No applications are autostarting within your current selection.</string>
 
     <string name="act_airplane_mode_changed">Airplane Mode changed</string>
 	<string name="act_battery_changed">Battery changed</string>

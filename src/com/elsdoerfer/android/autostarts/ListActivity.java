@@ -1,17 +1,18 @@
 package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.SimpleAdapter;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ListActivity extends android.app.ListActivity {
 
@@ -124,9 +125,9 @@ public class ListActivity extends android.app.ListActivity {
      * For now, we are going with 2).
      */
     public void load() {
-        PackageManager pm = getPackageManager();
+        final PackageManager pm = getPackageManager();
 
-        ArrayList<HashMap<String, String>> receiverList = new ArrayList<HashMap<String, String>>();
+        ArrayList<Object[]> receiverList = new ArrayList<Object[]>();
 
         for (Object[] intent : supportedIntents) {
             Intent query = new Intent();
@@ -142,18 +143,32 @@ public class ListActivity extends android.app.ListActivity {
 	        		continue;
 	        	}
 
-	        	HashMap<String, String> dataset = new HashMap<String, String>();
-				dataset.put("2", (String) r.activityInfo.loadLabel(pm));
-				// determine label
-				//String label =
-				//  r.activityInfo.name - raw activity name
-				dataset.put("1", getResources().getString((Integer)intent[1]));
+	        	Object[] dataset = new Object[] { intent, r };
 				receiverList.add(dataset);
 	        }
         }
 
-        setListAdapter(new SimpleAdapter(this, receiverList, R.layout.row,
-        		new String[] { "1", "2" }, new int[] { android.R.id.text1, android.R.id.text2 }));
+		// TODO: give experts more information through a dialog or something. For
+		// example, show the full broadcast receiver namespace name, from
+		//		r.activityInfo.name
+
+        ArrayAdapter<Object[]> a = new ArrayAdapter<Object[]>(
+        		this, R.layout.row, R.id.title, receiverList) {
+					@Override
+					public View getView(int position, View convertView,
+							ViewGroup parent) {
+						View view = super.getView(position, convertView, parent);
+						Object[] data = this.getItem(position);
+						((ImageView)view.findViewById(R.id.icon)).setImageDrawable(
+							((ResolveInfo)data[1]).loadIcon(pm));
+						((TextView)view.findViewById(R.id.title)).setText(
+							((ResolveInfo)data[1]).loadLabel(pm));
+						((TextView)view.findViewById(R.id.subtitle)).setText(
+								(Integer)((Object[])data[0])[1]);
+						return view;
+					}
+        };
+        setListAdapter(a);
 
     }
 }

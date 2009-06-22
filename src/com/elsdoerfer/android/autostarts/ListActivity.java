@@ -3,18 +3,21 @@ package com.elsdoerfer.android.autostarts;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ExpandableListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ListActivity extends android.app.ListActivity {
+public class ListActivity extends ExpandableListActivity {
 
 	static final String TAG = "Autostarts";
 
@@ -127,48 +130,119 @@ public class ListActivity extends android.app.ListActivity {
     public void load() {
         final PackageManager pm = getPackageManager();
 
-        ArrayList<Object[]> receiverList = new ArrayList<Object[]>();
+        // The structure here is:
+        //    [[intent1, [app1, app2]], [intent2, [apps...], intents...]]
+        // In words, we have a list of 2-sized arrays, with the first element
+        // being the intent, the second being another ArrayList of apps.
+        ArrayList<Object[]> receiversByIntent = new ArrayList<Object[]>();
 
         for (Object[] intent : supportedIntents) {
             Intent query = new Intent();
             query.setAction((String)(intent[0]));
+            Log.d(TAG, "Querying receivers for action: "+(String)(intent[0]));
+	        List<ResolveInfo> receivers = pm.queryBroadcastReceivers(query,
+	        		PackageManager.GET_INTENT_FILTERS);
 
-	        List<ResolveInfo> receivers = pm.queryBroadcastReceivers(query, PackageManager.GET_INTENT_FILTERS);
+	        if (receivers.size() <= 0)
+	        	// Don't bother adding empty groups.
+	        	continue;
+
+	        ArrayList<ResolveInfo> currentAppList = new ArrayList<ResolveInfo>();
 	        for (int i=receivers.size()-1; i>=0; i--) {
 	        	ResolveInfo r = receivers.get(i);
 	        	Log.d(TAG, "Found receiver: "+r.toString());
-
 	        	if (r.activityInfo == null) {
 	        		Log.d(TAG, "activityInfo is null?!");
 	        		continue;
 	        	}
 
-	        	Object[] dataset = new Object[] { intent, r };
-				receiverList.add(dataset);
+	        	currentAppList.add(r);
 	        }
+
+	        receiversByIntent.add(new Object[] { intent, currentAppList });
         }
 
-		// TODO: give experts more information through a dialog or something. For
-		// example, show the full broadcast receiver namespace name, from
-		//		r.activityInfo.name
+        setListAdapter(new MyExpandableListAdapter(
+    		this, R.layout.group_row, R.layout.child_row, receiversByIntent));
+    }
 
-        ArrayAdapter<Object[]> a = new ArrayAdapter<Object[]>(
-        		this, R.layout.row, R.id.title, receiverList) {
-					@Override
-					public View getView(int position, View convertView,
-							ViewGroup parent) {
-						View view = super.getView(position, convertView, parent);
-						Object[] data = this.getItem(position);
-						((ImageView)view.findViewById(R.id.icon)).setImageDrawable(
-							((ResolveInfo)data[1]).loadIcon(pm));
-						((TextView)view.findViewById(R.id.title)).setText(
-							((ResolveInfo)data[1]).loadLabel(pm));
-						((TextView)view.findViewById(R.id.subtitle)).setText(
-								(Integer)((Object[])data[0])[1]);
-						return view;
-					}
-        };
-        setListAdapter(a);
+    public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
+    	private int mChildLayout;
+    	private int mGroupLayout;
+    	private ArrayList<Object[]> mData;
+
+    	private LayoutInflater mInflater;
+    	private PackageManager mPackageManager;
+
+    	public MyExpandableListAdapter(Context context, int groupLayout, int childLayout,
+    			ArrayList<Object[]> data) {
+    		mChildLayout = childLayout;
+    		mGroupLayout = groupLayout;
+    		mData = data;
+    		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    		mPackageManager = context.getPackageManager();
+		}
+
+        @SuppressWarnings("unchecked")
+		public Object getChild(int groupPosition, int childPosition) {
+            return ((ArrayList<ResolveInfo>)((Object[])mData.get(groupPosition))[1]).get(childPosition);
+        }
+
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @SuppressWarnings("unchecked")
+		public int getChildrenCount(int groupPosition) {
+            return ((ArrayList<ResolveInfo>)((Object[])mData.get(groupPosition))[1]).size();
+        }
+
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+                View convertView, ViewGroup parent) {
+        	View v;
+        	if (convertView == null)
+        		v = mInflater.inflate(mChildLayout, parent, false);
+        	else
+        		v = convertView;
+			ResolveInfo app = (ResolveInfo) getChild(groupPosition, childPosition);
+			((ImageView)v.findViewById(R.id.icon)).
+				setImageDrawable(app.loadIcon(mPackageManager));
+			((TextView)v.findViewById(R.id.title)).
+				setText(app.loadLabel(mPackageManager));
+			return v;
+        }
+
+        public Object getGroup(int groupPosition) {
+            return ((Object[])mData.get(groupPosition))[0];
+        }
+
+        public int getGroupCount() {
+            return mData.size();
+        }
+
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
+                ViewGroup parent) {
+        	View v;
+        	if (convertView == null)
+        		v = mInflater.inflate(mGroupLayout, parent, false);
+        	else
+        		v = convertView;
+        	Object[] intent = (Object[])getGroup(groupPosition);
+        	((TextView)v.findViewById(R.id.title)).setText((Integer)intent[1]);
+        	return v;
+        }
+
+        public boolean isChildSelectable(int groupPosition, int childPosition) {
+            return true;
+        }
+
+        public boolean hasStableIds() {
+            return false;
+        }
     }
 }

@@ -2,12 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="5dip">
+	android:paddingTop="2dip"
+	android:paddingBottom="2dip"
+	android:paddingRight="5dip"
+    android:paddingLeft="25dip">
 
     <ImageView
     	android:id="@+id/icon"
-    	android:layout_width="32px"
-        android:layout_height="32px"
+    	android:layout_width="28px"
+        android:layout_height="28px"
         android:paddingRight="5sp"
      	/>
 
@@ -15,20 +18,11 @@
         android:id="@+id/title"
         android:layout_toRightOf="@id/icon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="28px"
         android:singleLine="true"
         android:ellipsize="end"
-        android:textStyle="bold"
-        />
-
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_alignLeft="@id/title"
-        android:singleLine="true"
-        android:ellipsize="end"
-        />
+        android:textStyle="normal"
+        android:text="test"
+        android:gravity="center_vertical"/>
 
 </RelativeLayout>

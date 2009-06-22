@@ -1,9 +1,15 @@
+[V1] Mark systems application visually, and support filters to hide/show them.
+
+[V1] Extended description of each broadcast type.
+
+[V1] Basic help section explaining what broadcasts are and how they can behave.
+
+Support group by application.
+
 Add support for Locale broadcasts.
 
 Add support for Widget-related broadcasts.
 
 Check if there are further system broadcasts outside of the default list in Intent.*
 
-Mark systems application visually, and support filters to hide/show them.
-
-Add german localization.
+Add German localization.

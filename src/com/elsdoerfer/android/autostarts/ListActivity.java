@@ -79,43 +79,52 @@ public class ListActivity extends android.app.ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
 
+
+        // TODO: move this to an ASyncTask
+        load();
+    }
+
+    /**
+     * Load the broadcast receivers installed by applications. Unfortunately, this
+     * is a lot more difficult than it sounds.
+     *
+     * There are multiple approaches one might consider taking, all flawed:
+     *
+     * 1) Loop through the list of installed packages and collect all receivers.
+     *    Unfortunately, Android currently does not allow us to query the intents
+     *    a receiver has registered for. See the unimplemented
+     *    PackageManager.GET_INTENT_FILTERS, and the following URLs:
+     *       http://groups.google.com/group/android-developers/browse_thread/thread/4502827143ea9b20
+     *       http://groups.google.com/group/android-developers/browse_thread/thread/ef0e4b390552f2c/
+     *
+     * 2) Use PackageManager.queryBroadcastReceivers() to find all installed
+     *    receivers. In the following thread, hackbod initially suggests that
+     *    this could be done using a single call: By using an empty intent filter
+     *    with no action, all receivers would be returned. Note however that this
+     *    is retracted in a later post:
+     *       http://groups.google.com/group/android-developers/browse_thread/thread/3ba4f419f0bec3aa/
+     *    Even if that worked, it's still be an open question if we could retrieve
+     *    the associated intents, or if we'd again run into the problem from 1).
+     *
+     *    As a result, using this method we would need a list of builtin, supported
+     *    broadcast actions, for each of which we query installed receivers
+     *    individually.
+     *
+     *    Unfortunately, this method has another huge downside: Disabled components
+     *    are never returned. As a result, if we want to give the user the option
+     *    to toggle receivers on and off, once one has been disabled, we need to
+     *    employ various hackery to remember this new status, because a requery
+     *    will no longer list the receiver. Considering that applications may be
+     *    removed/updated, this is a slightly complex proposition.
+     *
+     * 3) We could parse the apps inside /data/app manually, potentially based on
+     *    the OS Android Code (see for example PackageParser.java). However, this
+     *    would be complex to write in any case.
+     *
+     * For now, we are going with 2).
+     */
+    public void load() {
         PackageManager pm = getPackageManager();
-
-
-        // Unfortunately, looping through all packages/receivers currently doesn't allow us to
-        // retrieve the actual intents a receiver listens to. See the unimplemented
-        //     PackageManager.GET_INTENT_FILTERS
-        // and:
-        //     http://groups.google.com/group/android-developers/browse_thread/thread/4502827143ea9b20
-        //	   http://groups.google.com/group/android-developers/browse_thread/thread/ef0e4b390552f2c/
-        // 	   http://groups.google.com/group/android-developers/browse_thread/thread/3ba4f419f0bec3aa/ (note how the first answer by hackbod about finding all activities with no action is later retracted)
-        /*ArrayList<HashMap<String, String>> receiverList = new ArrayList<HashMap<String, String>>();
-
-        List<PackageInfo> packages = pm.getInstalledPackages(PackageManager.GET_RECEIVERS);
-        for (int i=packages.size()-1; i>= 0; i--) {
-        	PackageInfo p = packages.get(i);
-        	Log.d(TAG, "Processing package "+p.packageName);
-        	if (p.receivers == null) {
-        		Log.d(TAG, "Package has no receivers.");
-        		continue;
-        	}
-        	for (int j=p.receivers.length-1; j>=0; j--) {
-        		 ActivityInfo info = p.receivers[j];
-        		 if (info == null) {
-        			 Log.v(TAG, "info is null (?), skipping");
-        			 continue;
-        		 }
-        		 Log.d(TAG, "Found receiver: "+info.name);
-        		 HashMap<String, String> dataset = new HashMap<String, String>();
-        		 dataset.put("1", info.name);
-        		 dataset.put("2", (p.applicationInfo.name == null) ? p.applicationInfo.packageName : p.applicationInfo.name);
-        		 receiverList.add(dataset);
-        	}
-        }
-
-        setListAdapter(new SimpleAdapter(this, receiverList, R.layout.row,
-        		new String[] { "1", "2" }, new int[] { android.R.id.text1, android.R.id.text2 }));
-        */
 
         ArrayList<HashMap<String, String>> receiverList = new ArrayList<HashMap<String, String>>();
 

@@ -61,11 +61,7 @@ public class ListActivity extends android.app.ListActivity {
         */
         
         ArrayList<HashMap<String, String>> receiverList = new ArrayList<HashMap<String, String>>();
-        
-        // TODO: support locale broadcasts?
-        // TODO: mark enabled/disabled
-        // TODO: mark system applications
-        // TODO: widgets broadcasts? are there others outside of the default Intent namespace? 
+                 
         String[] intents = { 
         		Intent.ACTION_AIRPLANE_MODE_CHANGED,
         		Intent.ACTION_BATTERY_CHANGED,

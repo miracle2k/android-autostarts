@@ -5,3 +5,5 @@ Add support for Widget-related broadcasts.
 Check if there are further system broadcasts outside of the default list in Intent.*
 
 Mark systems application visually, and support filters to hide/show them.
+
+Add german localization.

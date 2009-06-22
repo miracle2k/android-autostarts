@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, ListActivity!</string>
-    <string name="app_name">Autostart Manager</string>
+    <string name="app_name">Autostarts Manager</string>
+
+    <string name="act_airplane_mode_changed">Airplane Mode changed</string>
+	<string name="act_battery_changed">Battery changed</string>
+	<string name="act_battery_low">Battery low</string>
+	<string name="act_boot_completed">On Startup</string>
+	<string name="act_camera_button">Camera button pressed</string>
+	<string name="act_close_system_dialogs">On System dialogs close</string>
+	<string name="act_configuration_changed">Configuration changed</string>
+	<string name="act_date_changed">Date changed</string>
+	<string name="act_device_storage_low">Storage low</string>
+	<string name="act_device_storage_ok">Storage ok</string>
+	<string name="act_gtalk_service_connected">GTalk connected</string>
+	<string name="act_gtalk_service_disconnected">GTalk disconnected</string>
+	<string name="act_headset_plug">Headset plugged or unplugged</string>
+	<string name="act_input_method_changed">IME changed</string>
+	<string name="act_manage_package_storage">Package management requested</string>
+	<string name="act_media_bad_removal">Bad media removal</string>
+	<string name="act_media_button">Media button pressed</string>
+	<string name="act_media_checking">Checking media</string>
+	<string name="act_media_eject">Media ejected</string>
+	<string name="act_media_mounted">Media mounted</string>
+	<string name="act_media_nofs">Media invalid or blank</string>
+	<string name="act_media_removed">Media removed</string>
+	<string name="act_media_scanner_finished">Media scanner finished</string>
+	<string name="act_media_scanner_scan_file">Media scanner handling file</string>
+	<string name="act_media_scanner_started">Media scanner started</string>
+	<string name="act_media_shared">Media sharing enabled</string>
+	<string name="act_media_unmountable">Media unmountable</string>
+	<string name="act_media_unmounted">Media unmounted</string>
+	<string name="act_new_outgoing_call">New outgoing call</string>
+	<string name="act_package_added">Application installed</string>
+	<string name="act_package_changed">Application changed</string>
+	<string name="act_package_data_cleared">Application data cleared</string>
+	<string name="act_package_install">Installing application</string>
+	<string name="act_package_removed">Application removed</string>
+	<string name="act_package_replaced">Application replaced</string>
+	<string name="act_package_restarted">Application restarted</string>
+	<string name="act_provider_changed">Content provider changed</string>
+	<string name="act_reboot">Reboot</string>
+	<string name="act_screen_off">Screen off</string>
+	<string name="act_screen_on">Screen on</string>
+	<string name="act_timezone_changed">Timezone changed</string>
+	<string name="act_time_changed">Time changed</string>
+	<string name="act_time_tick">Time tick</string>
+	<string name="act_uid_removed">User removed</string>
+	<string name="act_ums_connected">USB connected</string>
+	<string name="act_ums_disconnected">USB disconnected</string>
+	<string name="act_user_present">User present</string>
+	<string name="act_wallpaper_changed">Wallpaper changed</string>
 </resources>

@@ -4,7 +4,9 @@
 
 [V1] Basic help section explaining what broadcasts are and how they can behave.
 
-Support group by application.
+Support grouping by application.
+
+Give experts more information, like the full broadcast recceiver class name.
 
 Add support for Locale broadcasts.
 

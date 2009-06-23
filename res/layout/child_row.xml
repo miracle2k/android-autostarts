@@ -22,7 +22,6 @@
         android:singleLine="true"
         android:ellipsize="end"
         android:textStyle="normal"
-        android:text="test"
         android:gravity="center_vertical"/>
 
 </RelativeLayout>

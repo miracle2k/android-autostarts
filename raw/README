@@ -1,0 +1,6 @@
+Icon.png:
+    iCandy Junior win/Run 1.png
+     - Mirrored horz. 180
+     - Moved car futher down to bottom, to avoid it hovering
+       too high above it's respective caption text in Android
+       Launcher.

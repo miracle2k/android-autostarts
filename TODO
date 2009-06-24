@@ -2,6 +2,9 @@
 
 [V1] Option to jump to application info / market.
 
+[V1] Check if there are further system broadcasts outside of the default list in Intent.*; see for example:
+android.provider.Telephony.SMS_RECEIVED
+
 Support grouping by application.
 
 Give experts more information, like the full broadcast recceiver class name.
@@ -9,7 +12,5 @@ Give experts more information, like the full broadcast recceiver class name.
 Add support for Locale broadcasts.
 
 Add support for Widget-related broadcasts.
-
-Check if there are further system broadcasts outside of the default list in Intent.*
 
 Add German localization.

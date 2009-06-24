@@ -3,7 +3,10 @@
     <string name="app_name">Autostarts</string>
 
     <string name="no_receivers">No applications are autostarting.</string>
-    <string name="no_receivers_filters">No applications are autostarting within your current selection.</string>
+    <string name="no_receivers_filtered">No applications are autostarting within your current selection.</string>
+
+    <string name="menu_toggle_sys_apps">Toggle system apps</string>
+    <string name="menu_help">Help</string>
 
     <string name="act_airplane_mode_changed">Airplane mode changed</string>
     <string name="act_airplane_mode_changed_detail">Airplane mode was switched on or off.</string>

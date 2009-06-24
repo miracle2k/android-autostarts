@@ -9,12 +9,13 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -84,13 +85,16 @@ public class ListActivity extends ExpandableListActivity {
 		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail }
     };
 
+	static final private int MENU_FILTER_ID = 1;
+	static final private int MENU_HELP_ID = 2;
+
 	private Toast mInfoToast;
+	private MyExpandableListAdapter mListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
-
 
         // TODO: move this to an ASyncTask
         load();
@@ -101,6 +105,26 @@ public class ListActivity extends ExpandableListActivity {
 		super.onPause();
 		if (mInfoToast != null)
 			mInfoToast.cancel();
+	}
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0, MENU_FILTER_ID, 0, R.string.menu_toggle_sys_apps);
+		menu.add(0, MENU_HELP_ID, 0, R.string.menu_help);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MENU_FILTER_ID:
+			if (mListAdapter.toggleFilterSystemApps())
+				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers_filtered);
+			else
+				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers);
+			mListAdapter.notifyDataSetChanged();
+		    return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
 	}
 
 	/**
@@ -177,8 +201,9 @@ public class ListActivity extends ExpandableListActivity {
 	        receiversByIntent.add(new Object[] { intent, currentAppList });
         }
 
-        setListAdapter(new MyExpandableListAdapter(
-    		this, R.layout.group_row, R.layout.child_row, receiversByIntent));
+        mListAdapter = new MyExpandableListAdapter(
+        		this, R.layout.group_row, R.layout.child_row, receiversByIntent);
+        setListAdapter(mListAdapter);
     }
 
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
@@ -204,24 +229,45 @@ public class ListActivity extends ExpandableListActivity {
     	private Context mContext;
     	private int mChildLayout;
     	private int mGroupLayout;
-    	private ArrayList<Object[]> mData;
+    	private ArrayList<Object[]> mDataAll;
+    	private ArrayList<Object[]> mDataFiltered;
+
+    	private boolean mShowSystemApps = true;
 
     	private LayoutInflater mInflater;
     	private PackageManager mPackageManager;
 
-    	public MyExpandableListAdapter(Context context, int groupLayout, int childLayout,
+    	@SuppressWarnings("unchecked")
+		public MyExpandableListAdapter(Context context, int groupLayout, int childLayout,
     			ArrayList<Object[]> data) {
     		mContext = context;
     		mChildLayout = childLayout;
     		mGroupLayout = groupLayout;
-    		mData = data;
+    		mDataAll = data;
     		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     		mPackageManager = context.getPackageManager();
+
+    		// Create a cached copy of the data containing in a filtered manner.
+    		// TODO: this should be optimized to support multiple filters, and created on demand?
+    		// TODO: instead if if()ing on every access, a member field should point to whatever
+    		// we are currently using.
+    		mDataFiltered = new ArrayList<Object[]>();
+    		for (Object[] row : mDataAll) {
+    			Object[] filtered_row = row.clone();
+    			filtered_row[1] = new ArrayList<ResolveInfo>();  // needs a new (filtered) list
+    			for (ResolveInfo app : (ArrayList<ResolveInfo>)row[1]) {
+    				if (!isSystemApp(app))
+    					 ((ArrayList<ResolveInfo>)filtered_row[1]).add(app);
+    			}
+    			if (((ArrayList<ResolveInfo>)filtered_row[1]).size() > 0)
+    				mDataFiltered.add(filtered_row);
+
+    		}
 		}
 
         @SuppressWarnings("unchecked")
 		public Object getChild(int groupPosition, int childPosition) {
-            return ((ArrayList<ResolveInfo>)((Object[])mData.get(groupPosition))[1]).get(childPosition);
+            return ((ArrayList<ResolveInfo>)getGroupData(groupPosition)[1]).get(childPosition);
         }
 
         public long getChildId(int groupPosition, int childPosition) {
@@ -230,7 +276,7 @@ public class ListActivity extends ExpandableListActivity {
 
         @SuppressWarnings("unchecked")
 		public int getChildrenCount(int groupPosition) {
-            return ((ArrayList<ResolveInfo>)((Object[])mData.get(groupPosition))[1]).size();
+            return ((ArrayList<ResolveInfo>)getGroupData(groupPosition)[1]).size();
         }
 
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
@@ -244,8 +290,7 @@ public class ListActivity extends ExpandableListActivity {
 			((ImageView)v.findViewById(R.id.icon)).
 				setImageDrawable(app.loadIcon(mPackageManager));
 			TextView title = ((TextView)v.findViewById(R.id.title));
-			if ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
-					== ApplicationInfo.FLAG_SYSTEM)
+			if (isSystemApp(app))
 			    title.setTextColor(Color.YELLOW);
 			else
 				title.setTextColor(getResources().getColor(android.R.color.primary_text_dark));
@@ -254,11 +299,11 @@ public class ListActivity extends ExpandableListActivity {
         }
 
         public Object getGroup(int groupPosition) {
-            return ((Object[])mData.get(groupPosition))[0];
+            return getGroupData(groupPosition)[0];
         }
 
         public int getGroupCount() {
-            return mData.size();
+            return getData().size();
         }
 
         public long getGroupId(int groupPosition) {
@@ -290,6 +335,36 @@ public class ListActivity extends ExpandableListActivity {
         public boolean hasStableIds() {
             return false;
         }
+
+
+        private ArrayList<Object[]>getData() {
+        	if (mShowSystemApps)
+        		return mDataAll;
+        	else
+        		return mDataFiltered;
+        }
+
+        /**
+         *
+         */
+        private Object[] getGroupData(int groupPosition) {
+        	if (mShowSystemApps)
+        		return (Object[])mDataAll.get(groupPosition);
+        	else
+        		return (Object[])mDataFiltered.get(groupPosition);
+        }
+
+        /**
+         * Allow owner to hide (and show) the system applications.
+         *
+         * Returns True if the list is filtered.
+         *
+         * Expects the caller to also call notifyDataSetChanged(), if neccessary.
+         */
+        public boolean toggleFilterSystemApps() {
+        	mShowSystemApps = !mShowSystemApps;
+        	return !mShowSystemApps;
+        }
     }
 
     @Override
@@ -311,5 +386,10 @@ public class ListActivity extends ExpandableListActivity {
 		ExpandableListView lv = this.getExpandableListView();
 		lv.getChildAt(lv.getFlatListPosition(packedGroupPos)).
 			findViewById(R.id.description).setVisibility(View.VISIBLE);*/
+	}
+
+	static boolean isSystemApp(ResolveInfo app) {
+		return ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
+					== ApplicationInfo.FLAG_SYSTEM);
 	}
 }

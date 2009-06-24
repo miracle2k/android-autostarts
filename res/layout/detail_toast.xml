@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/toast_frame"
+    >
+
+    <ImageView
+    	android:id="@+id/info"
+    	android:layout_width="32px"
+        android:layout_height="32px"
+        android:layout_marginRight="13dp"
+        android:src="@android:drawable/ic_dialog_info"
+    	/>
+
+	<!-- TODO: move to a style -->
+	<!-- textColor: @android:color/bright_foreground_dark -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/info"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textStyle="bold"
+        android:textColor="#80ffffff"
+        android:shadowColor="#BB000000"
+        android:shadowRadius="2.75"
+        android:text="title"
+        />
+
+    <TextView
+        android:id="@android:id/message"
+        android:layout_alignLeft="@id/title"
+        android:layout_below="@id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="#80ffffff"
+        android:shadowColor="#BB000000"
+        android:shadowRadius="2.75"
+        android:text="desc"
+        />
+
+
+</RelativeLayout>

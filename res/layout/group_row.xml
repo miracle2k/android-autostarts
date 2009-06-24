@@ -6,12 +6,20 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32px"
         android:singleLine="true"
         android:ellipsize="end"
         android:textStyle="bold"
         />
+
+    <ImageView
+    	android:id="@+id/show_info"
+    	android:layout_width="20px"
+        android:layout_height="20px"
+        android:layout_alignParentRight="true"
+        android:src="@android:drawable/ic_dialog_info"
+    	/>
 
 </RelativeLayout>

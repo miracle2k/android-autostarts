@@ -10,12 +10,15 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListActivity extends ExpandableListActivity {
 
@@ -28,55 +31,57 @@ public class ListActivity extends ExpandableListActivity {
 	// This currently is a list of all intents in the android.content.Intent
 	// namespace that are marked as "broadcast intents" in their documentation.
 	static final Object[][] supportedIntents = {
-		{ Intent.ACTION_AIRPLANE_MODE_CHANGED, R.string.act_airplane_mode_changed },
-		{ Intent.ACTION_BATTERY_CHANGED, R.string.act_battery_changed },
-		{ Intent.ACTION_BATTERY_LOW, R.string.act_battery_low },
-		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed },
-		{ Intent.ACTION_CAMERA_BUTTON, R.string.act_camera_button },
-		{ Intent.ACTION_CLOSE_SYSTEM_DIALOGS, R.string.act_close_system_dialogs },
-		{ Intent.ACTION_CONFIGURATION_CHANGED, R.string.act_configuration_changed },
-		{ Intent.ACTION_DATE_CHANGED,  R.string.act_date_changed },
-		{ Intent.ACTION_DEVICE_STORAGE_LOW, R.string.act_device_storage_low },
-		{ Intent.ACTION_DEVICE_STORAGE_OK,  R.string.act_device_storage_ok },
-		{ Intent.ACTION_GTALK_SERVICE_CONNECTED,  R.string.act_gtalk_service_connected },
-		{ Intent.ACTION_GTALK_SERVICE_DISCONNECTED, R.string.act_gtalk_service_disconnected },
-		{ Intent.ACTION_HEADSET_PLUG,  R.string.act_headset_plug },
-		{ Intent.ACTION_INPUT_METHOD_CHANGED,  R.string.act_input_method_changed },
-		{ Intent.ACTION_MANAGE_PACKAGE_STORAGE, R.string.act_manage_package_storage },
-		{ Intent.ACTION_MEDIA_BAD_REMOVAL, R.string.act_media_bad_removal },
-		{ Intent.ACTION_MEDIA_BUTTON, R.string.act_media_button },
-		{ Intent.ACTION_MEDIA_CHECKING, R.string.act_media_checking },
-		{ Intent.ACTION_MEDIA_EJECT, R.string.act_media_eject },
-		{ Intent.ACTION_MEDIA_MOUNTED, R.string.act_media_mounted },
-		{ Intent.ACTION_MEDIA_NOFS, R.string.act_media_nofs },
-		{ Intent.ACTION_MEDIA_REMOVED, R.string.act_media_removed },
-		{ Intent.ACTION_MEDIA_SCANNER_FINISHED, R.string.act_media_scanner_finished },
-		{ Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, R.string.act_media_scanner_scan_file },
-		{ Intent.ACTION_MEDIA_SCANNER_STARTED, R.string.act_media_scanner_started },
-		{ Intent.ACTION_MEDIA_SHARED, R.string.act_media_shared },
-		{ Intent.ACTION_MEDIA_UNMOUNTABLE, R.string.act_media_unmountable },
-		{ Intent.ACTION_MEDIA_UNMOUNTED, R.string.act_media_unmounted },
-		{ Intent.ACTION_NEW_OUTGOING_CALL, R.string.act_new_outgoing_call },
-		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added },
-		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed },
-		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared },
-		{ Intent.ACTION_PACKAGE_INSTALL, R.string.act_package_install },
-		{ Intent.ACTION_PACKAGE_REMOVED, R.string.act_package_removed },
-		{ Intent.ACTION_PACKAGE_REPLACED, R.string.act_package_replaced },
-		{ Intent.ACTION_PACKAGE_RESTARTED, R.string.act_package_restarted },
-		{ Intent.ACTION_PROVIDER_CHANGED, R.string.act_provider_changed },
-		{ Intent.ACTION_REBOOT, R.string.act_reboot },
-		{ Intent.ACTION_SCREEN_OFF, R.string.act_screen_off },
-		{ Intent.ACTION_SCREEN_ON, R.string.act_screen_on },
-		{ Intent.ACTION_TIMEZONE_CHANGED, R.string.act_timezone_changed },
-		{ Intent.ACTION_TIME_CHANGED, R.string.act_time_changed },
-		{ Intent.ACTION_TIME_TICK, R.string.act_time_tick },           // not through manifest components?
-		{ Intent.ACTION_UID_REMOVED, R.string.act_uid_removed },
-		{ Intent.ACTION_UMS_CONNECTED, R.string.act_ums_connected },
-		{ Intent.ACTION_UMS_DISCONNECTED, R.string.act_ums_disconnected },
-		{ Intent.ACTION_USER_PRESENT, R.string.act_user_present },
-		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed }
+		{ Intent.ACTION_AIRPLANE_MODE_CHANGED, R.string.act_airplane_mode_changed, R.string.act_airplane_mode_changed_detail },
+		{ Intent.ACTION_BATTERY_CHANGED, R.string.act_battery_changed, R.string.act_battery_changed_detail },
+		{ Intent.ACTION_BATTERY_LOW, R.string.act_battery_low, R.string.act_battery_low_detail },
+		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed, R.string.act_boot_completed_detail },
+		{ Intent.ACTION_CAMERA_BUTTON, R.string.act_camera_button, R.string.act_camera_button_detail },
+		{ Intent.ACTION_CLOSE_SYSTEM_DIALOGS, R.string.act_close_system_dialogs, R.string.act_close_system_dialogs_detail },
+		{ Intent.ACTION_CONFIGURATION_CHANGED, R.string.act_configuration_changed, R.string.act_configuration_changed_detail },
+		{ Intent.ACTION_DATE_CHANGED, R.string.act_date_changed, R.string.act_date_changed_detail },
+		{ Intent.ACTION_DEVICE_STORAGE_LOW, R.string.act_device_storage_low, R.string.act_device_storage_low_detail },
+		{ Intent.ACTION_DEVICE_STORAGE_OK, R.string.act_device_storage_ok, R.string.act_device_storage_ok_detail },
+		{ Intent.ACTION_GTALK_SERVICE_CONNECTED, R.string.act_gtalk_service_connected, R.string.act_gtalk_service_connected_detail },
+		{ Intent.ACTION_GTALK_SERVICE_DISCONNECTED, R.string.act_gtalk_service_disconnected, R.string.act_gtalk_service_disconnected_detail },
+		{ Intent.ACTION_HEADSET_PLUG, R.string.act_headset_plug, R.string.act_headset_plug_detail },
+		{ Intent.ACTION_INPUT_METHOD_CHANGED, R.string.act_input_method_changed, R.string.act_input_method_changed_detail },
+		{ Intent.ACTION_MANAGE_PACKAGE_STORAGE, R.string.act_manage_package_storage, R.string.act_manage_package_storage_detail },
+		{ Intent.ACTION_MEDIA_BAD_REMOVAL, R.string.act_media_bad_removal, R.string.act_media_bad_removal_detail },
+		{ Intent.ACTION_MEDIA_BUTTON, R.string.act_media_button, R.string.act_media_button_detail },
+		{ Intent.ACTION_MEDIA_CHECKING, R.string.act_media_checking, R.string.act_media_checking_detail },
+		{ Intent.ACTION_MEDIA_EJECT, R.string.act_media_eject, R.string.act_media_eject_detail },
+		{ Intent.ACTION_MEDIA_MOUNTED, R.string.act_media_mounted, R.string.act_media_mounted_detail },
+		{ Intent.ACTION_MEDIA_NOFS, R.string.act_media_nofs, R.string.act_media_nofs_detail },
+		{ Intent.ACTION_MEDIA_REMOVED, R.string.act_media_removed, R.string.act_media_removed_detail },
+		{ Intent.ACTION_MEDIA_SCANNER_FINISHED, R.string.act_media_scanner_finished, R.string.act_media_scanner_finished_detail },
+		{ Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, R.string.act_media_scanner_scan_file, R.string.act_media_scanner_scan_file_detail },
+		{ Intent.ACTION_MEDIA_SCANNER_STARTED, R.string.act_media_scanner_started, R.string.act_media_scanner_started_detail },
+		{ Intent.ACTION_MEDIA_SHARED, R.string.act_media_shared, R.string.act_media_shared_detail },
+		{ Intent.ACTION_MEDIA_UNMOUNTABLE, R.string.act_media_unmountable, R.string.act_media_unmountable_detail },
+		{ Intent.ACTION_MEDIA_UNMOUNTED, R.string.act_media_unmounted, R.string.act_media_unmounted_detail },
+		{ Intent.ACTION_NEW_OUTGOING_CALL, R.string.act_new_outgoing_call, R.string.act_new_outgoing_call_detail },
+		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added, R.string.act_package_added_detail },
+		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed, R.string.act_package_changed_detail },
+		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared, R.string.act_package_data_cleared_detail },
+		{ Intent.ACTION_PACKAGE_INSTALL, R.string.act_package_install, R.string.act_package_install_detail },
+		{ Intent.ACTION_PACKAGE_REMOVED, R.string.act_package_removed, R.string.act_package_removed_detail },
+		{ Intent.ACTION_PACKAGE_REPLACED, R.string.act_package_replaced, R.string.act_package_replaced_detail },
+		{ Intent.ACTION_PACKAGE_RESTARTED, R.string.act_package_restarted, R.string.act_package_restarted_detail },
+		{ Intent.ACTION_PROVIDER_CHANGED, R.string.act_provider_changed, R.string.act_provider_changed_detail },
+		{ Intent.ACTION_REBOOT, R.string.act_reboot, R.string.act_reboot_detail },
+		{ Intent.ACTION_SCREEN_OFF, R.string.act_screen_off, R.string.act_screen_off_detail },
+		{ Intent.ACTION_SCREEN_ON, R.string.act_screen_on, R.string.act_screen_on_detail },
+		{ Intent.ACTION_TIMEZONE_CHANGED, R.string.act_timezone_changed, R.string.act_timezone_changed_detail },
+		{ Intent.ACTION_TIME_CHANGED, R.string.act_time_changed, R.string.act_time_changed_detail },
+		{ Intent.ACTION_TIME_TICK, R.string.act_time_tick, R.string.act_time_tick_detail },           // not through manifest components?
+		{ Intent.ACTION_UID_REMOVED, R.string.act_uid_removed, R.string.act_uid_removed_detail },
+		{ Intent.ACTION_UMS_CONNECTED, R.string.act_ums_connected, R.string.act_ums_connected_detail },
+		{ Intent.ACTION_UMS_DISCONNECTED, R.string.act_ums_disconnected, R.string.act_ums_disconnected_detail },
+		{ Intent.ACTION_USER_PRESENT, R.string.act_user_present, R.string.act_user_present_detail },
+		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail }
     };
+
+	private Toast mInfoToast;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +93,13 @@ public class ListActivity extends ExpandableListActivity {
         load();
     }
 
-    /**
+    @Override
+	protected void onPause() {
+		super.onPause();
+		mInfoToast.cancel();
+	}
+
+	/**
      * Load the broadcast receivers installed by applications. Unfortunately, this
      * is a lot more difficult than it sounds.
      *
@@ -127,7 +138,7 @@ public class ListActivity extends ExpandableListActivity {
      *
      * For now, we are going with 2).
      */
-    public void load() {
+    private void load() {
         final PackageManager pm = getPackageManager();
 
         // The structure here is:
@@ -166,8 +177,27 @@ public class ListActivity extends ExpandableListActivity {
     		this, R.layout.group_row, R.layout.child_row, receiversByIntent));
     }
 
+    // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
+    // This would be an improvement because we could control it better: Show it longer,
+    // but have it disappear when the user clicks on it (toasts don't receive clicks).
+    public void showInfoToast(int titleRes, int msgRes) {
+    	if (mInfoToast == null) {
+    		LayoutInflater inflater = getLayoutInflater();
+    		View layout = inflater.inflate(R.layout.detail_toast,
+    				(ViewGroup) findViewById(R.id.root));
+    		mInfoToast = new Toast(this);
+    		mInfoToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0);
+    		mInfoToast.setDuration(Toast.LENGTH_LONG);
+    		mInfoToast.setView(layout);
+    	}
+    	((TextView)mInfoToast.getView().findViewById(R.id.title)).setText(titleRes);
+    	((TextView)mInfoToast.getView().findViewById(android.R.id.message)).setText(msgRes);
+    	mInfoToast.show();
+    }
+
     public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
+    	private Context mContext;
     	private int mChildLayout;
     	private int mGroupLayout;
     	private ArrayList<Object[]> mData;
@@ -177,6 +207,7 @@ public class ListActivity extends ExpandableListActivity {
 
     	public MyExpandableListAdapter(Context context, int groupLayout, int childLayout,
     			ArrayList<Object[]> data) {
+    		mContext = context;
     		mChildLayout = childLayout;
     		mGroupLayout = groupLayout;
     		mData = data;
@@ -227,13 +258,19 @@ public class ListActivity extends ExpandableListActivity {
 
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
                 ViewGroup parent) {
-        	View v;
+        	final View v;
         	if (convertView == null)
         		v = mInflater.inflate(mGroupLayout, parent, false);
         	else
         		v = convertView;
-        	Object[] intent = (Object[])getGroup(groupPosition);
+        	final Object[] intent = (Object[])getGroup(groupPosition);
         	((TextView)v.findViewById(R.id.title)).setText((Integer)intent[1]);
+        	((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View _v) {
+					showInfoToast((Integer)intent[1], (Integer)intent[2]);
+				}
+        	});
         	return v;
         }
 
@@ -245,4 +282,25 @@ public class ListActivity extends ExpandableListActivity {
             return false;
         }
     }
+
+    @Override
+	public void onGroupCollapse(int groupPosition) {
+		super.onGroupCollapse(groupPosition);
+		// TODO: refactor with onGroupExand into one method?
+		/*long packedGroupPos = ExpandableListView.
+			getPackedPositionForGroup(groupPosition);
+		ExpandableListView lv = this.getExpandableListView();
+		lv.getChildAt(lv.getFlatListPosition(packedGroupPos)).
+			findViewById(R.id.description).setVisibility(View.GONE);*/
+	}
+
+	@Override
+	public void onGroupExpand(int groupPosition) {
+		super.onGroupExpand(groupPosition);
+		/*long packedGroupPos = ExpandableListView.
+			getPackedPositionForGroup(groupPosition);
+		ExpandableListView lv = this.getExpandableListView();
+		lv.getChildAt(lv.getFlatListPosition(packedGroupPos)).
+			findViewById(R.id.description).setVisibility(View.VISIBLE);*/
+	}
 }

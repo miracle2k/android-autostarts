@@ -294,7 +294,12 @@ public class ListActivity extends ExpandableListActivity {
 			    title.setTextColor(Color.YELLOW);
 			else
 				title.setTextColor(getResources().getColor(android.R.color.primary_text_dark));
-			title.setText(app.loadLabel(mPackageManager));
+			CharSequence appTitle = app.activityInfo.applicationInfo.loadLabel(mPackageManager);
+			CharSequence receiverTitle = app.loadLabel(mPackageManager);
+			if (appTitle.equals(receiverTitle))
+				title.setText(appTitle);
+			else
+				title.setText(appTitle + " ("+receiverTitle+")");
 			return v;
         }
 

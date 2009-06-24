@@ -6,8 +6,11 @@ import java.util.List;
 import android.app.ExpandableListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -96,7 +99,8 @@ public class ListActivity extends ExpandableListActivity {
     @Override
 	protected void onPause() {
 		super.onPause();
-		mInfoToast.cancel();
+		if (mInfoToast != null)
+			mInfoToast.cancel();
 	}
 
 	/**
@@ -239,8 +243,13 @@ public class ListActivity extends ExpandableListActivity {
 			ResolveInfo app = (ResolveInfo) getChild(groupPosition, childPosition);
 			((ImageView)v.findViewById(R.id.icon)).
 				setImageDrawable(app.loadIcon(mPackageManager));
-			((TextView)v.findViewById(R.id.title)).
-				setText(app.loadLabel(mPackageManager));
+			TextView title = ((TextView)v.findViewById(R.id.title));
+			if ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
+					== ApplicationInfo.FLAG_SYSTEM)
+			    title.setTextColor(Color.YELLOW);
+			else
+				title.setTextColor(getResources().getColor(android.R.color.primary_text_dark));
+			title.setText(app.loadLabel(mPackageManager));
 			return v;
         }
 

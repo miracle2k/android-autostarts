@@ -108,8 +108,10 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_FILTER_ID, 0, R.string.menu_toggle_sys_apps);
-		menu.add(0, MENU_HELP_ID, 0, R.string.menu_help);
+		menu.add(0, MENU_FILTER_ID, 0, R.string.menu_toggle_sys_apps).
+			setIcon(R.drawable.ic_menu_view);
+		menu.add(0, MENU_HELP_ID, 0, R.string.menu_help).
+			setIcon(R.drawable.ic_menu_help);
 		return true;
 	}
 

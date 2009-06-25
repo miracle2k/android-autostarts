@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ExpandableListActivity;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,13 +36,21 @@ public class ListActivity extends ExpandableListActivity {
 	// predefined, static list below in the comments on where we do the
 	// actual loading of the installed receivers.
 	//
-	// This currently is a list of all intents in the android.content.Intent
-	// namespace that are marked as "broadcast intents" in their documentation.
+	// When doing a custom Android build, apparently a file
+	// "common/docs/broadcast_actions.txt" is generated, containing a list
+	// of all (?) available system broadcast actions.
+	//
+	// Unless otherwise noted, all the actions listed below are included
+	// in that file, though note that the order may have changed to
+	// prioritize more important broadcasts.
+	// TODO: Would it be better to sort the list by the number of apps
+	// registered for each broadcast, rather than have a manual order?
 	static final Object[][] supportedIntents = {
+		// android.intent.*
+		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed, R.string.act_boot_completed_detail },
 		{ Intent.ACTION_AIRPLANE_MODE_CHANGED, R.string.act_airplane_mode_changed, R.string.act_airplane_mode_changed_detail },
 		{ Intent.ACTION_BATTERY_CHANGED, R.string.act_battery_changed, R.string.act_battery_changed_detail },
 		{ Intent.ACTION_BATTERY_LOW, R.string.act_battery_low, R.string.act_battery_low_detail },
-		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed, R.string.act_boot_completed_detail },
 		{ Intent.ACTION_CAMERA_BUTTON, R.string.act_camera_button, R.string.act_camera_button_detail },
 		{ Intent.ACTION_CLOSE_SYSTEM_DIALOGS, R.string.act_close_system_dialogs, R.string.act_close_system_dialogs_detail },
 		{ Intent.ACTION_CONFIGURATION_CHANGED, R.string.act_configuration_changed, R.string.act_configuration_changed_detail },
@@ -82,7 +94,64 @@ public class ListActivity extends ExpandableListActivity {
 		{ Intent.ACTION_UMS_CONNECTED, R.string.act_ums_connected, R.string.act_ums_connected_detail },
 		{ Intent.ACTION_UMS_DISCONNECTED, R.string.act_ums_disconnected, R.string.act_ums_disconnected_detail },
 		{ Intent.ACTION_USER_PRESENT, R.string.act_user_present, R.string.act_user_present_detail },
-		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail }
+		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
+
+		// android.provider.Telephony.*
+		{ "android.provider.Telephony.SIM_FULL", null, null },
+		{ "android.provider.Telephony.SMS_RECEIVED", null, null },
+		{ "android.provider.Telephony.WAP_PUSH_RECEIVED", null, null },
+
+		// android.net.wifi.*
+		{ WifiManager.NETWORK_IDS_CHANGED_ACTION, null, null },
+		{ WifiManager.RSSI_CHANGED_ACTION, null, null },
+		{ WifiManager.SCAN_RESULTS_AVAILABLE_ACTION, null, null },
+		{ WifiManager.NETWORK_STATE_CHANGED_ACTION, null, null },
+		{ WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION, null, null },
+		{ WifiManager.SUPPLICANT_STATE_CHANGED_ACTION, null, null },
+
+		// android.media.*
+		{ AudioManager.RINGER_MODE_CHANGED_ACTION, null, null },
+		{ AudioManager.VIBRATE_SETTING_CHANGED_ACTION, null, null },
+		{ AudioManager.ACTION_AUDIO_BECOMING_NOISY, null, null },  // POTENTIALLY NOT IN "broadcast_actions.txt"!
+
+		// android.bluetooth.*
+		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", null, null },
+		{ "android.bluetooth.intent.action.BONDING_CREATED", null, null },
+		{ "android.bluetooth.intent.action.BONDING_REMOVED", null, null },
+		{ "android.bluetooth.intent.action.DISABLED", null, null },
+		{ "android.bluetooth.intent.action.DISCOVERY_COMPLETED", null, null },
+		{ "android.bluetooth.intent.action.DISCOVERY_STARTED", null, null },
+		{ "android.bluetooth.intent.action.ENABLED", null, null },
+		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", null, null },
+		{ "android.bluetooth.intent.action.MODE_CHANGED", null, null },
+		{ "android.bluetooth.intent.action.NAME_CHANGED", null, null },
+		{ "android.bluetooth.intent.action.PAIRING_CANCEL", null, null },
+		{ "android.bluetooth.intent.action.PAIRING_REQUEST", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECTED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECT_REQUESTED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_FOUND", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_NAME_FAILED", null, null },
+		{ "android.bluetooth.intent.action.REMOTE_NAME_UPDATED", null, null },
+
+		// This is a strange one, since there is literally no information
+		// out there about it, in fact, GSERVICES_CHANGED has only 3 google
+		// hits, one of them being:
+		//    http://www.netmite.com/android/mydroid/cupcake/out/target/common/docs/broadcast_actions.txt
+		// { "com.google.gservices.intent.action.GSERVICES_CHANGED" null, null }
+
+		// NOTE: The actions below ARE NOT LISTED in "broadcast_actions.txt",
+		// but were collected manually.
+		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, null, null },
+		// android.appwidget.*
+		{ AppWidgetManager.ACTION_APPWIDGET_ENABLED, null, null},
+		{ AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, null },
+		{ AppWidgetManager.ACTION_APPWIDGET_DISABLED, null, null, },
+		{ AppWidgetManager.ACTION_APPWIDGET_DELETED, null, null },
     };
 
 	static final private int MENU_FILTER_ID = 1;
@@ -214,7 +283,7 @@ public class ListActivity extends ExpandableListActivity {
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
     // This would be an improvement because we could control it better: Show it longer,
     // but have it disappear when the user clicks on it (toasts don't receive clicks).
-    public void showInfoToast(int titleRes, int msgRes) {
+    public void showInfoToast(Object[] intent) {
     	if (mInfoToast == null) {
     		LayoutInflater inflater = getLayoutInflater();
     		View layout = inflater.inflate(R.layout.detail_toast,
@@ -224,14 +293,19 @@ public class ListActivity extends ExpandableListActivity {
     		mInfoToast.setDuration(Toast.LENGTH_LONG);
     		mInfoToast.setView(layout);
     	}
-    	((TextView)mInfoToast.getView().findViewById(R.id.title)).setText(titleRes);
-    	((TextView)mInfoToast.getView().findViewById(android.R.id.message)).setText(msgRes);
+    	((TextView)mInfoToast.getView().findViewById(R.id.title)).setText(getIntentName(intent));
+    	TextView message = ((TextView)mInfoToast.getView().findViewById(android.R.id.message));
+    	if (intent[2] != null) {
+    		message.setText((Integer) intent[2]);
+    		message.setVisibility(View.VISIBLE);
+    	} else {
+    		message.setVisibility(View.GONE);
+    	}
     	mInfoToast.show();
     }
 
     public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
-    	private Context mContext;
     	private int mChildLayout;
     	private int mGroupLayout;
     	private ArrayList<Object[]> mDataAll;
@@ -245,7 +319,6 @@ public class ListActivity extends ExpandableListActivity {
     	@SuppressWarnings("unchecked")
 		public MyExpandableListAdapter(Context context, int groupLayout, int childLayout,
     			ArrayList<Object[]> data) {
-    		mContext = context;
     		mChildLayout = childLayout;
     		mGroupLayout = groupLayout;
     		mDataAll = data;
@@ -328,10 +401,10 @@ public class ListActivity extends ExpandableListActivity {
         	else
         		v = convertView;
         	final Object[] intent = (Object[])getGroup(groupPosition);
-        	((TextView)v.findViewById(R.id.title)).setText((Integer)intent[1]);
+        	((TextView)v.findViewById(R.id.title)).setText(getIntentName(intent));
         	((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
 				public void onClick(View _v) {
-					showInfoToast((Integer)intent[1], (Integer)intent[2]);
+					showInfoToast(intent);
 				}
         	});
         	return v;
@@ -395,6 +468,12 @@ public class ListActivity extends ExpandableListActivity {
 		ExpandableListView lv = this.getExpandableListView();
 		lv.getChildAt(lv.getFlatListPosition(packedGroupPos)).
 			findViewById(R.id.description).setVisibility(View.VISIBLE);*/
+	}
+
+	private String getIntentName(Object[] intent) {
+		return (intent[1] != null) ?
+				getResources().getString((Integer)intent[1]) :
+				(String)intent[0];
 	}
 
 	static boolean isSystemApp(ResolveInfo app) {

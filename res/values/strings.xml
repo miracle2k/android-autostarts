@@ -31,7 +31,7 @@
 	<string name="act_device_storage_low">Storage low</string>
 	<string name="act_device_storage_low_detail">The device storage space has passed below a certain threshold.</string>
 	<string name="act_device_storage_ok">Storage ok</string>
-	<string name="act_device_storage_ok_detail">The device storage space has increased beyond the threshold, and the low memory condition no longer exists.</string>
+	<string name="act_device_storage_ok_detail">The device storage space has increased beyond the critical threshold, and the low memory condition no longer exists.</string>
 	<string name="act_gtalk_service_connected">GTalk connected</string>
 	<string name="act_gtalk_service_connected_detail">A GTalk connection was established.</string>
 	<string name="act_gtalk_service_disconnected">GTalk disconnected</string>

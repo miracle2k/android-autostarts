@@ -11,7 +11,7 @@
     	android:layout_width="32px"
         android:layout_height="32px"
         android:layout_marginRight="13dp"
-        android:src="@android:drawable/ic_dialog_info"
+        android:src="@drawable/ic_dialog_info"
     	/>
 
 	<!-- TODO: move to a style -->
@@ -26,7 +26,6 @@
         android:textColor="#80ffffff"
         android:shadowColor="#BB000000"
         android:shadowRadius="2.75"
-        android:text="title"
         />
 
     <TextView
@@ -39,8 +38,6 @@
         android:textColor="#80ffffff"
         android:shadowColor="#BB000000"
         android:shadowRadius="2.75"
-        android:text="desc"
         />
-
 
 </RelativeLayout>

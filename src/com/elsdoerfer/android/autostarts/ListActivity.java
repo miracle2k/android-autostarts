@@ -449,27 +449,6 @@ public class ListActivity extends ExpandableListActivity {
         }
     }
 
-    @Override
-	public void onGroupCollapse(int groupPosition) {
-		super.onGroupCollapse(groupPosition);
-		// TODO: refactor with onGroupExand into one method?
-		/*long packedGroupPos = ExpandableListView.
-			getPackedPositionForGroup(groupPosition);
-		ExpandableListView lv = this.getExpandableListView();
-		lv.getChildAt(lv.getFlatListPosition(packedGroupPos)).
-			findViewById(R.id.description).setVisibility(View.GONE);*/
-	}
-
-	@Override
-	public void onGroupExpand(int groupPosition) {
-		super.onGroupExpand(groupPosition);
-		/*long packedGroupPos = ExpandableListView.
-			getPackedPositionForGroup(groupPosition);
-		ExpandableListView lv = this.getExpandableListView();
-		lv.getChildAt(lv.getFlatListPosition(packedGroupPos)).
-			findViewById(R.id.description).setVisibility(View.VISIBLE);*/
-	}
-
 	private String getIntentName(Object[] intent) {
 		return (intent[1] != null) ?
 				getResources().getString((Integer)intent[1]) :

@@ -325,7 +325,6 @@ public class ListActivity extends ExpandableListActivity {
         	final Object[] intent = (Object[])getGroup(groupPosition);
         	((TextView)v.findViewById(R.id.title)).setText((Integer)intent[1]);
         	((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
-				@Override
 				public void onClick(View _v) {
 					showInfoToast((Integer)intent[1], (Integer)intent[2]);
 				}

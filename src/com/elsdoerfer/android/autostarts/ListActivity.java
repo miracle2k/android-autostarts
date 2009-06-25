@@ -124,6 +124,9 @@ public class ListActivity extends ExpandableListActivity {
 				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers);
 			mListAdapter.notifyDataSetChanged();
 		    return true;
+		case MENU_HELP_ID:
+			startActivity(new Intent(this, HelpActivity.class));
+			return true;
 		default:
 			return super.onContextItemSelected(item);
 		}

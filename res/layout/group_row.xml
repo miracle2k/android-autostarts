@@ -23,12 +23,17 @@
         android:textStyle="bold"
         />
 
+	<!-- Note the right padding is slightly larger to account for a
+	     potential scrollbar. Doesn't look to good if it's too close. -->
     <ImageView
     	android:id="@+id/show_info"
     	android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:padding="4dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingRight="7dp"
         android:adjustViewBounds="false"
         android:src="@drawable/ic_dialog_info"
     	/>

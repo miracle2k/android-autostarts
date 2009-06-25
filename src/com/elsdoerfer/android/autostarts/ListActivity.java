@@ -97,46 +97,45 @@ public class ListActivity extends ExpandableListActivity {
 		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
 
 		// android.provider.Telephony.*
-		{ "android.provider.Telephony.SIM_FULL", null, null },
-		{ "android.provider.Telephony.SMS_RECEIVED", null, null },
-		{ "android.provider.Telephony.WAP_PUSH_RECEIVED", null, null },
+		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
+		{ "android.provider.Telephony.SMS_RECEIVED", R.string.act_sms_received, R.string.act_sms_received_detail },
+		{ "android.provider.Telephony.WAP_PUSH_RECEIVED", R.string.act_wap_push_received, R.string.act_wap_push_received_detail },
 
 		// android.net.wifi.*
-		{ WifiManager.NETWORK_IDS_CHANGED_ACTION, null, null },
-		{ WifiManager.RSSI_CHANGED_ACTION, null, null },
-		{ WifiManager.SCAN_RESULTS_AVAILABLE_ACTION, null, null },
-		{ WifiManager.NETWORK_STATE_CHANGED_ACTION, null, null },
-		{ WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION, null, null },
-		{ WifiManager.SUPPLICANT_STATE_CHANGED_ACTION, null, null },
+		{ WifiManager.NETWORK_IDS_CHANGED_ACTION, R.string.act_network_ids_changed, R.string.act_network_ids_changed_detail },
+		{ WifiManager.RSSI_CHANGED_ACTION, R.string.act_rssi_changed, R.string.act_rssi_changed_detail },
+		{ WifiManager.SCAN_RESULTS_AVAILABLE_ACTION, R.string.act_scan_results_available, R.string.act_scan_results_available_detail },
+		{ WifiManager.NETWORK_STATE_CHANGED_ACTION, R.string.act_network_state_changed, R.string.act_network_state_changed_detail },
+		{ WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION, R.string.act_supplicant_connection_change, R.string.act_supplicant_connection_change_detail },
+		{ WifiManager.SUPPLICANT_STATE_CHANGED_ACTION, R.string.act_suplicant_state_changed, R.string.act_suplicant_state_changed_detail },
 
 		// android.media.*
-		{ AudioManager.RINGER_MODE_CHANGED_ACTION, null, null },
-		{ AudioManager.VIBRATE_SETTING_CHANGED_ACTION, null, null },
-		{ AudioManager.ACTION_AUDIO_BECOMING_NOISY, null, null },  // POTENTIALLY NOT IN "broadcast_actions.txt"!
+		{ AudioManager.RINGER_MODE_CHANGED_ACTION, R.string.act_ringer_mode_changed, R.string.act_ringer_mode_changed_detail },
+		{ AudioManager.VIBRATE_SETTING_CHANGED_ACTION, R.string.act_vibrate_setting_changed, R.string.act_vibrate_setting_changed_detail },
+		{ AudioManager.ACTION_AUDIO_BECOMING_NOISY, R.string.act_audio_becoming_noisy, R.string.act_audio_becoming_noisy_detail },  // POTENTIALLY NOT IN "broadcast_actions.txt"!
 
 		// android.bluetooth.*
-		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", null, null },
-		{ "android.bluetooth.intent.action.BONDING_CREATED", null, null },
-		{ "android.bluetooth.intent.action.BONDING_REMOVED", null, null },
-		{ "android.bluetooth.intent.action.DISABLED", null, null },
-		{ "android.bluetooth.intent.action.DISCOVERY_COMPLETED", null, null },
-		{ "android.bluetooth.intent.action.DISCOVERY_STARTED", null, null },
-		{ "android.bluetooth.intent.action.ENABLED", null, null },
-		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", null, null },
-		{ "android.bluetooth.intent.action.MODE_CHANGED", null, null },
-		{ "android.bluetooth.intent.action.NAME_CHANGED", null, null },
-		{ "android.bluetooth.intent.action.PAIRING_CANCEL", null, null },
-		{ "android.bluetooth.intent.action.PAIRING_REQUEST", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECTED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECT_REQUESTED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_FOUND", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_NAME_FAILED", null, null },
-		{ "android.bluetooth.intent.action.REMOTE_NAME_UPDATED", null, null },
+		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
+		{ "android.bluetooth.intent.action.BONDING_CREATED", R.string.act_bonding_created, R.string.act_bonding_created_detail },
+		{ "android.bluetooth.intent.action.BONDING_REMOVED", R.string.act_bonding_removed, R.string.act_bonding_removed_detail },
+		{ "android.bluetooth.intent.action.DISABLED", R.string.act_disabled, R.string.act_disabled_detail },
+		{ "android.bluetooth.intent.action.DISCOVERY_COMPLETED", R.string.act_discovery_completed, R.string.act_discovery_completed_detail },
+		{ "android.bluetooth.intent.action.DISCOVERY_STARTED", R.string.act_discovery_started, R.string.act_discovery_started_detail },
+		{ "android.bluetooth.intent.action.ENABLED", R.string.act_enabled, R.string.act_enabled_detail },
+		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", R.string.act_headset_state_changed, R.string.act_headset_state_changed_detail },
+		{ "android.bluetooth.intent.action.MODE_CHANGED", R.string.act_mode_changed, R.string.act_mode_changed_detail },
+		{ "android.bluetooth.intent.action.NAME_CHANGED", R.string.act_name_changed, R.string.act_name_changed_detail },
+		{ "android.bluetooth.intent.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },
+		{ "android.bluetooth.intent.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel_detail },
+		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", R.string.act_remote_alias_changed, R.string.act_remote_alias_changed_detail },
+		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", R.string.act_remote_alias_cleared, R.string.act_remote_alias_cleared_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", R.string.act_remote_device_connected, R.string.act_remote_device_connected_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", R.string.act_remote_device_disappeared, R.string.act_remote_device_disappeared_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECTED", R.string.act_remote_device_disconnected, R.string.act_remote_device_disconnected_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECT_REQUESTED", R.string.act_remote_device_disconnect_requested, R.string.act_remote_device_disconnect_requested_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_FOUND", R.string.act_remote_device_found, R.string.act_remote_device_found_detail },
+		{ "android.bluetooth.intent.action.REMOTE_NAME_FAILED", R.string.act_remote_name_failed, R.string.act_remote_name_failed_detail },
+		{ "android.bluetooth.intent.action.REMOTE_NAME_UPDATED", R.string.act_remote_name_updated, R.string.act_remote_name_updated_detail },
 
 		// This is a strange one, since there is literally no information
 		// out there about it, in fact, GSERVICES_CHANGED has only 3 google
@@ -146,12 +145,15 @@ public class ListActivity extends ExpandableListActivity {
 
 		// NOTE: The actions below ARE NOT LISTED in "broadcast_actions.txt",
 		// but were collected manually.
-		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, null, null },
+		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
 		// android.appwidget.*
-		{ AppWidgetManager.ACTION_APPWIDGET_ENABLED, null, null},
-		{ AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, null },
-		{ AppWidgetManager.ACTION_APPWIDGET_DISABLED, null, null, },
-		{ AppWidgetManager.ACTION_APPWIDGET_DELETED, null, null },
+		// Note that except of UPDATE, the others aren't really sent using a
+		// broadcast, or at least widgets usually don't handle them using a
+		// broadcast receiver. We have them here anyway, just to be safe.
+		{ AppWidgetManager.ACTION_APPWIDGET_UPDATE, R.string.act_appwidget_update, R.string.act_appwidget_update_detail },
+		{ AppWidgetManager.ACTION_APPWIDGET_ENABLED, R.string.act_appwidget_enabled, R.string.act_appwidget_enabled_detail},
+		{ AppWidgetManager.ACTION_APPWIDGET_DISABLED, R.string.act_appwidget_disabled, R.string.act_appwidget_disabled_detail },
+		{ AppWidgetManager.ACTION_APPWIDGET_DELETED, R.string.act_appwidget_deleted, R.string.act_appwidget_deleted_detail },
     };
 
 	static final private int MENU_FILTER_ID = 1;
@@ -295,8 +297,11 @@ public class ListActivity extends ExpandableListActivity {
     	}
     	((TextView)mInfoToast.getView().findViewById(R.id.title)).setText(getIntentName(intent));
     	TextView message = ((TextView)mInfoToast.getView().findViewById(android.R.id.message));
-    	if (intent[2] != null) {
-    		message.setText((Integer) intent[2]);
+    	CharSequence info = "";
+    	if (intent[2] != null)  // Hide info text both for null and empty string values.
+    		info = getResources().getText((Integer)intent[2]);
+    	if (!info.equals("")) {
+    		message.setText(info);
     		message.setVisibility(View.VISIBLE);
     	} else {
     		message.setVisibility(View.GONE);
@@ -441,7 +446,7 @@ public class ListActivity extends ExpandableListActivity {
          *
          * Returns True if the list is filtered.
          *
-         * Expects the caller to also call notifyDataSetChanged(), if neccessary.
+         * Expects the caller to also call notifyDataSetChanged(), if necessary.
          */
         public boolean toggleFilterSystemApps() {
         	mShowSystemApps = !mShowSystemApps;

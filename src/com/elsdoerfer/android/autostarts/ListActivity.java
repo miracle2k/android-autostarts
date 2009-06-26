@@ -179,11 +179,20 @@ public class ListActivity extends ExpandableListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
 
+        Object retained = getLastNonConfigurationInstance();
+        if (retained != null)
+        	mLastSelectedItem = (Integer[]) retained;
+
         // TODO: move this to an ASyncTask
         load();
     }
 
     @Override
+	public Object onRetainNonConfigurationInstance() {
+		return mLastSelectedItem;
+	}
+
+	@Override
 	protected void onPause() {
 		super.onPause();
 		if (mInfoToast != null)
@@ -256,6 +265,15 @@ public class ListActivity extends ExpandableListActivity {
 				// apparently. We assign the actual title in
 				// onPrepareDialog().
 				.setTitle("dummy").setView(v).create();
+
+			// Due to a bug in Android, onPrepareDialog() is not called
+			// when an existing dialog is restored on orientation change.
+			// We therefore need to make sure ourselfs that the dialog
+			// is initialized correctly in this case as well. Note that
+			// our current implementation means that the prepare code
+			// will be run twice when the dialog is created for the first
+			// time under normal circumstances.
+			prepareReceiverDetailDialog(d, v);
 			return d;
 		}
 		else
@@ -265,6 +283,17 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		super.onPrepareDialog(id, dialog);
+		prepareReceiverDetailDialog(dialog, dialog.getWindow().getDecorView());
+	}
+
+	/**
+	 * We cannot just rename this to "onPrepareDialog()", since the
+	 * dialog isn't fully created while processing "onCreateDialog()".
+	 *
+	 * As a result, the view objects needs to be accessed differently,
+	 * and is thus handled via an argument here.
+	 */
+	private void prepareReceiverDetailDialog(Dialog dialog, View view) {
 		Object[] intent = (Object[]) mListAdapter.getGroup(mLastSelectedItem[0]);
 		ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
 			mLastSelectedItem[0], mLastSelectedItem[1]);
@@ -287,7 +316,7 @@ public class ListActivity extends ExpandableListActivity {
 		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
 		b.append(".");
 
-		((TextView)dialog.findViewById(R.id.message)).setText(b);
+		((TextView)view.findViewById(R.id.message)).setText(b);
 	}
 
 	@Override

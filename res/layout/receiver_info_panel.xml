@@ -1,0 +1,11 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/message"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:paddingLeft="10dp"
+	android:paddingRight="10dp"
+	android:paddingTop="5dp"
+	android:paddingBottom="5dp"
+	/>
+	<!-- Note that top and bottom padding are less, because the
+	     parent already has some. -->

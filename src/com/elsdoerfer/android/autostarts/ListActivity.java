@@ -3,18 +3,27 @@ package com.elsdoerfer.android.autostarts;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.appwidget.AppWidgetManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -156,11 +166,13 @@ public class ListActivity extends ExpandableListActivity {
 		{ AppWidgetManager.ACTION_APPWIDGET_DELETED, R.string.act_appwidget_deleted, R.string.act_appwidget_deleted_detail },
     };
 
-	static final private int MENU_FILTER_ID = 1;
-	static final private int MENU_HELP_ID = 2;
+	static final private int MENU_FILTER = 1;
+	static final private int MENU_HELP = 2;
+	static final private int RECEIVER_DETAIL = 1;
 
 	private Toast mInfoToast;
 	private MyExpandableListAdapter mListAdapter;
+	private Integer[] mLastSelectedItem = { -1, -1 };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,28 +191,112 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_FILTER_ID, 0, R.string.menu_toggle_sys_apps).
+		menu.add(0, MENU_FILTER, 0, R.string.menu_toggle_sys_apps).
 			setIcon(R.drawable.ic_menu_view);
-		menu.add(0, MENU_HELP_ID, 0, R.string.menu_help).
+		menu.add(0, MENU_HELP, 0, R.string.menu_help).
 			setIcon(R.drawable.ic_menu_help);
 		return true;
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MENU_FILTER_ID:
+		case MENU_FILTER:
 			if (mListAdapter.toggleFilterSystemApps())
 				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers_filtered);
 			else
 				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers);
 			mListAdapter.notifyDataSetChanged();
 		    return true;
-		case MENU_HELP_ID:
+		case MENU_HELP:
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
 		default:
 			return super.onContextItemSelected(item);
 		}
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		if (id == RECEIVER_DETAIL) {
+			View v = getLayoutInflater().inflate(
+				R.layout.receiver_info_panel, null, false);
+			Dialog d = new AlertDialog.Builder(this).setItems(
+				new CharSequence[] {
+						getResources().getString(R.string.appliation_info),
+						getResources().getString(R.string.find_in_market), },
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
+								mLastSelectedItem[0], mLastSelectedItem[1]);
+						switch (which) {
+						case 0:
+							Intent infoIntent = new Intent();
+							// From android-cookbook/GroupHome - it notes:
+							// "we shouldnt rely on this entrance into the settings app"
+							infoIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+							infoIntent.putExtra("com.android.settings.ApplicationPkgName",
+			                	app.activityInfo.applicationInfo.packageName);
+			                startActivity(infoIntent);
+							break;
+						case 1:
+							try {
+								Intent marketIntent = new Intent(Intent.ACTION_VIEW);
+								marketIntent.setData(Uri.parse("market://search?q=pname:"+
+										app.activityInfo.applicationInfo.packageName));
+								startActivity(marketIntent);
+							}
+							catch (ActivityNotFoundException e) {}
+							break;
+						}
+						dialog.dismiss();
+					}
+				})
+				// Setting a dummy title is necessary for the title
+				// control to be activated in the first place,
+				// apparently. We assign the actual title in
+				// onPrepareDialog().
+				.setTitle("dummy").setView(v).create();
+			return d;
+		}
+		else
+			return super.onCreateDialog(id);
+	}
+
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		super.onPrepareDialog(id, dialog);
+		Object[] intent = (Object[]) mListAdapter.getGroup(mLastSelectedItem[0]);
+		ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
+			mLastSelectedItem[0], mLastSelectedItem[1]);
+
+		dialog.setTitle(app.loadLabel(getPackageManager()));
+
+		int t = 0;
+		SpannableStringBuilder b = new SpannableStringBuilder();
+		b.append("Receiver ");
+		t = b.length();
+		b.append(app.activityInfo.name);
+		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
+		b.append(" handles action ");
+		t = b.length();
+		b.append((String)(intent[0]));
+		b.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), t, b.length(), 0);
+		b.append(" with priority ");
+		t = b.length();
+		b.append(Integer.toString(app.priority));
+		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
+		b.append(".");
+
+		((TextView)dialog.findViewById(R.id.message)).setText(b);
+	}
+
+	@Override
+	public boolean onChildClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
+		mLastSelectedItem[0] = groupPosition;
+		mLastSelectedItem[1] = childPosition;
+		showDialog(RECEIVER_DETAIL);
+		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
 
 	/**
@@ -424,6 +520,9 @@ public class ListActivity extends ExpandableListActivity {
         }
 
 
+        /**
+         * Return the dataset currently used.
+         */
         private ArrayList<Object[]>getData() {
         	if (mShowSystemApps)
         		return mDataAll;
@@ -432,7 +531,7 @@ public class ListActivity extends ExpandableListActivity {
         }
 
         /**
-         *
+         * Return the data record for the given group.
          */
         private Object[] getGroupData(int groupPosition) {
         	if (mShowSystemApps)
@@ -454,12 +553,19 @@ public class ListActivity extends ExpandableListActivity {
         }
     }
 
+    /**
+     * Return a name for the given intent; tries the pretty name,
+     * if available, and falls back to the raw class name.
+     */
 	private String getIntentName(Object[] intent) {
 		return (intent[1] != null) ?
 				getResources().getString((Integer)intent[1]) :
 				(String)intent[0];
 	}
 
+	/**
+	 * True if this app is installed on the system partition.
+	 */
 	static boolean isSystemApp(ResolveInfo app) {
 		return ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
 					== ApplicationInfo.FLAG_SYSTEM);

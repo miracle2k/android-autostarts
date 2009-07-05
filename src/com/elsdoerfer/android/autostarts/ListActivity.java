@@ -21,7 +21,6 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -167,15 +166,19 @@ public class ListActivity extends ExpandableListActivity {
     };
 
 	static final private int MENU_FILTER = 1;
-	static final private int MENU_HELP = 2;
+	static final private int MENU_EXPAND_COLLAPSE = 2;
 	static final private int MENU_RELOAD = 3;
+	static final private int MENU_HELP = 4;
 	static final private int RECEIVER_DETAIL = 1;
 
 	private Toast mInfoToast;
 	private MyExpandableListAdapter mListAdapter;
-	private Integer[] mLastSelectedItem = { -1, -1 };
+	private MenuItem mExpandCollapseToggleItem;
 
-    @Override
+	private Integer[] mLastSelectedItem = { -1, -1 };
+	private Boolean mExpandSuggested = true;
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
@@ -206,11 +209,36 @@ public class ListActivity extends ExpandableListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, MENU_FILTER, 0, R.string.toggle_sys_apps).
 			setIcon(R.drawable.ic_menu_view);
+		mExpandCollapseToggleItem =
+			menu.add(0, MENU_EXPAND_COLLAPSE, 0, R.string.expand_all).
+				setIcon(R.drawable.ic_collapse_expand);
 		menu.add(0, MENU_RELOAD, 0, R.string.reload).
 			setIcon(R.drawable.ic_menu_refresh);
 		menu.add(0, MENU_HELP, 0, R.string.help).
 			setIcon(R.drawable.ic_menu_help);
 		return true;
+	}
+
+    @Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// Decide whether we want to offer the option to collapse, or
+		// expand, depending on the current group expansion count.
+    	ExpandableListView lv = getExpandableListView();
+    	int expandCount = 0;
+    	int numGroups = mListAdapter.getGroupCount();
+		for (int i=numGroups-1; i>=0; i--) {
+			if (lv.isGroupExpanded(i))
+				expandCount += 1;
+		}
+		if (expandCount / (float)numGroups >= 0.5) {
+			mExpandCollapseToggleItem.setTitle(R.string.collapse_all);
+			mExpandSuggested = false;
+		}
+		else {
+			mExpandCollapseToggleItem.setTitle(R.string.expand_all);
+			mExpandSuggested = true;
+		}
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -222,6 +250,14 @@ public class ListActivity extends ExpandableListActivity {
 				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers);
 			mListAdapter.notifyDataSetChanged();
 		    return true;
+		case MENU_EXPAND_COLLAPSE:
+			ExpandableListView lv = getExpandableListView();
+			for (int i=mListAdapter.getGroupCount()-1; i>=0; i--)
+				if (mExpandSuggested)
+					lv.expandGroup(i);
+				else
+					lv.collapseGroup(i);
+			return true;
 		case MENU_RELOAD:
 			load();
 			return true;
@@ -443,7 +479,7 @@ public class ListActivity extends ExpandableListActivity {
     	mInfoToast.show();
     }
 
-    public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+	public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     	private int mChildLayout;
     	private int mGroupLayout;

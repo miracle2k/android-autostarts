@@ -4,3 +4,8 @@ Icon.png:
      - Moved car futher down to bottom, to avoid it hovering
        too high above it's respective caption text in Android
        Launcher.
+       
+       
+res/ic_collapse_expand.png
+    Android 1.5, res/drawable/ic_menu_chat_dashboard.png
+    Rotated 90°

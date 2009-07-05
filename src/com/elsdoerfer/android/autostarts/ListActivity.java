@@ -168,6 +168,7 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final private int MENU_FILTER = 1;
 	static final private int MENU_HELP = 2;
+	static final private int MENU_RELOAD = 3;
 	static final private int RECEIVER_DETAIL = 1;
 
 	private Toast mInfoToast;
@@ -183,7 +184,10 @@ public class ListActivity extends ExpandableListActivity {
         if (retained != null)
         	mLastSelectedItem = (Integer[]) retained;
 
-        // TODO: move this to an ASyncTask
+        mListAdapter = new MyExpandableListAdapter(
+        		this, R.layout.group_row, R.layout.child_row);
+        setListAdapter(mListAdapter);
+
         load();
     }
 
@@ -200,9 +204,11 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_FILTER, 0, R.string.menu_toggle_sys_apps).
+		menu.add(0, MENU_FILTER, 0, R.string.toggle_sys_apps).
 			setIcon(R.drawable.ic_menu_view);
-		menu.add(0, MENU_HELP, 0, R.string.menu_help).
+		menu.add(0, MENU_RELOAD, 0, R.string.reload).
+			setIcon(R.drawable.ic_menu_refresh);
+		menu.add(0, MENU_HELP, 0, R.string.help).
 			setIcon(R.drawable.ic_menu_help);
 		return true;
 	}
@@ -216,6 +222,9 @@ public class ListActivity extends ExpandableListActivity {
 				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers);
 			mListAdapter.notifyDataSetChanged();
 		    return true;
+		case MENU_RELOAD:
+			load();
+			return true;
 		case MENU_HELP:
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
@@ -367,6 +376,7 @@ public class ListActivity extends ExpandableListActivity {
      *
      * For now, we are going with 2).
      */
+    // TODO: move this to an ASyncTask
     private void load() {
         final PackageManager pm = getPackageManager();
 
@@ -402,9 +412,8 @@ public class ListActivity extends ExpandableListActivity {
 	        receiversByIntent.add(new Object[] { intent, currentAppList });
         }
 
-        mListAdapter = new MyExpandableListAdapter(
-        		this, R.layout.group_row, R.layout.child_row, receiversByIntent);
-        setListAdapter(mListAdapter);
+        mListAdapter.setData(receiversByIntent);
+        mListAdapter.notifyDataSetChanged();
     }
 
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
@@ -446,14 +455,17 @@ public class ListActivity extends ExpandableListActivity {
     	private LayoutInflater mInflater;
     	private PackageManager mPackageManager;
 
-    	@SuppressWarnings("unchecked")
-		public MyExpandableListAdapter(Context context, int groupLayout, int childLayout,
-    			ArrayList<Object[]> data) {
+		public MyExpandableListAdapter(Context context, int groupLayout, int childLayout) {
     		mChildLayout = childLayout;
     		mGroupLayout = groupLayout;
-    		mDataAll = data;
     		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     		mPackageManager = context.getPackageManager();
+    		setData(new ArrayList<Object[]>());
+    	}
+
+    	@SuppressWarnings("unchecked")
+		public void setData(ArrayList<Object[]> data) {
+    		mDataAll = data;
 
     		// Create a cached copy of the data containing in a filtered manner.
     		// TODO: this should be optimized to support multiple filters, and created on demand?

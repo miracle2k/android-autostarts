@@ -1,7 +1,5 @@
 Support grouping by application.
 
-Add support for Locale broadcasts.
-
 Add German localization.
 
 Update our custom colors to be stateful.

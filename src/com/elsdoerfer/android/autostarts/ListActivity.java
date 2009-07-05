@@ -491,7 +491,7 @@ public class ListActivity extends ExpandableListActivity {
         }
 
         public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
+            return ((ResolveInfo)getChild(groupPosition, childPosition)).activityInfo.name.hashCode();
         }
 
         @SuppressWarnings("unchecked")
@@ -532,7 +532,7 @@ public class ListActivity extends ExpandableListActivity {
         }
 
         public long getGroupId(int groupPosition) {
-            return groupPosition;
+        	return getGroupData(groupPosition)[0].hashCode();
         }
 
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
@@ -557,7 +557,7 @@ public class ListActivity extends ExpandableListActivity {
         }
 
         public boolean hasStableIds() {
-            return false;
+            return true;
         }
 
 

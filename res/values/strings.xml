@@ -11,7 +11,7 @@
     <string name="help">Help</string>
 
     <string name="help_text"><b>How does it work?</b>\n\nAndroid allows applications to register for a variety of events supported by the system, to be started whenever such an event triggers.\n\nThis allows applications to do important work in the background, but may sometimes also slow down the system.\n\nAutostarts helps you keep control over your phone by letting you know what goes on behind your back.
-\n\n<b>Can I remove an application from a particular event?</b>\n\nNo, not currently. At the present time, Android grants the required permissions to do so to system applications only. However, each application is allowed to disable their own components, so you could ask the author to, say, add an appropriate setting.
+\n\n<b>Can I remove an application from a particular event?</b>\n\nNo, not currently: Android grants the required permissions to do so only to system applications (exception: applications are allowed to disable their own components).\n\nHowever, in the near future, this function <b>will</b> be available for root users.
     </string>
     <string name="close_help">Close help and return to app</string>
 

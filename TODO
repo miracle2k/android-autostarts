@@ -9,3 +9,6 @@ Add support for Locale broadcasts.
 Add German localization.
 
 Update our custom colors to be stateful.
+
+Use a enabled/disabled receiver to automatically reload if a package
+outside of our app is changed.

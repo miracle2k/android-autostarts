@@ -1,8 +1,22 @@
 Support grouping by application.
 
+Currently, we don't pay any attention to the fact that a single receiver
+may be responsible for multiple events. As a result, disabling a single
+component may effect multiple entries. At the very least, the UI should
+update accordingly when a component is disabled (striking out multiple
+rows).
+
 Add German localization.
 
 Update our custom colors to be stateful.
 
 Use a enabled/disabled receiver to automatically reload if a package
 outside of our app is changed.
+
+We could use a custom executable instead of "pm", allowing us to call
+setComponentEnabledState with the NO_RESTART flag - currently, the
+package is always restarted when we chance something. Code to look at
+in frameworks/base:
+	cmds/pm/pm
+	cmds/pm/src/../Pm.java
+	cmds/app_process/*

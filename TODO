@@ -20,3 +20,10 @@ in frameworks/base:
 	cmds/pm/pm
 	cmds/pm/src/../Pm.java
 	cmds/app_process/*
+
+Add a "system view" that goes through packages.xml manually and shows
+all receivers (or even: all components?), allowing users to disable or
+enable them. Explain in help section, why this separate view is necessary:
+Because due to API limitations (GET_INTENT_FILTERS not implemented), we
+are unable to get information about which intents a disabled comonent would
+handle.

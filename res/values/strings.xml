@@ -6,6 +6,7 @@
     <string name="no_receivers_filtered">No applications are autostarting within your current selection.</string>
     <string name="appliation_info">Application Info</string>
     <string name="find_in_market">Find in Market</string>
+    <string name="disable">Disable</string>
     <string name="toggle_sys_apps">Toggle system apps</string>
     <string name="expand_all">Expand all</string>
     <string name="collapse_all">Collapse all</string>

@@ -1,5 +1,11 @@
 package com.elsdoerfer.android.autostarts;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -277,7 +283,8 @@ public class ListActivity extends ExpandableListActivity {
 			Dialog d = new AlertDialog.Builder(this).setItems(
 				new CharSequence[] {
 						getResources().getString(R.string.appliation_info),
-						getResources().getString(R.string.find_in_market), },
+						getResources().getString(R.string.find_in_market),
+						getResources().getString(R.string.disable)},
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
@@ -300,6 +307,72 @@ public class ListActivity extends ExpandableListActivity {
 								startActivity(marketIntent);
 							}
 							catch (ActivityNotFoundException e) {}
+							break;
+						case 2:
+							// All right. So we can't use the PackageManager
+							// to disable comonents, since the permission
+							// required to do so has a protectLevel of
+							// "signature", meaning essentially that we need
+							// to be signed with the system certificate to
+							// be able to get it.
+							//
+							// Fortunately, there is a sort-of workaround.
+							// We can use the "pm" executable to communicate
+							// with the package manager, tell it to enable
+							// or disable a component. We need to do so as
+							// root, so that the PackageManager will skip the
+							// permission check (otherwise, it'll still look
+							// at the UID of the calling process), but it
+							// would work for root users.
+							//
+							// However, there is another complication. Rooted
+							// devices these days often use custom firmware
+							// mods, and those often come with a special "su"
+							// executable, that asks the user for permission
+							// whenever a program wants to use su. This
+							// special su does support "Always allow", but
+							// considers the command arguments as well. In
+							// other words, since we need to use different
+							// arguments to "pm" every time, the user would
+							// be asked to confirm us being allowed to use
+							// "su" everytime.
+							//
+							// The workaround here is to write our command to
+							// a shell file, then in turn ask su to run that
+							// file.
+							final String scriptFile = "pm-call.sh";
+							FileOutputStream f;
+							try {
+								f = openFileOutput(
+										scriptFile, MODE_PRIVATE);
+								try {
+									f.write(String.format("pm disable %s/%s",
+											app.activityInfo.packageName,
+											app.activityInfo.name).getBytes());
+									f.close();
+
+									Runtime r = Runtime.getRuntime();
+									Log.i(TAG, "Asking package manger to "+
+											"change component state.");
+									Process p = r.exec(new String[] {
+										"su", "-c", "sh "+getFileStreamPath(scriptFile).getAbsolutePath() });
+									p.waitFor();
+									Log.d(TAG, "Process returned with "+
+											p.exitValue()+"; stdout: "+
+											readStream(p.getInputStream())+
+											"; stderr: "+
+											readStream(p.getErrorStream()));
+								}
+								finally {
+									deleteFile(scriptFile);
+								}
+							} catch (FileNotFoundException e) {
+								throw new RuntimeException(e);
+							} catch (IOException e) {
+								throw new RuntimeException(e);
+							} catch (InterruptedException e) {
+								throw new RuntimeException(e);
+							}
 							break;
 						}
 						dialog.dismiss();
@@ -646,5 +719,25 @@ public class ListActivity extends ExpandableListActivity {
 	static boolean isSystemApp(ResolveInfo app) {
 		return ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
 					== ApplicationInfo.FLAG_SYSTEM);
+	}
+
+	/**
+	 * It's unbelievable how difficult it is in Java to read a stupid
+	 * stream into a string.
+	 *
+	 * From:
+	 * 	 http://stackoverflow.com/questions/309424/in-java-how-do-a-read-an-input-stream-in-to-a-string
+	 */
+	static String readStream(InputStream stream) throws IOException {
+		final char[] buffer = new char[0x10000];
+		StringBuilder out = new StringBuilder();
+		Reader in = new InputStreamReader(stream, "UTF-8");
+		int read;
+		do {
+			read = in.read(buffer, 0, buffer.length);
+			if (read>0)
+				out.append(buffer, 0, read);
+		} while (read>=0);
+		return out.toString();
 	}
 }

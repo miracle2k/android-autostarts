@@ -15,12 +15,14 @@ import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -29,7 +31,9 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
@@ -585,10 +589,14 @@ public class ListActivity extends ExpandableListActivity {
 				title.setTextColor(getResources().getColor(android.R.color.primary_text_dark));
 			CharSequence appTitle = app.activityInfo.applicationInfo.loadLabel(mPackageManager);
 			CharSequence receiverTitle = app.loadLabel(mPackageManager);
+			SpannableString fullTitle;
 			if (appTitle.equals(receiverTitle))
-				title.setText(appTitle);
+				fullTitle = SpannableString.valueOf(appTitle);
 			else
-				title.setText(appTitle + " ("+receiverTitle+")");
+				fullTitle = SpannableString.valueOf((appTitle + " ("+receiverTitle+")"));
+			if (!app.activityInfo.enabled)
+				fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
+			title.setText(fullTitle);
 			return v;
         }
 
@@ -693,6 +701,11 @@ public class ListActivity extends ExpandableListActivity {
 					.setTitle(R.string.error)
 					.setPositiveButton(android.R.string.ok, null).show();
 			}
+			else {
+				// We can reasonably expect that the component state
+				// changed, so refresh the list.
+				mListAdapter.notifyDataSetInvalidated();
+			}
 		}
 
 		@Override
@@ -760,7 +773,36 @@ public class ListActivity extends ExpandableListActivity {
 							readStream(p.getInputStream())+
 							"; stderr: "+
 							readStream(p.getErrorStream()));
-					return p.exitValue() == 0;
+
+					// In order to consider this a success, we require to
+					// things: a) a proper exit value, and ...
+					if (p.exitValue() != 0)
+						return false;
+
+					// ..b) the component state must actually have changed.
+					final PackageManager pm = getPackageManager();
+					Boolean newEnabledState;
+					try {
+						ComponentName c = new ComponentName(
+							app.activityInfo.packageName, app.activityInfo.name);
+						int newEnabledSetting = pm.getComponentEnabledSetting(c);
+						newEnabledState =
+							(newEnabledSetting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
+								? true
+								: (newEnabledSetting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
+									? false
+									: (newEnabledSetting == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
+										? pm.getReceiverInfo(c, PackageManager.GET_DISABLED_COMPONENTS).enabled
+										: null;
+
+						// We abuse the "enabled" field; in reality, this
+						// would always store the default value.
+						app.activityInfo.enabled = newEnabledState;
+					} catch (NameNotFoundException e) {
+						Log.e(TAG, "Unable to check success of state change", e);
+						return false;
+					}
+					return (newEnabledState == mDoEnable);
 				}
 				finally {
 					deleteFile(scriptFile);

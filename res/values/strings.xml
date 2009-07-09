@@ -14,6 +14,8 @@
     <string name="help">Help</string>
     <string name="please_wait">Please Wait...</string>
     <string name="error">Error</string>
+    <string name="warning">Warning</string>
+    <string name="confirm_sys_disable">You are about to disable a system component. This could potentially result in your phone no longer functioning properly.\n\nDo not proceed unless you are willing to deal with the consequences.</string>
     <string name="state_change_failed">Unable to change the state of the selected component.\n\nMost likely, you'r device does not have root access, which is required.</string>
 
     <string name="help_text"><b>How does it work?</b>\n\nAndroid allows applications to register for a variety of events supported by the system, to be started whenever such an event triggers.\n\nThis allows applications to do important work in the background, but may sometimes also slow down the system.\n\nAutostarts helps you keep control over your phone by letting you know what goes on behind your back.

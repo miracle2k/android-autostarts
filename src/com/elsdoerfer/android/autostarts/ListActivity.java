@@ -289,7 +289,7 @@ public class ListActivity extends ExpandableListActivity {
 						getResources().getString(R.string.find_in_market)},
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
+						final ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
 								mLastSelectedItem[0], mLastSelectedItem[1]);
 						// Query and store here so that in unlikely case that
 						// state changes while we display the dialog, we still
@@ -298,7 +298,23 @@ public class ListActivity extends ExpandableListActivity {
 						final Boolean doEnable = !app.activityInfo.enabled;
 						switch (which) {
 						case 0:
-							new ToggleTask().execute(app, doEnable);
+							if (isSystemApp(app) && !doEnable) {
+								new AlertDialog.Builder(ListActivity.this)
+									.setTitle(R.string.warning)
+									.setMessage(R.string.confirm_sys_disable)
+									.setIcon(android.R.drawable.ic_dialog_alert)
+									.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog, int which) {
+											new ToggleTask().execute(app, doEnable);
+										}
+									})
+									.setNegativeButton(android.R.string.cancel, null)
+									.create()
+									.show();
+							}
+							else
+								new ToggleTask().execute(app, doEnable);
+
 							break;
 						case 1:
 							Intent infoIntent = new Intent();

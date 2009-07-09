@@ -12,6 +12,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
+import android.app.ProgressDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -26,6 +27,7 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
@@ -282,15 +284,23 @@ public class ListActivity extends ExpandableListActivity {
 				R.layout.receiver_info_panel, null, false);
 			Dialog d = new AlertDialog.Builder(this).setItems(
 				new CharSequence[] {
+						getResources().getString(R.string.disable),
 						getResources().getString(R.string.appliation_info),
-						getResources().getString(R.string.find_in_market),
-						getResources().getString(R.string.disable)},
+						getResources().getString(R.string.find_in_market)},
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
 								mLastSelectedItem[0], mLastSelectedItem[1]);
+						// Query and store here so that in unlikely case that
+						// state changes while we display the dialog, we still
+						// change in the direction we claimed to the user we
+						// would.
+						final Boolean doEnable = !app.activityInfo.enabled;
 						switch (which) {
 						case 0:
+							new ToggleTask().execute(app, doEnable);
+							break;
+						case 1:
 							Intent infoIntent = new Intent();
 							// From android-cookbook/GroupHome - it notes:
 							// "we shouldnt rely on this entrance into the settings app"
@@ -299,7 +309,7 @@ public class ListActivity extends ExpandableListActivity {
 			                	app.activityInfo.applicationInfo.packageName);
 			                startActivity(infoIntent);
 							break;
-						case 1:
+						case 2:
 							try {
 								Intent marketIntent = new Intent(Intent.ACTION_VIEW);
 								marketIntent.setData(Uri.parse("market://search?q=pname:"+
@@ -307,72 +317,6 @@ public class ListActivity extends ExpandableListActivity {
 								startActivity(marketIntent);
 							}
 							catch (ActivityNotFoundException e) {}
-							break;
-						case 2:
-							// All right. So we can't use the PackageManager
-							// to disable comonents, since the permission
-							// required to do so has a protectLevel of
-							// "signature", meaning essentially that we need
-							// to be signed with the system certificate to
-							// be able to get it.
-							//
-							// Fortunately, there is a sort-of workaround.
-							// We can use the "pm" executable to communicate
-							// with the package manager, tell it to enable
-							// or disable a component. We need to do so as
-							// root, so that the PackageManager will skip the
-							// permission check (otherwise, it'll still look
-							// at the UID of the calling process), but it
-							// would work for root users.
-							//
-							// However, there is another complication. Rooted
-							// devices these days often use custom firmware
-							// mods, and those often come with a special "su"
-							// executable, that asks the user for permission
-							// whenever a program wants to use su. This
-							// special su does support "Always allow", but
-							// considers the command arguments as well. In
-							// other words, since we need to use different
-							// arguments to "pm" every time, the user would
-							// be asked to confirm us being allowed to use
-							// "su" everytime.
-							//
-							// The workaround here is to write our command to
-							// a shell file, then in turn ask su to run that
-							// file.
-							final String scriptFile = "pm-call.sh";
-							FileOutputStream f;
-							try {
-								f = openFileOutput(
-										scriptFile, MODE_PRIVATE);
-								try {
-									f.write(String.format("pm disable %s/%s",
-											app.activityInfo.packageName,
-											app.activityInfo.name).getBytes());
-									f.close();
-
-									Runtime r = Runtime.getRuntime();
-									Log.i(TAG, "Asking package manger to "+
-											"change component state.");
-									Process p = r.exec(new String[] {
-										"su", "-c", "sh "+getFileStreamPath(scriptFile).getAbsolutePath() });
-									p.waitFor();
-									Log.d(TAG, "Process returned with "+
-											p.exitValue()+"; stdout: "+
-											readStream(p.getInputStream())+
-											"; stderr: "+
-											readStream(p.getErrorStream()));
-								}
-								finally {
-									deleteFile(scriptFile);
-								}
-							} catch (FileNotFoundException e) {
-								throw new RuntimeException(e);
-							} catch (IOException e) {
-								throw new RuntimeException(e);
-							} catch (InterruptedException e) {
-								throw new RuntimeException(e);
-							}
 							break;
 						}
 						dialog.dismiss();
@@ -702,6 +646,118 @@ public class ListActivity extends ExpandableListActivity {
         	return !mShowSystemApps;
         }
     }
+
+	/**
+	 * Takes care of toggling a component's state. This may take a
+	 * couple of seconds, so we use a thread.
+	 */
+	class ToggleTask extends AsyncTask<Object, Object, Boolean> {
+
+		ProgressDialog mPg;
+		Boolean mDoEnable;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mPg = new ProgressDialog(ListActivity.this);
+			mPg.setIndeterminate(true);
+			mPg.setMessage(getResources().getString(R.string.please_wait));
+			mPg.setCancelable(false);
+			mPg.show();
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			mPg.cancel();
+			if (!result) {
+				new AlertDialog.Builder(ListActivity.this)
+					.setMessage(R.string.state_change_failed)
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle(R.string.error)
+					.setPositiveButton(android.R.string.ok, null).show();
+			}
+		}
+
+		@Override
+		protected Boolean doInBackground(Object... params) {
+			ResolveInfo app = (ResolveInfo)params[0];
+			// We could also read this right now, but we want to ensure
+			// we always do the state change that we announced to the user
+			// through the menu item caption (it's unlikely but possible
+			// that the component state changed in the background while
+			// the user decided what to do).
+			Boolean mDoEnable = (Boolean)params[1];
+
+			// All right. So we can't use the PackageManager
+			// to disable comonents, since the permission
+			// required to do so has a protectLevel of
+			// "signature", meaning essentially that we need
+			// to be signed with the system certificate to
+			// be able to get it.
+			//
+			// Fortunately, there is a sort-of workaround.
+			// We can use the "pm" executable to communicate
+			// with the package manager, tell it to enable
+			// or disable a component. We need to do so as
+			// root, so that the PackageManager will skip the
+			// permission check (otherwise, it'll still look
+			// at the UID of the calling process), but it
+			// would work for root users.
+			//
+			// However, there is another complication. Rooted
+			// devices these days often use custom firmware
+			// mods, and those often come with a special "su"
+			// executable, that asks the user for permission
+			// whenever a program wants to use su. This
+			// special su does support "Always allow", but
+			// considers the command arguments as well. In
+			// other words, since we need to use different
+			// arguments to "pm" every time, the user would
+			// be asked to confirm us being allowed to use
+			// "su" everytime.
+			//
+			// The workaround here is to write our command to
+			// a shell file, then in turn ask su to run that
+			// file.
+			final String scriptFile = "pm-call.sh";
+			FileOutputStream f;
+			try {
+				f = openFileOutput(
+						scriptFile, MODE_PRIVATE);
+				try {
+					f.write(String.format("pm %s %s/%s",
+							(mDoEnable ? "enable": "disable"),
+							app.activityInfo.packageName,
+							app.activityInfo.name).getBytes());
+					f.close();
+
+					Runtime r = Runtime.getRuntime();
+					Log.i(TAG, "Asking package manger to "+
+							"change component state to "+
+							(mDoEnable ? "enabled": "disabled"));
+					Process p = r.exec(new String[] {
+						"su", "-c", "sh "+getFileStreamPath(scriptFile).getAbsolutePath() });
+					p.waitFor();
+					Log.d(TAG, "Process returned with "+
+							p.exitValue()+"; stdout: "+
+							readStream(p.getInputStream())+
+							"; stderr: "+
+							readStream(p.getErrorStream()));
+					return p.exitValue() == 0;
+				}
+				finally {
+					deleteFile(scriptFile);
+				}
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
 
     /**
      * Return a name for the given intent; tries the pretty name,

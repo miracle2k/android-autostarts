@@ -1,5 +1,6 @@
 1.1.0 (2009-07-X)
 	* Allow root users to disable components (and enable them again).
+	* Added support for the PHONE_STATE action, which we previously missed.
 
 1.0.1 (2009-07-05)
     * Menu option to reload the list.

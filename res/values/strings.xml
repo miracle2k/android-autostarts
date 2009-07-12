@@ -19,8 +19,18 @@
     <string name="state_change_failed">Unable to change the state of the selected component.\n\nMost likely, you'r device does not have root access, which is required.</string>
 
     <string name="help_text"><b>How does it work?</b>\n\nAndroid allows applications to register for a variety of events supported by the system, to be started whenever such an event triggers.\n\nThis allows applications to do important work in the background, but may sometimes also slow down the system.\n\nAutostarts helps you keep control over your phone by letting you know what goes on behind your back.
-\n\n<b>Can I remove an application from a particular event?</b>\n\nNo, not currently: Android grants the required permissions to do so only to system applications (exception: applications are allowed to disable their own components).\n\nHowever, in the near future, this function <b>will</b> be available for root users.
-    </string>
+
+\n\n<b>Can I remove an application from a particular event?</b>\n\nYes, but due to Android API limitations, it only works on rooted devices. <b>Please be careful when disabling stuff.</b> In particular note that:
+
+\n\n<i>a) The component in question may be responsible for other parts of the application's functionality than just the given event.</i> As a result, you may experience unintended side effects. For the most part though, you can just give things a try, and enable the component again should the application break.
+
+\n\n<i>b) If you remove Autostarts, you will lose all information about currently disabled components.</i> Again, this is due to Android limitations, which require <i>Autostarts</i> to keep track of which components have been disabled by itself. As a result, before you uninstall <i>Autostarts</i>, be sure to renable the components you still need (Of course, the same is true for clearing the <i>Autostarts</i> application data, e.g. through the Settings <i>Manage Applications</i> option - don't do it).
+
+\n\n<b>Is it possible to know what a particular application does on a particular event?</b>\n\nNo, not per se. However, if you select an entry, you will be able to see what the name of the <i>component</i> is that handles the event. Sometimes, the name gives you a hint. For example, an <i>AlarmInitReceiver</i> would likely initialize the alarms or notification that you have enabled in the application. Don't be surprised then if this application's alarms stop working if you disable the component.
+
+\n\n<b>I've disabled a component, but it seems to have it self enabled again after a while?</b>\n\nYes, applications may enable or disable their own components. Some do this depending on settings, or what features are enabled. Unfortunately, there is no workaround for this.
+
+\n\n<b>My market downloads stopped working.</b>\n\nThis is usually not the fault of <i>Autotstarts</i>, don't get ideas. However, there is one issue you might have run into. If you thought you weren't using Google Talk anyway and disabled it#s <i>On Boot</i> event, this is likely to be the problem (it also occurs of you shutdown Google Talk using a task manager). Apparently, for some reason, if Google Talk is not running, market downloads do not work.</string>
     <string name="close_help">Close help and return to app</string>
 
     <string name="act_airplane_mode_changed">Airplane mode changed</string>

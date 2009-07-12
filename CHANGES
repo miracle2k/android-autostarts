@@ -1,4 +1,4 @@
-1.1.0 (2009-07-X)
+1.1.0 (2009-07-12)
 	* Allow root users to disable components (and enable them again).
 	* Added support for the PHONE_STATE action, which we previously missed.
 

@@ -15,6 +15,12 @@ Improve the descriptions of some actions, for example:
     filters, rewrites etc.
   * Media button: Note that this is the button on the headset.
 
+Add a "security log" feature that basically exports the "disabled
+comonents" database to the sdcard in the form of "pm enable" commands,
+automatically and in regular intervals.
+Add a help entry explaining how to use this file in case something goes
+wrong, to restore components.
+
 Support grouping by application.
 
 Currently, we don't pay any attention to the fact that a single receiver

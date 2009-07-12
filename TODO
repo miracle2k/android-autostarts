@@ -1,3 +1,11 @@
+Improve the descriptions of some actions, for example:
+  * Widget Update: note that this is also used for manual updates, user
+    interaction updates; will likely disable widget changes completely;
+	Also note it only run if the widget is in effect.
+  * Outgoing Call: Note that this is used for number processing, like
+    filters, rewrites etc.
+  * Media button: Note that this is the button on the headset.
+
 Support grouping by application.
 
 Currently, we don't pay any attention to the fact that a single receiver

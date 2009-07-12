@@ -1,3 +1,12 @@
+There are issues with configuration changes still:
+  * Sometimes there seem to be crashes when multiple changes occur after
+    each other
+  * There are definite issues with the background task, and an orientation
+    change that happens in the meantime.
+  * We could improve performance by not requiring a reload.
+For now, to make these issues less obvious, we have locked the activity
+orientations; this lock could be removed once this todo item is fixed.
+
 Improve the descriptions of some actions, for example:
   * Widget Update: note that this is also used for manual updates, user
     interaction updates; will likely disable widget changes completely;

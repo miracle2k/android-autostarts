@@ -190,7 +190,7 @@
 	<string name="act_appwidget_enabled">Widget enabled</string>
 	<string name="act_appwidget_enabled_detail">The first copy of a widget was added.</string>
 	<string name="act_appwidget_update">Widget updating</string>
-	<string name="act_appwidget_update_detail">A widget is supposed to update itself. Each widget may determine itself how often this is triggered.</string>
+	<string name="act_appwidget_update_detail">A widget is asked to update itself. Each widget may determine itself how often this is triggered. However, the event is ignored for widgets that are not in use.</string>
 	<string name="act_appwidget_disabled">Widget disabled</string>
 	<string name="act_appwidget_disabled_detail">The last copy of a widget was removed.</string>
 	<string name="act_appwidget_deleted">Widget deleted</string>

@@ -7,13 +7,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
-import android.appwidget.AppWidgetManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,10 +25,7 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.AudioManager;
-import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -49,133 +46,41 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elsdoerfer.android.autostarts.DatabaseHelper.ReceiverData;
+
 public class ListActivity extends ExpandableListActivity {
 
 	static final String TAG = "Autostarts";
 
-	// The broadcast intents we support. Read about why this needs to be a
-	// predefined, static list below in the comments on where we do the
-	// actual loading of the installed receivers.
-	//
-	// When doing a custom Android build, apparently a file
-	// "common/docs/broadcast_actions.txt" is generated, containing a list
-	// of all (?) available system broadcast actions.
-	//
-	// Unless otherwise noted, all the actions listed below are included
-	// in that file, though note that the order may have changed to
-	// prioritize more important broadcasts.
-	// TODO: Would it be better to sort the list by the number of apps
-	// registered for each broadcast, rather than have a manual order?
-	static final Object[][] supportedIntents = {
-		// android.intent.*
-		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed, R.string.act_boot_completed_detail },
-		{ Intent.ACTION_AIRPLANE_MODE_CHANGED, R.string.act_airplane_mode_changed, R.string.act_airplane_mode_changed_detail },
-		{ Intent.ACTION_BATTERY_CHANGED, R.string.act_battery_changed, R.string.act_battery_changed_detail },
-		{ Intent.ACTION_BATTERY_LOW, R.string.act_battery_low, R.string.act_battery_low_detail },
-		{ Intent.ACTION_CAMERA_BUTTON, R.string.act_camera_button, R.string.act_camera_button_detail },
-		{ Intent.ACTION_CLOSE_SYSTEM_DIALOGS, R.string.act_close_system_dialogs, R.string.act_close_system_dialogs_detail },
-		{ Intent.ACTION_CONFIGURATION_CHANGED, R.string.act_configuration_changed, R.string.act_configuration_changed_detail },
-		{ Intent.ACTION_DATE_CHANGED, R.string.act_date_changed, R.string.act_date_changed_detail },
-		{ Intent.ACTION_DEVICE_STORAGE_LOW, R.string.act_device_storage_low, R.string.act_device_storage_low_detail },
-		{ Intent.ACTION_DEVICE_STORAGE_OK, R.string.act_device_storage_ok, R.string.act_device_storage_ok_detail },
-		{ Intent.ACTION_GTALK_SERVICE_CONNECTED, R.string.act_gtalk_service_connected, R.string.act_gtalk_service_connected_detail },
-		{ Intent.ACTION_GTALK_SERVICE_DISCONNECTED, R.string.act_gtalk_service_disconnected, R.string.act_gtalk_service_disconnected_detail },
-		{ Intent.ACTION_HEADSET_PLUG, R.string.act_headset_plug, R.string.act_headset_plug_detail },
-		{ Intent.ACTION_INPUT_METHOD_CHANGED, R.string.act_input_method_changed, R.string.act_input_method_changed_detail },
-		{ Intent.ACTION_MANAGE_PACKAGE_STORAGE, R.string.act_manage_package_storage, R.string.act_manage_package_storage_detail },
-		{ Intent.ACTION_MEDIA_BAD_REMOVAL, R.string.act_media_bad_removal, R.string.act_media_bad_removal_detail },
-		{ Intent.ACTION_MEDIA_BUTTON, R.string.act_media_button, R.string.act_media_button_detail },
-		{ Intent.ACTION_MEDIA_CHECKING, R.string.act_media_checking, R.string.act_media_checking_detail },
-		{ Intent.ACTION_MEDIA_EJECT, R.string.act_media_eject, R.string.act_media_eject_detail },
-		{ Intent.ACTION_MEDIA_MOUNTED, R.string.act_media_mounted, R.string.act_media_mounted_detail },
-		{ Intent.ACTION_MEDIA_NOFS, R.string.act_media_nofs, R.string.act_media_nofs_detail },
-		{ Intent.ACTION_MEDIA_REMOVED, R.string.act_media_removed, R.string.act_media_removed_detail },
-		{ Intent.ACTION_MEDIA_SCANNER_FINISHED, R.string.act_media_scanner_finished, R.string.act_media_scanner_finished_detail },
-		{ Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, R.string.act_media_scanner_scan_file, R.string.act_media_scanner_scan_file_detail },
-		{ Intent.ACTION_MEDIA_SCANNER_STARTED, R.string.act_media_scanner_started, R.string.act_media_scanner_started_detail },
-		{ Intent.ACTION_MEDIA_SHARED, R.string.act_media_shared, R.string.act_media_shared_detail },
-		{ Intent.ACTION_MEDIA_UNMOUNTABLE, R.string.act_media_unmountable, R.string.act_media_unmountable_detail },
-		{ Intent.ACTION_MEDIA_UNMOUNTED, R.string.act_media_unmounted, R.string.act_media_unmounted_detail },
-		{ Intent.ACTION_NEW_OUTGOING_CALL, R.string.act_new_outgoing_call, R.string.act_new_outgoing_call_detail },
-		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added, R.string.act_package_added_detail },
-		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed, R.string.act_package_changed_detail },
-		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared, R.string.act_package_data_cleared_detail },
-		{ Intent.ACTION_PACKAGE_INSTALL, R.string.act_package_install, R.string.act_package_install_detail },
-		{ Intent.ACTION_PACKAGE_REMOVED, R.string.act_package_removed, R.string.act_package_removed_detail },
-		{ Intent.ACTION_PACKAGE_REPLACED, R.string.act_package_replaced, R.string.act_package_replaced_detail },
-		{ Intent.ACTION_PACKAGE_RESTARTED, R.string.act_package_restarted, R.string.act_package_restarted_detail },
-		{ Intent.ACTION_PROVIDER_CHANGED, R.string.act_provider_changed, R.string.act_provider_changed_detail },
-		{ Intent.ACTION_REBOOT, R.string.act_reboot, R.string.act_reboot_detail },
-		{ Intent.ACTION_SCREEN_OFF, R.string.act_screen_off, R.string.act_screen_off_detail },
-		{ Intent.ACTION_SCREEN_ON, R.string.act_screen_on, R.string.act_screen_on_detail },
-		{ Intent.ACTION_TIMEZONE_CHANGED, R.string.act_timezone_changed, R.string.act_timezone_changed_detail },
-		{ Intent.ACTION_TIME_CHANGED, R.string.act_time_changed, R.string.act_time_changed_detail },
-		{ Intent.ACTION_TIME_TICK, R.string.act_time_tick, R.string.act_time_tick_detail },           // not through manifest components?
-		{ Intent.ACTION_UID_REMOVED, R.string.act_uid_removed, R.string.act_uid_removed_detail },
-		{ Intent.ACTION_UMS_CONNECTED, R.string.act_ums_connected, R.string.act_ums_connected_detail },
-		{ Intent.ACTION_UMS_DISCONNECTED, R.string.act_ums_disconnected, R.string.act_ums_disconnected_detail },
-		{ Intent.ACTION_USER_PRESENT, R.string.act_user_present, R.string.act_user_present_detail },
-		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
+	/**
+	 * A particular actions and a list of receivers that register for
+	 * the action.
+	 */
+	static class ActionWithReceivers {
+		public String action;
+		public ArrayList<ReceiverData> receivers;
 
-		// android.provider.Telephony.*
-		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
-		{ "android.provider.Telephony.SMS_RECEIVED", R.string.act_sms_received, R.string.act_sms_received_detail },
-		{ "android.provider.Telephony.WAP_PUSH_RECEIVED", R.string.act_wap_push_received, R.string.act_wap_push_received_detail },
+		ActionWithReceivers(String action, ArrayList<ReceiverData> receivers) {
+			this.action = action;
+			this.receivers = receivers;
+		}
 
-		// android.net.wifi.*
-		{ WifiManager.NETWORK_IDS_CHANGED_ACTION, R.string.act_network_ids_changed, R.string.act_network_ids_changed_detail },
-		{ WifiManager.RSSI_CHANGED_ACTION, R.string.act_rssi_changed, R.string.act_rssi_changed_detail },
-		{ WifiManager.SCAN_RESULTS_AVAILABLE_ACTION, R.string.act_scan_results_available, R.string.act_scan_results_available_detail },
-		{ WifiManager.NETWORK_STATE_CHANGED_ACTION, R.string.act_network_state_changed, R.string.act_network_state_changed_detail },
-		{ WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION, R.string.act_supplicant_connection_change, R.string.act_supplicant_connection_change_detail },
-		{ WifiManager.SUPPLICANT_STATE_CHANGED_ACTION, R.string.act_suplicant_state_changed, R.string.act_suplicant_state_changed_detail },
+		ActionWithReceivers(ActionWithReceivers clone) {
+			this.action = clone.action;
+			this.receivers = clone.receivers;
+		}
 
-		// android.media.*
-		{ AudioManager.RINGER_MODE_CHANGED_ACTION, R.string.act_ringer_mode_changed, R.string.act_ringer_mode_changed_detail },
-		{ AudioManager.VIBRATE_SETTING_CHANGED_ACTION, R.string.act_vibrate_setting_changed, R.string.act_vibrate_setting_changed_detail },
-		{ AudioManager.ACTION_AUDIO_BECOMING_NOISY, R.string.act_audio_becoming_noisy, R.string.act_audio_becoming_noisy_detail },  // POTENTIALLY NOT IN "broadcast_actions.txt"!
+		@Override
+		public boolean equals(Object o) {
+			if (o instanceof ActionWithReceivers)
+				return action.equals(((ActionWithReceivers)o).action);
+			else
+				return action.equals(o);
+		}
 
-		// android.bluetooth.*
-		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
-		{ "android.bluetooth.intent.action.BONDING_CREATED", R.string.act_bonding_created, R.string.act_bonding_created_detail },
-		{ "android.bluetooth.intent.action.BONDING_REMOVED", R.string.act_bonding_removed, R.string.act_bonding_removed_detail },
-		{ "android.bluetooth.intent.action.DISABLED", R.string.act_disabled, R.string.act_disabled_detail },
-		{ "android.bluetooth.intent.action.DISCOVERY_COMPLETED", R.string.act_discovery_completed, R.string.act_discovery_completed_detail },
-		{ "android.bluetooth.intent.action.DISCOVERY_STARTED", R.string.act_discovery_started, R.string.act_discovery_started_detail },
-		{ "android.bluetooth.intent.action.ENABLED", R.string.act_enabled, R.string.act_enabled_detail },
-		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", R.string.act_headset_state_changed, R.string.act_headset_state_changed_detail },
-		{ "android.bluetooth.intent.action.MODE_CHANGED", R.string.act_mode_changed, R.string.act_mode_changed_detail },
-		{ "android.bluetooth.intent.action.NAME_CHANGED", R.string.act_name_changed, R.string.act_name_changed_detail },
-		{ "android.bluetooth.intent.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },
-		{ "android.bluetooth.intent.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel_detail },
-		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", R.string.act_remote_alias_changed, R.string.act_remote_alias_changed_detail },
-		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", R.string.act_remote_alias_cleared, R.string.act_remote_alias_cleared_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", R.string.act_remote_device_connected, R.string.act_remote_device_connected_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", R.string.act_remote_device_disappeared, R.string.act_remote_device_disappeared_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECTED", R.string.act_remote_device_disconnected, R.string.act_remote_device_disconnected_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECT_REQUESTED", R.string.act_remote_device_disconnect_requested, R.string.act_remote_device_disconnect_requested_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_FOUND", R.string.act_remote_device_found, R.string.act_remote_device_found_detail },
-		{ "android.bluetooth.intent.action.REMOTE_NAME_FAILED", R.string.act_remote_name_failed, R.string.act_remote_name_failed_detail },
-		{ "android.bluetooth.intent.action.REMOTE_NAME_UPDATED", R.string.act_remote_name_updated, R.string.act_remote_name_updated_detail },
-
-		// This is a strange one, since there is literally no information
-		// out there about it, in fact, GSERVICES_CHANGED has only 3 google
-		// hits, one of them being:
-		//    http://www.netmite.com/android/mydroid/cupcake/out/target/common/docs/broadcast_actions.txt
-		// { "com.google.gservices.intent.action.GSERVICES_CHANGED" null, null }
-
-		// NOTE: The actions below ARE NOT LISTED in "broadcast_actions.txt",
-		// but were collected manually.
-		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
-		// android.appwidget.*
-		// Note that except of UPDATE, the others aren't really sent using a
-		// broadcast, or at least widgets usually don't handle them using a
-		// broadcast receiver. We have them here anyway, just to be safe.
-		{ AppWidgetManager.ACTION_APPWIDGET_UPDATE, R.string.act_appwidget_update, R.string.act_appwidget_update_detail },
-		{ AppWidgetManager.ACTION_APPWIDGET_ENABLED, R.string.act_appwidget_enabled, R.string.act_appwidget_enabled_detail},
-		{ AppWidgetManager.ACTION_APPWIDGET_DISABLED, R.string.act_appwidget_disabled, R.string.act_appwidget_disabled_detail },
-		{ AppWidgetManager.ACTION_APPWIDGET_DELETED, R.string.act_appwidget_deleted, R.string.act_appwidget_deleted_detail },
-    };
+		@Override
+		public int hashCode() { return action.hashCode(); }
+	}
 
 	static final private int MENU_FILTER = 1;
 	static final private int MENU_EXPAND_COLLAPSE = 2;
@@ -183,10 +88,13 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int MENU_HELP = 4;
 	static final private int RECEIVER_DETAIL = 1;
 
-	private Toast mInfoToast;
-	private MyExpandableListAdapter mListAdapter;
 	private MenuItem mExpandCollapseToggleItem;
+	private Toast mInfoToast;
 
+	private MyExpandableListAdapter mListAdapter;
+	private final LinkedHashMap<String, Object[]>
+		actionMap = new LinkedHashMap<String, Object[]>();
+	private DatabaseHelper mDb;
 	private Integer[] mLastSelectedItem = { -1, -1 };
 	private Boolean mExpandSuggested = true;
 
@@ -194,6 +102,17 @@ public class ListActivity extends ExpandableListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
+
+        mDb = new DatabaseHelper(this);
+        // This is just to workaround "Can't upgrade read-only database..."
+        // exceptions, when an upgrade is necessary.
+        mDb.getWritableDatabase().close();
+
+        // Convert the list of available actions (and their data) into a
+        // ordered hash map which we are than able to easily query by action
+        // name.
+        for (Object[] action : Actions.ALL)
+        	actionMap.put((String)action[0], action);
 
         Object retained = getLastNonConfigurationInstance();
         if (retained != null)
@@ -216,6 +135,12 @@ public class ListActivity extends ExpandableListActivity {
 		super.onPause();
 		if (mInfoToast != null)
 			mInfoToast.cancel();
+	}
+
+	@Override
+	protected void onDestroy() {
+		mDb.close();
+		super.onDestroy();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -293,13 +218,13 @@ public class ListActivity extends ExpandableListActivity {
 						getResources().getString(R.string.find_in_market)},
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						final ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
+						final ReceiverData app = (ReceiverData) mListAdapter.getChild(
 								mLastSelectedItem[0], mLastSelectedItem[1]);
 						// Query and store here so that in unlikely case that
 						// state changes while we display the dialog, we still
 						// change in the direction we claimed to the user we
 						// would.
-						final Boolean doEnable = !app.activityInfo.enabled;
+						final Boolean doEnable = !app.enabled;
 						switch (which) {
 						case 0:
 							if (isSystemApp(app) && !doEnable) {
@@ -376,11 +301,12 @@ public class ListActivity extends ExpandableListActivity {
 	 * and is thus handled via an argument here.
 	 */
 	private void prepareReceiverDetailDialog(Dialog dialog, View view) {
-		Object[] intent = (Object[]) mListAdapter.getGroup(mLastSelectedItem[0]);
-		ResolveInfo app = (ResolveInfo) mListAdapter.getChild(
+		ActionWithReceivers action =
+			(ActionWithReceivers) mListAdapter.getGroup(mLastSelectedItem[0]);
+		ReceiverData app = (ReceiverData) mListAdapter.getChild(
 			mLastSelectedItem[0], mLastSelectedItem[1]);
 
-		dialog.setTitle(app.loadLabel(getPackageManager()));
+		dialog.setTitle(app.activityInfo.loadLabel(getPackageManager()));
 
 		int t = 0;
 		SpannableStringBuilder b = new SpannableStringBuilder();
@@ -390,7 +316,7 @@ public class ListActivity extends ExpandableListActivity {
 		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
 		b.append(" handles action ");
 		t = b.length();
-		b.append((String)(intent[0]));
+		b.append((String)(action.action));
 		b.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), t, b.length(), 0);
 		b.append(" with priority ");
 		t = b.length();
@@ -450,16 +376,19 @@ public class ListActivity extends ExpandableListActivity {
      * For now, we are going with 2).
      */
     // TODO: move this to an ASyncTask
-    private void load() {
+	private void load() {
         final PackageManager pm = getPackageManager();
 
-        // The structure here is:
-        //    [[intent1, [app1, app2]], [intent2, [apps...], intents...]]
-        // In words, we have a list of 2-sized arrays, with the first element
-        // being the intent, the second being another ArrayList of apps.
-        ArrayList<Object[]> receiversByIntent = new ArrayList<Object[]>();
+        ArrayList<ActionWithReceivers> receiversByIntent =
+        	new ArrayList<ActionWithReceivers>();
 
-        for (Object[] intent : supportedIntents) {
+        // List of "pckName/compName" entries. We use this to have a quick
+        // list of all components available which we discovered through
+        // the query process, against which we can check the custom stored
+        // component state later on.
+        ArrayList<ReceiverData> knownComponents = new ArrayList<ReceiverData>();
+
+        for (Object[] intent : Actions.ALL) {
             Intent query = new Intent();
             query.setAction((String)(intent[0]));
             Log.d(TAG, "Querying receivers for action: "+(String)(intent[0]));
@@ -470,19 +399,84 @@ public class ListActivity extends ExpandableListActivity {
 	        	// Don't bother adding empty groups.
 	        	continue;
 
-	        ArrayList<ResolveInfo> currentAppList = new ArrayList<ResolveInfo>();
+	        ArrayList<ReceiverData> currentAppList = new ArrayList<ReceiverData>();
 	        for (int i=receivers.size()-1; i>=0; i--) {
-	        	ResolveInfo r = receivers.get(i);
-	        	Log.d(TAG, "Found receiver: "+r.toString());
-	        	if (r.activityInfo == null) {
+	        	ResolveInfo info = receivers.get(i);
+	        	ReceiverData data = new ReceiverData();
+	        	Log.d(TAG, "Found receiver: "+info.toString());
+	        	if (info.activityInfo == null) {
 	        		Log.d(TAG, "activityInfo is null?!");
 	        		continue;
+	        	} else {
+	        		data.packageName = info.activityInfo.packageName;
+	        		data.componentName = info.activityInfo.name;
+	        		data.action = (String)intent[0];
+	        		data.priority = info.priority;
+	        		data.activityInfo = info.activityInfo;
+	        		// If we found it here, we can always assume it is enabled
+	        		data.enabled = true;
 	        	}
 
-	        	currentAppList.add(r);
+	        	currentAppList.add(data);
+	        	knownComponents.add(data);
 	        }
 
-	        receiversByIntent.add(new Object[] { intent, currentAppList });
+	        receiversByIntent.add(
+	        		new ActionWithReceivers((String)intent[0], currentAppList));
+        }
+
+        // Since we can't query the intent filters of disabled receivers,
+        // we cache those ourselves in the database. At this point, we
+        // load the cache and merge it with the components found through
+        // normal discovery.
+        ReceiverData[] cachedComponents = mDb.getCachedComponents();
+        if (cachedComponents!=null) for (ReceiverData c : cachedComponents) {
+        	if (knownComponents.contains(c)) {
+        		// We are apparently able to find this via normal recovery,
+        		// we can thus move on and delete it from the cache.
+        		Log.d(TAG, "Remembered disabled component found through "+
+					"normal discovery, deleting from cache");
+        		mDb.uncacheComponent(c);
+        	}
+        	else {
+        		try {
+					c.init(pm);
+				} catch (NameNotFoundException e) {
+					// Apparently, this component no longer exists.
+					Log.d(TAG, "Remembered disabled component no longer "+
+							"exists, deleting from cache");
+					mDb.uncacheComponent(c);
+					continue;
+				}
+
+				// TODO: Check the real enabled state using getComponentEnabledState?
+        		if (c.enabled) {
+        			// If the component is enabled, we *must* have found it
+        			// already. In fact, the contains() code above should
+        			// have caught it already, this should never execute,
+        			// which is why we log a big warning.
+        			Log.d(TAG, "Remembered disabled component was found "+
+        					"to be enabled, but for some reason wasn't "+
+        					"matched with a discovered comonent. This "+
+        					"shouldn't happen");
+        			mDb.uncacheComponent(c);
+        		}
+        		else {
+        			Log.d(TAG, "Added disabled component from cache: "+c);
+        			// NOTE: This indexOf() call relies on ActionWithIntents
+        			// having a proper equals() implementation.
+        			ActionWithReceivers testGroup = new ActionWithReceivers(c.action, null);
+        			int idx = receiversByIntent.indexOf(testGroup);
+        			if (idx == -1) { // No group entry for this action does exist yet.
+        				testGroup.receivers = new ArrayList<ReceiverData>();
+        				testGroup.receivers.add(c);
+        				receiversByIntent.add(testGroup);
+        			}
+        			else {
+        				receiversByIntent.get(idx).receivers.add(c);
+        			}
+        		}
+        	}
         }
 
         mListAdapter.setData(receiversByIntent);
@@ -492,7 +486,8 @@ public class ListActivity extends ExpandableListActivity {
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
     // This would be an improvement because we could control it better: Show it longer,
     // but have it disappear when the user clicks on it (toasts don't receive clicks).
-    public void showInfoToast(Object[] intent) {
+    public void showInfoToast(ActionWithReceivers action) {
+    	Object[] data = actionMap.get(action.action);
     	if (mInfoToast == null) {
     		LayoutInflater inflater = getLayoutInflater();
     		View layout = inflater.inflate(R.layout.detail_toast,
@@ -502,11 +497,11 @@ public class ListActivity extends ExpandableListActivity {
     		mInfoToast.setDuration(Toast.LENGTH_LONG);
     		mInfoToast.setView(layout);
     	}
-    	((TextView)mInfoToast.getView().findViewById(R.id.title)).setText(getIntentName(intent));
+    	((TextView)mInfoToast.getView().findViewById(R.id.title)).setText(getIntentName(action));
     	TextView message = ((TextView)mInfoToast.getView().findViewById(android.R.id.message));
     	CharSequence info = "";
-    	if (intent[2] != null)  // Hide info text both for null and empty string values.
-    		info = getResources().getText((Integer)intent[2]);
+    	if (data[2] != null)  // Hide info text both for null and empty string values.
+    		info = getResources().getText((Integer)data[2]);
     	if (!info.equals("")) {
     		message.setText(info);
     		message.setVisibility(View.VISIBLE);
@@ -520,8 +515,8 @@ public class ListActivity extends ExpandableListActivity {
 
     	private int mChildLayout;
     	private int mGroupLayout;
-    	private ArrayList<Object[]> mDataAll;
-    	private ArrayList<Object[]> mDataFiltered;
+    	private ArrayList<ActionWithReceivers> mDataAll;
+    	private ArrayList<ActionWithReceivers> mDataFiltered;
 
     	private boolean mShowSystemApps = true;
 
@@ -533,43 +528,40 @@ public class ListActivity extends ExpandableListActivity {
     		mGroupLayout = groupLayout;
     		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     		mPackageManager = context.getPackageManager();
-    		setData(new ArrayList<Object[]>());
+    		setData(new ArrayList<ActionWithReceivers>());
     	}
 
-    	@SuppressWarnings("unchecked")
-		public void setData(ArrayList<Object[]> data) {
+		public void setData(ArrayList<ActionWithReceivers> data) {
     		mDataAll = data;
 
     		// Create a cached copy of the data containing in a filtered manner.
     		// TODO: this should be optimized to support multiple filters, and created on demand?
     		// TODO: instead if if()ing on every access, a member field should point to whatever
     		// we are currently using.
-    		mDataFiltered = new ArrayList<Object[]>();
-    		for (Object[] row : mDataAll) {
-    			Object[] filtered_row = row.clone();
-    			filtered_row[1] = new ArrayList<ResolveInfo>();  // needs a new (filtered) list
-    			for (ResolveInfo app : (ArrayList<ResolveInfo>)row[1]) {
+    		mDataFiltered = new ArrayList<ActionWithReceivers>();
+    		for (ActionWithReceivers row : mDataAll) {
+    			ActionWithReceivers filtered_row = new ActionWithReceivers(row);
+    			filtered_row.receivers = new ArrayList<ReceiverData>();  // needs a new (filtered) list
+    			for (ReceiverData app : row.receivers) {
     				if (!isSystemApp(app))
-    					 ((ArrayList<ResolveInfo>)filtered_row[1]).add(app);
+    					 filtered_row.receivers.add(app);
     			}
-    			if (((ArrayList<ResolveInfo>)filtered_row[1]).size() > 0)
+    			if (filtered_row.receivers.size() > 0)
     				mDataFiltered.add(filtered_row);
 
     		}
 		}
 
-        @SuppressWarnings("unchecked")
 		public Object getChild(int groupPosition, int childPosition) {
-            return ((ArrayList<ResolveInfo>)getGroupData(groupPosition)[1]).get(childPosition);
+            return getGroupData(groupPosition).receivers.get(childPosition);
         }
 
         public long getChildId(int groupPosition, int childPosition) {
-            return ((ResolveInfo)getChild(groupPosition, childPosition)).activityInfo.name.hashCode();
+            return ((ReceiverData)getChild(groupPosition, childPosition)).activityInfo.name.hashCode();
         }
 
-        @SuppressWarnings("unchecked")
 		public int getChildrenCount(int groupPosition) {
-            return ((ArrayList<ResolveInfo>)getGroupData(groupPosition)[1]).size();
+            return getGroupData(groupPosition).receivers.size();
         }
 
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
@@ -579,29 +571,29 @@ public class ListActivity extends ExpandableListActivity {
         		v = mInflater.inflate(mChildLayout, parent, false);
         	else
         		v = convertView;
-			ResolveInfo app = (ResolveInfo) getChild(groupPosition, childPosition);
+        	ReceiverData app = (ReceiverData) getChild(groupPosition, childPosition);
 			((ImageView)v.findViewById(R.id.icon)).
-				setImageDrawable(app.loadIcon(mPackageManager));
+				setImageDrawable(app.activityInfo.loadIcon(mPackageManager));
 			TextView title = ((TextView)v.findViewById(R.id.title));
 			if (isSystemApp(app))
 			    title.setTextColor(Color.YELLOW);
 			else
 				title.setTextColor(getResources().getColor(android.R.color.primary_text_dark));
 			CharSequence appTitle = app.activityInfo.applicationInfo.loadLabel(mPackageManager);
-			CharSequence receiverTitle = app.loadLabel(mPackageManager);
+			CharSequence receiverTitle = app.activityInfo.loadLabel(mPackageManager);
 			SpannableString fullTitle;
 			if (appTitle.equals(receiverTitle))
 				fullTitle = SpannableString.valueOf(appTitle);
 			else
 				fullTitle = SpannableString.valueOf((appTitle + " ("+receiverTitle+")"));
-			if (!app.activityInfo.enabled)
+			if (!app.enabled)
 				fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
 			title.setText(fullTitle);
 			return v;
         }
 
         public Object getGroup(int groupPosition) {
-            return getGroupData(groupPosition)[0];
+            return getGroupData(groupPosition);
         }
 
         public int getGroupCount() {
@@ -609,7 +601,7 @@ public class ListActivity extends ExpandableListActivity {
         }
 
         public long getGroupId(int groupPosition) {
-        	return getGroupData(groupPosition)[0].hashCode();
+        	return getGroupData(groupPosition).action.hashCode();
         }
 
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
@@ -619,11 +611,11 @@ public class ListActivity extends ExpandableListActivity {
         		v = mInflater.inflate(mGroupLayout, parent, false);
         	else
         		v = convertView;
-        	final Object[] intent = (Object[])getGroup(groupPosition);
-        	((TextView)v.findViewById(R.id.title)).setText(getIntentName(intent));
+        	final ActionWithReceivers group = (ActionWithReceivers) getGroup(groupPosition);
+        	((TextView)v.findViewById(R.id.title)).setText(getIntentName(group));
         	((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
 				public void onClick(View _v) {
-					showInfoToast(intent);
+					showInfoToast(group);
 				}
         	});
         	return v;
@@ -641,7 +633,7 @@ public class ListActivity extends ExpandableListActivity {
         /**
          * Return the dataset currently used.
          */
-        private ArrayList<Object[]>getData() {
+        private ArrayList<ActionWithReceivers>getData() {
         	if (mShowSystemApps)
         		return mDataAll;
         	else
@@ -651,11 +643,11 @@ public class ListActivity extends ExpandableListActivity {
         /**
          * Return the data record for the given group.
          */
-        private Object[] getGroupData(int groupPosition) {
+        private ActionWithReceivers getGroupData(int groupPosition) {
         	if (mShowSystemApps)
-        		return (Object[])mDataAll.get(groupPosition);
+        		return mDataAll.get(groupPosition);
         	else
-        		return (Object[])mDataFiltered.get(groupPosition);
+        		return mDataFiltered.get(groupPosition);
         }
 
         /**
@@ -679,6 +671,7 @@ public class ListActivity extends ExpandableListActivity {
 
 		ProgressDialog mPg;
 		Boolean mDoEnable;
+		ReceiverData mApp;
 
 		@Override
 		protected void onPreExecute() {
@@ -702,6 +695,11 @@ public class ListActivity extends ExpandableListActivity {
 					.setPositiveButton(android.R.string.ok, null).show();
 			}
 			else {
+				// Remember that we changed this component.
+				DatabaseHelper db = new DatabaseHelper(ListActivity.this);
+				db.cacheComponent(mApp);
+				db.close();
+
 				// We can reasonably expect that the component state
 				// changed, so refresh the list.
 				mListAdapter.notifyDataSetInvalidated();
@@ -710,7 +708,7 @@ public class ListActivity extends ExpandableListActivity {
 
 		@Override
 		protected Boolean doInBackground(Object... params) {
-			ResolveInfo app = (ResolveInfo)params[0];
+			mApp = (ReceiverData)params[0];
 			// We could also read this right now, but we want to ensure
 			// we always do the state change that we announced to the user
 			// through the menu item caption (it's unlikely but possible
@@ -757,8 +755,8 @@ public class ListActivity extends ExpandableListActivity {
 				try {
 					f.write(String.format("pm %s %s/%s",
 							(mDoEnable ? "enable": "disable"),
-							app.activityInfo.packageName,
-							app.activityInfo.name).getBytes());
+							mApp.activityInfo.packageName,
+							mApp.activityInfo.name).getBytes());
 					f.close();
 
 					Runtime r = Runtime.getRuntime();
@@ -783,21 +781,9 @@ public class ListActivity extends ExpandableListActivity {
 					final PackageManager pm = getPackageManager();
 					Boolean newEnabledState;
 					try {
-						ComponentName c = new ComponentName(
-							app.activityInfo.packageName, app.activityInfo.name);
-						int newEnabledSetting = pm.getComponentEnabledSetting(c);
-						newEnabledState =
-							(newEnabledSetting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
-								? true
-								: (newEnabledSetting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
-									? false
-									: (newEnabledSetting == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
-										? pm.getReceiverInfo(c, PackageManager.GET_DISABLED_COMPONENTS).enabled
-										: null;
-
-						// We abuse the "enabled" field; in reality, this
-						// would always store the default value.
-						app.activityInfo.enabled = newEnabledState;
+						newEnabledState = isComponentEnabled(pm, mApp);
+						// update the stored status while we're at it
+						mApp.enabled = newEnabledState;
 					} catch (NameNotFoundException e) {
 						Log.e(TAG, "Unable to check success of state change", e);
 						return false;
@@ -821,18 +807,36 @@ public class ListActivity extends ExpandableListActivity {
      * Return a name for the given intent; tries the pretty name,
      * if available, and falls back to the raw class name.
      */
-	private String getIntentName(Object[] intent) {
-		return (intent[1] != null) ?
-				getResources().getString((Integer)intent[1]) :
-				(String)intent[0];
+	private String getIntentName(ActionWithReceivers action) {
+		Object[] data = actionMap.get(action.action);
+		return (data[1] != null) ?
+				getResources().getString((Integer)data[1]) :
+				(String)data[0];
 	}
 
 	/**
 	 * True if this app is installed on the system partition.
 	 */
-	static boolean isSystemApp(ResolveInfo app) {
+	static boolean isSystemApp(ReceiverData app) {
 		return ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
 					== ApplicationInfo.FLAG_SYSTEM);
+	}
+
+	/**
+	 * Get the current enabled state of a component.
+	 */
+	static Boolean isComponentEnabled(PackageManager pm, ReceiverData app) throws NameNotFoundException {
+		ComponentName c = new ComponentName(
+				app.activityInfo.packageName, app.activityInfo.name);
+			int setting = pm.getComponentEnabledSetting(c);
+			return
+				(setting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
+					? true
+					: (setting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
+						? false
+						: (setting == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
+							? pm.getReceiverInfo(c, PackageManager.GET_DISABLED_COMPONENTS).enabled
+							: null;
 	}
 
 	/**

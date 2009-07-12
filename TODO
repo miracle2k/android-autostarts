@@ -29,6 +29,9 @@ component may effect multiple entries. At the very least, the UI should
 update accordingly when a component is disabled (striking out multiple
 rows).
 
+Remember "toggle system apps" and possibly als "expand/collapse" state
+across restarts.
+
 Add German localization.
 
 Update our custom colors to be stateful.
@@ -51,5 +54,6 @@ Because due to API limitations (GET_INTENT_FILTERS not implemented), we
 are unable to get information about which intents a disabled comonent would
 handle.
 
-community features
-remember expandend / toggle states and restore
+Add social features: People can write comments about individual
+components, and what effects disabling them had. This would need to include
+information about the version etc.

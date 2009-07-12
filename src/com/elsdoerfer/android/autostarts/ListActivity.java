@@ -695,11 +695,6 @@ public class ListActivity extends ExpandableListActivity {
 					.setPositiveButton(android.R.string.ok, null).show();
 			}
 			else {
-				// Remember that we changed this component.
-				DatabaseHelper db = new DatabaseHelper(ListActivity.this);
-				db.cacheComponent(mApp);
-				db.close();
-
 				// We can reasonably expect that the component state
 				// changed, so refresh the list.
 				mListAdapter.notifyDataSetInvalidated();
@@ -715,6 +710,17 @@ public class ListActivity extends ExpandableListActivity {
 			// that the component state changed in the background while
 			// the user decided what to do).
 			Boolean mDoEnable = (Boolean)params[1];
+
+			// Remember that we disabled this component. We do this now,
+			// before we even attempted to change the state - which might
+			// not work. No big deal, the cache entry would just be ignored.
+			// If however something does wrong, and the component is
+			// disabled but NOT cached, this would be much much worse.
+			if (!mDoEnable) {
+				DatabaseHelper db = new DatabaseHelper(ListActivity.this);
+				db.cacheComponent(mApp);
+				db.close();
+			}
 
 			// All right. So we can't use the PackageManager
 			// to disable comonents, since the permission

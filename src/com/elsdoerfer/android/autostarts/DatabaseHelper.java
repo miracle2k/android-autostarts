@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * If a receiver supports multiple actions, multiple cached entries /
      * instances of this class might exist (for the same component).
      */
-    static class ReceiverData {
+    static class ReceiverData implements Comparable<ReceiverData> {
         // These identify the component
         public String packageName;
         public String componentName;
@@ -75,6 +75,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public int hashCode() {
             return (packageName+componentName).hashCode();
         }
+
+		public int compareTo(ReceiverData another) {
+			int result = ((Integer)priority).compareTo(((ReceiverData)another).priority);
+			if (result != 0)
+				return result;
+			else
+				return componentName.compareToIgnoreCase(
+						((ReceiverData)another).componentName);
+		}
     }
 
 

@@ -7,8 +7,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 import android.app.AlertDialog;
@@ -335,8 +339,8 @@ public class ListActivity extends ExpandableListActivity {
 			while (!toCheck.isEmpty()) {
 				View current = toCheck.pop();
 				if (current instanceof TextView && (
-						((TextView)current).getText() == searchFor1) ||
-						((TextView)current).getText() == searchFor2)
+						((TextView)current).getText().equals(searchFor1) ||
+						((TextView)current).getText().equals(searchFor2)))
 				{
 					((TextView)current).setText((app.enabled)
 							? R.string.disable
@@ -522,6 +526,20 @@ public class ListActivity extends ExpandableListActivity {
         		}
         	}
         }
+
+        // Sort both groups and children. This ensures that the components
+        // we add from the cache take the same place they had before, when
+        // they were discovered.
+        Collections.sort(receiversByIntent, new Comparator<ActionWithReceivers>() {
+			public int compare(ActionWithReceivers object1,
+					ActionWithReceivers object2) {
+				int idx1 = getHashMapIndex(actionMap, object1.action);
+				int idx2 = getHashMapIndex(actionMap, object2.action);
+				return ((Integer)idx1).compareTo(idx2);
+			}
+        });
+        for (ActionWithReceivers action : receiversByIntent)
+        	Collections.sort(action.receivers);
 
         mListAdapter.setData(receiversByIntent);
         mListAdapter.notifyDataSetChanged();
@@ -907,5 +925,23 @@ public class ListActivity extends ExpandableListActivity {
 				out.append(buffer, 0, read);
 		} while (read>=0);
 		return out.toString();
+	}
+
+	/**
+	 * Stupid Java's LinkedHashMap has no indexOf() method.
+	 */
+	static int getHashMapIndex(LinkedHashMap<?, ?> map, Object search) {
+		Set<?> keys = map.keySet();
+		Iterator<?> i = keys.iterator();
+		Object curr;
+		int count = -1;
+		do {
+			curr = i.next();
+			count++;
+			if (curr.equals(search))
+				return count;
+		}
+		while (i.hasNext());
+		return -1;
 	}
 }

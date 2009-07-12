@@ -7,6 +7,7 @@
     <string name="appliation_info">Application Info</string>
     <string name="find_in_market">Find in Market</string>
     <string name="disable">Disable</string>
+    <string name="enable">Enable</string>
     <string name="toggle_sys_apps">Toggle system apps</string>
     <string name="expand_all">Expand all</string>
     <string name="collapse_all">Collapse all</string>

@@ -50,3 +50,6 @@ enable them. Explain in help section, why this separate view is necessary:
 Because due to API limitations (GET_INTENT_FILTERS not implemented), we
 are unable to get information about which intents a disabled comonent would
 handle.
+
+community features
+remember expandend / toggle states and restore

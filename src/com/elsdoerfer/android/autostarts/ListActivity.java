@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Stack;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -209,21 +210,19 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == RECEIVER_DETAIL) {
+			final ReceiverData app = (ReceiverData) mListAdapter.getChild(
+					mLastSelectedItem[0], mLastSelectedItem[1]);
 			View v = getLayoutInflater().inflate(
 				R.layout.receiver_info_panel, null, false);
 			Dialog d = new AlertDialog.Builder(this).setItems(
 				new CharSequence[] {
-						getResources().getString(R.string.disable),
+						getResources().getString((app.enabled)
+								? R.string.disable
+								: R.string.enable),
 						getResources().getString(R.string.appliation_info),
 						getResources().getString(R.string.find_in_market)},
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						final ReceiverData app = (ReceiverData) mListAdapter.getChild(
-								mLastSelectedItem[0], mLastSelectedItem[1]);
-						// Query and store here so that in unlikely case that
-						// state changes while we display the dialog, we still
-						// change in the direction we claimed to the user we
-						// would.
 						final Boolean doEnable = !app.enabled;
 						switch (which) {
 						case 0:
@@ -280,7 +279,7 @@ public class ListActivity extends ExpandableListActivity {
 			// our current implementation means that the prepare code
 			// will be run twice when the dialog is created for the first
 			// time under normal circumstances.
-			prepareReceiverDetailDialog(d, v);
+			prepareReceiverDetailDialog(d, v, false);
 			return d;
 		}
 		else
@@ -290,7 +289,8 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		super.onPrepareDialog(id, dialog);
-		prepareReceiverDetailDialog(dialog, dialog.getWindow().getDecorView());
+		prepareReceiverDetailDialog(dialog, dialog.getWindow().getDecorView(),
+				true);
 	}
 
 	/**
@@ -300,13 +300,57 @@ public class ListActivity extends ExpandableListActivity {
 	 * As a result, the view objects needs to be accessed differently,
 	 * and is thus handled via an argument here.
 	 */
-	private void prepareReceiverDetailDialog(Dialog dialog, View view) {
+	private void prepareReceiverDetailDialog(Dialog dialog, View view,
+			boolean rewriteCaption) {
 		ActionWithReceivers action =
 			(ActionWithReceivers) mListAdapter.getGroup(mLastSelectedItem[0]);
 		ReceiverData app = (ReceiverData) mListAdapter.getChild(
 			mLastSelectedItem[0], mLastSelectedItem[1]);
 
 		dialog.setTitle(app.activityInfo.loadLabel(getPackageManager()));
+
+		// This is a terribly terrible hack to change the menu item caption
+		// to match the current state of the selected item. Unfortunately,
+		// there doesn't seem to be a better way to change the list items
+		// during onPrepare(), except possibly using a dedicated list
+		// adapter, which would also be a lot of work.
+		//
+		// To make things worse, this code results in a strange
+		// "requestFeature() must be called before adding content" error
+		// when it is called from onCreate(), i.e. before the dialog was
+		// shown at least once. As a result, we need to use the
+		// "rewriteCaption" caption flag to disable this part in the
+		// onCreate() case. Ergo, the caption is initialized correctly in
+		// onCreate() by itself, leading to some code duplication.
+		//
+		// Note that trying to findById(android.R.id.text1) might also work
+		// (not tried - all list items have that id, but we need only the
+		// first), but seems less stable; The list items having that id is
+		// probably not guaranteed.
+		if (rewriteCaption) {
+			final String searchFor1 = getResources().getString(R.string.disable);
+			final String searchFor2 = getResources().getString(R.string.enable);
+			final Stack<View> toCheck = new Stack<View>();
+			toCheck.add(dialog.getWindow().getDecorView());
+			while (!toCheck.isEmpty()) {
+				View current = toCheck.pop();
+				if (current instanceof TextView && (
+						((TextView)current).getText() == searchFor1) ||
+						((TextView)current).getText() == searchFor2)
+				{
+					((TextView)current).setText((app.enabled)
+							? R.string.disable
+							: R.string.enable);
+					break;
+				}
+				// search children
+				else if (current instanceof ViewGroup) {
+					ViewGroup vg = (ViewGroup)current;
+					for (int i=0; i<vg.getChildCount(); i++)
+						toCheck.add(vg.getChildAt(i));
+				}
+			}
+		}
 
 		int t = 0;
 		SpannableStringBuilder b = new SpannableStringBuilder();

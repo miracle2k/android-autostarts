@@ -215,9 +215,10 @@ public class ListActivity extends ExpandableListActivity {
 	protected Dialog onCreateDialog(int id) {
 		if (id == RECEIVER_DETAIL) {
 			final ReceiverData app = (ReceiverData) mListAdapter.getChild(
-					mLastSelectedItem[0], mLastSelectedItem[1]);
+					mLastSelectedItem[0], mLastSelectedItem[1]);  // Only for the first init through onCreate()
 			View v = getLayoutInflater().inflate(
 				R.layout.receiver_info_panel, null, false);
+
 			Dialog d = new AlertDialog.Builder(this).setItems(
 				new CharSequence[] {
 						getResources().getString((app.enabled)
@@ -225,8 +226,11 @@ public class ListActivity extends ExpandableListActivity {
 								: R.string.enable),
 						getResources().getString(R.string.appliation_info),
 						getResources().getString(R.string.find_in_market)},
-				new DialogInterface.OnClickListener() {
+				new DialogInterface.OnClickListener()
+				{
 					public void onClick(DialogInterface dialog, int which) {
+						final ReceiverData app = (ReceiverData) mListAdapter.getChild(
+								mLastSelectedItem[0], mLastSelectedItem[1]);
 						final Boolean doEnable = !app.enabled;
 						switch (which) {
 						case 0:

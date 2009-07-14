@@ -67,7 +67,7 @@
 	<string name="act_media_bad_removal">Bad media removal</string>
 	<string name="act_media_bad_removal_detail">External media was removed, but not correctly unmounted.</string>
 	<string name="act_media_button">Media button pressed</string>
-	<string name="act_media_button_detail">The "Media Button" was pressed.</string>
+	<string name="act_media_button_detail">The "Media Button" was pressed. Usually, this will refer to a button on your headset/earplugs.</string>
 	<string name="act_media_checking">Checking media</string>
 	<string name="act_media_checking_detail">External media is present and is currently being disk-checked.</string>
 	<string name="act_media_eject">Media ejecting</string>
@@ -91,7 +91,7 @@
 	<string name="act_media_unmounted">Media unmounted</string>
 	<string name="act_media_unmounted_detail">External media is available, but unmounted, and not available to the device.</string>
 	<string name="act_new_outgoing_call">New outgoing call</string>
-	<string name="act_new_outgoing_call_detail">A new outgoing call is about to be placed.</string>
+	<string name="act_new_outgoing_call_detail">A new outgoing call is about to be placed. Applications may preprocess the call, and for example change or filter the phone number.</string>
 	<string name="act_package_added">Application installed</string>
 	<string name="act_package_added_detail">A new application package has been installed on the device.</string>
 	<string name="act_package_changed">Application changed</string>
@@ -201,7 +201,7 @@
 	<string name="act_appwidget_enabled">Widget enabled</string>
 	<string name="act_appwidget_enabled_detail">The first copy of a widget was added.</string>
 	<string name="act_appwidget_update">Widget updating</string>
-	<string name="act_appwidget_update_detail">A widget is asked to update itself. Each widget may determine itself how often this is triggered. However, the event is ignored for widgets that are not in use.</string>
+	<string name="act_appwidget_update_detail">A widget is asked to update itself. How often this is triggered depends on the widget in question, but never for widgets that are not in use.\n\n<b>Note that disabling this event will likely render the widget defunct.</b></string>
 	<string name="act_appwidget_disabled">Widget disabled</string>
 	<string name="act_appwidget_disabled_detail">The last copy of a widget was removed.</string>
 	<string name="act_appwidget_deleted">Widget deleted</string>

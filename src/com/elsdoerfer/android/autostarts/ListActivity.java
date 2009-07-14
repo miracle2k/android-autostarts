@@ -24,6 +24,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -33,6 +34,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Contacts.PresenceColumns;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.StrikethroughSpan;
@@ -93,6 +95,9 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int MENU_HELP = 4;
 	static final private int RECEIVER_DETAIL = 1;
 
+	static final private String PREFS_NAME = "common";
+	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
+
 	private MenuItem mExpandCollapseToggleItem;
 	private Toast mInfoToast;
 
@@ -100,6 +105,7 @@ public class ListActivity extends ExpandableListActivity {
 	private final LinkedHashMap<String, Object[]>
 		actionMap = new LinkedHashMap<String, Object[]>();
 	private DatabaseHelper mDb;
+	private SharedPreferences mPrefs;
 	private Integer[] mLastSelectedItem = { -1, -1 };
 	private Boolean mExpandSuggested = true;
 
@@ -107,6 +113,8 @@ public class ListActivity extends ExpandableListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
+
+        mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         mDb = new DatabaseHelper(this);
         // This is just to workaround "Can't upgrade read-only database..."
@@ -127,6 +135,11 @@ public class ListActivity extends ExpandableListActivity {
         		this, R.layout.group_row, R.layout.child_row);
         setListAdapter(mListAdapter);
 
+        // Restore preferences
+    	mListAdapter.setFilterSystemApps(
+    			mPrefs.getBoolean(PREF_FILTER_SYS_APPS, false));
+
+        // Initial load
         load();
     }
 
@@ -186,11 +199,17 @@ public class ListActivity extends ExpandableListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MENU_FILTER:
-			if (mListAdapter.toggleFilterSystemApps())
+			boolean newDoFilter;
+			if (mListAdapter.toggleFilterSystemApps()) {
 				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers_filtered);
-			else
+				newDoFilter = true;
+			}
+			else {
 				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers);
+				newDoFilter = false;
+			}
 			mListAdapter.notifyDataSetChanged();
+			mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, newDoFilter).commit();
 		    return true;
 		case MENU_EXPAND_COLLAPSE:
 			ExpandableListView lv = getExpandableListView();
@@ -721,11 +740,22 @@ public class ListActivity extends ExpandableListActivity {
          *
          * Returns True if the list is filtered.
          *
-         * Expects the caller to also call notifyDataSetChanged(), if necessary.
+         * Expects the caller to also call notifyDataSetChanged(), if
+         * necessary.
          */
         public boolean toggleFilterSystemApps() {
         	mShowSystemApps = !mShowSystemApps;
         	return !mShowSystemApps;
+        }
+
+        /**
+         * Manually decide whether to filter out system applications.
+         *
+         * Expects the caller to also call notifyDataSetChanged(), if
+         * necessary.
+         */
+        public void setFilterSystemApps(boolean newState) {
+        	mShowSystemApps = !newState;
         }
     }
 

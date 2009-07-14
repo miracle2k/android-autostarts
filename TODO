@@ -21,9 +21,6 @@ component may effect multiple entries. At the very least, the UI should
 update accordingly when a component is disabled (striking out multiple
 rows).
 
-Remember "toggle system apps" and possibly als "expand/collapse" state
-across restarts.
-
 Add German localization.
 
 Update our custom colors to be stateful.

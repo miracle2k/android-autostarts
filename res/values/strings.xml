@@ -209,5 +209,5 @@
 	<string name="act_phone_state_changed">Phone state changed</string>
 	<string name="act_phone_state_changed_detail">The call state of the phone has changed, for example when a new call is coming in, a call is accepted, or a previously active call ends.</string>
 	<string name="act_connectivity">Connectivity changed</string>
-	<string name="act_connectivity_detail">The current network connection has changed, e.g. when switching from Wi-Fi to GSM.</string>
+	<string name="act_connectivity_detail">The current network connection has changed, e.g. when switching from Wi-Fi to GSM. Note that since this is also triggered when an initial connection is established, it basically entails the "On Startup" behavior.</string>
 </resources>

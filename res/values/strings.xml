@@ -208,4 +208,6 @@
 	<string name="act_appwidget_deleted_detail">A copy of a widget was removed. Note that most widgets support multiple copies.</string>
 	<string name="act_phone_state_changed">Phone state changed</string>
 	<string name="act_phone_state_changed_detail">The call state of the phone has changed, for example when a new call is coming in, a call is accepted, or a previously active call ends.</string>
+	<string name="act_connectivity">Connectivity changed</string>
+	<string name="act_connectivity_detail">The current network connection has changed, e.g. when switching from Wi-Fi to GSM.</string>
 </resources>

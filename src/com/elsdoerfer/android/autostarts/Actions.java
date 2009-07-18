@@ -128,6 +128,7 @@ final class Actions {
 		// NOTE: The actions below ARE NOT LISTED in "broadcast_actions.txt",
 		// but were collected manually.
 		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
+		{ ConnectivityManager.CONNECTIVITY_ACTION, R.string.act_connectivity, R.string.act_connectivity_detail },
 		// android.appwidget.*
 		// Note that except of UPDATE, the others aren't really sent using a
 		// broadcast, or at least widgets usually don't handle them using a

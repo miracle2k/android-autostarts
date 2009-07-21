@@ -1,5 +1,5 @@
 1.1.2 (2009-07-22)
-	* Support missing CONNECTIVITY_ACTION intents.
+	* Support missing CONNECTIVITY_ACTION intent.
 
 1.1.1 (2009-07-14)
 	* Slightly improved some event descriptions.

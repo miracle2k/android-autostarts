@@ -1,3 +1,6 @@
+import time
+from os import path
+
 config.raw_apk = 'bin/Android-Autostarts.apk'
 
 # vars expected from .fabric: 
@@ -14,14 +17,12 @@ def build():
     manifest = subprocess.Popen(
         ["aapt", "dump", "xmltree", config.raw_apk, "AndroidManifest.xml"],
         stdout=subprocess.PIPE).communicate()[0]
-    version = re.search(r'^\s*A: android:versionName\([^)]+\)="([^"]+)" \(Raw: "[^"]+"\)\s*$', manifest, re.M).groups()[0]
+    config.version = version = re.search(r'^\s*A: android:versionName\([^)]+\)="([^"]+)" \(Raw: "[^"]+"\)\s*$', manifest, re.M).groups()[0]
     
     # add version number to file name
-    import os
-    base, ext = os.path.splitext(config.raw_apk)
+    base, ext = path.splitext(config.raw_apk)
     config.target_apk = '%s-%s%s' % (base, version, ext)
-    local('cp $(raw_apk) $(target_apk)')
-
+    local('cp $(raw_apk) $(target_apk)')   
 
 @depends(build)
 def sign():
@@ -31,8 +32,15 @@ def sign():
     
 @depends(sign)
 def make():
-    # Create a release .apk version.
-    # Right now "sign" already does all the work.
+    # sign() prepares the apk.
+    # We now create an .ini section for our site
+    base, ext = path.splitext(config.target_apk)    
+    ini = open('%s.ini' % base, 'w')
+    ini.write("[%s]\n" % config.version)
+    ini.write("version=%s\n" % config.version)
+    ini.write("timestamp=%s\n" % int(time.time()))
+    ini.write("size_apk=%s\n" % path.getsize(config.target_apk))
+    ini.close()
     pass
 
 

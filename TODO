@@ -1,3 +1,11 @@
+When first starting, show a dedicated dialog that disabling components
+and uninstalling doesn't mix that well.
+
+Can't we just store the list of disabled components somewhere like in 
+/data/system/autostarts-disabled.txt? We do have, after all, root access.
+We'd make sure we write to a separate file and then rm&mv it over, to 
+avoid half-written files on crashes.
+
 There are issues with configuration changes still:
   * Sometimes there seem to be crashes when multiple changes occur after
     each other

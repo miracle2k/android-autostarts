@@ -206,7 +206,7 @@
 	<string name="act_appwidget_disabled_detail">The last copy of a widget was removed.</string>
 	<string name="act_appwidget_deleted">Widget deleted</string>
 	<string name="act_appwidget_deleted_detail">A copy of a widget was removed. Note that most widgets support multiple copies.</string>
-	<string name="act_phone_state_changed">Phone state changed</string>
+	<string name="act_phone_state_changed">Call state changed</string>
 	<string name="act_phone_state_changed_detail">The call state of the phone has changed, for example when a new call is coming in, a call is accepted, or a previously active call ends.</string>
 	<string name="act_connectivity">Connectivity changed</string>
 	<string name="act_connectivity_detail">The current network connection has changed, e.g. when switching from Wi-Fi to GSM. Note that since this is also triggered when a connection is initially established, it effectively entails the &quot;On Startup&quot; behavior.</string>

@@ -1,3 +1,8 @@
+1.1.3 (2009-07-30)
+	* Fixed exception when trying to disable on some non-rooted devices.
+	* Fixed rare exception during system configuration change.
+	* Fixed apostrophe escaping in various texts, the help screen.
+
 1.1.2 (2009-07-22)
 	* Support missing CONNECTIVITY_ACTION intent.
 

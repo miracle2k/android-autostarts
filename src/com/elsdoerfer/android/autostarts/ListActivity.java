@@ -58,6 +58,8 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final String TAG = "Autostarts";
 
+	static final String KEY_LAST_SELECTED_ITEM = "last-selected-item";
+
 	/**
 	 * A particular actions and a list of receivers that register for
 	 * the action.
@@ -105,7 +107,7 @@ public class ListActivity extends ExpandableListActivity {
 		actionMap = new LinkedHashMap<String, Object[]>();
 	private DatabaseHelper mDb;
 	private SharedPreferences mPrefs;
-	private Integer[] mLastSelectedItem = { -1, -1 };
+	private int[] mLastSelectedItem = { -1, -1 };
 	private Boolean mExpandSuggested = true;
 
 	@Override
@@ -128,7 +130,11 @@ public class ListActivity extends ExpandableListActivity {
 
         Object retained = getLastNonConfigurationInstance();
         if (retained != null)
-        	mLastSelectedItem = (Integer[]) retained;
+        	mLastSelectedItem = (int[]) retained;
+        else if (savedInstanceState != null) {
+        	mLastSelectedItem = savedInstanceState.getIntArray(
+        			KEY_LAST_SELECTED_ITEM);
+        }
 
         mListAdapter = new MyExpandableListAdapter(
         		this, R.layout.group_row, R.layout.child_row);
@@ -144,7 +150,15 @@ public class ListActivity extends ExpandableListActivity {
 
     @Override
 	public Object onRetainNonConfigurationInstance() {
+    	// XXX: Actually, retain the list of loaded receivers here,
+    	// that would actually be worth it.
 		return mLastSelectedItem;
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putIntArray(KEY_LAST_SELECTED_ITEM, mLastSelectedItem);
+		super.onSaveInstanceState(outState);
 	}
 
 	@Override

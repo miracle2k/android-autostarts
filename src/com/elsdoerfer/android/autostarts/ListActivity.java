@@ -909,11 +909,11 @@ public class ListActivity extends ExpandableListActivity {
 					deleteFile(scriptFile);
 				}
 			} catch (FileNotFoundException e) {
-				throw new RuntimeException(e);
+				return false;
 			} catch (IOException e) {
-				throw new RuntimeException(e);
+				return false;
 			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
+				return false;
 			}
 		}
 	}

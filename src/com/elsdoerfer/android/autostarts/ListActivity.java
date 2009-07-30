@@ -909,10 +909,13 @@ public class ListActivity extends ExpandableListActivity {
 					deleteFile(scriptFile);
 				}
 			} catch (FileNotFoundException e) {
+				Log.e(TAG, "Failed to change state", e);
 				return false;
 			} catch (IOException e) {
+				Log.e(TAG, "Failed to change state", e);
 				return false;
 			} catch (InterruptedException e) {
+				Log.e(TAG, "Failed to change state", e);
 				return false;
 			}
 		}

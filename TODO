@@ -1,10 +1,16 @@
 When first starting, show a dedicated dialog that disabling components
 and uninstalling doesn't mix that well.
 
-Can't we just store the list of disabled components somewhere like in 
+Can't we just store the list of disabled components somewhere like in
 /data/system/autostarts-disabled.txt? We do have, after all, root access.
-We'd make sure we write to a separate file and then rm&mv it over, to 
+We'd make sure we write to a separate file and then rm&mv it over, to
 avoid half-written files on crashes.
+
+Add a "security log" feature that basically exports the "disabled
+comonents" database to the sdcard in the form of "pm enable" commands,
+automatically and in regular intervals.
+Add a help entry explaining how to use this file in case something goes
+wrong, to restore components.
 
 There are issues with configuration changes still:
   * Sometimes there seem to be crashes when multiple changes occur after
@@ -14,12 +20,6 @@ There are issues with configuration changes still:
   * We could improve performance by not requiring a reload.
 For now, to make these issues less obvious, we have locked the activity
 orientations; this lock could be removed once this todo item is fixed.
-
-Add a "security log" feature that basically exports the "disabled
-comonents" database to the sdcard in the form of "pm enable" commands,
-automatically and in regular intervals.
-Add a help entry explaining how to use this file in case something goes
-wrong, to restore components.
 
 Support grouping by application.
 
@@ -33,6 +33,16 @@ Add German localization.
 
 Update our custom colors to be stateful.
 
+Add a "system view" that goes through packages.xml manually and shows
+all receivers (or even: all components?), allowing users to disable or
+enable them. Explain in help section, why this separate view is necessary:
+Because due to API limitations (GET_INTENT_FILTERS not implemented), we
+are unable to get information about which intents a disabled comonent would
+handle.
+
+Far-Future Ideas, might never be implemented
+============================================
+
 Use a enabled/disabled receiver to automatically reload if a package
 outside of our app is changed.
 
@@ -43,13 +53,6 @@ in frameworks/base:
 	cmds/pm/pm
 	cmds/pm/src/../Pm.java
 	cmds/app_process/*
-
-Add a "system view" that goes through packages.xml manually and shows
-all receivers (or even: all components?), allowing users to disable or
-enable them. Explain in help section, why this separate view is necessary:
-Because due to API limitations (GET_INTENT_FILTERS not implemented), we
-are unable to get information about which intents a disabled comonent would
-handle.
 
 Add social features: People can write comments about individual
 components, and what effects disabling them had. This would need to include

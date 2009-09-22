@@ -45,7 +45,7 @@
 	<string name="act_camera_button">Camera button pressed</string>
 	<string name="act_camera_button_detail">The Camera button was pressed.</string>
 	<string name="act_close_system_dialogs">On System dialogs close</string>
-	<string name="act_close_system_dialogs_detail">Due to a user action, the systems asks a temporary system dialog to be dismissed.</string>
+	<string name="act_close_system_dialogs_detail">Due to a user action, the system asks a temporary system dialog to be dismissed.</string>
 	<string name="act_configuration_changed">Configuration changed</string>
 	<string name="act_configuration_changed_detail">The device configuration changed. This includes things like locale settings, but also the device orientation.</string>
 	<string name="act_date_changed">Date changed</string>

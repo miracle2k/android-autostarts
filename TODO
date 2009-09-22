@@ -4,7 +4,7 @@ It seems on some devices, disabling doesn't work. The error we see is:
   D/Autostarts(  378): Process returned with 254; stdout: ; stderr: su: exec failed for sh
   /data/data/com.elsdoerfer.android.autostarts/files/pm-call.sh Error:No such file or directory
 This is what the problem might be:
-  http://code.google.com/p/android-wifi-tether/issues/detail?id=111 
+  http://code.google.com/p/android-wifi-tether/issues/detail?id=111
 
 When first starting, show a dedicated dialog that disabling components
 and uninstalling doesn't mix that well.
@@ -45,8 +45,11 @@ Add a "system view" that goes through packages.xml manually and shows
 all receivers (or even: all components?), allowing users to disable or
 enable them. Explain in help section, why this separate view is necessary:
 Because due to API limitations (GET_INTENT_FILTERS not implemented), we
-are unable to get information about which intents a disabled comonent would
-handle.
+are unable to get information about which intents a disabled component
+would handle.
+
+Implement the ability to disable a app as a whole; nice to get rid of
+pre-installed applications.
 
 Far-Future Ideas, might never be implemented
 ============================================

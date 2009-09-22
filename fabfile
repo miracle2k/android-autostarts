@@ -1,5 +1,5 @@
 import time
-from os import path
+from os import path, unlink
 
 config.raw_apk = 'bin/Android-Autostarts.apk'
 
@@ -10,27 +10,42 @@ load('.fabric')
 
 def build():
     # Right now we require $apk to exist.
-    # TODO: Lern how to use aapt to build without Eclipse!
+    # TODO: Lern how to use aapt to build without Eclipse!   
+    
+    # copy to a temp file with which we can work
+    config.temp_apk = '%s.temp' % config.raw_apk
+    local('cp $(raw_apk) $(temp_apk)')
+
+
+@depends(build)
+def sign():
+    local('jarsigner -verbose -storepass $(storepass) -keystore $(keystore) $(temp_apk) $(keyalias)')
+    local('jarsigner -verify $(temp_apk)')
+
+    
+@depends(sign)
+def align():
+    """Align requires a different output file than the input; we use this
+    opportunity to create the final output file with version number etc.
+    """
     
     # determine the version number
     import subprocess, re
     manifest = subprocess.Popen(
         ["aapt", "dump", "xmltree", config.raw_apk, "AndroidManifest.xml"],
         stdout=subprocess.PIPE).communicate()[0]
-    config.version = version = re.search(r'^\s*A: android:versionName\([^)]+\)="([^"]+)" \(Raw: "[^"]+"\)\s*$', manifest, re.M).groups()[0]
-    
+    config.version = version = re.search(r'^\s*A: android:versionName\([^)]+\)="([^"]+)" \(Raw: "[^"]+"\)\s*$', manifest, re.M).groups()[0]    
     # add version number to file name
     base, ext = path.splitext(config.raw_apk)
     config.target_apk = '%s-%s%s' % (base, version, ext)
-    local('cp $(raw_apk) $(target_apk)')   
 
-@depends(build)
-def sign():
-    local('jarsigner -verbose -storepass $(storepass) -keystore $(keystore) $(target_apk) $(keyalias)')
-    local('jarsigner -verify $(target_apk)')
+    local('zipalign -f 4 $(temp_apk) $(target_apk)')
     
-    
-@depends(sign)
+    # we can delete the tempfile
+    unlink(config.temp_apk)
+
+
+@depends(align)
 def make():
     # sign() prepares the apk.
     # We now create an .ini section for our site

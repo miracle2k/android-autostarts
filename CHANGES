@@ -1,4 +1,5 @@
 1.1.4 (2009-09-22)
+    * Support missing camera.NEW_PICTURE intent.
 	* Improved logging when an error occurs during component state change,
 	  to allow investigating problems.
 	* "Donut-ready" (compiled against 1.6).

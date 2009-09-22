@@ -81,6 +81,9 @@ final class Actions {
 		{ Intent.ACTION_USER_PRESENT, R.string.act_user_present, R.string.act_user_present_detail },
 		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
 
+		// com.android.camera.*
+		{ "com.android.camera.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail },
+
 		// android.provider.Telephony.*
 		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
 		{ "android.provider.Telephony.SMS_RECEIVED", R.string.act_sms_received, R.string.act_sms_received_detail },

@@ -1,7 +1,8 @@
+config.raw_apk = 'bin/Android-Autostarts.apk'
+
+
 import time
 from os import path, unlink
-
-config.raw_apk = 'bin/Android-Autostarts.apk'
 
 # vars expected from .fabric: 
 #   keystore, keyalias, storepass (optional)

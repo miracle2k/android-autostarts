@@ -90,7 +90,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 		}
 
 		// All right. So we can't use the PackageManager
-		// to disable comonents, since the permission
+		// to disable components, since the permission
 		// required to do so has a protectLevel of
 		// "signature", meaning essentially that we need
 		// to be signed with the system certificate to

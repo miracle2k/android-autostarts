@@ -1,4 +1,4 @@
-1.1.9 (2009-10-04)
+1.1.9 (2009-10-05)
 	* Warn the user more clearly about the dangers of uninstalling the
 	  app while components are still disabled.
 	* Support orientation change.

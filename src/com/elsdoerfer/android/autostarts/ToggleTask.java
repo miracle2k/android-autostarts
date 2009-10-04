@@ -134,9 +134,9 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 				p.waitFor();
 				Log.d(ListActivity.TAG, "Process returned with "+
 						p.exitValue()+"; stdout: "+
-						ListActivity.readStream(p.getInputStream())+
+						Utils.readStream(p.getInputStream())+
 						"; stderr: "+
-						ListActivity.readStream(p.getErrorStream()));
+						Utils.readStream(p.getErrorStream()));
 
 				// In order to consider this a success, we require to
 				// things: a) a proper exit value, and ...

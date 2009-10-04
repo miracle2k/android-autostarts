@@ -532,8 +532,8 @@ public class ListActivity extends ExpandableListActivity {
         Collections.sort(receiversByIntent, new Comparator<ActionWithReceivers>() {
 			public int compare(ActionWithReceivers object1,
 					ActionWithReceivers object2) {
-				int idx1 = getHashMapIndex(actionMap, object1.action);
-				int idx2 = getHashMapIndex(actionMap, object2.action);
+				int idx1 = Utils.getHashMapIndex(actionMap, object1.action);
+				int idx2 = Utils.getHashMapIndex(actionMap, object2.action);
 				return ((Integer)idx1).compareTo(idx2);
 			}
         });
@@ -606,43 +606,5 @@ public class ListActivity extends ExpandableListActivity {
 						: (setting == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
 							? pm.getReceiverInfo(c, PackageManager.GET_DISABLED_COMPONENTS).enabled
 							: null;
-	}
-
-	/**
-	 * It's unbelievable how difficult it is in Java to read a stupid
-	 * stream into a string.
-	 *
-	 * From:
-	 * 	 http://stackoverflow.com/questions/309424/in-java-how-do-a-read-an-input-stream-in-to-a-string
-	 */
-	static String readStream(InputStream stream) throws IOException {
-		final char[] buffer = new char[0x10000];
-		StringBuilder out = new StringBuilder();
-		Reader in = new InputStreamReader(stream, "UTF-8");
-		int read;
-		do {
-			read = in.read(buffer, 0, buffer.length);
-			if (read>0)
-				out.append(buffer, 0, read);
-		} while (read>=0);
-		return out.toString();
-	}
-
-	/**
-	 * Stupid Java's LinkedHashMap has no indexOf() method.
-	 */
-	static int getHashMapIndex(LinkedHashMap<?, ?> map, Object search) {
-		Set<?> keys = map.keySet();
-		Iterator<?> i = keys.iterator();
-		Object curr;
-		int count = -1;
-		do {
-			curr = i.next();
-			count++;
-			if (curr.equals(search))
-				return count;
-		}
-		while (i.hasNext());
-		return -1;
 	}
 }

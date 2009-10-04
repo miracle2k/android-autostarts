@@ -40,6 +40,7 @@ import com.elsdoerfer.android.autostarts.DatabaseHelper.ReceiverData;
 public class ListActivity extends ExpandableListActivity {
 
 	static final String TAG = "Autostarts";
+	static final Boolean LOGV = false;
 
 	static final private int MENU_FILTER = 1;
 	static final private int MENU_EXPAND_COLLAPSE = 2;
@@ -461,7 +462,7 @@ public class ListActivity extends ExpandableListActivity {
         for (Object[] intent : Actions.ALL) {
             Intent query = new Intent();
             query.setAction((String)(intent[0]));
-            Log.d(TAG, "Querying receivers for action: "+(String)(intent[0]));
+            if (LOGV) Log.v(TAG, "Querying receivers for action: "+(String)(intent[0]));
 	        List<ResolveInfo> receivers = pm.queryBroadcastReceivers(query,
 	        		PackageManager.GET_INTENT_FILTERS);
 
@@ -473,9 +474,9 @@ public class ListActivity extends ExpandableListActivity {
 	        for (int i=receivers.size()-1; i>=0; i--) {
 	        	ResolveInfo info = receivers.get(i);
 	        	ReceiverData data = new ReceiverData();
-	        	Log.d(TAG, "Found receiver: "+info.toString());
+	        	if (LOGV) Log.v(TAG, "Found receiver: "+info.toString());
 	        	if (info.activityInfo == null) {
-	        		Log.d(TAG, "activityInfo is null?!");
+	        		Log.d(TAG, "activityInfo is null for "+info.toString()+"?!");
 	        		continue;
 	        	} else {
 	        		data.packageName = info.activityInfo.packageName;
@@ -505,7 +506,7 @@ public class ListActivity extends ExpandableListActivity {
         		// We are apparently able to find this via normal recovery,
         		// we can thus move on and delete it from the cache.
         		Log.d(TAG, "Remembered disabled component found through "+
-					"normal discovery, deleting from cache");
+					"normal discovery, deleting from cache: "+c);
         		mDb.uncacheComponent(c);
         	}
         	else {
@@ -514,7 +515,7 @@ public class ListActivity extends ExpandableListActivity {
 				} catch (NameNotFoundException e) {
 					// Apparently, this component no longer exists.
 					Log.d(TAG, "Remembered disabled component no longer "+
-							"exists, deleting from cache");
+							"exists, deleting from cache: "+c);
 					mDb.uncacheComponent(c);
 					continue;
 				}
@@ -528,7 +529,7 @@ public class ListActivity extends ExpandableListActivity {
         			Log.d(TAG, "Remembered disabled component was found "+
         					"to be enabled, but for some reason wasn't "+
         					"matched with a discovered comonent. This "+
-        					"shouldn't happen");
+        					"shouldn't happen: "+c);
         			mDb.uncacheComponent(c);
         		}
         		else {

@@ -20,15 +20,6 @@ automatically and in regular intervals.
 Add a help entry explaining how to use this file in case something goes
 wrong, to restore components.
 
-There are issues with configuration changes still:
-  * Sometimes there seem to be crashes when multiple changes occur after
-    each other
-  * There are definite issues with the background task, and an orientation
-    change that happens in the meantime.
-  * We could improve performance by not requiring a reload.
-For now, to make these issues less obvious, we have locked the activity
-orientations; this lock could be removed once this todo item is fixed.
-
 Support grouping by application.
 
 Currently, we don't pay any attention to the fact that a single receiver

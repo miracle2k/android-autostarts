@@ -1,3 +1,6 @@
+1.2.0 (2009-10-X)
+	* Support orientation change.
+
 1.1.4 (2009-09-22)
     * Support missing camera.NEW_PICTURE intent.
 	* Improved logging when an error occurs during component state change,

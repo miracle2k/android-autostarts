@@ -9,6 +9,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Due to stupid Android API limitations with respect to querying the
@@ -29,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * If a receiver supports multiple actions, multiple cached entries /
      * instances of this class might exist (for the same component).
      */
-    static class ReceiverData implements Comparable<ReceiverData> {
+    static class ReceiverData implements Comparable<ReceiverData>, Parcelable {
         // These identify the component
         public String packageName;
         public String componentName;
@@ -43,6 +45,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // manager. We only load this when needed.
         public ActivityInfo activityInfo;
         public Boolean enabled;
+
+		private ReceiverData(Parcel in) {
+			packageName = in.readString();
+			componentName = in.readString();
+			action = in.readString();
+			priority = in.readInt();
+			activityInfo = in.readParcelable(ActivityInfo.class.getClassLoader());
+		    enabled = in.readInt() == 1;
+		}
+
+		public ReceiverData() {
+		}
+
 
         /**
          * Initialize runtime data.
@@ -84,6 +99,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				return componentName.compareToIgnoreCase(
 						((ReceiverData)another).componentName);
 		}
+
+		public int describeContents() {
+			return 0;
+		}
+
+		public void writeToParcel(Parcel dest, int flags) {
+			dest.writeString(packageName);
+			dest.writeString(componentName);
+			dest.writeString(action);
+			dest.writeInt(priority);
+			dest.writeParcelable(activityInfo, flags);
+			dest.writeInt(enabled ? 1 : 0);
+		}
+
+		public static final Parcelable.Creator<ReceiverData> CREATOR
+        		= new Parcelable.Creator<ReceiverData>()
+		{
+		    public ReceiverData createFromParcel(Parcel in) {
+		        return new ReceiverData(in);
+		    }
+
+		    public ReceiverData[] newArray(int size) {
+		        return new ReceiverData[size];
+		    }
+		};
     }
 
 

@@ -1,16 +1,10 @@
 package com.elsdoerfer.android.autostarts;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 
 import android.app.AlertDialog;
@@ -47,8 +41,6 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final String TAG = "Autostarts";
 
-	static final String KEY_LAST_SELECTED_ITEM = "last-selected-item";
-
 	static final private int MENU_FILTER = 1;
 	static final private int MENU_EXPAND_COLLAPSE = 2;
 	static final private int MENU_RELOAD = 3;
@@ -65,39 +57,29 @@ public class ListActivity extends ExpandableListActivity {
 	private Toast mInfoToast;
 
 	MyExpandableListAdapter mListAdapter;
-	private final LinkedHashMap<String, Object[]>
-		actionMap = new LinkedHashMap<String, Object[]>();
+	private LinkedHashMap<String, Object[]> mActionMap;
+	private ArrayList<ActionWithReceivers> mReceiversByIntent;
 	private DatabaseHelper mDb;
 	private SharedPreferences mPrefs;
-	private int[] mLastSelectedItem = { -1, -1 };
 	private Boolean mExpandSuggested = true;
 
+	// Due to Android deficiencies (can't pass data to showDialog()),
+	// we need to store that data globally.
+	private ReceiverData mLastSelectedReceiver;
+	private String mLastSelectedAction;
+	private boolean mLastChangeRequestDoEnable;
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle saved) {
+        super.onCreate(saved);
         setContentView(R.layout.list);
 
+        // Set everything up.
         mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
         mDb = new DatabaseHelper(this);
         // This is just to workaround "Can't upgrade read-only database..."
         // exceptions, when an upgrade is necessary.
         mDb.getWritableDatabase().close();
-
-        // Convert the list of available actions (and their data) into a
-        // ordered hash map which we are than able to easily query by action
-        // name.
-        for (Object[] action : Actions.ALL)
-        	actionMap.put((String)action[0], action);
-
-        Object retained = getLastNonConfigurationInstance();
-        if (retained != null)
-        	mLastSelectedItem = (int[]) retained;
-        else if (savedInstanceState != null) {
-        	mLastSelectedItem = savedInstanceState.getIntArray(
-        			KEY_LAST_SELECTED_ITEM);
-        }
-
         mListAdapter = new MyExpandableListAdapter(
         		this, R.layout.group_row, R.layout.child_row);
         setListAdapter(mListAdapter);
@@ -106,20 +88,59 @@ public class ListActivity extends ExpandableListActivity {
     	mListAdapter.setFilterSystemApps(
     			mPrefs.getBoolean(PREF_FILTER_SYS_APPS, false));
 
-        // Initial load
-        load();
+    	// Init/restore retained and instance data. If we have data
+        // retained, we can speed things up significantly by not having
+        // to do a load.
+        Object retained = getLastNonConfigurationInstance();
+        if (retained != null) {
+        	// Be careful not to copy any objects that reference the
+        	// activity itself, or we would leak it!
+        	ListActivity oldActivity = (ListActivity) retained;
+        	mLastSelectedReceiver = oldActivity.mLastSelectedReceiver;
+        	mLastSelectedAction = oldActivity.mLastSelectedAction;
+        	mLastChangeRequestDoEnable = oldActivity.mLastChangeRequestDoEnable;
+        	mActionMap = oldActivity.mActionMap;
+        	mReceiversByIntent = oldActivity.mReceiversByIntent;
+        	apply();
+        }
+        // Otherwise, we are going to have to init certain data
+        // ourselves, and load some from from instance state, if
+        // available.
+        else {
+        	if (saved != null) {
+        		mLastSelectedReceiver = saved.getParcelable("selected-receiver");
+            	mLastSelectedAction = saved.getString("selected-action");
+            	mLastChangeRequestDoEnable = saved.getBoolean("change-do-enable");
+        	}
+
+            // Convert the list of available actions (and their data) into a
+            // ordered hash map which we are than able to easily query by action
+            // name.
+        	mActionMap = new LinkedHashMap<String, Object[]>();
+            for (Object[] action : Actions.ALL)
+            	mActionMap.put((String)action[0], action);
+
+            // Initial load
+            loadAndApply();
+        }
     }
 
     @Override
 	public Object onRetainNonConfigurationInstance() {
-    	// XXX: Actually, retain the list of loaded receivers here,
-    	// that would actually be worth it.
-		return mLastSelectedItem;
+    	// Retain the full activity; it's just simpler as opposed to
+    	// copying a bunch of stuff to an array; but we need to be very
+    	// careful here not to leak it when we restore.
+		return this;
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		outState.putIntArray(KEY_LAST_SELECTED_ITEM, mLastSelectedItem);
+		outState.putBoolean("change-do-enable", mLastChangeRequestDoEnable);
+		outState.putParcelable("selected-receiver", mLastSelectedReceiver);
+		// No need to store the whole list of receivers for this action as
+		// well; we just store the action name (which is unique), and can
+		// thus restore based on it.
+		outState.putString("selected-action", mLastSelectedAction);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -195,7 +216,7 @@ public class ListActivity extends ExpandableListActivity {
 					lv.collapseGroup(i);
 			return true;
 		case MENU_RELOAD:
-			load();
+			loadAndApply();
 			return true;
 		case MENU_HELP:
 			startActivity(new Intent(this, HelpActivity.class));
@@ -209,14 +230,12 @@ public class ListActivity extends ExpandableListActivity {
 	protected Dialog onCreateDialog(int id) {
 		if (id == DIALOG_RECEIVER_DETAIL)
 		{
-			final ReceiverData app = (ReceiverData) mListAdapter.getChild(
-					mLastSelectedItem[0], mLastSelectedItem[1]);  // Only for the first init through onCreate()
 			View v = getLayoutInflater().inflate(
 				R.layout.receiver_info_panel, null, false);
 
 			Dialog d = new AlertDialog.Builder(this).setItems(
 				new CharSequence[] {
-						getResources().getString((app.enabled)
+						getResources().getString((mLastSelectedReceiver.enabled)
 								? R.string.disable
 								: R.string.enable),
 						getResources().getString(R.string.appliation_info),
@@ -224,43 +243,30 @@ public class ListActivity extends ExpandableListActivity {
 				new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which) {
-						final ReceiverData app = (ReceiverData) mListAdapter.getChild(
-								mLastSelectedItem[0], mLastSelectedItem[1]);
-						final Boolean doEnable = !app.enabled;
+						mLastChangeRequestDoEnable = !mLastSelectedReceiver.enabled;
 						switch (which) {
 						case 0:
-							if (isSystemApp(app) && !doEnable) {
-								new AlertDialog.Builder(ListActivity.this)
-									.setTitle(R.string.warning)
-									.setMessage(R.string.confirm_sys_disable)
-									.setIcon(android.R.drawable.ic_dialog_alert)
-									.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-										public void onClick(DialogInterface dialog, int which) {
-											new ToggleTask(ListActivity.this).execute(app, doEnable);
-										}
-									})
-									.setNegativeButton(android.R.string.cancel, null)
-									.create()
-									.show();
-							}
+							if (isSystemApp(mLastSelectedReceiver) && !mLastChangeRequestDoEnable)
+								showDialog(DIALOG_CONFIRM_SYSAPP_CHANGE);
 							else
-								new ToggleTask(ListActivity.this).execute(app, doEnable);
+								new ToggleTask(ListActivity.this).execute(
+										mLastSelectedReceiver, mLastChangeRequestDoEnable);
 
 							break;
 						case 1:
 							Intent infoIntent = new Intent();
 							// From android-cookbook/GroupHome - it notes:
-							// "we shouldnt rely on this entrance into the settings app"
+							// "we shouldn't rely on this entrance into the settings app"
 							infoIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
 							infoIntent.putExtra("com.android.settings.ApplicationPkgName",
-			                	app.activityInfo.applicationInfo.packageName);
+			                	mLastSelectedReceiver.activityInfo.applicationInfo.packageName);
 			                startActivity(infoIntent);
 							break;
 						case 2:
 							try {
 								Intent marketIntent = new Intent(Intent.ACTION_VIEW);
 								marketIntent.setData(Uri.parse("market://search?q=pname:"+
-										app.activityInfo.applicationInfo.packageName));
+										mLastSelectedReceiver.activityInfo.applicationInfo.packageName));
 								startActivity(marketIntent);
 							}
 							catch (ActivityNotFoundException e) {}
@@ -277,7 +283,7 @@ public class ListActivity extends ExpandableListActivity {
 
 			// Due to a bug in Android, onPrepareDialog() is not called
 			// when an existing dialog is restored on orientation change.
-			// We therefore need to make sure ourselfs that the dialog
+			// We therefore need to make sure ourselves that the dialog
 			// is initialized correctly in this case as well. Note that
 			// our current implementation means that the prepare code
 			// will be run twice when the dialog is created for the first
@@ -285,6 +291,23 @@ public class ListActivity extends ExpandableListActivity {
 			prepareReceiverDetailDialog(d, v, false);
 			return d;
 		}
+
+		else if (id == DIALOG_CONFIRM_SYSAPP_CHANGE)
+		{
+			return new AlertDialog.Builder(ListActivity.this)
+				.setTitle(R.string.warning)
+				.setMessage(R.string.confirm_sys_disable)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						new ToggleTask(ListActivity.this).execute(
+								mLastSelectedReceiver, mLastChangeRequestDoEnable);
+					}
+				})
+				.setNegativeButton(android.R.string.cancel, null)
+				.create();
+		}
+
 		else
 			return super.onCreateDialog(id);
 	}
@@ -292,8 +315,10 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		super.onPrepareDialog(id, dialog);
-		prepareReceiverDetailDialog(dialog, dialog.getWindow().getDecorView(),
-				true);
+		if (id == DIALOG_RECEIVER_DETAIL) {
+			prepareReceiverDetailDialog(dialog, dialog.getWindow().getDecorView(),
+					true);
+		}
 	}
 
 	/**
@@ -305,12 +330,8 @@ public class ListActivity extends ExpandableListActivity {
 	 */
 	private void prepareReceiverDetailDialog(Dialog dialog, View view,
 			boolean rewriteCaption) {
-		ActionWithReceivers action =
-			(ActionWithReceivers) mListAdapter.getGroup(mLastSelectedItem[0]);
-		ReceiverData app = (ReceiverData) mListAdapter.getChild(
-			mLastSelectedItem[0], mLastSelectedItem[1]);
 
-		dialog.setTitle(app.activityInfo.loadLabel(getPackageManager()));
+		dialog.setTitle(mLastSelectedReceiver.activityInfo.loadLabel(getPackageManager()));
 
 		// This is a terribly terrible hack to change the menu item caption
 		// to match the current state of the selected item. Unfortunately,
@@ -341,7 +362,7 @@ public class ListActivity extends ExpandableListActivity {
 						((TextView)current).getText().equals(searchFor1) ||
 						((TextView)current).getText().equals(searchFor2)))
 				{
-					((TextView)current).setText((app.enabled)
+					((TextView)current).setText((mLastSelectedReceiver.enabled)
 							? R.string.disable
 							: R.string.enable);
 					break;
@@ -359,15 +380,15 @@ public class ListActivity extends ExpandableListActivity {
 		SpannableStringBuilder b = new SpannableStringBuilder();
 		b.append("Receiver ");
 		t = b.length();
-		b.append(app.activityInfo.name);
+		b.append(mLastSelectedReceiver.activityInfo.name);
 		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
 		b.append(" handles action ");
 		t = b.length();
-		b.append((String)(action.action));
+		b.append((String)(mLastSelectedAction));
 		b.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), t, b.length(), 0);
 		b.append(" with priority ");
 		t = b.length();
-		b.append(Integer.toString(app.priority));
+		b.append(Integer.toString(mLastSelectedReceiver.priority));
 		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
 		b.append(".");
 
@@ -377,8 +398,10 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		mLastSelectedItem[0] = groupPosition;
-		mLastSelectedItem[1] = childPosition;
+		mLastSelectedAction =
+			((ActionWithReceivers) mListAdapter.getGroup(groupPosition)).action;
+		mLastSelectedReceiver =
+			(ReceiverData) mListAdapter.getChild(groupPosition, childPosition);
 		showDialog(DIALOG_RECEIVER_DETAIL);
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
@@ -423,7 +446,7 @@ public class ListActivity extends ExpandableListActivity {
      * For now, we are going with 2).
      */
     // TODO: move this to an ASyncTask
-	private void load() {
+	private ArrayList<ActionWithReceivers> load() {
         final PackageManager pm = getPackageManager();
 
         ArrayList<ActionWithReceivers> receiversByIntent =
@@ -532,23 +555,32 @@ public class ListActivity extends ExpandableListActivity {
         Collections.sort(receiversByIntent, new Comparator<ActionWithReceivers>() {
 			public int compare(ActionWithReceivers object1,
 					ActionWithReceivers object2) {
-				int idx1 = Utils.getHashMapIndex(actionMap, object1.action);
-				int idx2 = Utils.getHashMapIndex(actionMap, object2.action);
+				int idx1 = Utils.getHashMapIndex(mActionMap, object1.action);
+				int idx2 = Utils.getHashMapIndex(mActionMap, object2.action);
 				return ((Integer)idx1).compareTo(idx2);
 			}
         });
         for (ActionWithReceivers action : receiversByIntent)
         	Collections.sort(action.receivers);
 
-        mListAdapter.setData(receiversByIntent);
-        mListAdapter.notifyDataSetChanged();
+        return receiversByIntent;
     }
+
+	private void apply() {
+		mListAdapter.setData(mReceiversByIntent);
+        mListAdapter.notifyDataSetChanged();
+	}
+
+	private void loadAndApply() {
+		mReceiversByIntent = load();
+		apply();
+	}
 
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
     // This would be an improvement because we could control it better: Show it longer,
     // but have it disappear when the user clicks on it (toasts don't receive clicks).
     public void showInfoToast(ActionWithReceivers action) {
-    	Object[] data = actionMap.get(action.action);
+    	Object[] data = mActionMap.get(action.action);
     	if (mInfoToast == null) {
     		LayoutInflater inflater = getLayoutInflater();
     		View layout = inflater.inflate(R.layout.detail_toast,
@@ -577,7 +609,7 @@ public class ListActivity extends ExpandableListActivity {
      * if available, and falls back to the raw class name.
      */
 	String getIntentName(ActionWithReceivers action) {
-		Object[] data = actionMap.get(action.action);
+		Object[] data = mActionMap.get(action.action);
 		return (data[1] != null) ?
 				getResources().getString((Integer)data[1]) :
 				(String)data[0];

@@ -49,9 +49,11 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final private int DIALOG_RECEIVER_DETAIL = 1;
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
+	static final private int DIALOG_UNINSTALL_WARNING = 3;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
+	static final private String PREF_UNINSTALL_WARNING_SHOWN = "uninstall-warning-shown";
 
 
 	private MenuItem mExpandCollapseToggleItem;
@@ -69,6 +71,7 @@ public class ListActivity extends ExpandableListActivity {
 	private ReceiverData mLastSelectedReceiver;
 	private String mLastSelectedAction;
 	private boolean mLastChangeRequestDoEnable;
+	private boolean mUninstallWarningShown;
 
 	@Override
     public void onCreate(Bundle saved) {
@@ -102,6 +105,7 @@ public class ListActivity extends ExpandableListActivity {
         	mLastChangeRequestDoEnable = oldActivity.mLastChangeRequestDoEnable;
         	mActionMap = oldActivity.mActionMap;
         	mReceiversByIntent = oldActivity.mReceiversByIntent;
+        	mUninstallWarningShown = oldActivity.mUninstallWarningShown;
         	apply();
         }
         // Otherwise, we are going to have to init certain data
@@ -112,16 +116,21 @@ public class ListActivity extends ExpandableListActivity {
         		mLastSelectedReceiver = saved.getParcelable("selected-receiver");
             	mLastSelectedAction = saved.getString("selected-action");
             	mLastChangeRequestDoEnable = saved.getBoolean("change-do-enable");
+            	mUninstallWarningShown = saved.getBoolean("uninstall-warning-shown");
+        	}
+        	else {
+        		mUninstallWarningShown = mPrefs.getBoolean(
+        				PREF_UNINSTALL_WARNING_SHOWN, false);
         	}
 
-            // Convert the list of available actions (and their data) into a
-            // ordered hash map which we are than able to easily query by action
-            // name.
+            // Convert the list of available actions (and their data) into
+            // a ordered hash map which we are than able to easily query by
+        	// action name.
         	mActionMap = new LinkedHashMap<String, Object[]>();
             for (Object[] action : Actions.ALL)
             	mActionMap.put((String)action[0], action);
 
-            // Initial load
+            // Initial load.
             loadAndApply();
         }
     }
@@ -306,6 +315,16 @@ public class ListActivity extends ExpandableListActivity {
 					}
 				})
 				.setNegativeButton(android.R.string.cancel, null)
+				.create();
+		}
+
+		else if (id == DIALOG_UNINSTALL_WARNING)
+		{
+			return new AlertDialog.Builder(ListActivity.this)
+				.setTitle(R.string.warning)
+				.setMessage(R.string.uninstall_warning)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(android.R.string.ok, null)
 				.create();
 		}
 
@@ -575,6 +594,14 @@ public class ListActivity extends ExpandableListActivity {
 	private void loadAndApply() {
 		mReceiversByIntent = load();
 		apply();
+	}
+
+	public void showUninstallWarning() {
+		if (!mUninstallWarningShown) {
+			showDialog(DIALOG_UNINSTALL_WARNING);
+			mUninstallWarningShown = true;
+			mPrefs.edit().putBoolean(PREF_UNINSTALL_WARNING_SHOWN, true).commit();
+		}
 	}
 
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.

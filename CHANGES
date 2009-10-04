@@ -1,8 +1,12 @@
-1.2.0 (2009-10-X)
+1.1.9 (2009-10-04)
+	* Warn the user more clearly about the dangers of uninstalling the
+	  app while components are still disabled.
 	* Support orientation change.
+	* Minor architecture improvements under the hood, preparing for
+	  bigger things to come.
 
 1.1.4 (2009-09-22)
-    * Support missing camera.NEW_PICTURE intent.
+	* Support missing camera.NEW_PICTURE intent.
 	* Improved logging when an error occurs during component state change,
 	  to allow investigating problems.
 	* "Donut-ready" (compiled against 1.6).

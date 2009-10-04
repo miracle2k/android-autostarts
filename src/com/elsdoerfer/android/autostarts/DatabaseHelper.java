@@ -58,7 +58,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		public ReceiverData() {
 		}
 
-
         /**
          * Initialize runtime data.
          */

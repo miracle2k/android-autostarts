@@ -58,6 +58,13 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			// We can reasonably expect that the component state
 			// changed, so refresh the list.
 			mActivity.mListAdapter.notifyDataSetInvalidated();
+
+	        // As a one time warning, make sure the user knows about the
+	        // problems with uninstalling the app while receivers are
+	        // still disabled (i.e. only show the warning if the user is
+			// disabling a component).
+			if (!mDoEnable)
+				mActivity.showUninstallWarning();
 		}
 	}
 

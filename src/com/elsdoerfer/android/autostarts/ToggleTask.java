@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
@@ -19,18 +20,40 @@ import com.elsdoerfer.android.autostarts.DatabaseHelper.ReceiverData;
  */
 class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 
-	private ListActivity mActivity;
+	private volatile ListActivity mActivity;
 	private ProgressDialog mPg;
 	private Boolean mDoEnable;
 	private ReceiverData mApp;
+	private boolean mPostProcessingDone;
+	private Boolean mResult;
 
 	public ToggleTask(ListActivity wrapActivity) {
 		super();
-		apply(wrapActivity);
+		mPostProcessingDone = false;
+		connectToActivity(wrapActivity);
 	}
 
-	public void apply(ListActivity wrapActivity) {
+	public void connectToActivity(ListActivity wrapActivity) {
 		mActivity = wrapActivity;
+
+		if (mActivity != null) {
+			// Set the task up with the new activity.
+			if (getStatus() == Status.RUNNING)
+				onPreExecute();
+
+			// If we were unable to do the full post processing because of
+			// no activity being available, do so now.
+			else if (getStatus() == Status.FINISHED && !mPostProcessingDone)
+				processPostExecute();
+		}
+		// We are being unconnected from the current activity. Make sure
+		// we reset any current progress dialog, so we don't think later
+		// on that we have to cancel it; we don't need to bother canceling
+		// it here either, because as the old activity is destroyed, so
+		// is the progress dialog.
+		else {
+			mPg = null;
+		}
 	}
 
 	@Override
@@ -46,8 +69,29 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		mPg.cancel();
-		if (!result) {
+
+		mResult = result;
+
+		// We need to make sure we only go on if an activity is
+		// attached. Since it's possible that, say, an orientation
+		// change happens while we are running, it can happen that
+		// there isn't one. If so, processPostExecute() will be
+		// run the next time one is attached.
+		if (mActivity != null)
+			processPostExecute();
+	}
+
+	/**
+	 * Run processing code once the task is done that requires an
+	 * activity to be attached.
+	 */
+	private void processPostExecute() {
+		mPostProcessingDone = true;
+
+		if (mPg != null)
+			mPg.cancel();
+
+		if (!mResult) {
 			new AlertDialog.Builder(mActivity)
 				.setMessage(R.string.state_change_failed)
 				.setIcon(android.R.drawable.ic_dialog_alert)
@@ -70,6 +114,10 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(Object... params) {
+		// Cache the object locally, since the member might be reset
+		// when the Activity disconnects.
+		final ListActivity activity = mActivity;
+
 		mApp = (ReceiverData)params[0];
 		// We could also read this right now, but we want to ensure
 		// we always do the state change that we announced to the user
@@ -123,7 +171,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 		final String scriptFile = "pm-call.sh";
 		FileOutputStream f;
 		try {
-			f = mActivity.openFileOutput(
+			f = activity.openFileOutput(
 					scriptFile, ListActivity.MODE_PRIVATE);
 			try {
 				f.write(String.format("pm %s %s/%s",
@@ -137,7 +185,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 						"change component state to "+
 						(mDoEnable ? "enabled": "disabled"));
 				Process p = r.exec(new String[] {
-					"su", "-c", "sh "+mActivity.getFileStreamPath(scriptFile).getAbsolutePath() });
+					"su", "-c", "sh "+activity.getFileStreamPath(scriptFile).getAbsolutePath() });
 				p.waitFor();
 				Log.d(ListActivity.TAG, "Process returned with "+
 						p.exitValue()+"; stdout: "+
@@ -151,10 +199,10 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 					return false;
 
 				// ..b) the component state must actually have changed.
-				final PackageManager pm = mActivity.getPackageManager();
+				final PackageManager pm = activity.getPackageManager();
 				Boolean newEnabledState;
 				try {
-					newEnabledState = ListActivity.isComponentEnabled(pm, mApp);
+					newEnabledState = isComponentEnabled(pm, mApp);
 					// update the stored status while we're at it
 					mApp.enabled = newEnabledState;
 				} catch (NameNotFoundException e) {
@@ -164,7 +212,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 				return (newEnabledState == mDoEnable);
 			}
 			finally {
-				mActivity.deleteFile(scriptFile);
+				activity.deleteFile(scriptFile);
 			}
 		} catch (FileNotFoundException e) {
 			Log.e(ListActivity.TAG, "Failed to change state", e);
@@ -176,5 +224,22 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			Log.e(ListActivity.TAG, "Failed to change state", e);
 			return false;
 		}
+	}
+
+	/**
+	 * Get the current enabled state of a component.
+	 */
+	static Boolean isComponentEnabled(PackageManager pm, ReceiverData app) throws NameNotFoundException {
+		ComponentName c = new ComponentName(
+				app.activityInfo.packageName, app.activityInfo.name);
+			int setting = pm.getComponentEnabledSetting(c);
+			return
+				(setting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
+					? true
+					: (setting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
+						? false
+						: (setting == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
+							? pm.getReceiverInfo(c, PackageManager.GET_DISABLED_COMPONENTS).enabled
+							: null;
 	}
 }

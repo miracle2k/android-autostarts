@@ -11,7 +11,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -65,6 +64,7 @@ public class ListActivity extends ExpandableListActivity {
 	private DatabaseHelper mDb;
 	private SharedPreferences mPrefs;
 	private Boolean mExpandSuggested = true;
+	private ToggleTask mToggleTask;
 
 	// Due to Android deficiencies (can't pass data to showDialog()),
 	// we need to store that data globally.
@@ -106,6 +106,8 @@ public class ListActivity extends ExpandableListActivity {
         	mActionMap = oldActivity.mActionMap;
         	mReceiversByIntent = oldActivity.mReceiversByIntent;
         	mUninstallWarningShown = oldActivity.mUninstallWarningShown;
+        	mToggleTask = oldActivity.mToggleTask;
+        	mToggleTask.connectToActivity(this);
         	apply();
         }
         // Otherwise, we are going to have to init certain data
@@ -164,6 +166,9 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	protected void onDestroy() {
 		mDb.close();
+		// Unattach the activity from a potentially running task.
+		if (mToggleTask != null)
+    		mToggleTask.connectToActivity(null);
 		super.onDestroy();
 	}
 
@@ -258,10 +263,11 @@ public class ListActivity extends ExpandableListActivity {
 						case 0:
 							if (isSystemApp(mLastSelectedReceiver) && !mLastChangeRequestDoEnable)
 								showDialog(DIALOG_CONFIRM_SYSAPP_CHANGE);
-							else
-								new ToggleTask(ListActivity.this).execute(
-										mLastSelectedReceiver, mLastChangeRequestDoEnable);
-
+							else {
+								mToggleTask = new ToggleTask(ListActivity.this);
+								mToggleTask.execute(
+									mLastSelectedReceiver, mLastChangeRequestDoEnable);
+							}
 							break;
 						case 1:
 							Intent infoIntent = new Intent();
@@ -310,8 +316,9 @@ public class ListActivity extends ExpandableListActivity {
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						new ToggleTask(ListActivity.this).execute(
-								mLastSelectedReceiver, mLastChangeRequestDoEnable);
+						mToggleTask = new ToggleTask(ListActivity.this);
+						mToggleTask.execute(
+							mLastSelectedReceiver, mLastChangeRequestDoEnable);
 					}
 				})
 				.setNegativeButton(android.R.string.cancel, null)
@@ -649,22 +656,5 @@ public class ListActivity extends ExpandableListActivity {
 	static boolean isSystemApp(ReceiverData app) {
 		return ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
 					== ApplicationInfo.FLAG_SYSTEM);
-	}
-
-	/**
-	 * Get the current enabled state of a component.
-	 */
-	static Boolean isComponentEnabled(PackageManager pm, ReceiverData app) throws NameNotFoundException {
-		ComponentName c = new ComponentName(
-				app.activityInfo.packageName, app.activityInfo.name);
-			int setting = pm.getComponentEnabledSetting(c);
-			return
-				(setting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
-					? true
-					: (setting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
-						? false
-						: (setting == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
-							? pm.getReceiverInfo(c, PackageManager.GET_DISABLED_COMPONENTS).enabled
-							: null;
 	}
 }

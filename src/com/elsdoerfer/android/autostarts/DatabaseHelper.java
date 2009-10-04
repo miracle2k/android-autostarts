@@ -65,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             activityInfo = pm.getReceiverInfo(
                     new ComponentName(packageName, componentName),
                     PackageManager.GET_DISABLED_COMPONENTS);
-            enabled = ListActivity.isComponentEnabled(pm, this);
+            enabled = ToggleTask.isComponentEnabled(pm, this);
         }
 
         @Override

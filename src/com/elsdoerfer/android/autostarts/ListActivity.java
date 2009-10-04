@@ -1,7 +1,5 @@
 package com.elsdoerfer.android.autostarts;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,10 +16,8 @@ import java.util.Stack;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,14 +25,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,10 +37,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,49 +49,22 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final String KEY_LAST_SELECTED_ITEM = "last-selected-item";
 
-	/**
-	 * A particular actions and a list of receivers that register for
-	 * the action.
-	 */
-	static class ActionWithReceivers {
-		public String action;
-		public ArrayList<ReceiverData> receivers;
-
-		ActionWithReceivers(String action, ArrayList<ReceiverData> receivers) {
-			this.action = action;
-			this.receivers = receivers;
-		}
-
-		ActionWithReceivers(ActionWithReceivers clone) {
-			this.action = clone.action;
-			this.receivers = clone.receivers;
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (o instanceof ActionWithReceivers)
-				return action.equals(((ActionWithReceivers)o).action);
-			else
-				return action.equals(o);
-		}
-
-		@Override
-		public int hashCode() { return action.hashCode(); }
-	}
-
 	static final private int MENU_FILTER = 1;
 	static final private int MENU_EXPAND_COLLAPSE = 2;
 	static final private int MENU_RELOAD = 3;
 	static final private int MENU_HELP = 4;
-	static final private int RECEIVER_DETAIL = 1;
+
+	static final private int DIALOG_RECEIVER_DETAIL = 1;
+	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
 
+
 	private MenuItem mExpandCollapseToggleItem;
 	private Toast mInfoToast;
 
-	private MyExpandableListAdapter mListAdapter;
+	MyExpandableListAdapter mListAdapter;
 	private final LinkedHashMap<String, Object[]>
 		actionMap = new LinkedHashMap<String, Object[]>();
 	private DatabaseHelper mDb;
@@ -245,7 +207,8 @@ public class ListActivity extends ExpandableListActivity {
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		if (id == RECEIVER_DETAIL) {
+		if (id == DIALOG_RECEIVER_DETAIL)
+		{
 			final ReceiverData app = (ReceiverData) mListAdapter.getChild(
 					mLastSelectedItem[0], mLastSelectedItem[1]);  // Only for the first init through onCreate()
 			View v = getLayoutInflater().inflate(
@@ -273,7 +236,7 @@ public class ListActivity extends ExpandableListActivity {
 									.setIcon(android.R.drawable.ic_dialog_alert)
 									.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 										public void onClick(DialogInterface dialog, int which) {
-											new ToggleTask().execute(app, doEnable);
+											new ToggleTask(ListActivity.this).execute(app, doEnable);
 										}
 									})
 									.setNegativeButton(android.R.string.cancel, null)
@@ -281,7 +244,7 @@ public class ListActivity extends ExpandableListActivity {
 									.show();
 							}
 							else
-								new ToggleTask().execute(app, doEnable);
+								new ToggleTask(ListActivity.this).execute(app, doEnable);
 
 							break;
 						case 1:
@@ -416,7 +379,7 @@ public class ListActivity extends ExpandableListActivity {
 			int groupPosition, int childPosition, long id) {
 		mLastSelectedItem[0] = groupPosition;
 		mLastSelectedItem[1] = childPosition;
-		showDialog(RECEIVER_DETAIL);
+		showDialog(DIALOG_RECEIVER_DETAIL);
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
 
@@ -609,323 +572,11 @@ public class ListActivity extends ExpandableListActivity {
     	mInfoToast.show();
     }
 
-	public class MyExpandableListAdapter extends BaseExpandableListAdapter {
-
-    	private int mChildLayout;
-    	private int mGroupLayout;
-    	private ArrayList<ActionWithReceivers> mDataAll;
-    	private ArrayList<ActionWithReceivers> mDataFiltered;
-
-    	private boolean mShowSystemApps = true;
-
-    	private LayoutInflater mInflater;
-    	private PackageManager mPackageManager;
-
-		public MyExpandableListAdapter(Context context, int groupLayout, int childLayout) {
-    		mChildLayout = childLayout;
-    		mGroupLayout = groupLayout;
-    		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    		mPackageManager = context.getPackageManager();
-    		setData(new ArrayList<ActionWithReceivers>());
-    	}
-
-		public void setData(ArrayList<ActionWithReceivers> data) {
-    		mDataAll = data;
-
-    		// Create a cached copy of the data containing in a filtered manner.
-    		// TODO: this should be optimized to support multiple filters, and created on demand?
-    		// TODO: instead if if()ing on every access, a member field should point to whatever
-    		// we are currently using.
-    		mDataFiltered = new ArrayList<ActionWithReceivers>();
-    		for (ActionWithReceivers row : mDataAll) {
-    			ActionWithReceivers filtered_row = new ActionWithReceivers(row);
-    			filtered_row.receivers = new ArrayList<ReceiverData>();  // needs a new (filtered) list
-    			for (ReceiverData app : row.receivers) {
-    				if (!isSystemApp(app))
-    					 filtered_row.receivers.add(app);
-    			}
-    			if (filtered_row.receivers.size() > 0)
-    				mDataFiltered.add(filtered_row);
-
-    		}
-		}
-
-		public Object getChild(int groupPosition, int childPosition) {
-            return getGroupData(groupPosition).receivers.get(childPosition);
-        }
-
-        public long getChildId(int groupPosition, int childPosition) {
-            return ((ReceiverData)getChild(groupPosition, childPosition)).activityInfo.name.hashCode();
-        }
-
-		public int getChildrenCount(int groupPosition) {
-            return getGroupData(groupPosition).receivers.size();
-        }
-
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-                View convertView, ViewGroup parent) {
-        	View v;
-        	if (convertView == null)
-        		v = mInflater.inflate(mChildLayout, parent, false);
-        	else
-        		v = convertView;
-        	ReceiverData app = (ReceiverData) getChild(groupPosition, childPosition);
-			((ImageView)v.findViewById(R.id.icon)).
-				setImageDrawable(app.activityInfo.loadIcon(mPackageManager));
-			TextView title = ((TextView)v.findViewById(R.id.title));
-			if (isSystemApp(app))
-			    title.setTextColor(Color.YELLOW);
-			else
-				title.setTextColor(getResources().getColor(android.R.color.primary_text_dark));
-			CharSequence appTitle = app.activityInfo.applicationInfo.loadLabel(mPackageManager);
-			CharSequence receiverTitle = app.activityInfo.loadLabel(mPackageManager);
-			SpannableString fullTitle;
-			if (appTitle.equals(receiverTitle))
-				fullTitle = SpannableString.valueOf(appTitle);
-			else
-				fullTitle = SpannableString.valueOf((appTitle + " ("+receiverTitle+")"));
-			if (!app.enabled)
-				fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
-			title.setText(fullTitle);
-			return v;
-        }
-
-        public Object getGroup(int groupPosition) {
-            return getGroupData(groupPosition);
-        }
-
-        public int getGroupCount() {
-            return getData().size();
-        }
-
-        public long getGroupId(int groupPosition) {
-        	return getGroupData(groupPosition).action.hashCode();
-        }
-
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-                ViewGroup parent) {
-        	final View v;
-        	if (convertView == null)
-        		v = mInflater.inflate(mGroupLayout, parent, false);
-        	else
-        		v = convertView;
-        	final ActionWithReceivers group = (ActionWithReceivers) getGroup(groupPosition);
-        	((TextView)v.findViewById(R.id.title)).setText(getIntentName(group));
-        	((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
-				public void onClick(View _v) {
-					showInfoToast(group);
-				}
-        	});
-        	return v;
-        }
-
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return true;
-        }
-
-        public boolean hasStableIds() {
-            return true;
-        }
-
-
-        /**
-         * Return the dataset currently used.
-         */
-        private ArrayList<ActionWithReceivers>getData() {
-        	if (mShowSystemApps)
-        		return mDataAll;
-        	else
-        		return mDataFiltered;
-        }
-
-        /**
-         * Return the data record for the given group.
-         */
-        private ActionWithReceivers getGroupData(int groupPosition) {
-        	if (mShowSystemApps)
-        		return mDataAll.get(groupPosition);
-        	else
-        		return mDataFiltered.get(groupPosition);
-        }
-
-        /**
-         * Allow owner to hide (and show) the system applications.
-         *
-         * Returns True if the list is filtered.
-         *
-         * Expects the caller to also call notifyDataSetChanged(), if
-         * necessary.
-         */
-        public boolean toggleFilterSystemApps() {
-        	mShowSystemApps = !mShowSystemApps;
-        	return !mShowSystemApps;
-        }
-
-        /**
-         * Manually decide whether to filter out system applications.
-         *
-         * Expects the caller to also call notifyDataSetChanged(), if
-         * necessary.
-         */
-        public void setFilterSystemApps(boolean newState) {
-        	mShowSystemApps = !newState;
-        }
-    }
-
 	/**
-	 * Takes care of toggling a component's state. This may take a
-	 * couple of seconds, so we use a thread.
-	 */
-	class ToggleTask extends AsyncTask<Object, Object, Boolean> {
-
-		ProgressDialog mPg;
-		Boolean mDoEnable;
-		ReceiverData mApp;
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			mPg = new ProgressDialog(ListActivity.this);
-			mPg.setIndeterminate(true);
-			mPg.setMessage(getResources().getString(R.string.please_wait));
-			mPg.setCancelable(false);
-			mPg.show();
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-			super.onPostExecute(result);
-			mPg.cancel();
-			if (!result) {
-				new AlertDialog.Builder(ListActivity.this)
-					.setMessage(R.string.state_change_failed)
-					.setIcon(android.R.drawable.ic_dialog_alert)
-					.setTitle(R.string.error)
-					.setPositiveButton(android.R.string.ok, null).show();
-			}
-			else {
-				// We can reasonably expect that the component state
-				// changed, so refresh the list.
-				mListAdapter.notifyDataSetInvalidated();
-			}
-		}
-
-		@Override
-		protected Boolean doInBackground(Object... params) {
-			mApp = (ReceiverData)params[0];
-			// We could also read this right now, but we want to ensure
-			// we always do the state change that we announced to the user
-			// through the menu item caption (it's unlikely but possible
-			// that the component state changed in the background while
-			// the user decided what to do).
-			Boolean mDoEnable = (Boolean)params[1];
-
-			// Remember that we disabled this component. We do this now,
-			// before we even attempted to change the state - which might
-			// not work. No big deal, the cache entry would just be ignored.
-			// If however something does wrong, and the component is
-			// disabled but NOT cached, this would be much much worse.
-			if (!mDoEnable) {
-				DatabaseHelper db = new DatabaseHelper(ListActivity.this);
-				db.cacheComponent(mApp);
-				db.close();
-			}
-
-			// All right. So we can't use the PackageManager
-			// to disable comonents, since the permission
-			// required to do so has a protectLevel of
-			// "signature", meaning essentially that we need
-			// to be signed with the system certificate to
-			// be able to get it.
-			//
-			// Fortunately, there is a sort-of workaround.
-			// We can use the "pm" executable to communicate
-			// with the package manager, tell it to enable
-			// or disable a component. We need to do so as
-			// root, so that the PackageManager will skip the
-			// permission check (otherwise, it'll still look
-			// at the UID of the calling process), but it
-			// would work for root users.
-			//
-			// However, there is another complication. Rooted
-			// devices these days often use custom firmware
-			// mods, and those often come with a special "su"
-			// executable, that asks the user for permission
-			// whenever a program wants to use su. This
-			// special su does support "Always allow", but
-			// considers the command arguments as well. In
-			// other words, since we need to use different
-			// arguments to "pm" every time, the user would
-			// be asked to confirm us being allowed to use
-			// "su" everytime.
-			//
-			// The workaround here is to write our command to
-			// a shell file, then in turn ask su to run that
-			// file.
-			final String scriptFile = "pm-call.sh";
-			FileOutputStream f;
-			try {
-				f = openFileOutput(
-						scriptFile, MODE_PRIVATE);
-				try {
-					f.write(String.format("pm %s %s/%s",
-							(mDoEnable ? "enable": "disable"),
-							mApp.activityInfo.packageName,
-							mApp.activityInfo.name).getBytes());
-					f.close();
-
-					Runtime r = Runtime.getRuntime();
-					Log.i(TAG, "Asking package manger to "+
-							"change component state to "+
-							(mDoEnable ? "enabled": "disabled"));
-					Process p = r.exec(new String[] {
-						"su", "-c", "sh "+getFileStreamPath(scriptFile).getAbsolutePath() });
-					p.waitFor();
-					Log.d(TAG, "Process returned with "+
-							p.exitValue()+"; stdout: "+
-							readStream(p.getInputStream())+
-							"; stderr: "+
-							readStream(p.getErrorStream()));
-
-					// In order to consider this a success, we require to
-					// things: a) a proper exit value, and ...
-					if (p.exitValue() != 0)
-						return false;
-
-					// ..b) the component state must actually have changed.
-					final PackageManager pm = getPackageManager();
-					Boolean newEnabledState;
-					try {
-						newEnabledState = isComponentEnabled(pm, mApp);
-						// update the stored status while we're at it
-						mApp.enabled = newEnabledState;
-					} catch (NameNotFoundException e) {
-						Log.e(TAG, "Unable to check success of state change", e);
-						return false;
-					}
-					return (newEnabledState == mDoEnable);
-				}
-				finally {
-					deleteFile(scriptFile);
-				}
-			} catch (FileNotFoundException e) {
-				Log.e(TAG, "Failed to change state", e);
-				return false;
-			} catch (IOException e) {
-				Log.e(TAG, "Failed to change state", e);
-				return false;
-			} catch (InterruptedException e) {
-				Log.e(TAG, "Failed to change state", e);
-				return false;
-			}
-		}
-	}
-
-    /**
      * Return a name for the given intent; tries the pretty name,
      * if available, and falls back to the raw class name.
      */
-	private String getIntentName(ActionWithReceivers action) {
+	String getIntentName(ActionWithReceivers action) {
 		Object[] data = actionMap.get(action.action);
 		return (data[1] != null) ?
 				getResources().getString((Integer)data[1]) :

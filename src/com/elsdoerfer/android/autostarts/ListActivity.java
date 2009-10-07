@@ -107,7 +107,8 @@ public class ListActivity extends ExpandableListActivity {
         	mReceiversByIntent = oldActivity.mReceiversByIntent;
         	mUninstallWarningShown = oldActivity.mUninstallWarningShown;
         	mToggleTask = oldActivity.mToggleTask;
-        	mToggleTask.connectToActivity(this);
+        	if (mToggleTask != null)
+        		mToggleTask.connectToActivity(this);
         	apply();
         }
         // Otherwise, we are going to have to init certain data

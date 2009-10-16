@@ -1,5 +1,6 @@
-1.2.0 (2009-10-X)
+1.2.0 (2009-10-17)
 	* Fixed a pretty serious crash on almost every orientation change.
+	* Added option to only show disabled components.
 
 1.1.9 (2009-10-05)
 	* Warn the user more clearly about the dangers of uninstalling the

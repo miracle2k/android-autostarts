@@ -26,48 +26,67 @@ import com.elsdoerfer.android.autostarts.DatabaseHelper.ReceiverData;
  */
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
-	private ListActivity mActivity;
-	private int mChildLayout;
-	private int mGroupLayout;
-	private ArrayList<ActionWithReceivers> mDataAll;
-	private ArrayList<ActionWithReceivers> mDataFiltered;
+    private ListActivity mActivity;
+    private int mChildLayout;
+    private int mGroupLayout;
+    private ArrayList<ActionWithReceivers> mDataAll;
+    private ArrayList<ActionWithReceivers> mDataRender;
 
-	private boolean mShowSystemApps = true;
+    private boolean mHideSystemApps = false;
+    private boolean mShowDisabledOnly = false;
 
-	private LayoutInflater mInflater;
-	private PackageManager mPackageManager;
+    private LayoutInflater mInflater;
+    private PackageManager mPackageManager;
 
-	public MyExpandableListAdapter(ListActivity activity, int groupLayout, int childLayout) {
-		mActivity = activity;
-		mChildLayout = childLayout;
-		mGroupLayout = groupLayout;
-		mInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mPackageManager = activity.getPackageManager();
-		setData(new ArrayList<ActionWithReceivers>());
-	}
+    public MyExpandableListAdapter(ListActivity activity, int groupLayout, int childLayout) {
+        mActivity = activity;
+        mChildLayout = childLayout;
+        mGroupLayout = groupLayout;
+        mInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mPackageManager = activity.getPackageManager();
+        setData(new ArrayList<ActionWithReceivers>());
+    }
 
-	public void setData(ArrayList<ActionWithReceivers> data) {
-		mDataAll = data;
+    public void setData(ArrayList<ActionWithReceivers> data) {
+        mDataAll = data;
+        // Re-apply our filters.
+        updateRenderData();
+    }
 
-		// Create a cached copy of the data containing in a filtered manner.
-		// TODO: this should be optimized to support multiple filters, and created on demand?
-		// TODO: instead if if()ing on every access, a member field should point to whatever
-		// we are currently using.
-		mDataFiltered = new ArrayList<ActionWithReceivers>();
-		for (ActionWithReceivers row : mDataAll) {
-			ActionWithReceivers filtered_row = new ActionWithReceivers(row);
-			filtered_row.receivers = new ArrayList<ReceiverData>();  // needs a new (filtered) list
-			for (ReceiverData app : row.receivers) {
-				if (!ListActivity.isSystemApp(app))
-					 filtered_row.receivers.add(app);
-			}
-			if (filtered_row.receivers.size() > 0)
-				mDataFiltered.add(filtered_row);
+    /**
+     * Based on the full data available, updates the data set we use to
+     * display the list; i.e. if there are filters set, those are applied.
+     *
+     * XXX: Add a way to init all filters without updating the data
+     * once for every filter option. Simplest way: generate this on demand?
+     */
+    private void updateRenderData() {
+        // Short-circuit - no filters
+        if (!(mShowDisabledOnly || mHideSystemApps))
+            mDataRender = mDataAll;
 
-		}
-	}
+        else {
+            mDataRender = new ArrayList<ActionWithReceivers>();
+            for (ActionWithReceivers row : mDataAll) {
+                ActionWithReceivers filtered_row = new ActionWithReceivers(row);
+                filtered_row.receivers = new ArrayList<ReceiverData>();  // needs a new (filtered) list
+                for (ReceiverData app : row.receivers) {
+                	boolean match = true;
+                    if (mHideSystemApps && ListActivity.isSystemApp(app))
+                    	match = false;
+                    if (mShowDisabledOnly && app.enabled == true)
+                    	match = false;
 
-	public Object getChild(int groupPosition, int childPosition) {
+                    if (match)
+                    	filtered_row.receivers.add(app);
+                }
+                if (filtered_row.receivers.size() > 0)
+                    mDataRender.add(filtered_row);
+            }
+        }
+    }
+
+    public Object getChild(int groupPosition, int childPosition) {
         return getGroupData(groupPosition).receivers.get(childPosition);
     }
 
@@ -75,36 +94,36 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         return ((ReceiverData)getChild(groupPosition, childPosition)).activityInfo.name.hashCode();
     }
 
-	public int getChildrenCount(int groupPosition) {
+    public int getChildrenCount(int groupPosition) {
         return getGroupData(groupPosition).receivers.size();
     }
 
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
             View convertView, ViewGroup parent) {
-    	View v;
-    	if (convertView == null)
-    		v = mInflater.inflate(mChildLayout, parent, false);
-    	else
-    		v = convertView;
-    	ReceiverData app = (ReceiverData) getChild(groupPosition, childPosition);
-		((ImageView)v.findViewById(R.id.icon)).
-			setImageDrawable(app.activityInfo.loadIcon(mPackageManager));
-		TextView title = ((TextView)v.findViewById(R.id.title));
-		if (ListActivity.isSystemApp(app))
-		    title.setTextColor(Color.YELLOW);
-		else
-			title.setTextColor(mActivity.getResources().getColor(android.R.color.primary_text_dark));
-		CharSequence appTitle = app.activityInfo.applicationInfo.loadLabel(mPackageManager);
-		CharSequence receiverTitle = app.activityInfo.loadLabel(mPackageManager);
-		SpannableString fullTitle;
-		if (appTitle.equals(receiverTitle))
-			fullTitle = SpannableString.valueOf(appTitle);
-		else
-			fullTitle = SpannableString.valueOf((appTitle + " ("+receiverTitle+")"));
-		if (!app.enabled)
-			fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
-		title.setText(fullTitle);
-		return v;
+        View v;
+        if (convertView == null)
+            v = mInflater.inflate(mChildLayout, parent, false);
+        else
+            v = convertView;
+        ReceiverData app = (ReceiverData) getChild(groupPosition, childPosition);
+        ((ImageView)v.findViewById(R.id.icon)).
+            setImageDrawable(app.activityInfo.loadIcon(mPackageManager));
+        TextView title = ((TextView)v.findViewById(R.id.title));
+        if (ListActivity.isSystemApp(app))
+            title.setTextColor(Color.YELLOW);
+        else
+            title.setTextColor(mActivity.getResources().getColor(android.R.color.primary_text_dark));
+        CharSequence appTitle = app.activityInfo.applicationInfo.loadLabel(mPackageManager);
+        CharSequence receiverTitle = app.activityInfo.loadLabel(mPackageManager);
+        SpannableString fullTitle;
+        if (appTitle.equals(receiverTitle))
+            fullTitle = SpannableString.valueOf(appTitle);
+        else
+            fullTitle = SpannableString.valueOf((appTitle + " ("+receiverTitle+")"));
+        if (!app.enabled)
+            fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
+        title.setText(fullTitle);
+        return v;
     }
 
     public Object getGroup(int groupPosition) {
@@ -112,28 +131,28 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public int getGroupCount() {
-        return getData().size();
+        return mDataRender.size();
     }
 
     public long getGroupId(int groupPosition) {
-    	return getGroupData(groupPosition).action.hashCode();
+        return getGroupData(groupPosition).action.hashCode();
     }
 
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
             ViewGroup parent) {
-    	final View v;
-    	if (convertView == null)
-    		v = mInflater.inflate(mGroupLayout, parent, false);
-    	else
-    		v = convertView;
-    	final ActionWithReceivers group = (ActionWithReceivers) getGroup(groupPosition);
-    	((TextView)v.findViewById(R.id.title)).setText(mActivity.getIntentName(group));
-    	((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
-			public void onClick(View _v) {
-				mActivity.showInfoToast(group);
-			}
-    	});
-    	return v;
+        final View v;
+        if (convertView == null)
+            v = mInflater.inflate(mGroupLayout, parent, false);
+        else
+            v = convertView;
+        final ActionWithReceivers group = (ActionWithReceivers) getGroup(groupPosition);
+        ((TextView)v.findViewById(R.id.title)).setText(mActivity.getIntentName(group));
+        ((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
+            public void onClick(View _v) {
+                mActivity.showInfoToast(group);
+            }
+        });
+        return v;
     }
 
     public boolean isChildSelectable(int groupPosition, int childPosition) {
@@ -144,25 +163,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-
-    /**
-     * Return the dataset currently used.
-     */
-    private ArrayList<ActionWithReceivers>getData() {
-    	if (mShowSystemApps)
-    		return mDataAll;
-    	else
-    		return mDataFiltered;
-    }
-
     /**
      * Return the data record for the given group.
      */
     private ActionWithReceivers getGroupData(int groupPosition) {
-    	if (mShowSystemApps)
-    		return mDataAll.get(groupPosition);
-    	else
-    		return mDataFiltered.get(groupPosition);
+        return mDataRender.get(groupPosition);
     }
 
     /**
@@ -174,8 +179,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
      * necessary.
      */
     public boolean toggleFilterSystemApps() {
-    	mShowSystemApps = !mShowSystemApps;
-    	return !mShowSystemApps;
+        setFilterSystemApps(!mHideSystemApps);
+        return mHideSystemApps;
     }
 
     /**
@@ -185,6 +190,24 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
      * necessary.
      */
     public void setFilterSystemApps(boolean newState) {
-    	mShowSystemApps = !newState;
+        if (newState != mHideSystemApps) {
+            mHideSystemApps = newState;
+            updateRenderData();
+        }
+    }
+
+    public boolean getFilterSystemApps() {
+        return mHideSystemApps;
+    }
+
+    public void setShowDisabledOnly(boolean newState) {
+        if (newState != mShowDisabledOnly) {
+            mShowDisabledOnly = newState;
+            updateRenderData();
+        }
+    }
+
+    public boolean getShowDisabledOnly() {
+        return mShowDisabledOnly;
     }
 }

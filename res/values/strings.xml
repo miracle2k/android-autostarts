@@ -8,7 +8,9 @@
     <string name="find_in_market">Find in Market</string>
     <string name="disable">Disable</string>
     <string name="enable">Enable</string>
-    <string name="toggle_sys_apps">Toggle system apps</string>
+    <string name="view_options">View</string>
+    <string name="hide_sys_apps">Hide system apps</string>
+    <string name="show_disabled_only">Show disabled only</string>
     <string name="expand_all">Expand all</string>
     <string name="collapse_all">Collapse all</string>
     <string name="reload">Reload</string>

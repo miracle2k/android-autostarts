@@ -14,6 +14,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -41,7 +42,7 @@ public class ListActivity extends ExpandableListActivity {
 	static final String TAG = "Autostarts";
 	static final Boolean LOGV = false;
 
-	static final private int MENU_FILTER = 1;
+	static final private int MENU_VIEW = 1;
 	static final private int MENU_EXPAND_COLLAPSE = 2;
 	static final private int MENU_RELOAD = 3;
 	static final private int MENU_HELP = 4;
@@ -49,9 +50,11 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int DIALOG_RECEIVER_DETAIL = 1;
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_UNINSTALL_WARNING = 3;
+	static final private int DIALOG_VIEW_OPTIONS = 4;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
+	static final private String PREF_FILTER_ENABLED_APPS = "filter-enabled-apps";
 	static final private String PREF_UNINSTALL_WARNING_SHOWN = "uninstall-warning-shown";
 
 
@@ -91,6 +94,9 @@ public class ListActivity extends ExpandableListActivity {
         // Restore preferences
     	mListAdapter.setFilterSystemApps(
     			mPrefs.getBoolean(PREF_FILTER_SYS_APPS, false));
+    	mListAdapter.setShowDisabledOnly(
+    			mPrefs.getBoolean(PREF_FILTER_ENABLED_APPS, false));
+    	updateEmptyText();
 
     	// Init/restore retained and instance data. If we have data
         // retained, we can speed things up significantly by not having
@@ -174,7 +180,7 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_FILTER, 0, R.string.toggle_sys_apps).
+		menu.add(0, MENU_VIEW, 0, R.string.view_options).
 			setIcon(R.drawable.ic_menu_view);
 		mExpandCollapseToggleItem =
 			menu.add(0, MENU_EXPAND_COLLAPSE, 0, R.string.expand_all).
@@ -210,19 +216,10 @@ public class ListActivity extends ExpandableListActivity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MENU_FILTER:
-			boolean newDoFilter;
-			if (mListAdapter.toggleFilterSystemApps()) {
-				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers_filtered);
-				newDoFilter = true;
-			}
-			else {
-				((TextView)findViewById(android.R.id.empty)).setText(R.string.no_receivers);
-				newDoFilter = false;
-			}
-			mListAdapter.notifyDataSetChanged();
-			mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, newDoFilter).commit();
-		    return true;
+		case MENU_VIEW:
+			showDialog(DIALOG_VIEW_OPTIONS);
+			return true;
+
 		case MENU_EXPAND_COLLAPSE:
 			ExpandableListView lv = getExpandableListView();
 			for (int i=mListAdapter.getGroupCount()-1; i>=0; i--)
@@ -231,12 +228,15 @@ public class ListActivity extends ExpandableListActivity {
 				else
 					lv.collapseGroup(i);
 			return true;
+
 		case MENU_RELOAD:
 			loadAndApply();
 			return true;
+
 		case MENU_HELP:
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
+
 		default:
 			return super.onContextItemSelected(item);
 		}
@@ -334,6 +334,49 @@ public class ListActivity extends ExpandableListActivity {
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setPositiveButton(android.R.string.ok, null)
 				.create();
+		}
+
+		else if (id == DIALOG_VIEW_OPTIONS)
+		{
+			// We are just hoping that the state of these vars can
+			// never change without going through this dialog;
+			// otherwise, we'd need to find a solution to ensure
+			// that when the instance is reused for a showing at a
+			// later point, that the state is still up-to-date, i.e.
+			// setting the current state in onPrepareDialog. It's not
+			// clear if making the state array a class member and
+			// updating it would be enough, or if we actually have to
+			// find the correct views and switch them...
+			boolean[] initState = new boolean[] {
+				mListAdapter.getFilterSystemApps(),
+				false,
+			};
+
+			return new AlertDialog.Builder(this)
+				.setMultiChoiceItems(new CharSequence[] {
+						getString(R.string.hide_sys_apps),
+						getString(R.string.show_disabled_only),
+					},
+					initState,
+					new OnMultiChoiceClickListener() {
+						public void onClick(DialogInterface dialog, int which,
+								boolean isChecked) {
+							if (which == 0) {
+								mListAdapter.setFilterSystemApps(isChecked);
+								mListAdapter.notifyDataSetChanged();
+								updateEmptyText();
+								mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, isChecked).commit();
+							}
+							else if (which == 1) {
+								mListAdapter.setShowDisabledOnly(isChecked);
+								mListAdapter.notifyDataSetChanged();
+								updateEmptyText();
+								mPrefs.edit().putBoolean(PREF_FILTER_ENABLED_APPS, isChecked).commit();
+							}
+						}
+
+					})
+				.setPositiveButton(android.R.string.ok, null).create();
 		}
 
 		else
@@ -610,6 +653,12 @@ public class ListActivity extends ExpandableListActivity {
 			mUninstallWarningShown = true;
 			mPrefs.edit().putBoolean(PREF_UNINSTALL_WARNING_SHOWN, true).commit();
 		}
+	}
+
+	protected void updateEmptyText() {
+		boolean isFiltered = mListAdapter.getFilterSystemApps();
+		((TextView)findViewById(android.R.id.empty)).setText(
+				isFiltered ? R.string.no_receivers_filtered : R.string.no_receivers);
 	}
 
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.

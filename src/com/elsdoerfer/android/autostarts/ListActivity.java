@@ -27,6 +27,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 import android.util.Log;
@@ -754,20 +755,16 @@ public class ListActivity extends ExpandableListActivity {
 	 * URLSpan class that supports a custom onClick listener, rather than
 	 * sending everything through an Intent.
 	 */
-	static class InternalURLSpan extends URLSpan {
+	static class InternalURLSpan extends ClickableSpan {
 		OnClickListener mListener;
 
 		public InternalURLSpan(OnClickListener listener) {
-			super("");
 			mListener = listener;
 		}
 
 	    @Override
 	    public void onClick(View widget) {
-	    	if (mListener != null)
-	    		mListener.onClick(widget);
-	    	else
-	    		super.onClick(widget);
+	    	mListener.onClick(widget);
 	    }
 	}
 }

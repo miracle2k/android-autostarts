@@ -355,7 +355,7 @@ public class ListActivity extends ExpandableListActivity {
 			// find the correct views and switch them...
 			boolean[] initState = new boolean[] {
 				mListAdapter.getFilterSystemApps(),
-				false,
+				mListAdapter.getShowDisabledOnly(),
 			};
 
 			return new AlertDialog.Builder(this)

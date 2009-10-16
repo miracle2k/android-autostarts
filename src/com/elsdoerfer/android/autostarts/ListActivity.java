@@ -684,14 +684,11 @@ public class ListActivity extends ExpandableListActivity {
 					getString(R.string.change_filter_settings)
 			);
 			full.setSpan(new InternalURLSpan(new OnClickListener() {
-
-				public void onClick(View v) {
-					showDialog(DIALOG_VIEW_OPTIONS);
-
-				}
-
-			}), base.length(), full.length(),
-					Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+					public void onClick(View v) {
+						showDialog(DIALOG_VIEW_OPTIONS);
+					}
+				}), base.length(), full.length(),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			emptyText.setText(full);
 
 			// Copied from "Linkify.addLinkMovementMethod" (which is private).

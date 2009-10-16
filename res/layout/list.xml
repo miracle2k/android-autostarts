@@ -15,5 +15,5 @@
                android:layout_width="fill_parent"
                android:layout_height="fill_parent"
                android:gravity="center_horizontal|center_vertical"
-               android:text="@string/no_receivers"/>
+               android:text="@string/no_receivers" />
  </LinearLayout>

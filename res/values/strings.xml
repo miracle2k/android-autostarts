@@ -4,6 +4,7 @@
 
     <string name="no_receivers">No applications are autostarting.</string>
     <string name="no_receivers_filtered">No applications are autostarting within your current selection.</string>
+    <string name="change_filter_settings">Change filter settings.</string>
     <string name="appliation_info">Application Info</string>
     <string name="find_in_market">Find in Market</string>
     <string name="disable">Disable</string>

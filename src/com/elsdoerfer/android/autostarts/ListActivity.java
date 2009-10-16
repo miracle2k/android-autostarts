@@ -22,8 +22,13 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
 import android.text.style.StyleSpan;
+import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,7 +150,7 @@ public class ListActivity extends ExpandableListActivity {
         }
     }
 
-    @Override
+	@Override
 	public Object onRetainNonConfigurationInstance() {
     	// Retain the full activity; it's just simpler as opposed to
     	// copying a bunch of stuff to an array; but we need to be very
@@ -656,9 +662,45 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	protected void updateEmptyText() {
-		boolean isFiltered = mListAdapter.getFilterSystemApps();
-		((TextView)findViewById(android.R.id.empty)).setText(
-				isFiltered ? R.string.no_receivers_filtered : R.string.no_receivers);
+		TextView emptyText = (TextView) findViewById(android.R.id.empty);
+		if (!mListAdapter.isFiltered())
+			emptyText.setText(R.string.no_receivers);
+		else {
+			// Unfortunately, we cannot link directly from the resource
+			// string, and neither can we use {@see Linkify}. In both
+			// cases, we end up with a URLSpan instance in the text (the
+			// class is apparently hardcoded), which only allows link
+			// resolving via Intent. We however want to use our own
+			// URLSpan subclass which can trigger an event.
+			//
+			// We cannot override {@see Linkify} either, really - it
+			// makes the one method we could override to easily inject
+			// our custom subclass "final" - aaarg.
+			CharSequence base = getString(R.string.no_receivers_filtered) +
+			   "\n\n";
+			SpannableString full = new SpannableString(
+					base +
+					getString(R.string.change_filter_settings)
+			);
+			full.setSpan(new InternalURLSpan(new OnClickListener() {
+
+				public void onClick(View v) {
+					showDialog(DIALOG_VIEW_OPTIONS);
+
+				}
+
+			}), base.length(), full.length(),
+					Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			emptyText.setText(full);
+
+			// Copied from "Linkify.addLinkMovementMethod" (which is private).
+	        MovementMethod m = emptyText.getMovementMethod();
+	        if ((m == null) || !(m instanceof LinkMovementMethod)) {
+	            if (emptyText.getLinksClickable()) {
+	            	emptyText.setMovementMethod(LinkMovementMethod.getInstance());
+	            }
+	        }
+		}
 	}
 
     // TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
@@ -706,5 +748,26 @@ public class ListActivity extends ExpandableListActivity {
 	static boolean isSystemApp(ReceiverData app) {
 		return ((ApplicationInfo.FLAG_SYSTEM & app.activityInfo.applicationInfo.flags)
 					== ApplicationInfo.FLAG_SYSTEM);
+	}
+
+	/**
+	 * URLSpan class that supports a custom onClick listener, rather than
+	 * sending everything through an Intent.
+	 */
+	static class InternalURLSpan extends URLSpan {
+		OnClickListener mListener;
+
+		public InternalURLSpan(OnClickListener listener) {
+			super("");
+			mListener = listener;
+		}
+
+	    @Override
+	    public void onClick(View widget) {
+	    	if (mListener != null)
+	    		mListener.onClick(widget);
+	    	else
+	    		super.onClick(widget);
+	    }
 	}
 }

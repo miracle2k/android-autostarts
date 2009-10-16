@@ -62,7 +62,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
      */
     private void updateRenderData() {
         // Short-circuit - no filters
-        if (!(mShowDisabledOnly || mHideSystemApps))
+        if (!isFiltered())
             mDataRender = mDataAll;
 
         else {
@@ -168,6 +168,13 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
      */
     private ActionWithReceivers getGroupData(int groupPosition) {
         return mDataRender.get(groupPosition);
+    }
+
+    /**
+     * Return true if any filters are active.
+     */
+    public boolean isFiltered() {
+    	return mHideSystemApps || mShowDisabledOnly;
     }
 
     /**

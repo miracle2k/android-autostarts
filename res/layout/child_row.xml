@@ -9,8 +9,8 @@
 
     <ImageView
     	android:id="@+id/icon"
-    	android:layout_width="28px"
-        android:layout_height="28px"
+    	android:layout_width="28dp"
+        android:layout_height="28dp"
         android:paddingRight="5sp"
      	/>
 
@@ -18,7 +18,7 @@
         android:id="@+id/title"
         android:layout_toRightOf="@id/icon"
         android:layout_width="wrap_content"
-        android:layout_height="28px"
+        android:layout_height="28dp"
         android:singleLine="true"
         android:ellipsize="end"
         android:textStyle="normal"

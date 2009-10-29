@@ -1,4 +1,7 @@
-On bigger screen sizes, the expandable list drop downs overlap the text.
+The dropdown icons of the ExpandableListView are not properly rendered on a
+QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we
+don't even really touch those, we need to assume it's a bug in Android.
+Confirm (file a report), and try to find a workaround.
 
 Add a dialog referring to our other projects / apps.
 
@@ -14,7 +17,7 @@ We'd make sure we write to a separate file and then rm&mv it over, to
 avoid half-written files on crashes.
 
 Add a "security log" feature that basically exports the "disabled
-comonents" database to the sdcard in the form of "pm enable" commands,
+components" database to the sdcard in the form of "pm enable" commands,
 automatically and in regular intervals.
 Add a help entry explaining how to use this file in case something goes
 wrong, to restore components.

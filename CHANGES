@@ -1,4 +1,5 @@
 1.2.1 (2009-10-xx)
+	* "Eclair-ready" (compiled against 2.0).
 	* Support more screen sizes.
 	* Support events introduced in 1.6 and 2.0.
 

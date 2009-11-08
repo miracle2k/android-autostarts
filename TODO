@@ -1,3 +1,19 @@
+More stuff that we have missed:
+	Telphony:
+		- SECRET_CODE_ACTION
+		- SPN_STRINGS_UPDATED_ACTION
+
+BIG ISSUE: Not all handlers are found; namely, those who's intent filter
+is written to match something; this is basically not solvable with our
+current approach. We could hardcode certain data passed for all the
+system apps, or following the definition of the intent; this will still
+not guarantee us those receivers which match only a certain string, say.
+But than again, maybe we don't want to show those either, not without
+specifying that they match only at limited times?
+An example is the SECRET_CODE_ACTION intent - the voice dialer here
+matches only a certain scheme, and others are likely to handle this
+in a similar manner.
+
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we
 don't even really touch those, we need to assume it's a bug in Android.

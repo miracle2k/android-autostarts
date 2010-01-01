@@ -28,6 +28,25 @@ Confirm (file a report), and try to find a workaround.
 
 Add a dialog referring to our other projects / apps.
 
+We currently don't test for root, but rather just show a generic message
+is setting root fails. We could instead do what android-wifi-thether does
+and check for the existence of a su-binary, with could like this:
+   public boolean hasRootPermission() {
+          boolean rooted = true;
+                  try {
+                          File su = new File("/system/bin/su");
+                          if (su.exists() == false) {
+                                  rooted = false;
+                          }
+                  } catch (Exception e) {
+                          Log.d(MSG_TAG, "Can't obtain root - Here is what I know: "+e.getMessage());
+                          rooted = false;
+                  }
+                  return rooted;
+      }
+Make sure also sure /system/xbin/su is supported (see patches from:
+  http://code.google.com/p/android-wifi-tether/issues/detail?id=136)
+
 It seems on some devices, disabling doesn't work. The error we see is:
   D/Autostarts(  378): Process returned with 254; stdout: ; stderr: su: exec failed for sh
   /data/data/com.elsdoerfer.android.autostarts/files/pm-call.sh Error:No such file or directory

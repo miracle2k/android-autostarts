@@ -15,7 +15,11 @@ matches only a certain scheme, and others are likely to handle this
 in a similar manner.
 
 In rare cases, on some ROMs, "su" never seems to return; see eMail from
-Ryan Cobden, 2009-07-11.
+Ryan Cobden, 2009-07-11 and Herb, 2009-12-22.
+android-wifi-thether seems to have tried to different approaches to fix
+the issue as well:
+	http://code.google.com/p/android-wifi-tether/source/detail?r=168
+	http://code.google.com/p/android-wifi-tether/source/detail?r=208
 
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we

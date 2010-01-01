@@ -187,8 +187,8 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 				Process p = r.exec(new String[] {
 					"su", "-c", "sh "+activity.getFileStreamPath(scriptFile).getAbsolutePath() });
 				p.waitFor();
-				Log.d(ListActivity.TAG, "Process returned with "+
-						p.exitValue()+"; stdout: "+
+				Log.d(ListActivity.TAG, "Process returned with "+p.exitValue());
+				Log.d(ListActivity.TAG, "Process stdout was: "+
 						Utils.readStream(p.getInputStream())+
 						"; stderr: "+
 						Utils.readStream(p.getErrorStream()));

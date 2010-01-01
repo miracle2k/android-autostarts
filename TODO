@@ -1,7 +1,7 @@
 More stuff that we have missed:
-	Telphony:
-		- SECRET_CODE_ACTION
-		- SPN_STRINGS_UPDATED_ACTION
+  Telephony:
+    - SECRET_CODE_ACTION
+    - SPN_STRINGS_UPDATED_ACTION
 
 BIG ISSUE: Not all handlers are found; namely, those who's intent filter
 is written to match something; this is basically not solvable with our
@@ -73,9 +73,9 @@ We could use a custom executable instead of "pm", allowing us to call
 setComponentEnabledState with the NO_RESTART flag - currently, the
 package is always restarted when we chance something. Code to look at
 in frameworks/base:
-	cmds/pm/pm
-	cmds/pm/src/../Pm.java
-	cmds/app_process/*
+  cmds/pm/pm
+  cmds/pm/src/../Pm.java
+  cmds/app_process/*
 
 Add social features: People can write comments about individual
 components, and what effects disabling them had. This would need to include

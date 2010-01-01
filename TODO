@@ -52,6 +52,22 @@ It seems on some devices, disabling doesn't work. The error we see is:
   /data/data/com.elsdoerfer.android.autostarts/files/pm-call.sh Error:No such file or directory
 This is what the problem might be:
   http://code.google.com/p/android-wifi-tether/issues/detail?id=111
+A potential solution is suggested here:
+  http://code.google.com/p/android-wifi-tether/issues/detail?id=136
+and basically consists of trying multiple syntaxes:
+    if (NativeTask.runCommand("su -c \""+command+"\"") == 0) {
+       return true;
+    }
+    if (NativeTask.runCommand("su -c "+command+"") == 0) {
+      return true;
+    }
+    if (NativeTask.runCommand("/system/xbin/su -c \""+command+"\"") == 0) {
+      return true;
+    }
+    if (NativeTask.runCommand("/system/xbin/su -c "+command+"") == 0) {
+      return true;
+    }
+See also our email conversation with Alex Speed Kjeldsen.
 
 Can't we just store the list of disabled components somewhere like in
 /data/system/autostarts-disabled.txt? We do have, after all, root access.

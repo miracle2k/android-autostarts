@@ -20,6 +20,8 @@ android-wifi-thether seems to have tried to different approaches to fix
 the issue as well:
 	http://code.google.com/p/android-wifi-tether/source/detail?r=168
 	http://code.google.com/p/android-wifi-tether/source/detail?r=208
+See:
+	http://groups.google.com/group/android-wifi-tether/browse_thread/thread/20a1228d9ac7eb81
 
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we

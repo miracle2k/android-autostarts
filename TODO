@@ -1,3 +1,8 @@
+Show a notification whenever a package is added or updated that includes
+new autostarts; this makes it easy to "review" all autostarts as new
+applications are installed. Ironically, we will have to register a
+broadcast receiver ourselves to implement this.
+
 More stuff that we have missed:
   Telephony:
     - SECRET_CODE_ACTION

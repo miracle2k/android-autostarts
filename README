@@ -1,0 +1,6 @@
+Compiling the native code
+=========================
+
+Create a symlink to "{$project}/jni" in both ``${ndk}/sources`` and
+``${ndk}/apps`` named "autostarts", and run "make APP=autostarts"
+from within "${ndk}".

@@ -180,22 +180,16 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 						mApp.activityInfo.name).getBytes());
 				f.close();
 
-				Runtime r = Runtime.getRuntime();
 				Log.i(ListActivity.TAG, "Asking package manger to "+
 						"change component state to "+
 						(mDoEnable ? "enabled": "disabled"));
-				Process p = r.exec(new String[] {
-					"su", "-c", "sh "+activity.getFileStreamPath(scriptFile).getAbsolutePath() });
-				p.waitFor();
-				Log.d(ListActivity.TAG, "Process returned with "+p.exitValue());
-				Log.d(ListActivity.TAG, "Process stdout was: "+
-						Utils.readStream(p.getInputStream())+
-						"; stderr: "+
-						Utils.readStream(p.getErrorStream()));
+				int exitValue = NativeTask.runCommand("su -c \"sh "+
+						activity.getFileStreamPath(scriptFile).getAbsolutePath()+"\"");
+				Log.d(ListActivity.TAG, "Process returned with "+exitValue);
 
 				// In order to consider this a success, we require to
 				// things: a) a proper exit value, and ...
-				if (p.exitValue() != 0)
+				if (exitValue != 0)
 					return false;
 
 				// ..b) the component state must actually have changed.
@@ -218,9 +212,6 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			Log.e(ListActivity.TAG, "Failed to change state", e);
 			return false;
 		} catch (IOException e) {
-			Log.e(ListActivity.TAG, "Failed to change state", e);
-			return false;
-		} catch (InterruptedException e) {
 			Log.e(ListActivity.TAG, "Failed to change state", e);
 			return false;
 		}

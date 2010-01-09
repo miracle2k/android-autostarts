@@ -35,7 +35,7 @@
 
 \n\n<b>I\'ve disabled a component, but it seems to have it self enabled again after a while?</b>\n\nYes, applications may enable or disable their own components. Some do this depending on settings, or what features are enabled. Unfortunately, there is no workaround for this.
 
-\n\n<b>My market downloads stopped working.</b>\n\nThis is usually not the fault of <i>Autotstarts</i>, don\'t get ideas. However, there is one issue you might have run into. If you thought you weren\'t using Google Talk anyway and disabled it's <i>On Boot</i> event, this is likely to be the problem (it also occurs of you shutdown Google Talk using a task manager). Apparently, for some reason, if Google Talk is not running, market downloads do not work.</string>
+\n\n<b>My market downloads stopped working.</b>\n\nThis is usually not the fault of <i>Autotstarts</i>, don\'t get ideas. However, there is one issue you might have run into. If you thought you weren\'t using Google Talk anyway and disabled it\'s <i>On Boot</i> event, this is likely to be the problem (it also occurs of you shutdown Google Talk using a task manager). Apparently, for some reason, if Google Talk is not running, market downloads do not work.</string>
     <string name="close_help">Close help and return to app</string>
 
     <string name="act_airplane_mode_changed">Airplane mode changed</string>

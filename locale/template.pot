@@ -1,0 +1,1128 @@
+# Translations template for PROJECT.
+# Copyright (C) 2010 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2010-01-09 23:51+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev-r482\n"
+
+msgctxt "app_name"
+msgid "Autostarts"
+msgstr ""
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr ""
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr ""
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr ""
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr ""
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr ""
+
+msgctxt "disable"
+msgid "Disable"
+msgstr ""
+
+msgctxt "enable"
+msgid "Enable"
+msgstr ""
+
+msgctxt "view_options"
+msgid "View"
+msgstr ""
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr ""
+
+msgctxt "show_disabled_only"
+msgid "Show disabled only"
+msgstr ""
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr ""
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr ""
+
+msgctxt "reload"
+msgid "Reload"
+msgstr ""
+
+msgctxt "help"
+msgid "Help"
+msgstr ""
+
+msgctxt "please_wait"
+msgid "Please Wait..."
+msgstr ""
+
+msgctxt "error"
+msgid "Error"
+msgstr ""
+
+msgctxt "warning"
+msgid "Warning"
+msgstr ""
+
+msgctxt "confirm_sys_disable"
+msgid ""
+"You are about to disable a system component. This could potentially "
+"result in your phone no longer functioning properly.\n"
+"\n"
+"Do not proceed unless you are willing to deal with the consequences."
+msgstr ""
+
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of the selected component.\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr ""
+
+msgctxt "uninstall_warning"
+msgid ""
+"Important: Due to technical restrictions, you will currently lose the "
+"ability to re-enable components once you remove Autostarts, so please "
+"make sure you do so <b>before</b> uninstalling the app. I am hopeful that"
+" this issue will go away in future versions. Sorry for the inconvenience."
+"\n"
+"\n"
+"More information is available via <b>MENU -&gt; Help</b>."
+msgstr ""
+
+msgctxt "help_text"
+msgid ""
+"<b>How does it work?</b>\n"
+"\n"
+"Android allows applications to register for a variety of events supported"
+" by the system, to be started whenever such an event triggers.\n"
+"\n"
+"This allows applications to do important work in the background, but may "
+"sometimes also slow down the system.\n"
+"\n"
+"Autostarts helps you keep control over your phone by letting you know "
+"what goes on behind your back. \n"
+"\n"
+"<b>Can I remove an application from a particular event?</b>\n"
+"\n"
+"Yes, but due to Android API limitations, it only works on rooted devices."
+" <b>Please be careful when disabling stuff.</b> In particular note that:"
+" \n"
+"\n"
+"<i>a) The component in question may be responsible for other parts of the"
+" application's functionality than just the given event.</i> As a result, "
+"you may experience unintended side effects. For the most part though, you"
+" can just give things a try, and enable the component again should the "
+"application break. \n"
+"\n"
+"<i>b) If you remove Autostarts, you will lose all information about "
+"currently disabled components.</i> Again, this is due to Android "
+"limitations, which require <i>Autostarts</i> to keep track by itself "
+"which components have been disabled. As a result, before you uninstall "
+"<i>Autostarts</i>, be sure to renable the components you still need (Of "
+"course, the same is true for clearing the <i>Autostarts</i> application "
+"data, e.g. through the Settings <i>Manage Applications</i> option - don't"
+" do it). \n"
+"\n"
+"<b>Is it possible to know what a particular application does on a "
+"particular event?</b>\n"
+"\n"
+"No, not per se. However, if you select an entry, you will be able to see "
+"what the name of the <i>component</i> is that handles the event. "
+"Sometimes, the name gives you a hint. For example, an "
+"<i>AlarmInitReceiver</i> would likely initialize the alarms or "
+"notification that you have enabled in the application. Don't be surprised"
+" then if this application's alarms stop working if you disable the "
+"component. \n"
+"\n"
+"<b>I've disabled a component, but it seems to have it self enabled again "
+"after a while?</b>\n"
+"\n"
+"Yes, applications may enable or disable their own components. Some do "
+"this depending on settings, or what features are enabled. Unfortunately, "
+"there is no workaround for this. \n"
+"\n"
+"<b>My market downloads stopped working.</b>\n"
+"\n"
+"This is usually not the fault of <i>Autotstarts</i>, don't get ideas. "
+"However, there is one issue you might have run into. If you thought you "
+"weren't using Google Talk anyway and disabled it's <i>On Boot</i> event, "
+"this is likely to be the problem (it also occurs of you shutdown Google "
+"Talk using a task manager). Apparently, for some reason, if Google Talk "
+"is not running, market downloads do not work."
+msgstr ""
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr ""
+
+msgctxt "act_airplane_mode_changed"
+msgid "Airplane mode changed"
+msgstr ""
+
+msgctxt "act_airplane_mode_changed_detail"
+msgid "Airplane mode was switched on or off."
+msgstr ""
+
+msgctxt "act_battery_changed"
+msgid "Battery changed"
+msgstr ""
+
+msgctxt "act_battery_changed_detail"
+msgid "The charging state, or the charge level of the battery has changed."
+msgstr ""
+
+msgctxt "act_battery_low"
+msgid "Battery low"
+msgstr ""
+
+msgctxt "act_battery_low_detail"
+msgid "The device entered a low battery state."
+msgstr ""
+
+msgctxt "act_battery_okay"
+msgid "Battery okay"
+msgstr ""
+
+msgctxt "act_battery_okay_detail"
+msgid "The device left the low battery state."
+msgstr ""
+
+msgctxt "act_boot_completed"
+msgid "On Startup"
+msgstr ""
+
+msgctxt "act_boot_completed_detail"
+msgid "The device just completed booting up."
+msgstr ""
+
+msgctxt "act_power_connected"
+msgid "Power connected"
+msgstr ""
+
+msgctxt "act_power_connected_detail"
+msgid "External power has been connected to the device."
+msgstr ""
+
+msgctxt "act_power_disconnected"
+msgid "Power disconnected"
+msgstr ""
+
+msgctxt "act_power_disconnected_detail"
+msgid "External power has been removed from the device."
+msgstr ""
+
+msgctxt "act_shutdown"
+msgid "Shutdown"
+msgstr ""
+
+msgctxt "act_shutdown_detail"
+msgid "The device is shutting down."
+msgstr ""
+
+msgctxt "act_dock_event"
+msgid "Docking changed"
+msgstr ""
+
+msgctxt "act_dock_event_detail"
+msgid "The device was docked or undocked."
+msgstr ""
+
+msgctxt "act_camera_button"
+msgid "Camera button pressed"
+msgstr ""
+
+msgctxt "act_camera_button_detail"
+msgid "The Camera button was pressed."
+msgstr ""
+
+msgctxt "act_close_system_dialogs"
+msgid "On System dialogs close"
+msgstr ""
+
+msgctxt "act_close_system_dialogs_detail"
+msgid ""
+"Due to a user action, the system asks a temporary system dialog to be "
+"dismissed."
+msgstr ""
+
+msgctxt "act_configuration_changed"
+msgid "Configuration changed"
+msgstr ""
+
+msgctxt "act_configuration_changed_detail"
+msgid ""
+"The device configuration changed. This includes things like locale "
+"settings, but also the device orientation."
+msgstr ""
+
+msgctxt "act_date_changed"
+msgid "Date changed"
+msgstr ""
+
+msgctxt "act_date_changed_detail"
+msgid "The system date has changed."
+msgstr ""
+
+msgctxt "act_device_storage_low"
+msgid "Storage low"
+msgstr ""
+
+msgctxt "act_device_storage_low_detail"
+msgid "The device storage space has passed below a certain threshold."
+msgstr ""
+
+msgctxt "act_device_storage_ok"
+msgid "Storage ok"
+msgstr ""
+
+msgctxt "act_device_storage_ok_detail"
+msgid ""
+"The device storage space has increased beyond the critical threshold, and"
+" the low memory condition no longer exists."
+msgstr ""
+
+msgctxt "act_gtalk_service_connected"
+msgid "GTalk connected"
+msgstr ""
+
+msgctxt "act_gtalk_service_connected_detail"
+msgid "A GTalk connection was established."
+msgstr ""
+
+msgctxt "act_gtalk_service_disconnected"
+msgid "GTalk disconnected"
+msgstr ""
+
+msgctxt "act_gtalk_service_disconnected_detail"
+msgid "A GTalk connection was disconnected."
+msgstr ""
+
+msgctxt "act_headset_plug"
+msgid "Headset plugged or unplugged"
+msgstr ""
+
+msgctxt "act_headset_plug_detail"
+msgid "A wired headset was either plugged in or unplugged."
+msgstr ""
+
+msgctxt "act_input_method_changed"
+msgid "IME changed"
+msgstr ""
+
+msgctxt "act_input_method_changed_detail"
+msgid "The input method engine changed, i.e. the virtual keyboard in use."
+msgstr ""
+
+msgctxt "act_manage_package_storage"
+msgid "Package management requested"
+msgstr ""
+
+msgctxt "act_manage_package_storage_detail"
+msgid ""
+"The user acknowledged a \"low memory\" notification, and the package "
+"management is about to be started."
+msgstr ""
+
+msgctxt "act_media_bad_removal"
+msgid "Bad media removal"
+msgstr ""
+
+msgctxt "act_media_bad_removal_detail"
+msgid "External media was removed, but not correctly unmounted."
+msgstr ""
+
+msgctxt "act_media_button"
+msgid "Media button pressed"
+msgstr ""
+
+msgctxt "act_media_button_detail"
+msgid ""
+"The \"Media Button\" was pressed. Usually, this will refer to a button on"
+" your headset/earplugs."
+msgstr ""
+
+msgctxt "act_media_checking"
+msgid "Checking media"
+msgstr ""
+
+msgctxt "act_media_checking_detail"
+msgid "External media is present and is currently being disk-checked."
+msgstr ""
+
+msgctxt "act_media_eject"
+msgid "Media ejecting"
+msgstr ""
+
+msgctxt "act_media_eject_detail"
+msgid "External media is about to be ejected, likely due to a user request."
+msgstr ""
+
+msgctxt "act_media_mounted"
+msgid "Media mounted"
+msgstr ""
+
+msgctxt "act_media_mounted_detail"
+msgid "External media is present, was mounted and is now available to the device."
+msgstr ""
+
+msgctxt "act_media_nofs"
+msgid "Media invalid or blank"
+msgstr ""
+
+msgctxt "act_media_nofs_detail"
+msgid ""
+"External media was detected, but is using an incompatible filesystem or "
+"is blank."
+msgstr ""
+
+msgctxt "act_media_removed"
+msgid "Media removed"
+msgstr ""
+
+msgctxt "act_media_removed_detail"
+msgid ""
+"External media was just removed, and is now no longer available to the "
+"device."
+msgstr ""
+
+msgctxt "act_media_scanner_finished"
+msgid "Media scanner finished"
+msgstr ""
+
+msgctxt "act_media_scanner_finished_detail"
+msgid "The media scanner has finished scanning a directory."
+msgstr ""
+
+msgctxt "act_media_scanner_scan_file"
+msgid "Media scanner handling file"
+msgstr ""
+
+msgctxt "act_media_scanner_scan_file_detail"
+msgid ""
+"The media scanner has started to scan a file and add it to the media "
+"database."
+msgstr ""
+
+msgctxt "act_media_scanner_started"
+msgid "Media scanner started"
+msgstr ""
+
+msgctxt "act_media_scanner_started_detail"
+msgid "The media scanner has started scanning a directory."
+msgstr ""
+
+msgctxt "act_media_shared"
+msgid "Media sharing enabled"
+msgstr ""
+
+msgctxt "act_media_shared_detail"
+msgid ""
+"External media is now being shared via USB mass storage mode, and is at "
+"this time no longer available to the device."
+msgstr ""
+
+msgctxt "act_media_unmountable"
+msgid "Media unmountable"
+msgstr ""
+
+msgctxt "act_media_unmountable_detail"
+msgid "External media was detected, but cannot be used, likely due to an error."
+msgstr ""
+
+msgctxt "act_media_unmounted"
+msgid "Media unmounted"
+msgstr ""
+
+msgctxt "act_media_unmounted_detail"
+msgid ""
+"External media is available, but unmounted, and not available to the "
+"device."
+msgstr ""
+
+msgctxt "act_new_outgoing_call"
+msgid "New outgoing call"
+msgstr ""
+
+msgctxt "act_new_outgoing_call_detail"
+msgid ""
+"A new outgoing call is about to be placed. Applications may preprocess "
+"the call, and for example change or filter the phone number."
+msgstr ""
+
+msgctxt "act_package_added"
+msgid "Application installed"
+msgstr ""
+
+msgctxt "act_package_added_detail"
+msgid "A new application package has been installed on the device."
+msgstr ""
+
+msgctxt "act_package_changed"
+msgid "Application changed"
+msgstr ""
+
+msgctxt "act_package_changed_detail"
+msgid ""
+"An application package has been changed; for example, a component may "
+"have been enabled or disabled."
+msgstr ""
+
+msgctxt "act_package_data_cleared"
+msgid "Application data cleared"
+msgstr ""
+
+msgctxt "act_package_data_cleared_detail"
+msgid "The user data associated with an application package was cleared."
+msgstr ""
+
+msgctxt "act_package_install"
+msgid "Installing application"
+msgstr ""
+
+msgctxt "act_package_install_detail"
+msgid "An application is about to be downloaded and installed."
+msgstr ""
+
+msgctxt "act_package_removed"
+msgid "Application removed"
+msgstr ""
+
+msgctxt "act_package_removed_detail"
+msgid "An application package has been removed from the device."
+msgstr ""
+
+msgctxt "act_package_replaced"
+msgid "Application replaced"
+msgstr ""
+
+msgctxt "act_package_replaced_detail"
+msgid "An application package has been replaced by a new version."
+msgstr ""
+
+msgctxt "act_package_restarted"
+msgid "Application restarted"
+msgstr ""
+
+msgctxt "act_package_restarted_detail"
+msgid ""
+"An application package was restarted, and all it's processes have been "
+"killed."
+msgstr ""
+
+msgctxt "act_provider_changed"
+msgid "Content provider changed"
+msgstr ""
+
+msgctxt "act_provider_changed_detail"
+msgid ""
+"A content provider publishes a new event; for example, this is triggered "
+"by the GMail Storage provider when the set of unread email in the inbox "
+"changes."
+msgstr ""
+
+msgctxt "act_reboot"
+msgid "Reboot"
+msgstr ""
+
+msgctxt "act_reboot_detail"
+msgid "The system is about to reboot."
+msgstr ""
+
+msgctxt "act_screen_off"
+msgid "Screen off"
+msgstr ""
+
+msgctxt "act_screen_off_detail"
+msgid "The screen just turned off."
+msgstr ""
+
+msgctxt "act_screen_on"
+msgid "Screen on"
+msgstr ""
+
+msgctxt "act_screen_on_detail"
+msgid "The screen just turned on."
+msgstr ""
+
+msgctxt "act_timezone_changed"
+msgid "Timezone changed"
+msgstr ""
+
+msgctxt "act_timezone_changed_detail"
+msgid "The system timezone setting has changed."
+msgstr ""
+
+msgctxt "act_time_changed"
+msgid "Time changed"
+msgstr ""
+
+msgctxt "act_time_changed_detail"
+msgid "The system time has changed."
+msgstr ""
+
+msgctxt "act_time_tick"
+msgid "Time tick"
+msgstr ""
+
+msgctxt "act_time_tick_detail"
+msgid "The current time has changed. This is triggered once every minute."
+msgstr ""
+
+msgctxt "act_uid_removed"
+msgid "User removed"
+msgstr ""
+
+msgctxt "act_uid_removed_detail"
+msgid ""
+"A user id was removed from the system. This is usually related to the "
+"removal of an installed application."
+msgstr ""
+
+msgctxt "act_ums_connected"
+msgid "USB connected"
+msgstr ""
+
+msgctxt "act_ums_connected_detail"
+msgid "The device has entered USB Mass Storage mode."
+msgstr ""
+
+msgctxt "act_ums_disconnected"
+msgid "USB disconnected"
+msgstr ""
+
+msgctxt "act_ums_disconnected_detail"
+msgid "The device has exited USB Mass Storage mode."
+msgstr ""
+
+msgctxt "act_user_present"
+msgid "User present"
+msgstr ""
+
+msgctxt "act_user_present_detail"
+msgid ""
+"The user woke up the device and successfully passed the keyguard (if "
+"enabled)."
+msgstr ""
+
+msgctxt "act_wallpaper_changed"
+msgid "Wallpaper changed"
+msgstr ""
+
+msgctxt "act_wallpaper_changed_detail"
+msgid ""
+"The system wallpaper has changed, either due to a user action, or by an "
+"application."
+msgstr ""
+
+msgctxt "act_sim_full"
+msgid "SIM is full"
+msgstr ""
+
+msgctxt "act_sim_full_detail"
+msgid "The SIM storage for SMS messages is full."
+msgstr ""
+
+msgctxt "act_sms_received"
+msgid "SMS received"
+msgstr ""
+
+msgctxt "act_sms_received_detail"
+msgid "A new text based SMS message has been received."
+msgstr ""
+
+msgctxt "act_sms_rejected"
+msgid "SMS rejected"
+msgstr ""
+
+msgctxt "act_sms_rejected_detail"
+msgid "A text based SMS message has been rejected."
+msgstr ""
+
+msgctxt "act_wap_push_received"
+msgid "WAP PUSH received"
+msgstr ""
+
+msgctxt "act_wap_push_received_detail"
+msgid "A new WAP PUSH message has been received."
+msgstr ""
+
+msgctxt "act_network_ids_changed"
+msgid "Wi-FI network IDs changed"
+msgstr ""
+
+msgctxt "act_network_ids_changed_detail"
+msgid "The network IDs of the configured networks may have changed."
+msgstr ""
+
+msgctxt "act_rssi_changed"
+msgid "RSSI changed"
+msgstr ""
+
+msgctxt "act_rssi_changed_detail"
+msgid "The Wi-Fi signal strength (RSSI) has changed."
+msgstr ""
+
+msgctxt "act_scan_results_available"
+msgid "Wi-Fi scan completed"
+msgstr ""
+
+msgctxt "act_scan_results_available_detail"
+msgid "An access point scan has completed, and results are available."
+msgstr ""
+
+msgctxt "act_network_state_changed"
+msgid "Wi-Fi state changed"
+msgstr ""
+
+msgctxt "act_network_state_changed_detail"
+msgid "The state of Wi-Fi connectivity has changed."
+msgstr ""
+
+msgctxt "act_supplicant_connection_change"
+msgid "Wi-Fi connection changed"
+msgstr ""
+
+msgctxt "act_supplicant_connection_change_detail"
+msgid ""
+"The connection to a Wi-Fi access point was either successfully "
+"established, or an existing connection lost."
+msgstr ""
+
+msgctxt "act_suplicant_state_changed"
+msgid "Wi-Fi connecting state changed"
+msgstr ""
+
+msgctxt "act_suplicant_state_changed_detail"
+msgid "The state of of establishing a connection to an access point has changed."
+msgstr ""
+
+msgctxt "act_ringer_mode_changed"
+msgid "Ringer mode changed"
+msgstr ""
+
+msgctxt "act_ringer_mode_changed_detail"
+msgid "The ringer mode has changed (silent, vibrate, etc)."
+msgstr ""
+
+msgctxt "act_vibrate_setting_changed"
+msgid "Vibrate setting changed"
+msgstr ""
+
+msgctxt "act_vibrate_setting_changed_detail"
+msgid "The vibrate setting has changed (on, off, etc)."
+msgstr ""
+
+msgctxt "act_audio_becoming_noisy"
+msgid "Audio becoming noisy"
+msgstr ""
+
+msgctxt "act_audio_becoming_noisy_detail"
+msgid ""
+"Audio is about to become 'noisy' due to a change in audio outputs, e.g. "
+"when a headset is unplugged."
+msgstr ""
+
+msgctxt "act_tts_queue_completed"
+msgid "TTS queue completed"
+msgstr ""
+
+msgctxt "act_tts_queue_completed_detail"
+msgid ""
+"The TextToSpeech synthesizer has completed processing of all the text in "
+"the speech queue."
+msgstr ""
+
+msgctxt "act_tts_data_installed"
+msgid "TTS data installed"
+msgstr ""
+
+msgctxt "act_tts_data_installed_detail"
+msgid ""
+"Signals the completion of the installation of the data files used by the "
+"synthesis engine."
+msgstr ""
+
+msgctxt "act_sink_state_changed"
+msgid "BT sink state changed"
+msgstr ""
+
+msgctxt "act_sink_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bonding_created"
+msgid "BT bonding created"
+msgstr ""
+
+msgctxt "act_bonding_created_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bonding_removed"
+msgid "BT bonding removed"
+msgstr ""
+
+msgctxt "act_bonding_removed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_disabled"
+msgid "Bluetooth disabled"
+msgstr ""
+
+msgctxt "act_disabled_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_discovery_completed"
+msgid "BT discovery completed"
+msgstr ""
+
+msgctxt "act_discovery_completed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_discovery_started"
+msgid "BT discovery started"
+msgstr ""
+
+msgctxt "act_discovery_started_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_enabled"
+msgid "Bluetooth enabled"
+msgstr ""
+
+msgctxt "act_enabled_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_headset_state_changed"
+msgid "BT headset state changed"
+msgstr ""
+
+msgctxt "act_headset_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_mode_changed"
+msgid "BT mode changed"
+msgstr ""
+
+msgctxt "act_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_name_changed"
+msgid "BT name changed"
+msgstr ""
+
+msgctxt "act_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_pairing_cancel"
+msgid "BT pairing canceled"
+msgstr ""
+
+msgctxt "act_pairing_cancel_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_pairing_request"
+msgid "BT pairing requested"
+msgstr ""
+
+msgctxt "act_pairing_request_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_alias_changed"
+msgid "BT alias changed"
+msgstr ""
+
+msgctxt "act_remote_alias_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_alias_cleared"
+msgid "BT alias cleared"
+msgstr ""
+
+msgctxt "act_remote_alias_cleared_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_device_connected"
+msgid "BT device connected"
+msgstr ""
+
+msgctxt "act_remote_device_connected_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_device_disappeared"
+msgid "BT device disappeared"
+msgstr ""
+
+msgctxt "act_remote_device_disappeared_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_device_disconnected"
+msgid "BT device disconnected"
+msgstr ""
+
+msgctxt "act_remote_device_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_device_disconnect_requested"
+msgid "BT disconnect requested"
+msgstr ""
+
+msgctxt "act_remote_device_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_device_found"
+msgid "BT device found"
+msgstr ""
+
+msgctxt "act_remote_device_found_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_name_failed"
+msgid "BT name failed"
+msgstr ""
+
+msgctxt "act_remote_name_failed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_remote_name_updated"
+msgid "BT name updated"
+msgstr ""
+
+msgctxt "act_remote_name_updated_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_state_changed"
+msgid "BT state changed"
+msgstr ""
+
+msgctxt "act_bt_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_name_changed"
+msgid "BT name changed"
+msgstr ""
+
+msgctxt "act_bt_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_bond_state_changed"
+msgid "BT bond state changed"
+msgstr ""
+
+msgctxt "act_bt_bond_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_audio_state_changed"
+msgid "BT audio state changed"
+msgstr ""
+
+msgctxt "act_bt_audio_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_local_name_changed"
+msgid "BT local name changed"
+msgstr ""
+
+msgctxt "act_bt_local_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_scan_mode_changed"
+msgid "BT scan mode changed"
+msgstr ""
+
+msgctxt "act_bt_scan_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_discovery_finished"
+msgid "BT discovery finished"
+msgstr ""
+
+msgctxt "act_bt_discovery_finished_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_acl_connected"
+msgid "BT ACL connected"
+msgstr ""
+
+msgctxt "act_bt_acl_connected_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_acl_disconnected"
+msgid "BT ACL disconnected"
+msgstr ""
+
+msgctxt "act_bt_acl_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_acl_disconnect_requested"
+msgid "BT ACL disconnect requested"
+msgstr ""
+
+msgctxt "act_bt_acl_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_class_changed"
+msgid "BT class changed"
+msgstr ""
+
+msgctxt "act_bt_class_changed_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_found"
+msgid "BT found"
+msgstr ""
+
+msgctxt "act_bt_found_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_device_selected"
+msgid "BT device selected"
+msgstr ""
+
+msgctxt "act_bt_device_selected_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_bt_launch"
+msgid "BT launch"
+msgstr ""
+
+msgctxt "act_bt_launch_detail"
+msgid "(Bluetooth event)"
+msgstr ""
+
+msgctxt "act_background_data_setting_changed"
+msgid "Background data setting changed"
+msgstr ""
+
+msgctxt "act_background_data_setting_changed_detail"
+msgid "The setting for background data usage has changed values."
+msgstr ""
+
+msgctxt "act_appwidget_enabled"
+msgid "Widget enabled"
+msgstr ""
+
+msgctxt "act_appwidget_enabled_detail"
+msgid "The first copy of a widget was added."
+msgstr ""
+
+msgctxt "act_appwidget_update"
+msgid "Widget updating"
+msgstr ""
+
+msgctxt "act_appwidget_update_detail"
+msgid ""
+"A widget is asked to update itself. How often this is triggered depends "
+"on the widget in question, but never for widgets that are not in use.\n"
+"\n"
+"<b>Note that disabling this event will likely render the widget "
+"defunct.</b>"
+msgstr ""
+
+msgctxt "act_appwidget_disabled"
+msgid "Widget disabled"
+msgstr ""
+
+msgctxt "act_appwidget_disabled_detail"
+msgid "The last copy of a widget was removed."
+msgstr ""
+
+msgctxt "act_appwidget_deleted"
+msgid "Widget deleted"
+msgstr ""
+
+msgctxt "act_appwidget_deleted_detail"
+msgid ""
+"A copy of a widget was removed. Note that most widgets support multiple "
+"copies."
+msgstr ""
+
+msgctxt "act_phone_state_changed"
+msgid "Call state changed"
+msgstr ""
+
+msgctxt "act_phone_state_changed_detail"
+msgid ""
+"The call state of the phone has changed, for example when a new call is "
+"coming in, a call is accepted, or a previously active call ends."
+msgstr ""
+
+msgctxt "act_connectivity"
+msgid "Connectivity changed"
+msgstr ""
+
+msgctxt "act_connectivity_detail"
+msgid ""
+"The current network connection has changed, e.g. when switching from Wi-"
+"Fi to GSM. Note that since this is also triggered when a connection is "
+"initially established, it effectively entails the On Startup behavior."
+msgstr ""
+
+msgctxt "act_new_picture"
+msgid "New Picture"
+msgstr ""
+
+msgctxt "act_new_picture_detail"
+msgid ""
+"A new photo was added to the gallery, usually by the Camera application "
+"after the user made a new photo."
+msgstr ""
+

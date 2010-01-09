@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Es gibt keine automatisch startende Anwendungen.</string>
+  <string name="no_receivers_filtered">Keine automatisch startende Anwendungen innerhalb der aktuellen Filterauswahl.</string>
+  <string name="change_filter_settings">Filtereinstellungen ändern.</string>
+  <string name="appliation_info">Anwendungsinformationen</string>
+  <string name="find_in_market">Im Market finden</string>
+  <string name="disable">Deaktivieren</string>
+  <string name="enable">Aktivieren</string>
+  <string name="view_options">Ansicht</string>
+  <string name="hide_sys_apps">Systemanwendungen ausblenden</string>
+  <string name="show_disabled_only">Nur Deaktivierte anzeigen</string>
+  <string name="expand_all">Alle ausklappen</string>
+  <string name="collapse_all">Alle einklappen</string>
+  <string name="reload">Neu laden</string>
+  <string name="help">Hilfe</string>
+  <string name="please_wait">Bitte warten...</string>
+  <string name="error">Fehler</string>
+  <string name="warning">Warnung</string>
+  <string name="confirm_sys_disable">Du bist gerade dabei eine Systemkomponente zu deaktivieren. Dies kann potentiell zu Problemen mit deinem Handy führen.\n\nBitte fahre nur fort wenn du sicher bist was du tust.</string>
+  <string name="state_change_failed">Der Status der Komponente konnte nicht geändert werden.\n\nDer Grund ist in der Regel dass du keinen Root-Zugriff auf deinem Handy hast.</string>
+  <string name="uninstall_warning">"Wichtig: Aus technischen Gründen ist es aktuell nicht möglich eine Komponente wieder zu aktivieren sobald du Autostarts deinstalliert hast. Bitte stelle sicher dass du dies tust "<b>bevor</b>" du Autostarts entfernst. Diese Einschränkung wird hoffentlich in zukünftigen Versionen verschwinden. Entschuldige die Umstände.\n\nWeitere Informationen findest du via "<b>MENU -&gt; Hilfe</b>.</string>
+  <string name="help_text"><b>Wie funktioniert die Sache?</b>\n\nAndroid erlaubt Anwendungen, sich für verschiedene Ereignisse zu registrieren die das System unterstützt. Die Programme werden automatisch gestartet wenn ein solches Ereignis eintritt.\n\nDies ermöglicht manchmal wichtige Aufgaben die im Hintergrund erledigt werden, kann das Systenm aber auch verlangsamen.\n\nAutostart gibt dir die Kontrolle über dein Handy indem es dich wissen lässt, was hinter deinem Rücken passiert.\n\n<b>Kann ich ein Ereignis für eine bestimmte Anwendung deaktivieren?</b>"\n\nJa, aber aufgrund Beschränkungen in der Android API funktioniert dies nur auf Geräten mit Rootzugriff. "<b>Bitte sei vorsichtig wenn du Dinge deaktivierst.</b>" Beachte insbesondere:\n\n"<i>a) Anderen Funktionen der Anwendung können möglicherweise von dem Ereignis abhängen.</i>" In der Folge gibt es möglicherweise unerwartete Nebeneffekte. In der Regel kannst du es allerdings einfach mal ausprobieren, und die Komponente einfach wieder aktivieren falls es Probleme gibt.\n\n"<i>b) Wenn du Autostarts deinstallierst wirst du die Möglichkeit verlieren, deaktivierte Komponenten wieder zu aktivieren.</i>" Auch dies ist wegen einer Beschränkung in Android, aufgrund der "<i>Autostarts</i>" selbst Buch führen muss welche Komponenten deaktiviert wurden. Diese Daten werden beim Deinstallieren von "<i>Autostarts</i>" ebenfalls gelöscht.\n\nDas bedeutet dass du, bevor du "<i>Autostarts</i>" entfernst, du deaktivierte Komponenten wieder aktivieren solltest. Das selbe trifft zu wenn du unter "<i>Anwendungen verwalten</i>" in den Einstellungen die Daten von "<i>Autostarts</i>" löscht.\n\n"<b>Ist es möglich zu wissen was eine Anwendungen genau tut bei einem bestimmten Ereignis?</b>"\n\nNein, nicht ohne weiteres. Wenn du allerdings einen Eintrag auswählst, wird dir der Name der "<i>Komponente</i>" angezeigt, die das Ereignis bearbeitet. Manchmal gibt der Name einen Hinweis darauf was passiert. Zum Beispiel würde ein "<i>AlarmInitReceiver</i>" vermutlich Alarme oder Benachrichtigungen installieren die du in der Anwendung aktiviert hast. Sei nicht überrascht wenn diese Alarme nicht mehr funktionieren sobald du diese Komponente deaktivierst.\n\n"<b>Ich habe eine Komponente deaktiviert, aber nach einer Weile erscheint sie automatisch wieder als aktiv.</b>\n\nAnwendungen haben die Möglichkeit, ihre eigenen Komponenten zu Aktivieren oder zu Deaktivieren. Manche tun dies abhängig von Programmeinstellungen die du vornimmst, oder welche Funktionen aktiviert sind. Unglücklicherweise lässt sich dagegen nicht wirklich etwas tun.\n\n<b>Downloads im Android Market funktionieren nicht mehr.</b>"\n\nIm Normalfall ist das nicht die Schuld von "<i>Autostarts</i>. Es gibt allerdings eine Sache die zur erwähnen ist: Wenn du dachtest du verwendest Google Talk sowieso nicht und das entsprechende \"Beim Starten\" Ereignis deaktiviert hast, kann das eine Ursache für Download-Probleme sein (wird Google Talk mit einem Task Manager beendet, tritt es ebenfalls auf). Anscheinend muss Google Talk aktiv sein damit Market Downloads funktionieren.</string>
+  <string name="close_help">Hilfe schließen und zurück</string>
+  <string name="act_boot_completed">Beim Start</string>
+  <string name="act_boot_completed_detail">Das Gerät wurde gerade neu gestartet.</string>
+</resources>

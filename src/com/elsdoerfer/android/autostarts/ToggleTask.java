@@ -174,7 +174,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			f = activity.openFileOutput(
 					scriptFile, ListActivity.MODE_PRIVATE);
 			try {
-				f.write(String.format("pm %s %s/%s",
+				f.write(String.format("/system/bin/pm %s %s/%s",
 						(mDoEnable ? "enable": "disable"),
 						mApp.activityInfo.packageName,
 						mApp.activityInfo.name).getBytes());

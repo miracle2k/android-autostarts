@@ -1,3 +1,6 @@
+More people than usual seem to be stumbling over the su-hang issue.
+We should show an info box on first start about it.
+
 Show a notification whenever a package is added or updated that includes
 new autostarts; this makes it easy to "review" all autostarts as new
 applications are installed. Ironically, we will have to register a

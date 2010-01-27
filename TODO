@@ -95,8 +95,6 @@ component may effect multiple entries. At the very least, the UI should
 update accordingly when a component is disabled (striking out multiple
 rows).
 
-Add German localization.
-
 Update our custom colors to be stateful.
 
 Add a "system view" that goes through packages.xml manually and shows

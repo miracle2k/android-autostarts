@@ -6,11 +6,6 @@ new autostarts; this makes it easy to "review" all autostarts as new
 applications are installed. Ironically, we will have to register a
 broadcast receiver ourselves to implement this.
 
-More stuff that we have missed:
-  Telephony:
-    - SECRET_CODE_ACTION
-    - SPN_STRINGS_UPDATED_ACTION
-
 BIG ISSUE: Not all handlers are found; namely, those who's intent filter
 is written to match something; this is basically not solvable with our
 current approach. We could hardcode certain data passed for all the

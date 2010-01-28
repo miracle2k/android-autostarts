@@ -260,4 +260,8 @@
 	<string name="act_connectivity_detail">The current network connection has changed, e.g. when switching from Wi-Fi to GSM. Note that since this is also triggered when a connection is initially established, it effectively entails the &quot;On Startup&quot; behavior.</string>
 	<string name="act_new_picture">New Picture</string>
 	<string name="act_new_picture_detail">A new photo was added to the gallery, usually by the Camera application after the user made a new photo.</string>
+	<string name="act_secret_code">Secret Code entered</string>
+	<string name="act_secret_code_detail">A "secret code" was entered in the dialer. They are in the form of "*#*##*#*".</string>
+	<string name="act_spn_strings_updated">Service provider data changed</string>
+	<string name="act_spn_strings_updated_detail">The name of the network operator or service provider have changed.</string>
 </resources>

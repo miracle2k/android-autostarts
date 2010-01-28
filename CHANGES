@@ -2,6 +2,7 @@
 	* Added German translation (does not include event texts).
 	* Fixed state change on some 2.1. ROMs that apparently have 
 	  pm not in the path.
+	* Added support for two new events (SECRET_CODE, SPN_STRINGS_UPDATED). 
 
 1.2.1 (2009-10-29)
 	* "Eclair-ready" (compiled against 2.0).

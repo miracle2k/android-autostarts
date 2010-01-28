@@ -92,6 +92,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			mPg.cancel();
 
 		if (!mResult) {
+			// TODO: Use showDialog() so it's managed by Activity.
 			new AlertDialog.Builder(mActivity)
 				.setMessage(R.string.state_change_failed)
 				.setIcon(android.R.drawable.ic_dialog_alert)
@@ -179,6 +180,13 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 						mApp.activityInfo.packageName,
 						mApp.activityInfo.name).getBytes());
 				f.close();
+
+				// TODO: Temporary migration code, remove again.
+				// In the future, we could use this utility function to
+				// test for root; to make sure it won't look users out,
+				// during a test period let's log the result and we can
+				// have a look at the logs we get from people.
+				Log.i(ListActivity.TAG, "Testing for root: "+Utils.deviceHasRoot());
 
 				Runtime r = Runtime.getRuntime();
 				Log.i(ListActivity.TAG, "Asking package manger to "+

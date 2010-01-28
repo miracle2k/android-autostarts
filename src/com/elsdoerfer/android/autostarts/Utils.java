@@ -1,5 +1,6 @@
 package com.elsdoerfer.android.autostarts;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,5 +46,19 @@ public class Utils {
 		}
 		while (i.hasNext());
 		return -1;
+	}
+
+	/**
+	 * Determine if the device is rooted.
+	 *
+	 * This is based on the approach from android-wifi-tether.
+	 *
+	 * Note that the emulator and ADP1 device both have a su binary in
+	 * /system/xbin/su, but it doesn't allow apps to use it (su app_29
+	 * $ su su: uid 10029 not allowed to su).
+	 */
+	static boolean deviceHasRoot() {
+    	File su = new File("/system/bin/su");
+    	return su.exists();
 	}
 }

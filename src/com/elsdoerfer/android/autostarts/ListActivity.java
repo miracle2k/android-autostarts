@@ -555,6 +555,15 @@ public class ListActivity extends ExpandableListActivity {
 		for (Object[] intent : Actions.ALL) {
 			Intent query = new Intent();
 			query.setAction((String)(intent[0]));
+			if (intent.length == 4)
+				// Set broadcasts set a data (and potentially even a category),
+				// and some apps are matching for those. If we don't also pass
+				// *something* that matches, we won't get those back. This is a
+				// temporary hack to get some broadcasts like PACKAGE_ADDED to
+				// show, but ultimately, the only real solution is to get rid
+				// of queryBroadcastReceivers() and get our data differently.
+				// See also the Todo file which has more on this.
+				query.setData(Uri.parse((String)(intent[3])));
 			if (LOGV) Log.v(TAG, "Querying receivers for action: "+(String)(intent[0]));
 			List<ResolveInfo> receivers = pm.queryBroadcastReceivers(query,
 					PackageManager.GET_INTENT_FILTERS);

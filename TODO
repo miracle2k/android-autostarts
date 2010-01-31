@@ -3,16 +3,17 @@ new autostarts; this makes it easy to "review" all autostarts as new
 applications are installed. Ironically, we will have to register a
 broadcast receiver ourselves to implement this.
 
-BIG ISSUE: Not all handlers are found; namely, those who's intent filter
-is written to match something; this is basically not solvable with our
-current approach. We could hardcode certain data passed for all the
-system apps, or following the definition of the intent; this will still
-not guarantee us those receivers which match only a certain string, say.
-But than again, maybe we don't want to show those either, not without
-specifying that they match only at limited times?
-An example is the SECRET_CODE_ACTION intent - the voice dialer here
-matches only a certain scheme, and others are likely to handle this
-in a similar manner.
+BIG ISSUE: Not all handlers are found; namely, in cases where the intent 
+filter is written to match on URI or category. As a temporary workaround,
+for some selected actions we query using fake data, but really, the issue
+can't be solved right using our current query approach. We really need 
+a way to properly get all receivers on a package by package basis. Also,
+there is an UI issue here. For example the SECRET_CODE_ACTION intent - 
+the voice dialer here matches only a certain scheme, and others handle it 
+in a similar manner (http://www.google.com/codesearch?hl=en&sa=N&filter=0&q=android_secret_code).
+Even for PACKAGE_ADDED et al. it's possible for an application to only 
+register for a specific package. This needs to be made clear to the user 
+someway, lest he think the app is starting more often than it really is.
 
 In rare cases, on some ROMs, "su" never seems to return; see eMail from
 Ryan Cobden, 2009-07-11 and Herb, 2009-12-22.

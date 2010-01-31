@@ -2,7 +2,10 @@
 	* Added German translation (does not include event texts).
 	* Fixed state change on some 2.1. ROMs that apparently have 
 	  pm not in the path.
-	* Added support for two new events (SECRET_CODE, SPN_STRINGS_UPDATED). 
+	* Added support for two new events (SECRET_CODE, SPN_STRINGS_UPDATED).
+	* Improved handling of certain events (like PACKAGE_INSTALLED and 
+	  friends) that previously didn't properly show up in many cases. 
+	  There is still some work to do here.  
 	* On first use and on the help screen we now show information about 
 	  how to workaround the freeze bug in the Superuser Whitelist app.
 

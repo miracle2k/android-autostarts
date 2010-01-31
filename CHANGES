@@ -1,4 +1,4 @@
-1.2.2 (2010-01-xx)
+1.2.2 (2010-01-31)
 	* Added German translation (does not include event texts).
 	* Added support for two new events (SECRET_CODE, SPN_STRINGS_UPDATED).
 	* Improved handling of certain events (like PACKAGE_INSTALLED and 

@@ -1,7 +1,5 @@
 1.2.2 (2010-01-xx)
 	* Added German translation (does not include event texts).
-	* Fixed state change on some 2.1. ROMs that apparently have 
-	  pm not in the path.
 	* Added support for two new events (SECRET_CODE, SPN_STRINGS_UPDATED).
 	* Improved handling of certain events (like PACKAGE_INSTALLED and 
 	  friends) that previously didn't properly show up in many cases. 

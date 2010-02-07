@@ -1,3 +1,21 @@
+Why the native code?
+====================
+
+We had hoped it would solve the su-hang issue, but it unfortunately 
+didn't. Note though that it had at least *some* effect on the Superuser
+Whitelist Application: The su request, when the native lib was used,
+showed as the callee app:
+
+     /system/bin/sh -c su -c "sh /data/.../pm-call.sh"
+
+Without the native library, using Runtime.exec, our namespace was instead
+shown as the callee:
+
+    com.elsdoerfer.android.autostarts
+
+Not sure as to the significance of this.
+
+
 Compiling the native code
 =========================
 

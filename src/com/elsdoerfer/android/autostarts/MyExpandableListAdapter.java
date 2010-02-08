@@ -6,7 +6,6 @@ package com.elsdoerfer.android.autostarts;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
@@ -18,7 +17,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.elsdoerfer.android.autostarts.DatabaseHelper.ReceiverData;
+import com.elsdoerfer.android.autostarts.ReceiverReader.ActionWithReceivers;
+import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
 
 /**
  * ListAdapter used by the ListActivity. Has it's own top-level file to
@@ -36,14 +36,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     private boolean mShowDisabledOnly = false;
 
     private LayoutInflater mInflater;
-    private PackageManager mPackageManager;
 
     public MyExpandableListAdapter(ListActivity activity, int groupLayout, int childLayout) {
         mActivity = activity;
         mChildLayout = childLayout;
         mGroupLayout = groupLayout;
         mInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mPackageManager = activity.getPackageManager();
         setData(new ArrayList<ActionWithReceivers>());
     }
 
@@ -57,7 +55,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
      * Based on the full data available, updates the data set we use to
      * display the list; i.e. if there are filters set, those are applied.
      *
-     * XXX: Add a way to init all filters without updating the data
+     * TODO: Add a way to init all filters without updating the data
      * once for every filter option. Simplest way: generate this on demand?
      */
     private void updateRenderData() {
@@ -72,9 +70,9 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 filtered_row.receivers = new ArrayList<ReceiverData>();  // needs a new (filtered) list
                 for (ReceiverData app : row.receivers) {
                 	boolean match = true;
-                    if (mHideSystemApps && ListActivity.isSystemApp(app))
+                    if (mHideSystemApps && app.isSystem)
                     	match = false;
-                    if (mShowDisabledOnly && app.enabled == true)
+                    if (mShowDisabledOnly && app.currentEnabled == true)
                     	match = false;
 
                     if (match)
@@ -91,7 +89,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public long getChildId(int groupPosition, int childPosition) {
-        return ((ReceiverData)getChild(groupPosition, childPosition)).activityInfo.name.hashCode();
+        return ((ReceiverData)getChild(groupPosition, childPosition)).componentName.hashCode();
     }
 
     public int getChildrenCount(int groupPosition) {
@@ -107,20 +105,19 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             v = convertView;
         ReceiverData app = (ReceiverData) getChild(groupPosition, childPosition);
         ((ImageView)v.findViewById(R.id.icon)).
-            setImageDrawable(app.activityInfo.loadIcon(mPackageManager));
+            setImageDrawable(app.icon);
         TextView title = ((TextView)v.findViewById(R.id.title));
-        if (ListActivity.isSystemApp(app))
+        if (app.isSystem)
             title.setTextColor(Color.YELLOW);
         else
             title.setTextColor(mActivity.getResources().getColor(android.R.color.primary_text_dark));
-        CharSequence appTitle = app.activityInfo.applicationInfo.loadLabel(mPackageManager);
-        CharSequence receiverTitle = app.activityInfo.loadLabel(mPackageManager);
+
         SpannableString fullTitle;
-        if (appTitle.equals(receiverTitle))
-            fullTitle = SpannableString.valueOf(appTitle);
+        if (app.componentLabel == null)
+            fullTitle = SpannableString.valueOf(app.packageLabel);
         else
-            fullTitle = SpannableString.valueOf((appTitle + " ("+receiverTitle+")"));
-        if (!app.enabled)
+            fullTitle = SpannableString.valueOf((app.packageLabel + " ("+app.componentLabel+")"));
+        if (!app.currentEnabled)
             fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
         title.setText(fullTitle);
         return v;

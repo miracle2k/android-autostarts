@@ -3,21 +3,17 @@ new autostarts; this makes it easy to "review" all autostarts as new
 applications are installed. Ironically, we will have to register a
 broadcast receiver ourselves to implement this.
 
-BIG ISSUE: Not all handlers are found; namely, in cases where the intent 
-filter is written to match on URI or category. As a temporary workaround,
-for some selected actions we query using fake data, but really, the issue
-can't be solved right using our current query approach. We really need 
-a way to properly get all receivers on a package by package basis. Also,
-there is an UI issue here. For example the SECRET_CODE_ACTION intent - 
-the voice dialer here matches only a certain scheme, and others handle it 
-in a similar manner (http://www.google.com/codesearch?hl=en&sa=N&filter=0&q=android_secret_code).
-Even for PACKAGE_ADDED et al. it's possible for an application to only 
-register for a specific package. This needs to be made clear to the user 
-someway, lest he think the app is starting more often than it really is.
+For actions like SECRET_CODE_ACTION it would be interesting to show the
+intent filter that it matches. For example, the voice dialer here matches
+only a certain scheme, and others handle it in a similar manner
+(http://www.google.com/codesearch?hl=en&sa=N&filter=0&q=android_secret_code).
+Even for PACKAGE_ADDED et al. it's possible for an application to only
+register for a specific package. This needs to be made clear to the user
+some way, lest he think the app is starting more often than it really is.
 
-When "USB Debugging" is disabled, "su" in some cases never returns. It 
+When "USB Debugging" is disabled, "su" in some cases never returns. It
 seems to be a well known bug in Superuser Whitelist, and our usage of
-su seems to trigger it. But it's not the case for all su calls. In 
+su seems to trigger it. But it's not the case for all su calls. In
 particular, we've had some sporadic successes running "pm" directly rather
 than through a shell script.
 Most other apps seem to do their root calls through opening a "su" process
@@ -28,21 +24,21 @@ and piping commands into stdin:
 	http://www.google.com/codesearch/p?hl=en#slEzds0kxxw/trunk/src/net/biaji/android/cmwrap/utils/Utils.java&q=%22su%22%20sh%20lang:java%20android%20Process&sa=N&cd=43&ct=rc&l=210
 	http://www.google.com/codesearch/p?hl=en#BwQ6HuYx4dA/trunk/hermes/src/android/hermes/AdHocWifiManager.java&q=%22su%22%20sh%20lang:java%20android%20Process&sa=N&cd=69&ct=rc
 android-wifi-thether does it similar to us, running a script via "su -c",
-but it too works without USB Debugging. The differences as far as I can see 
+but it too works without USB Debugging. The differences as far as I can see
 are:
 	- Use of native lib rather than Java Exec (NativeTask).
-	- The command run is not a shell script, but a compiled executable 
-	  with the +x flag. 
+	- The command run is not a shell script, but a compiled executable
+	  with the +x flag.
 Other links of relevance:
 	http://code.google.com/p/market-enabler/wiki/ShellCommands
 	http://www.stealthcopter.com/blog/2010/01/android-requesting-root-access-in-your-app/
 	http://gimite.net/en/index.php?Run%20native%20executable%20in%20Android%20App
-	http://groups.google.com/group/android-wifi-tether/browse_thread/thread/20a1228d9ac7eb81	
+	http://groups.google.com/group/android-wifi-tether/browse_thread/thread/20a1228d9ac7eb81
 	http://forum.xda-developers.com/showthread.php?t=509592&page=2
 	http://groups.google.com/group/android-developers/browse_thread/thread/ba1b58cd30a98b96
 What we can do:
 	- Try with +x flag set.
-	- Try +x flag + NativeTask. 
+	- Try +x flag + NativeTask.
 	- Try su pipe.
 	- Try new CM rom, see if it's fixed there.
 
@@ -74,17 +70,6 @@ and basically consists of trying multiple syntaxes:
       return true;
     }
 See also our email conversation with Alex Speed Kjeldsen.
-
-Can't we just store the list of disabled components somewhere like in
-/data/system/autostarts-disabled.txt? We do have, after all, root access.
-We'd make sure we write to a separate file and then rm&mv it over, to
-avoid half-written files on crashes.
-
-Add a "security log" feature that basically exports the "disabled
-components" database to the sdcard in the form of "pm enable" commands,
-automatically and in regular intervals.
-Add a help entry explaining how to use this file in case something goes
-wrong, to restore components.
 
 Support grouping by application.
 

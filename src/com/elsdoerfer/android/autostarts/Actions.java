@@ -1,5 +1,7 @@
 package com.elsdoerfer.android.autostarts;
 
+import java.util.LinkedHashMap;
+
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -8,12 +10,8 @@ import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
 final class Actions {
-	// The broadcast actions/intents we support.
-	//
-	// Due to Android limitations, this needs to be a predefined, static
-	// list, rather than querying all receivers and their intents
-	// dynamically. Read more about it in the comments for the code where
-	// we do the actual loading.
+	// The broadcast actions/intents we know about. This allows us to show
+	// some basic information and a prettyfied title to the user.
 	//
 	// When doing a custom Android build, apparently a file
 	// "common/docs/broadcast_actions.txt" is generated, containing a list
@@ -24,6 +22,7 @@ final class Actions {
 	// Unless otherwise noted, all the actions listed below are included
 	// in that file, though note that the order may have changed to
 	// prioritize more important broadcasts.
+	//
 	// TODO: Would it be better to sort the list by the number of apps
 	// registered for each broadcast, rather than have a manual order?
 
@@ -65,13 +64,13 @@ final class Actions {
 		// BEGIN "Not in broadcast_actions.txt"
 		{ TelephonyManager.ACTION_PHONE_STATE_CHANGED, R.string.act_phone_state_changed, R.string.act_phone_state_changed_detail },
 		// END "Not in broadcast_actions.txt"
-		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added, R.string.act_package_added_detail, "package:dummy" },
-		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed, R.string.act_package_changed_detail, "package:dummy" },
-		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared, R.string.act_package_data_cleared_detail, "package:dummy" },
-		{ Intent.ACTION_PACKAGE_INSTALL, R.string.act_package_install, R.string.act_package_install_detail, "package:dummy" },
-		{ Intent.ACTION_PACKAGE_REMOVED, R.string.act_package_removed, R.string.act_package_removed_detail, "package:dummy" },
-		{ Intent.ACTION_PACKAGE_REPLACED, R.string.act_package_replaced, R.string.act_package_replaced_detail, "package:dummy" },
-		{ Intent.ACTION_PACKAGE_RESTARTED, R.string.act_package_restarted, R.string.act_package_restarted_detail, "package:dummy" },
+		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added, R.string.act_package_added_detail },
+		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed, R.string.act_package_changed_detail },
+		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared, R.string.act_package_data_cleared_detail  },
+		{ Intent.ACTION_PACKAGE_INSTALL, R.string.act_package_install, R.string.act_package_install_detail },
+		{ Intent.ACTION_PACKAGE_REMOVED, R.string.act_package_removed, R.string.act_package_removed_detail },
+		{ Intent.ACTION_PACKAGE_REPLACED, R.string.act_package_replaced, R.string.act_package_replaced_detail },
+		{ Intent.ACTION_PACKAGE_RESTARTED, R.string.act_package_restarted, R.string.act_package_restarted_detail },
 		{ Intent.ACTION_PROVIDER_CHANGED, R.string.act_provider_changed, R.string.act_provider_changed_detail },
 		{ Intent.ACTION_REBOOT, R.string.act_reboot, R.string.act_reboot_detail },
 		{ Intent.ACTION_SCREEN_OFF, R.string.act_screen_off, R.string.act_screen_off_detail },
@@ -90,7 +89,7 @@ final class Actions {
 		{ Intent.ACTION_DOCK_EVENT, R.string.act_dock_event, R.string.act_dock_event_detail },
 
 		// com.android.camera.*
-		{ "com.android.camera.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail, "content:dummy" },
+		{ "com.android.camera.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail },
 
 		// android.provider.Telephony.*
 		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
@@ -189,4 +188,15 @@ final class Actions {
 		{ AppWidgetManager.ACTION_APPWIDGET_DISABLED, R.string.act_appwidget_disabled, R.string.act_appwidget_disabled_detail },
 		{ AppWidgetManager.ACTION_APPWIDGET_DELETED, R.string.act_appwidget_deleted, R.string.act_appwidget_deleted_detail },
     };
+
+	static LinkedHashMap<String, Object[]> MAP;
+
+	static {
+		// Convert the list of available actions (and their data) into
+		// a ordered hash map which we are than able to easily query by
+		// action name.
+		MAP = new LinkedHashMap<String, Object[]>();
+		for (Object[] action : Actions.ALL)
+			MAP.put((String)action[0], action);
+	}
 }

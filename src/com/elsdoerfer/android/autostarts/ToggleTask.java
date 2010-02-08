@@ -12,7 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.elsdoerfer.android.autostarts.DatabaseHelper.ReceiverData;
+import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
 
 /**
  * Takes care of toggling a component's state. This may take a
@@ -103,13 +103,6 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			// We can reasonably expect that the component state
 			// changed, so refresh the list.
 			mActivity.mListAdapter.notifyDataSetInvalidated();
-
-	        // As a one time warning, make sure the user knows about the
-	        // problems with uninstalling the app while receivers are
-	        // still disabled (i.e. only show the warning if the user is
-			// disabling a component).
-			if (!mDoEnable)
-				mActivity.showUninstallWarning();
 		}
 	}
 
@@ -126,17 +119,6 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 		// that the component state changed in the background while
 		// the user decided what to do).
 		mDoEnable = (Boolean)params[1];
-
-		// Remember that we disabled this component. We do this now,
-		// before we even attempted to change the state - which might
-		// not work. No big deal, the cache entry would just be ignored.
-		// If however something does wrong, and the component is
-		// disabled but NOT cached, this would be much much worse.
-		if (!mDoEnable) {
-			DatabaseHelper db = new DatabaseHelper(mActivity);
-			db.cacheComponent(mApp);
-			db.close();
-		}
 
 		// All right. So we can't use the PackageManager
 		// to disable components, since the permission
@@ -177,8 +159,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			try {
 				f.write(String.format("pm %s %s/%s",
 						(mDoEnable ? "enable": "disable"),
-						mApp.activityInfo.packageName,
-						mApp.activityInfo.name).getBytes());
+						mApp.packageName, mApp.componentName).getBytes());
 				f.close();
 
 				// TODO: Temporary migration code, remove again.
@@ -212,7 +193,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 				try {
 					newEnabledState = isComponentEnabled(pm, mApp);
 					// update the stored status while we're at it
-					mApp.enabled = newEnabledState;
+					mApp.currentEnabled = newEnabledState;
 				} catch (NameNotFoundException e) {
 					Log.e(ListActivity.TAG, "Unable to check success of state change", e);
 					return false;
@@ -239,7 +220,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 	 */
 	static Boolean isComponentEnabled(PackageManager pm, ReceiverData app) throws NameNotFoundException {
 		ComponentName c = new ComponentName(
-				app.activityInfo.packageName, app.activityInfo.name);
+				app.packageName, app.componentName);
 			int setting = pm.getComponentEnabledSetting(c);
 			return
 				(setting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)

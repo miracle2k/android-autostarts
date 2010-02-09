@@ -85,6 +85,11 @@ by the number of components in a group, or by "importance" of a receiver.
 The latter would be a number determined by us, and would be an attempt
 to maintain the current order, i.e. BOOT would be on top.
 
+Another possible attempt to keep the list clean would be a filter that
+removes all apps which register for their own intents. Since nobody
+"owns" an action, this can't be determined in a 100% guaranteed way,
+but for many cases, comparing the namespace strings should suffice.
+
 Currently, we don't pay any attention to the fact that a single receiver
 may be responsible for multiple events. As a result, disabling a single
 component may effect multiple entries. At the very least, the UI should

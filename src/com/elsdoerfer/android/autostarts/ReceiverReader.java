@@ -150,10 +150,10 @@ public class ReceiverReader {
 											"for receiver "+currentComponentName+
 											" in package "+p.packageName+": "+priorityRaw);
 								}
-							if (LOGV && currentFilterPriority != 0)
-								Log.v(TAG, "Receiver "+currentComponentName+
-										" in package "+p.packageName+" has "+
-										"an intent filter with priority != 0");
+								if (LOGV && currentFilterPriority != 0)
+									Log.v(TAG, "Receiver "+currentComponentName+
+											" in package "+p.packageName+" has "+
+									"an intent filter with priority != 0");
 						}
 						else if (tagName.equals("action") && state == ParserState.InIntentFilter)
 						{
@@ -168,7 +168,7 @@ public class ReceiverReader {
 							if (action == null) {
 								Log.w(TAG, "Receiver "+currentComponentName+
 										" of package "+p.packageName+" has "+
-										"action without name");
+								"action without name");
 								break;
 							}
 
@@ -265,8 +265,8 @@ public class ReceiverReader {
 		// Of course, in those cases there'd be no receivers for us
 		// either, so we don't really care about this case.
 		return ((p.applicationInfo != null)  && (
-					ApplicationInfo.FLAG_SYSTEM & p.applicationInfo.flags)
-						== ApplicationInfo.FLAG_SYSTEM);
+				ApplicationInfo.FLAG_SYSTEM & p.applicationInfo.flags)
+				== ApplicationInfo.FLAG_SYSTEM);
 	}
 
 	/**
@@ -291,7 +291,7 @@ public class ReceiverReader {
 		// work fine without it, for now. Note that we added the
 		// NotFoundException catch ourselves.
 		//catch (RuntimeException e) {
-			// formerly noted errors here, but simply not resolving works better
+		// formerly noted errors here, but simply not resolving works better
 		//	return in;
 		//}
 	}
@@ -313,22 +313,22 @@ public class ReceiverReader {
 	}
 
 	/**
-     * Represent a receiver for a single action.
-     */
-    static class ReceiverData implements Comparable<ReceiverData>, Parcelable {
-        // These identify the component
-        public String packageName;
-        public String componentName;
+	 * Represent a receiver for a single action.
+	 */
+	static class ReceiverData implements Comparable<ReceiverData>, Parcelable {
+		// These identify the component
+		public String packageName;
+		public String componentName;
 
-        // This is peripheral data
-        String packageLabel;
-        String componentLabel;
-        public String action;
-        public Drawable icon;
-        public boolean isSystem;
-        public int priority;
-        public boolean defaultEnabled;
-        public boolean currentEnabled;
+		// This is peripheral data
+		String packageLabel;
+		String componentLabel;
+		public String action;
+		public Drawable icon;
+		public boolean isSystem;
+		public int priority;
+		public boolean defaultEnabled;
+		public boolean currentEnabled;
 
 		private ReceiverData(Parcel in) {
 			packageName = in.readString();
@@ -345,49 +345,49 @@ public class ReceiverReader {
 		public ReceiverData() {
 		}
 
-        @Override
-        public String toString() {
-            return String.format("%s/%s for %s",
-                    packageName, componentName, action);
-        }
+		@Override
+		public String toString() {
+			return String.format("%s/%s for %s",
+					packageName, componentName, action);
+		}
 
-        /**
-         * Return the best label we have.
-         */
-        public String getAnyLabel() {
-        	if (componentLabel != null && !componentLabel.equals(""))
-        		return componentLabel;
-        	else if (packageLabel != null && !packageLabel.equals(""))
-        		return packageLabel;
-        	else
-        		return packageName;
-        }
+		/**
+		 * Return the best label we have.
+		 */
+		public String getAnyLabel() {
+			if (componentLabel != null && !componentLabel.equals(""))
+				return componentLabel;
+			else if (packageLabel != null && !packageLabel.equals(""))
+				return packageLabel;
+			else
+				return packageName;
+		}
 
-        /**
-         * Return a label identifying the app.
-         */
-        public String getAppLabel() {
-        	if (packageLabel != null && !packageLabel.equals(""))
-        		return packageLabel;
-        	else
-        		return packageName;
-        }
+		/**
+		 * Return a label identifying the app.
+		 */
+		public String getAppLabel() {
+			if (packageLabel != null && !packageLabel.equals(""))
+				return packageLabel;
+			else
+				return packageName;
+		}
 
-        @Override
-        public boolean equals(Object o) {
-            // The code merging the cached components with those found in
-            // recovery relies on this method.
-            // See also hashCode(), of course.
-            if (!(o instanceof ReceiverData))
-                return false;
-            return (((ReceiverData)o).componentName.equals(componentName) &&
-                    ((ReceiverData)o).packageName.equals(packageName));
-        }
+		@Override
+		public boolean equals(Object o) {
+			// The code merging the cached components with those found in
+			// recovery relies on this method.
+			// See also hashCode(), of course.
+			if (!(o instanceof ReceiverData))
+				return false;
+			return (((ReceiverData)o).componentName.equals(componentName) &&
+					((ReceiverData)o).packageName.equals(packageName));
+		}
 
-        @Override
-        public int hashCode() {
-            return (packageName+componentName).hashCode();
-        }
+		@Override
+		public int hashCode() {
+			return (packageName+componentName).hashCode();
+		}
 
 		public int compareTo(ReceiverData another) {
 			int result = ((Integer)priority).compareTo(((ReceiverData)another).priority);
@@ -415,17 +415,17 @@ public class ReceiverReader {
 		}
 
 		public static final Parcelable.Creator<ReceiverData> CREATOR
-        		= new Parcelable.Creator<ReceiverData>()
+		= new Parcelable.Creator<ReceiverData>()
 		{
-		    public ReceiverData createFromParcel(Parcel in) {
-		        return new ReceiverData(in);
-		    }
+			public ReceiverData createFromParcel(Parcel in) {
+				return new ReceiverData(in);
+			}
 
-		    public ReceiverData[] newArray(int size) {
-		        return new ReceiverData[size];
-		    }
+			public ReceiverData[] newArray(int size) {
+				return new ReceiverData[size];
+			}
 		};
-    }
+	}
 
 	/**
 	 * A particular action and a list of receivers that register for

@@ -1,4 +1,4 @@
-1.4.0 (2010-02-XX)
+1.5.0 (2010-02-XX)
     * Major rewrite of how we retrieve package information. We no longer
       need to keep track of disabled components ourselves, and an uninstall
       of Autostarts no longer is an issue. The new backend also makes

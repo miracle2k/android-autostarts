@@ -179,13 +179,6 @@ final class Actions {
 		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", R.string.act_remote_alias_changed, R.string.act_remote_alias_changed_detail },
 		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", R.string.act_remote_alias_cleared, R.string.act_remote_alias_cleared_detail },
 
-		// This is a strange one, since there is literally no information
-		// out there about it, in fact, GSERVICES_CHANGED has only 3 Google
-		// hits, one of them being:
-		//    http://www.netmite.com/android/mydroid/cupcake/out/target/common/docs/broadcast_actions.txt
-		// { "com.google.gservices.intent.action.GSERVICES_CHANGED" null, null }
-		{ "com.google.gservices.intent.action.GSERVICES_OVERRIDE", null, null},   // new in 1.6
-
 		// android.appwidget.*
 		// Note that except of UPDATE, the others aren't really sent using a
 		// broadcast, or at least widgets usually don't handle them using a

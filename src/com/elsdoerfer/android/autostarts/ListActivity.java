@@ -52,7 +52,7 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
-	static final private String PREF_FILTER_ENABLED_APPS = "filter-enabled-apps";
+	static final private String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
 	static final private String PREF_USB_DEBUGGING_INFO_SHOWN = "usb-debug-info-shown";
 
 
@@ -92,8 +92,8 @@ public class ListActivity extends ExpandableListActivity {
 		// Restore preferences
 		mListAdapter.setFilterSystemApps(
 				mPrefs.getBoolean(PREF_FILTER_SYS_APPS, false));
-		mListAdapter.setShowDisabledOnly(
-				mPrefs.getBoolean(PREF_FILTER_ENABLED_APPS, false));
+		mListAdapter.setShowChangedOnly(
+				mPrefs.getBoolean(PREF_FILTER_SHOW_CHANGED, false));
 		updateEmptyText();
 
 		// Init/restore retained and instance data. If we have data
@@ -347,7 +347,7 @@ public class ListActivity extends ExpandableListActivity {
 			return new AlertDialog.Builder(this)
 				.setMultiChoiceItems(new CharSequence[] {
 						getString(R.string.hide_sys_apps),
-						getString(R.string.show_disabled_only),
+						getString(R.string.show_changed_only),
 					},
 					initState,
 					new OnMultiChoiceClickListener() {
@@ -360,10 +360,10 @@ public class ListActivity extends ExpandableListActivity {
 								mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, isChecked).commit();
 							}
 							else if (which == 1) {
-								mListAdapter.setShowDisabledOnly(isChecked);
+								mListAdapter.setShowChangedOnly(isChecked);
 								mListAdapter.notifyDataSetChanged();
 								updateEmptyText();
-								mPrefs.edit().putBoolean(PREF_FILTER_ENABLED_APPS, isChecked).commit();
+								mPrefs.edit().putBoolean(PREF_FILTER_SHOW_CHANGED, isChecked).commit();
 							}
 						}
 

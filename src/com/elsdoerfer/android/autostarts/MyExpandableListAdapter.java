@@ -34,7 +34,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<ActionWithReceivers> mDataRender;
 
 	private boolean mHideSystemApps = false;
-	private boolean mShowDisabledOnly = false;
+	private boolean mShowChangedOnly = false;
 
 	private LayoutInflater mInflater;
 
@@ -73,7 +73,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 					boolean match = true;
 					if (mHideSystemApps && app.isSystem)
 						match = false;
-					if (mShowDisabledOnly && app.isCurrentlyEnabled() == true)
+					if (mShowChangedOnly && app.isCurrentlyEnabled() == app.defaultEnabled)
 						match = false;
 
 					if (match)
@@ -172,7 +172,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	  * Return true if any filters are active.
 	  */
 	 public boolean isFiltered() {
-		 return mHideSystemApps || mShowDisabledOnly;
+		 return mHideSystemApps || mShowChangedOnly;
 	 }
 
 	 /**
@@ -205,14 +205,14 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		 return mHideSystemApps;
 	 }
 
-	 public void setShowDisabledOnly(boolean newState) {
-		 if (newState != mShowDisabledOnly) {
-			 mShowDisabledOnly = newState;
+	 public void setShowChangedOnly(boolean newState) {
+		 if (newState != mShowChangedOnly) {
+			 mShowChangedOnly = newState;
 			 updateRenderData();
 		 }
 	 }
 
 	 public boolean getShowDisabledOnly() {
-		 return mShowDisabledOnly;
+		 return mShowChangedOnly;
 	 }
 }

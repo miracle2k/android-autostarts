@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -59,6 +60,7 @@ public class ListActivity extends ExpandableListActivity {
 
 
 	private MenuItem mExpandCollapseToggleItem;
+	MenuItem mReloadItem;
 	private Toast mInfoToast;
 
 	MyExpandableListAdapter mListAdapter;
@@ -191,8 +193,9 @@ public class ListActivity extends ExpandableListActivity {
 		mExpandCollapseToggleItem =
 			menu.add(0, MENU_EXPAND_COLLAPSE, 0, R.string.expand_all).
 				setIcon(R.drawable.ic_collapse_expand);
-		menu.add(0, MENU_RELOAD, 0, R.string.reload).
+		mReloadItem = menu.add(0, MENU_RELOAD, 0, R.string.reload).
 			setIcon(R.drawable.ic_menu_refresh);
+		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
 		menu.add(0, MENU_HELP, 0, R.string.help).
 			setIcon(R.drawable.ic_menu_help);
 		return true;
@@ -497,6 +500,10 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	private void loadAndApply() {
+		// Never start two tasks at once.
+		if (mLoadTask != null && mLoadTask.getStatus() == AsyncTask.Status.RUNNING)
+			return;
+
 		mLoadTask = new LoadTask(this);
 		mLoadTask.execute();
 	}

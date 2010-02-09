@@ -24,6 +24,8 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, ArrayList<ActionW
 	protected void onPreExecute() {
 		super.onPreExecute();
 		mWrapped.setProgressBarIndeterminateVisibility(true);
+		if (mWrapped.mReloadItem != null)
+			mWrapped.mReloadItem.setEnabled(false);
 	}
 
 	@Override
@@ -45,6 +47,8 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, ArrayList<ActionW
 		mWrapped.apply();
 
 		mWrapped.setProgressBarIndeterminateVisibility(false);
+		if (mWrapped.mReloadItem != null)
+			mWrapped.mReloadItem.setEnabled(true);
 	}
 
 	@Override

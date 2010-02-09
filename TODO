@@ -3,6 +3,12 @@ new autostarts; this makes it easy to "review" all autostarts as new
 applications are installed. Ironically, we will have to register a
 broadcast receiver ourselves to implement this.
 
+The notification-feature is a good opportunity to implement some kind
+of hashing, where we can determine whether I package is new or has changed
+very quickly, instead of having to reparse it again everytime, which 
+turns out to be a costly process (our new backend is considerably slower
+then the old one).
+
 For actions like SECRET_CODE_ACTION it would be interesting to show the
 intent filter that it matches. For example, the voice dialer here matches
 only a certain scheme, and others handle it in a similar manner

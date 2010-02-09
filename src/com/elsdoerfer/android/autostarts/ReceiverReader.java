@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -60,6 +59,9 @@ public class ReceiverReader {
 	private static final boolean LOGV = ListActivity.LOGV;
 	private static final String TAG = ListActivity.TAG;
 
+	// From com.android.sdklib.SdkConstants.NS_RESOURCES.
+	private final static String SDK_NS_RESOURCES = "http://schemas.android.com/apk/res/android";
+
 	private static enum ParserState { Unknown, InManifest,
 		InApplication, InReceiver, InIntentFilter, InAction }
 
@@ -112,15 +114,14 @@ public class ReceiverReader {
 							state = ParserState.InManifest;
 						else if (tagName.equals("application") && state == ParserState.InManifest) {
 							state = ParserState.InApplication;
-							HashMap<String, String> attrs = getAttribs(xml, resources);
-							currentApplicationLabel = attrs.get("label");
+							currentApplicationLabel = getAttr(resources, xml, "label");
 						}
 						else if (tagName.equals("receiver") && state == ParserState.InApplication)
 						{
 							state = ParserState.InReceiver;
 
-							HashMap<String, String> attrs = getAttribs(xml, resources);
-							currentComponentEnabled = !(attrs.get("enabled") == "false");
+							currentComponentEnabled =
+								!(getAttr(resources, xml, "enabled") == "false");
 							// Build the component name. We need to do some
 							// normalization here, since we can get the
 							// original string the dev. put into his XML.
@@ -129,7 +130,7 @@ public class ReceiverReader {
 							// we assume a relative name and prepend the
 							// package name. Otherwise, we consider the
 							// component name to be absolute already.
-							currentComponentName = attrs.get("name");
+							currentComponentName = getAttr(resources, xml, "name");
 							if (currentComponentName == null)
 								Log.e(TAG, "A receiver in "+p.packageName+" has no name.");
 							else if (currentComponentName.startsWith("."))
@@ -141,8 +142,7 @@ public class ReceiverReader {
 						{
 							state = ParserState.InIntentFilter;
 
-							HashMap<String, String> attrs = getAttribs(xml, resources);
-							String priorityRaw = attrs.get("priority");
+							String priorityRaw = getAttr(resources, xml, "priority");
 							if (priorityRaw != null)
 								try {
 									currentFilterPriority = Integer.parseInt(priorityRaw);
@@ -164,8 +164,7 @@ public class ReceiverReader {
 							if (currentComponentName == null)
 								break;
 
-							HashMap<String, String> attrs = getAttribs(xml, resources);
-							String action = attrs.get("name");
+							String action = getAttr(resources, xml, "name");
 							if (action == null) {
 								Log.w(TAG, "Receiver "+currentComponentName+
 										" of package "+p.packageName+" has "+
@@ -194,7 +193,12 @@ public class ReceiverReader {
 							data.packageName = p.packageName;
 							data.isSystem = isSystemApp(p);
 							data.packageLabel =  currentApplicationLabel;
-							data.componentLabel = attrs.get("label");
+							data.componentLabel = getAttr(resources, xml, "label");
+							// XXX: Traceview says this takes 9% of the total load.
+							// We could move it to the drawing code (but that would
+							// would slow down drawing), or it could be done in a
+							// thread. However, if we we decide to do incremental
+							// updates during load anyway, we can just leave it here.
 							data.icon = p.applicationInfo.loadIcon(pm);
 							data.priority = currentFilterPriority;
 							data.defaultEnabled = currentComponentEnabled;
@@ -266,6 +270,19 @@ public class ReceiverReader {
 	}
 
 	/**
+	 * Returns the requested attribute value, or null.
+	 *
+	 * Ensures that we only read from the Android namespace, and resolves
+	 * resource identifiers if necessary.
+	 */
+	private String getAttr(Resources r, XmlPullParser xml, String attributeName) {
+		String value = xml.getAttributeValue(SDK_NS_RESOURCES, attributeName);
+		// XXX: It's possible to use getAttributeResourceValue and check for
+		// default value return rather than parsing the @ ourselves. Is it faster?
+		return resolveValue(value, r);
+	}
+
+	/**
 	 * Return the value, resolving it through the provided resources if
 	 * it appears to be a resource ID. Otherwise just returns what was
 	 * provided.
@@ -290,22 +307,6 @@ public class ReceiverReader {
 		// formerly noted errors here, but simply not resolving works better
 		//	return in;
 		//}
-	}
-
-	private HashMap<String, String> getAttribs(XmlResourceParser xml, Resources res) {
-		// XXX: Check the performance implications of this function.
-		// Maybe we should simple loop through the list whenever we need
-		// an attribute value.
-		// Consider that right now we also resolve a number of resources
-		// that we don't really care about.
-		HashMap<String, String> map = new HashMap<String, String>();
-		for (int i = 0; i < xml.getAttributeCount(); i++)
-			// Apparently, android:name attributes can't even use the @
-			// syntax, but maybe android:enabled et al can.
-			// TODO: What if a manifest makes the android:manifest namespace not the default?
-			// We could simply check the namespace uri, ignore all non-android attributes.
-			map.put(xml.getAttributeName(i), resolveValue(xml.getAttributeValue(i), res));
-		return map;
 	}
 
 	/**

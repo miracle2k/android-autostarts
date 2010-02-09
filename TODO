@@ -79,11 +79,21 @@ See also our email conversation with Alex Speed Kjeldsen.
 
 Support grouping by application.
 
+Now that we may have quite a long list, depending on installed apps,
+a sorting options might also make sense. We could sort alphabetically, 
+by the number of components in a group, or by "importance" of a receiver.
+The latter would be a number determined by us, and would be an attempt
+to maintain the current order, i.e. BOOT would be on top.
+
 Currently, we don't pay any attention to the fact that a single receiver
 may be responsible for multiple events. As a result, disabling a single
 component may effect multiple entries. At the very least, the UI should
 update accordingly when a component is disabled (striking out multiple
 rows).
+
+There are a number of broadcasts which effectively seem to be equivalent to
+BOOT_COMPLETED, like a lot of the network state change stuff. Maybe this
+could be made more obvious to the user.
 
 Update our custom colors to be stateful.
 
@@ -96,6 +106,10 @@ would handle.
 
 Implement the ability to disable a app as a whole; nice to get rid of
 pre-installed applications.
+
+Some guy here wrote up explanations for a number of broadcasts, some of
+which are still missing from our db:
+    http://androidvoid.blogspot.com/2009/04/android-broadcast-intent-message.html
 
 Far-Future Ideas, might never be implemented
 ============================================
@@ -113,4 +127,7 @@ in frameworks/base:
 
 Add social features: People can write comments about individual
 components, and what effects disabling them had. This would need to include
-information about the version etc.
+information about the version etc. We probably would want to work with
+the OpenIntents.org database here; we could even act as an automated 
+data source for OpenIntents by submitting which applications hook into
+which broadcast intents.

@@ -34,6 +34,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	private ArrayList<ActionWithReceivers> mDataRender;
 
 	private boolean mHideSystemApps = false;
+	private boolean mHideUnknownEvents = false;
 	private boolean mShowChangedOnly = false;
 
 	private LayoutInflater mInflater;
@@ -74,6 +75,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 					if (mHideSystemApps && app.isSystem)
 						match = false;
 					if (mShowChangedOnly && app.isCurrentlyEnabled() == app.defaultEnabled)
+						match = false;
+					if (mHideUnknownEvents && Utils.getHashMapIndex(Actions.MAP, app.action) == -1)
 						match = false;
 
 					if (match)
@@ -174,7 +177,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	  * Return true if any filters are active.
 	  */
 	 public boolean isFiltered() {
-		 return mHideSystemApps || mShowChangedOnly;
+		 return mHideSystemApps || mShowChangedOnly || mHideUnknownEvents;
 	 }
 
 	 /**
@@ -217,4 +220,16 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	 public boolean getShowChangedOnly() {
 		 return mShowChangedOnly;
 	 }
+
+	 public void setFilterUnknown(boolean newState) {
+		 if (newState != mHideUnknownEvents) {
+			 mHideUnknownEvents = newState;
+			 updateRenderData();
+		 }
+	 }
+
+	 public boolean getFilterUnknown() {
+		 return mHideUnknownEvents;
+	 }
+
 }

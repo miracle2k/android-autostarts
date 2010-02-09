@@ -72,7 +72,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 	boolean match = true;
                     if (mHideSystemApps && app.isSystem)
                     	match = false;
-                    if (mShowDisabledOnly && app.currentEnabled == true)
+                    if (mShowDisabledOnly && app.isCurrentlyEnabled() == true)
                     	match = false;
 
                     if (match)
@@ -116,7 +116,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         fullTitle.append(app.getAppLabel());
         if (app.componentLabel != null && !app.componentLabel.equals(""))
             fullTitle.append(" ("+app.componentLabel+")");
-        if (!app.currentEnabled)
+        if (!app.isCurrentlyEnabled())
             fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
         title.setText(fullTitle);
         return v;

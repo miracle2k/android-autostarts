@@ -9,6 +9,7 @@ import java.util.HashMap;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -197,13 +198,8 @@ public class ReceiverReader {
 							data.icon = p.applicationInfo.loadIcon(pm);
 							data.priority = currentFilterPriority;
 							data.defaultEnabled = currentComponentEnabled;
-							try {
-								data.currentEnabled = ToggleTask.isComponentEnabled(pm, data);
-							} catch (NameNotFoundException e) {
-								Log.e(TAG, "Unable to process receiver "+
-										currentComponentName+" in package "+
-										p.packageName, e);
-							}
+							data.currentEnabled =  pm.getComponentEnabledSetting(
+									new ComponentName(data.packageName, data.componentName));
 							record.receivers.add(data);
 						}
 						break;
@@ -316,6 +312,7 @@ public class ReceiverReader {
 	 * Represent a receiver for a single action.
 	 */
 	static class ReceiverData implements Comparable<ReceiverData>, Parcelable {
+
 		// These identify the component
 		public String packageName;
 		public String componentName;
@@ -328,7 +325,7 @@ public class ReceiverReader {
 		public boolean isSystem;
 		public int priority;
 		public boolean defaultEnabled;
-		public boolean currentEnabled;
+		public int currentEnabled;
 
 		private ReceiverData(Parcel in) {
 			packageName = in.readString();
@@ -339,11 +336,10 @@ public class ReceiverReader {
 			priority = in.readInt();
 			isSystem = in.readInt() == 1;
 			defaultEnabled = in.readInt() == 1;
-			currentEnabled = in.readInt() == 1;
+			currentEnabled = in.readInt();
 		}
 
-		public ReceiverData() {
-		}
+		public ReceiverData() {}
 
 		@Override
 		public String toString() {
@@ -371,6 +367,20 @@ public class ReceiverReader {
 				return packageLabel;
 			else
 				return packageName;
+		}
+
+		/**
+		 * Resolve the current and default "enabled" state.
+		 */
+		public boolean isCurrentlyEnabled() {
+			if (currentEnabled == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
+				return true;
+			else if (currentEnabled == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
+				return false;
+			else if (currentEnabled == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
+				return defaultEnabled;
+			else
+				throw new RuntimeException("Not a valid enabled state: "+currentEnabled);
 		}
 
 		@Override
@@ -411,7 +421,7 @@ public class ReceiverReader {
 			dest.writeInt(priority);
 			dest.writeInt(isSystem ? 1 : 0);
 			dest.writeInt(defaultEnabled ? 1 : 0);
-			dest.writeInt(currentEnabled ? 1 : 0);
+			dest.writeInt(currentEnabled);
 		}
 
 		public static final Parcelable.Creator<ReceiverData> CREATOR

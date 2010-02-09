@@ -243,7 +243,7 @@ public class ListActivity extends ExpandableListActivity {
 
 			Dialog d = new AlertDialog.Builder(this).setItems(
 				new CharSequence[] {
-						getResources().getString((mLastSelectedReceiver.currentEnabled)
+						getResources().getString((mLastSelectedReceiver.isCurrentlyEnabled())
 								? R.string.disable
 								: R.string.enable),
 						getResources().getString(R.string.appliation_info),
@@ -251,7 +251,7 @@ public class ListActivity extends ExpandableListActivity {
 				new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which) {
-						mLastChangeRequestDoEnable = !mLastSelectedReceiver.currentEnabled;
+						mLastChangeRequestDoEnable = !mLastSelectedReceiver.isCurrentlyEnabled();
 						switch (which) {
 						case 0:
 							if (mLastSelectedReceiver.isSystem && !mLastChangeRequestDoEnable)
@@ -425,7 +425,7 @@ public class ListActivity extends ExpandableListActivity {
 						((TextView)current).getText().equals(searchFor1) ||
 						((TextView)current).getText().equals(searchFor2)))
 				{
-					((TextView)current).setText((mLastSelectedReceiver.currentEnabled)
+					((TextView)current).setText((mLastSelectedReceiver.isCurrentlyEnabled())
 							? R.string.disable
 							: R.string.enable);
 					break;

@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -187,18 +186,11 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 				if (p.exitValue() != 0)
 					return false;
 
-				// ..b) the component state must actually have changed.
 				final PackageManager pm = activity.getPackageManager();
-				Boolean newEnabledState;
-				try {
-					newEnabledState = isComponentEnabled(pm, mApp);
-					// update the stored status while we're at it
-					mApp.currentEnabled = newEnabledState;
-				} catch (NameNotFoundException e) {
-					Log.e(ListActivity.TAG, "Unable to check success of state change", e);
-					return false;
-				}
-				return (newEnabledState == mDoEnable);
+				ComponentName c = new ComponentName(
+						mApp.packageName, mApp.componentName);
+				mApp.currentEnabled = pm.getComponentEnabledSetting(c);
+				return (mApp.isCurrentlyEnabled() == mDoEnable);
 			}
 			finally {
 				activity.deleteFile(scriptFile);
@@ -213,22 +205,5 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 			Log.e(ListActivity.TAG, "Failed to change state", e);
 			return false;
 		}
-	}
-
-	/**
-	 * Get the current enabled state of a component.
-	 */
-	static Boolean isComponentEnabled(PackageManager pm, ReceiverData app) throws NameNotFoundException {
-		ComponentName c = new ComponentName(
-				app.packageName, app.componentName);
-			int setting = pm.getComponentEnabledSetting(c);
-			return
-				(setting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
-					? true
-					: (setting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
-						? false
-						: (setting == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
-							? pm.getReceiverInfo(c, PackageManager.GET_DISABLED_COMPONENTS).enabled
-							: null;
 	}
 }

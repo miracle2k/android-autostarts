@@ -62,6 +62,10 @@ public class ReceiverReader {
 	// From com.android.sdklib.SdkConstants.NS_RESOURCES.
 	private final static String SDK_NS_RESOURCES = "http://schemas.android.com/apk/res/android";
 
+	public interface OnLoadProgressListener {
+		public void onProgress(ArrayList<ActionWithReceivers> currentState);
+	}
+
 	private static enum ParserState { Unknown, InManifest,
 		InApplication, InReceiver, InIntentFilter, InAction }
 
@@ -69,10 +73,13 @@ public class ReceiverReader {
 	private final PackageManager mPackageManager;
 	private XmlResourceParser mCurrentXML;
 	private Resources mCurrentResources;
+	private OnLoadProgressListener mOnLoadProgressListener;
 
-	public ReceiverReader(Context context) {
+	public ReceiverReader(Context context,
+			OnLoadProgressListener progressListener) {
 		mContext = context;
 		mPackageManager = mContext.getPackageManager();
+		mOnLoadProgressListener = progressListener;
 	}
 
 	public ArrayList<ActionWithReceivers> load() {
@@ -84,12 +91,23 @@ public class ReceiverReader {
 		{
 			if (LOGV) Log.v(TAG, "Processing package "+p.packageName);
 			parsePackage(p, receiversByIntent);
+
+			// Publish an update after every package
+			if (mOnLoadProgressListener != null) {
+				sortResult(receiversByIntent);
+				mOnLoadProgressListener.onProgress(receiversByIntent);
+			}
 		}
 
+		sortResult(receiversByIntent);
+		return receiversByIntent;
+	}
+
+	private void sortResult(ArrayList<ActionWithReceivers> receiverList) {
 		// Sort both groups and children. Groups are sorted by the
 		// order in which we define our known intents, children
 		// are simply sorted alphabetically.
-		Collections.sort(receiversByIntent, new Comparator<ActionWithReceivers>() {
+		Collections.sort(receiverList, new Comparator<ActionWithReceivers>() {
 			public int compare(ActionWithReceivers object1,
 					ActionWithReceivers object2) {
 				int idx1 = Utils.getHashMapIndex(Actions.MAP, object1.action);
@@ -105,10 +123,8 @@ public class ReceiverReader {
 					return ((Integer)idx1).compareTo(idx2);
 			}
 		});
-		for (ActionWithReceivers action : receiversByIntent)
+		for (ActionWithReceivers action : receiverList)
 			Collections.sort(action.receivers);
-
-		return receiversByIntent;
 	}
 
 	private void parsePackage(PackageInfo p, ArrayList<ActionWithReceivers> result) {

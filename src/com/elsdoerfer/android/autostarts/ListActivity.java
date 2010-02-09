@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -62,11 +63,12 @@ public class ListActivity extends ExpandableListActivity {
 
 	MyExpandableListAdapter mListAdapter;
 	// TODO: Would it make sense for this to be a HashMap?
-	private ArrayList<ActionWithReceivers> mReceiversByIntent;
+	ArrayList<ActionWithReceivers> mReceiversByIntent;
 	private DatabaseHelper mDb;
 	private SharedPreferences mPrefs;
 	private Boolean mExpandSuggested = true;
 	private ToggleTask mToggleTask;
+	private LoadTask mLoadTask;
 
 	// Due to Android deficiencies (can't pass data to showDialog()),
 	// we need to store that data globally.
@@ -78,6 +80,7 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	public void onCreate(Bundle saved) {
 		super.onCreate(saved);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.list);
 
 		// Set everything up.
@@ -113,9 +116,14 @@ public class ListActivity extends ExpandableListActivity {
 			mReceiversByIntent = oldActivity.mReceiversByIntent;
 			mUninstallWarningShown = oldActivity.mUninstallWarningShown;
 			mToggleTask = oldActivity.mToggleTask;
+			mLoadTask = oldActivity.mLoadTask;
+			// Display what we have immediately.
+			apply();
+			// Continue loading in case we're not done yet.
+			if (mLoadTask != null)
+				mLoadTask.connectToActivity(this);
 			if (mToggleTask != null)
 				mToggleTask.connectToActivity(this);
-			apply();
 		}
 		// Otherwise, we are going to have to init certain data
 		// ourselves, and load some from from instance state, if
@@ -171,6 +179,8 @@ public class ListActivity extends ExpandableListActivity {
 		// Unattach the activity from a potentially running task.
 		if (mToggleTask != null)
 			mToggleTask.connectToActivity(null);
+		if (mLoadTask != null)
+			mLoadTask.connectToActivity(null);
 		super.onDestroy();
 	}
 
@@ -480,15 +490,14 @@ public class ListActivity extends ExpandableListActivity {
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
 
-	private void apply() {
+	void apply() {
 		mListAdapter.setData(mReceiversByIntent);
 		mListAdapter.notifyDataSetChanged();
 	}
 
 	private void loadAndApply() {
-		// TODO: move this to an ASyncTask
-		mReceiversByIntent = new ReceiverReader(this).load();
-		apply();
+		mLoadTask = new LoadTask(this);
+		mLoadTask.execute();
 	}
 
 	protected void updateEmptyText() {

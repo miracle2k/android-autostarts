@@ -86,15 +86,23 @@ public class ReceiverReader {
 			parsePackage(p, receiversByIntent);
 		}
 
-		// Sort both groups and children.
-		// TODO: This was done to ensure components added via cache don't
-		// change order. Do we still need this though?
+		// Sort both groups and children. Groups are sorted by the
+		// order in which we define our known intents, children
+		// are simply sorted alphabetically.
 		Collections.sort(receiversByIntent, new Comparator<ActionWithReceivers>() {
 			public int compare(ActionWithReceivers object1,
 					ActionWithReceivers object2) {
 				int idx1 = Utils.getHashMapIndex(Actions.MAP, object1.action);
 				int idx2 = Utils.getHashMapIndex(Actions.MAP, object2.action);
-				return ((Integer)idx1).compareTo(idx2);
+				// Make sure that unknown intents (-1) are sorted at the bottom.
+				if (idx1 == -1 && idx2 == -1)
+					return object1.action.compareTo(object2.action);
+				else if (idx1 == -1)
+					return +1;
+				else if (idx2 == -1)
+					return -1;
+				else
+					return ((Integer)idx1).compareTo(idx2);
 			}
 		});
 		for (ActionWithReceivers action : receiversByIntent)

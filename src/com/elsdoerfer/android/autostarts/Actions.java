@@ -20,9 +20,12 @@ import android.telephony.TelephonyManager;
 final class Actions {
 
 	static final Object[][] ALL = {
-		// android.intent.*
+		// Those our users care most about, we'd like to have those in front.
+		{ "android.intent.action.PRE_BOOT_COMPLETED", R.string.act_pre_boot_completed, R.string.act_pre_boot_completed_detail },
 		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed, R.string.act_boot_completed_detail },
 		{ ConnectivityManager.CONNECTIVITY_ACTION, R.string.act_connectivity, R.string.act_connectivity_detail },
+
+		// android.intent.*
 		{ Intent.ACTION_AIRPLANE_MODE_CHANGED, R.string.act_airplane_mode_changed, R.string.act_airplane_mode_changed_detail },
 		{ Intent.ACTION_BATTERY_CHANGED, R.string.act_battery_changed, R.string.act_battery_changed_detail },
 		{ Intent.ACTION_BATTERY_LOW, R.string.act_battery_low, R.string.act_battery_low_detail },
@@ -75,6 +78,13 @@ final class Actions {
 		{ Intent.ACTION_POWER_DISCONNECTED, R.string.act_power_disconnected, R.string.act_power_disconnected_detail },
 		{ Intent.ACTION_SHUTDOWN, R.string.act_shutdown, R.string.act_shutdown_detail },
 		{ Intent.ACTION_DOCK_EVENT, R.string.act_dock_event, R.string.act_dock_event_detail },
+		{ Intent.ACTION_LOCALE_CHANGED, R.string.act_locale_changed, R.string.act_locale_changed_detail },  // new in api level 7.
+		{ "android.intent.action.ANR", R.string.act_anr, R.string.act_anr_detail },
+		{ "android.intent.action.EVENT_REMINDER", R.string.act_event_reminder, R.string.act_event_reminder_detail },
+
+		// com.android.launcher.*
+		{ "com.android.launcher.action.INSTALL_SHORTCUT", R.string.act_install_shortcut, R.string.act_install_shortcut_detail },
+		{ "com.android.launcher.action.UNINSTALL_SHORTCUT", R.string.act_uninstall_shortcut, R.string.act_uninstall_shortcut_detail },
 
 		// com.android.camera.*
 		{ "com.android.camera.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail },
@@ -83,15 +93,26 @@ final class Actions {
 		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
 		{ TelephonyManager.ACTION_PHONE_STATE_CHANGED, R.string.act_phone_state_changed, R.string.act_phone_state_changed_detail },
 
+		// telephony/TelephonyIntents.java
+		{ "android.intent.action.SERVICE_STATE", R.string.act_service_state, R.string.act_service_state_detail },
+		{ "android.intent.action.ANY_DATA_STATE", R.string.act_any_data_state, R.string.act_any_data_state_detail },
+		{ "android.intent.action.SIG_STR", R.string.act_signal_strength, R.string.act_signal_strength_detail },
+		{ "android.intent.action.DATA_CONNECTION_FAILED", R.string.act_data_connection_failed, R.string.act_data_connection_failed_detail },
+		{ "android.intent.action.NETWORK_SET_TIME", R.string.act_network_set_time, R.string.act_network_set_time_detail },
+		{ "ndroid.intent.action.NETWORK_SET_TIMEZONE", R.string.act_network_set_timezone, R.string.act_network_set_timezone_detail },
+		{ "android.intent.action.SIM_STATE_CHANGED", R.string.act_sim_state_changed, R.string.act_sim_state_changed_detail },
+
 		// android.provider.Telephony.*
 		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
 		{ "android.provider.Telephony.SMS_RECEIVED", R.string.act_sms_received, R.string.act_sms_received_detail },
+		{ "android.intent.action.DATA_SMS_RECEIVED", R.string.act_data_sms_received, R.string.act_data_sms_received_detail },   // diff namespace, but fits here.
 		{ "android.provider.Telephony.SMS_REJECTED", R.string.act_sms_rejected, R.string.act_sms_rejected_detail },  // new in 2.0
 		{ "android.provider.Telephony.WAP_PUSH_RECEIVED", R.string.act_wap_push_received, R.string.act_wap_push_received_detail },
 		{ "android.provider.Telephony.SECRET_CODE", R.string.act_secret_code, R.string.act_secret_code_detail },   // not part of the public SDK
 		{ "android.provider.Telephony.SPN_STRINGS_UPDATED", R.string.act_spn_strings_updated, R.string.act_spn_strings_updated_detail },  // not part of the public SDK
 
 		// android.net.wifi.*
+		{ WifiManager.WIFI_STATE_CHANGED_ACTION, R.string.act_wifi_state_changed, R.string.act_wifi_state_changed_detail },
 		{ WifiManager.NETWORK_IDS_CHANGED_ACTION, R.string.act_network_ids_changed, R.string.act_network_ids_changed_detail },
 		{ WifiManager.RSSI_CHANGED_ACTION, R.string.act_rssi_changed, R.string.act_rssi_changed_detail },
 		{ WifiManager.SCAN_RESULTS_AVAILABLE_ACTION, R.string.act_scan_results_available, R.string.act_scan_results_available_detail },
@@ -115,6 +136,7 @@ final class Actions {
 		{ "android.bluetooth.adapter.action.LOCAL_NAME_CHANGED", R.string.act_bt_local_name_changed, R.string.act_bt_local_name_changed_detail },
 		{ "android.bluetooth.adapter.action.SCAN_MODE_CHANGED", R.string.act_bt_scan_mode_changed, R.string.act_bt_scan_mode_changed_detail }, // see android.bluetooth.intent.action.SCAN_MODE_CHANGED
 		{ "android.bluetooth.adapter.action.STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },  // see android.bluetooth.intent.action.BLUETOOTH_STATE_CHANGED
+		{ "android.bluetooth.device.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },   // see android.bluetooth.intent.action.PAIRING_REQUEST
 		{ "android.bluetooth.device.action.ACL_CONNECTED", R.string.act_bt_acl_connected, R.string.act_bt_acl_connected_detail },
 		{ "android.bluetooth.device.action.ACL_DISCONNECTED", R.string.act_bt_acl_disconnected, R.string.act_bt_acl_disconnected_detail },
 		{ "android.bluetooth.device.action.ACL_DISCONNECT_REQUESTED", R.string.act_bt_acl_disconnect_requested, R.string.act_bt_acl_disconnect_requested_detail },
@@ -133,7 +155,7 @@ final class Actions {
 		{ "android.bluetooth.intent.action.DISCOVERY_STARTED", R.string.act_discovery_started, R.string.act_discovery_started_detail },
 		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", R.string.act_headset_state_changed, R.string.act_headset_state_changed_detail },
 		{ "android.bluetooth.intent.action.NAME_CHANGED", R.string.act_bt_name_changed, R.string.act_bt_name_changed_detail },  // see android.bluetooth.device.action.NAME_CHANGED
-		{ "android.bluetooth.intent.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },
+		{ "android.bluetooth.intent.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },  // see android.bluetooth.device.action.PAIRING_REQUEST
 		{ "android.bluetooth.intent.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel_detail },
 		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", R.string.act_remote_device_connected, R.string.act_remote_device_connected_detail },
 		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", R.string.act_remote_device_disappeared, R.string.act_remote_device_disappeared_detail },

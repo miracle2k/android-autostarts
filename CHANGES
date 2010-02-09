@@ -7,6 +7,8 @@
       disabled by default, and make a clean distinction between that
       initial state and changes by the user.
     * Compiled against 2.1 SDK.
+    * Included pretty names and descriptions for a large number of new 
+      events.
 
 1.2.2 (2010-01-31)
 	* Added German translation (does not include event texts).

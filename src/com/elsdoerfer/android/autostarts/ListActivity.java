@@ -475,6 +475,7 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	private void loadAndApply() {
+		// TODO: move this to an ASyncTask
 		mReceiversByIntent = new ReceiverReader(this).load();
 		apply();
 	}

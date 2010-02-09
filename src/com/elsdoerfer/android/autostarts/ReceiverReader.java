@@ -65,177 +65,25 @@ public class ReceiverReader {
 	private static enum ParserState { Unknown, InManifest,
 		InApplication, InReceiver, InIntentFilter, InAction }
 
-	private Context mContext;
+	private final Context mContext;
+	private final PackageManager mPackageManager;
+	private XmlResourceParser mCurrentXML;
+	private Resources mCurrentResources;
 
 	public ReceiverReader(Context context) {
 		mContext = context;
+		mPackageManager = mContext.getPackageManager();
 	}
 
-	// TODO: move this to an ASyncTask
 	public ArrayList<ActionWithReceivers> load() {
 		ArrayList<ActionWithReceivers> receiversByIntent =
 			new ArrayList<ActionWithReceivers>();
 
-		final PackageManager pm = mContext.getPackageManager();
-		for (PackageInfo p : pm.getInstalledPackages(PackageManager.GET_DISABLED_COMPONENTS))
+		for (PackageInfo p : mPackageManager.getInstalledPackages(
+				PackageManager.GET_DISABLED_COMPONENTS))
 		{
 			if (LOGV) Log.v(TAG, "Processing package "+p.packageName);
-
-			// Open the manifest file
-			XmlResourceParser xml = null;
-			Resources resources = null;
-			try {
-				AssetManager assets = mContext.createPackageContext(p.packageName, 0).getAssets();
-				xml = assets.openXmlResourceParser("AndroidManifest.xml");
-				resources = new Resources(assets, mContext.getResources().getDisplayMetrics(), null);
-			} catch (IOException e) {
-				Log.e(TAG, "Unable to open manifest or resources for "+p.packageName, e);
-			} catch (NameNotFoundException e) {
-				Log.e(TAG, "Unable to open manifest or resources for "+p.packageName, e);
-			}
-
-			if (xml == null)
-				continue;
-
-			try {
-				String tagName = null;
-				String currentComponentName = null;
-				String currentApplicationLabel = null;
-				boolean currentComponentEnabled = true;
-				int currentFilterPriority = 0;
-				ParserState state = ParserState.Unknown;
-
-				int eventType = xml.getEventType();
-				while (eventType != XmlPullParser.END_DOCUMENT) {
-					switch (eventType) {
-					case XmlPullParser.START_TAG:
-						tagName = xml.getName();
-						if (tagName.equals("manifest") && state == ParserState.Unknown)
-							state = ParserState.InManifest;
-						else if (tagName.equals("application") && state == ParserState.InManifest) {
-							state = ParserState.InApplication;
-							currentApplicationLabel = getAttr(resources, xml, "label");
-						}
-						else if (tagName.equals("receiver") && state == ParserState.InApplication)
-						{
-							state = ParserState.InReceiver;
-
-							currentComponentEnabled =
-								!(getAttr(resources, xml, "enabled") == "false");
-							// Build the component name. We need to do some
-							// normalization here, since we can get the
-							// original string the dev. put into his XML.
-							// Our current logic is: If the component name
-							// starts with a dot, or doesn't contain one,
-							// we assume a relative name and prepend the
-							// package name. Otherwise, we consider the
-							// component name to be absolute already.
-							currentComponentName = getAttr(resources, xml, "name");
-							if (currentComponentName == null)
-								Log.e(TAG, "A receiver in "+p.packageName+" has no name.");
-							else if (currentComponentName.startsWith("."))
-								currentComponentName = p.packageName + currentComponentName;
-							else if (!currentComponentName.contains("."))
-								currentComponentName = p.packageName + "." + currentComponentName;
-						}
-						else if (tagName.equals("intent-filter") && state == ParserState.InReceiver)
-						{
-							state = ParserState.InIntentFilter;
-
-							String priorityRaw = getAttr(resources, xml, "priority");
-							if (priorityRaw != null)
-								try {
-									currentFilterPriority = Integer.parseInt(priorityRaw);
-								} catch (NumberFormatException e) {
-									Log.w(TAG, "Unable to parse priority value "+
-											"for receiver "+currentComponentName+
-											" in package "+p.packageName+": "+priorityRaw);
-								}
-								if (LOGV && currentFilterPriority != 0)
-									Log.v(TAG, "Receiver "+currentComponentName+
-											" in package "+p.packageName+" has "+
-									"an intent filter with priority != 0");
-						}
-						else if (tagName.equals("action") && state == ParserState.InIntentFilter)
-						{
-							state = ParserState.InAction;
-
-							// A component name is missing, we can't proceed.
-							if (currentComponentName == null)
-								break;
-
-							String action = getAttr(resources, xml, "name");
-							if (action == null) {
-								Log.w(TAG, "Receiver "+currentComponentName+
-										" of package "+p.packageName+" has "+
-								"action without name");
-								break;
-							}
-
-							// See if a record for this action exists,
-							// otherwise create a new one.
-							ActionWithReceivers record = null;
-							for (ActionWithReceivers r: receiversByIntent) {
-								if (r.action.equals(action)) {
-									record = r;
-									break;
-								}
-							}
-							if (record == null) {
-								record = new ActionWithReceivers(action);
-								receiversByIntent.add(record);
-							}
-
-							// Add this receiver to the list
-							ReceiverData data = new ReceiverData();
-							data.action = action;
-							data.componentName = currentComponentName;
-							data.packageName = p.packageName;
-							data.isSystem = isSystemApp(p);
-							data.packageLabel =  currentApplicationLabel;
-							data.componentLabel = getAttr(resources, xml, "label");
-							// XXX: Traceview says this takes 9% of the total load.
-							// We could move it to the drawing code (but that would
-							// would slow down drawing), or it could be done in a
-							// thread. However, if we we decide to do incremental
-							// updates during load anyway, we can just leave it here.
-							data.icon = p.applicationInfo.loadIcon(pm);
-							data.priority = currentFilterPriority;
-							data.defaultEnabled = currentComponentEnabled;
-							data.currentEnabled =  pm.getComponentEnabledSetting(
-									new ComponentName(data.packageName, data.componentName));
-							record.receivers.add(data);
-						}
-						break;
-
-					case XmlPullParser.END_TAG:
-						tagName = xml.getName();
-						if (tagName.equals("action") && state == ParserState.InAction)
-							state = ParserState.InIntentFilter;
-						else if (tagName.equals("intent-filter") && state == ParserState.InIntentFilter) {
-							state = ParserState.InReceiver;
-							currentFilterPriority = 0;
-						}
-						else if (tagName.equals("receiver") && state == ParserState.InReceiver) {
-							currentComponentName = null;
-							currentComponentEnabled = true;
-							state = ParserState.InApplication;
-						}
-						else if (tagName.equals("application") && state == ParserState.InApplication) {
-							currentApplicationLabel = null;
-							state = ParserState.InManifest;
-						}
-						else if (tagName.equals("manifest") && state == ParserState.InManifest)
-							state = ParserState.Unknown;
-						break;
-					}
-					eventType = xml.nextToken();
-				}
-			} catch (XmlPullParserException e) {
-				Log.e(TAG, "Unable to process manifest for "+p.packageName, e);
-			} catch (IOException e) {
-				Log.e(TAG, "Unable to process manifest for "+p.packageName, e);
-			}
+			parsePackage(p, receiversByIntent);
 		}
 
 		// Sort both groups and children.
@@ -253,6 +101,171 @@ public class ReceiverReader {
 			Collections.sort(action.receivers);
 
 		return receiversByIntent;
+	}
+
+	private void parsePackage(PackageInfo p, ArrayList<ActionWithReceivers> result) {
+		// Open the manifest file
+		XmlResourceParser xml = null;
+		Resources resources = null;
+		try {
+			AssetManager assets = mContext.createPackageContext(p.packageName, 0).getAssets();
+			xml = assets.openXmlResourceParser("AndroidManifest.xml");
+			resources = new Resources(assets, mContext.getResources().getDisplayMetrics(), null);
+		} catch (IOException e) {
+			Log.e(TAG, "Unable to open manifest or resources for "+p.packageName, e);
+		} catch (NameNotFoundException e) {
+			Log.e(TAG, "Unable to open manifest or resources for "+p.packageName, e);
+		}
+
+		if (xml == null)
+			return;
+
+		mCurrentXML = xml;
+		mCurrentResources = resources;
+
+		try {
+			String tagName = null;
+			String currentComponentName = null;
+			String currentApplicationLabel = null;
+			boolean currentComponentEnabled = true;
+			int currentFilterPriority = 0;
+			ParserState state = ParserState.Unknown;
+
+			int eventType = xml.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				switch (eventType) {
+				case XmlPullParser.START_TAG:
+					tagName = xml.getName();
+					if (tagName.equals("manifest") && state == ParserState.Unknown)
+						state = ParserState.InManifest;
+					else if (tagName.equals("application") && state == ParserState.InManifest) {
+						state = ParserState.InApplication;
+						currentApplicationLabel = getAttr("label");
+					}
+					else if (tagName.equals("receiver") && state == ParserState.InApplication)
+					{
+						state = ParserState.InReceiver;
+
+						currentComponentEnabled =
+							!(getAttr("enabled") == "false");
+						// Build the component name. We need to do some
+						// normalization here, since we can get the
+						// original string the dev. put into his XML.
+						// Our current logic is: If the component name
+						// starts with a dot, or doesn't contain one,
+						// we assume a relative name and prepend the
+						// package name. Otherwise, we consider the
+						// component name to be absolute already.
+						currentComponentName = getAttr("name");
+						if (currentComponentName == null)
+							Log.e(TAG, "A receiver in "+p.packageName+" has no name.");
+						else if (currentComponentName.startsWith("."))
+							currentComponentName = p.packageName + currentComponentName;
+						else if (!currentComponentName.contains("."))
+							currentComponentName = p.packageName + "." + currentComponentName;
+					}
+					else if (tagName.equals("intent-filter") && state == ParserState.InReceiver)
+					{
+						state = ParserState.InIntentFilter;
+
+						String priorityRaw = getAttr("priority");
+						if (priorityRaw != null)
+							try {
+								currentFilterPriority = Integer.parseInt(priorityRaw);
+							} catch (NumberFormatException e) {
+								Log.w(TAG, "Unable to parse priority value "+
+										"for receiver "+currentComponentName+
+										" in package "+p.packageName+": "+priorityRaw);
+							}
+							if (LOGV && currentFilterPriority != 0)
+								Log.v(TAG, "Receiver "+currentComponentName+
+										" in package "+p.packageName+" has "+
+								"an intent filter with priority != 0");
+					}
+					else if (tagName.equals("action") && state == ParserState.InIntentFilter)
+					{
+						state = ParserState.InAction;
+
+						// A component name is missing, we can't proceed.
+						if (currentComponentName == null)
+							break;
+
+						String action = getAttr("name");
+						if (action == null) {
+							Log.w(TAG, "Receiver "+currentComponentName+
+									" of package "+p.packageName+" has "+
+							"action without name");
+							break;
+						}
+
+						// See if a record for this action exists,
+						// otherwise create a new one.
+						ActionWithReceivers record = null;
+						for (ActionWithReceivers r : result) {
+							if (r.action.equals(action)) {
+								record = r;
+								break;
+							}
+						}
+						if (record == null) {
+							record = new ActionWithReceivers(action);
+							result.add(record);
+						}
+
+						// Add this receiver to the list
+						ReceiverData data = new ReceiverData();
+						data.action = action;
+						data.componentName = currentComponentName;
+						data.packageName = p.packageName;
+						data.isSystem = isSystemApp(p);
+						data.packageLabel =  currentApplicationLabel;
+						data.componentLabel = getAttr("label");
+						// XXX: Traceview says this takes 9% of the total load.
+						// We could move it to the drawing code (but that would
+						// would slow down drawing), or it could be done in a
+						// thread. However, if we we decide to do incremental
+						// updates during load anyway, we can just leave it here.
+						data.icon = p.applicationInfo.loadIcon(mPackageManager);
+						data.priority = currentFilterPriority;
+						data.defaultEnabled = currentComponentEnabled;
+						data.currentEnabled = mPackageManager.getComponentEnabledSetting(
+								new ComponentName(data.packageName, data.componentName));
+						record.receivers.add(data);
+					}
+					break;
+
+				case XmlPullParser.END_TAG:
+					tagName = xml.getName();
+					if (tagName.equals("action") && state == ParserState.InAction)
+						state = ParserState.InIntentFilter;
+					else if (tagName.equals("intent-filter") && state == ParserState.InIntentFilter) {
+						state = ParserState.InReceiver;
+						currentFilterPriority = 0;
+					}
+					else if (tagName.equals("receiver") && state == ParserState.InReceiver) {
+						currentComponentName = null;
+						currentComponentEnabled = true;
+						state = ParserState.InApplication;
+					}
+					else if (tagName.equals("application") && state == ParserState.InApplication) {
+						currentApplicationLabel = null;
+						state = ParserState.InManifest;
+					}
+					else if (tagName.equals("manifest") && state == ParserState.InManifest)
+						state = ParserState.Unknown;
+					break;
+				}
+				eventType = xml.nextToken();
+			}
+		} catch (XmlPullParserException e) {
+			Log.e(TAG, "Unable to process manifest for "+p.packageName, e);
+		} catch (IOException e) {
+			Log.e(TAG, "Unable to process manifest for "+p.packageName, e);
+		}
+		finally {
+			mCurrentXML = null;
+			mCurrentResources = null;
+		}
 	}
 
 	/**
@@ -275,11 +288,11 @@ public class ReceiverReader {
 	 * Ensures that we only read from the Android namespace, and resolves
 	 * resource identifiers if necessary.
 	 */
-	private String getAttr(Resources r, XmlPullParser xml, String attributeName) {
-		String value = xml.getAttributeValue(SDK_NS_RESOURCES, attributeName);
+	private String getAttr(String attributeName) {
+		String value = mCurrentXML.getAttributeValue(SDK_NS_RESOURCES, attributeName);
 		// XXX: It's possible to use getAttributeResourceValue and check for
 		// default value return rather than parsing the @ ourselves. Is it faster?
-		return resolveValue(value, r);
+		return resolveValue(value, mCurrentResources);
 	}
 
 	/**

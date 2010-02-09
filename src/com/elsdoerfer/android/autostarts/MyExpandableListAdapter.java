@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
@@ -111,6 +112,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             title.setTextColor(Color.YELLOW);
         else
             title.setTextColor(mActivity.getResources().getColor(android.R.color.primary_text_dark));
+        if (app.isCurrentlyEnabled() != app.defaultEnabled)
+        	title.setTypeface(Typeface.DEFAULT_BOLD);
 
         SpannableStringBuilder fullTitle = new SpannableStringBuilder();
         fullTitle.append(app.getAppLabel());

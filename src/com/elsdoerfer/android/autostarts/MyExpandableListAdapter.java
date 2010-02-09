@@ -113,6 +113,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			title.setTextColor(mActivity.getResources().getColor(android.R.color.primary_text_dark));
 		if (app.isCurrentlyEnabled() != app.defaultEnabled)
 			title.setTypeface(Typeface.DEFAULT_BOLD);
+		else
+			title.setTypeface(Typeface.DEFAULT);
 
 		SpannableStringBuilder fullTitle = new SpannableStringBuilder();
 		fullTitle.append(app.getAppLabel());

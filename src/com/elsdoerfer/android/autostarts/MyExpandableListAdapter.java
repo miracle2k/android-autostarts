@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,11 +112,10 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         else
             title.setTextColor(mActivity.getResources().getColor(android.R.color.primary_text_dark));
 
-        SpannableString fullTitle;
-        if (app.componentLabel == null)
-            fullTitle = SpannableString.valueOf(app.packageLabel);
-        else
-            fullTitle = SpannableString.valueOf((app.packageLabel + " ("+app.componentLabel+")"));
+        SpannableStringBuilder fullTitle = new SpannableStringBuilder();
+        fullTitle.append(app.getAppLabel());
+        if (app.componentLabel != null && !app.componentLabel.equals(""))
+            fullTitle.append(" ("+app.componentLabel+")");
         if (!app.currentEnabled)
             fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
         title.setText(fullTitle);

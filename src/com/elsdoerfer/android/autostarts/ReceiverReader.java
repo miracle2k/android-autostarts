@@ -355,8 +355,22 @@ public class ReceiverReader {
          * Return the best label we have.
          */
         public String getAnyLabel() {
-        	return (componentLabel != null && !componentLabel.equals("")) ?
-        			componentLabel : packageLabel;
+        	if (componentLabel != null && !componentLabel.equals(""))
+        		return componentLabel;
+        	else if (packageLabel != null && !packageLabel.equals(""))
+        		return packageLabel;
+        	else
+        		return packageName;
+        }
+
+        /**
+         * Return a label identifying the app.
+         */
+        public String getAppLabel() {
+        	if (packageLabel != null && !packageLabel.equals(""))
+        		return packageLabel;
+        	else
+        		return packageName;
         }
 
         @Override

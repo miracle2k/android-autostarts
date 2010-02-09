@@ -9,29 +9,20 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
+/**
+ * The broadcast actions/intents we know about. This allows us to show
+ * some basic information and a prettyfied title to the user.
+ *
+ * TODO: Should this be versioned? I.e. if running an application using
+ * new events on an old version of Android, we could hide those events,
+ * or mark them as not active.
+ */
 final class Actions {
-	// The broadcast actions/intents we know about. This allows us to show
-	// some basic information and a prettyfied title to the user.
-	//
-	// When doing a custom Android build, apparently a file
-	// "common/docs/broadcast_actions.txt" is generated, containing a list
-	// of available system broadcast actions - although it most definitely
-	// seems incomplete. The file is also shipped with SDKs in
-	// {platform}/data/.
-	//
-	// Unless otherwise noted, all the actions listed below are included
-	// in that file, though note that the order may have changed to
-	// prioritize more important broadcasts.
-	//
-	// TODO: Would it be better to sort the list by the number of apps
-	// registered for each broadcast, rather than have a manual order?
 
 	static final Object[][] ALL = {
 		// android.intent.*
 		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed, R.string.act_boot_completed_detail },
-		// BEGIN "Not in broadcast_actions.txt"
 		{ ConnectivityManager.CONNECTIVITY_ACTION, R.string.act_connectivity, R.string.act_connectivity_detail },
-		// END "Not in broadcast_actions.txt"
 		{ Intent.ACTION_AIRPLANE_MODE_CHANGED, R.string.act_airplane_mode_changed, R.string.act_airplane_mode_changed_detail },
 		{ Intent.ACTION_BATTERY_CHANGED, R.string.act_battery_changed, R.string.act_battery_changed_detail },
 		{ Intent.ACTION_BATTERY_LOW, R.string.act_battery_low, R.string.act_battery_low_detail },
@@ -61,9 +52,6 @@ final class Actions {
 		{ Intent.ACTION_MEDIA_UNMOUNTABLE, R.string.act_media_unmountable, R.string.act_media_unmountable_detail },
 		{ Intent.ACTION_MEDIA_UNMOUNTED, R.string.act_media_unmounted, R.string.act_media_unmounted_detail },
 		{ Intent.ACTION_NEW_OUTGOING_CALL, R.string.act_new_outgoing_call, R.string.act_new_outgoing_call_detail },
-		// BEGIN "Not in broadcast_actions.txt"
-		{ TelephonyManager.ACTION_PHONE_STATE_CHANGED, R.string.act_phone_state_changed, R.string.act_phone_state_changed_detail },
-		// END "Not in broadcast_actions.txt"
 		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added, R.string.act_package_added_detail },
 		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed, R.string.act_package_changed_detail },
 		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared, R.string.act_package_data_cleared_detail  },
@@ -91,6 +79,10 @@ final class Actions {
 		// com.android.camera.*
 		{ "com.android.camera.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail },
 
+		// TelephonyManager
+		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
+		{ TelephonyManager.ACTION_PHONE_STATE_CHANGED, R.string.act_phone_state_changed, R.string.act_phone_state_changed_detail },
+
 		// android.provider.Telephony.*
 		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
 		{ "android.provider.Telephony.SMS_RECEIVED", R.string.act_sms_received, R.string.act_sms_received_detail },
@@ -116,40 +108,7 @@ final class Actions {
 		{ "android.speech.tts.TTS_QUEUE_PROCESSING_COMPLETED", R.string.act_tts_queue_completed, R.string.act_tts_queue_completed_detail },
 		{ "android.speech.tts.engine.TTS_DATA_INSTALLED", R.string.act_tts_data_installed, R.string.act_tts_data_installed_detail },
 
-		// android.bluetooth.* - old deprecated 1.5/1.6 events; they are no longer listed in 2.0's broadcast_events.txt,
-		// though I haven't tested whether they are really no longer available as well.
-		// TODO: Could be made optional on those versions? or doesn't it hurt to have them...
-		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
-		{ "android.bluetooth.intent.action.DISCOVERY_COMPLETED", R.string.act_discovery_completed, R.string.act_discovery_completed_detail },
-		{ "android.bluetooth.intent.action.DISCOVERY_STARTED", R.string.act_discovery_started, R.string.act_discovery_started_detail },
-		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", R.string.act_headset_state_changed, R.string.act_headset_state_changed_detail },
-		{ "android.bluetooth.intent.action.NAME_CHANGED", R.string.act_bt_name_changed, R.string.act_bt_name_changed_detail },  // see android.bluetooth.device.action.NAME_CHANGED
-		{ "android.bluetooth.intent.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },
-		{ "android.bluetooth.intent.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", R.string.act_remote_device_connected, R.string.act_remote_device_connected_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", R.string.act_remote_device_disappeared, R.string.act_remote_device_disappeared_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECTED", R.string.act_remote_device_disconnected, R.string.act_remote_device_disconnected_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECT_REQUESTED", R.string.act_remote_device_disconnect_requested, R.string.act_remote_device_disconnect_requested_detail },
-		{ "android.bluetooth.intent.action.REMOTE_DEVICE_FOUND", R.string.act_remote_device_found, R.string.act_remote_device_found_detail },
-		{ "android.bluetooth.intent.action.REMOTE_NAME_FAILED", R.string.act_remote_name_failed, R.string.act_remote_name_failed_detail },
-		{ "android.bluetooth.intent.action.REMOTE_NAME_UPDATED", R.string.act_remote_name_updated, R.string.act_remote_name_updated_detail },
-		// These we apparently missed initially, because they were only added to this list when we compared 1.6
-		// broadcast_actions.txt with 2.0, and found them to be removed.
-		{ "android.bluetooth.intent.action.BLUETOOTH_STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },  // see android.bluetooth.adapter.action.STATE_CHANGED
-		{ "android.bluetooth.intent.action.BOND_STATE_CHANGED_ACTION", R.string.act_bt_bond_state_changed, R.string.act_bt_bond_state_changed_detail },  // see android.bluetooth.device.action.BOND_STATE_CHANGED
-		{ "android.bluetooth.intent.action.HEADSET_ADUIO_STATE_CHANGED", R.string.act_bt_audio_state_changed, R.string.act_bt_audio_state_changed_detail },  // see android.bluetooth.headset.action.AUDIO_STATE_CHANGED
-		{ "android.bluetooth.intent.action.SCAN_MODE_CHANGED", R.string.act_bt_scan_mode_changed, R.string.act_bt_scan_mode_changed },  // see android.bluetooth.adapter.action.SCAN_MODE_CHANGED
-		// Bluetooth stuff we had collected from wherever in the time before 2.0, but which doesn't appear in the
-		// broadcast_actions.txt files for any version; since 2.0 apparently redesigned/officially introduced the
-		// Bluetooth SDKs, we need  to assume that those are probably gone as well - or some of them might still exist, untested.
-		{ "android.bluetooth.intent.action.BONDING_CREATED", R.string.act_bonding_created, R.string.act_bonding_created_detail },
-		{ "android.bluetooth.intent.action.BONDING_REMOVED", R.string.act_bonding_removed, R.string.act_bonding_removed_detail },
-		{ "android.bluetooth.intent.action.DISABLED", R.string.act_disabled, R.string.act_disabled_detail },
-		{ "android.bluetooth.intent.action.ENABLED", R.string.act_enabled, R.string.act_enabled_detail },
-		{ "android.bluetooth.intent.action.MODE_CHANGED", R.string.act_mode_changed, R.string.act_mode_changed_detail },
-		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", R.string.act_remote_alias_changed, R.string.act_remote_alias_changed_detail },
-		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", R.string.act_remote_alias_cleared, R.string.act_remote_alias_cleared_detail },
-		// Those are the bluetooth events introduced in 2.0.
+		// android.bluetooth.* (officially introduced in 2.0)
 		{ "android.bluetooth.a2dp.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
 		{ "android.bluetooth.adapter.action.DISCOVERY_FINISHED", R.string.act_bt_discovery_finished, R.string.act_bt_discovery_finished_detail },
 		{ "android.bluetooth.adapter.action.DISCOVERY_STARTED", R.string.act_discovery_started, R.string.act_discovery_started_detail },
@@ -167,6 +126,36 @@ final class Actions {
 		{ "android.bluetooth.devicepicker.action.LAUNCH", R.string.act_bt_launch, R.string.act_bt_launch_detail },
 		{ "android.bluetooth.headset.action.AUDIO_STATE_CHANGED", R.string.act_bt_audio_state_changed, R.string.act_bt_audio_state_changed_detail }, // see android.bluetooth.intent.action.HEADSET_ADUIO_STATE_CHANGED
 		{ "android.bluetooth.headset.action.STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },
+		// Old deprecated 1.5/1.6 events; they are no longer listed in 2.0's broadcast_events.txt,
+		// though I haven't tested whether they are really no longer available as well.
+		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
+		{ "android.bluetooth.intent.action.DISCOVERY_COMPLETED", R.string.act_discovery_completed, R.string.act_discovery_completed_detail },
+		{ "android.bluetooth.intent.action.DISCOVERY_STARTED", R.string.act_discovery_started, R.string.act_discovery_started_detail },
+		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", R.string.act_headset_state_changed, R.string.act_headset_state_changed_detail },
+		{ "android.bluetooth.intent.action.NAME_CHANGED", R.string.act_bt_name_changed, R.string.act_bt_name_changed_detail },  // see android.bluetooth.device.action.NAME_CHANGED
+		{ "android.bluetooth.intent.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },
+		{ "android.bluetooth.intent.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", R.string.act_remote_device_connected, R.string.act_remote_device_connected_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", R.string.act_remote_device_disappeared, R.string.act_remote_device_disappeared_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECTED", R.string.act_remote_device_disconnected, R.string.act_remote_device_disconnected_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECT_REQUESTED", R.string.act_remote_device_disconnect_requested, R.string.act_remote_device_disconnect_requested_detail },
+		{ "android.bluetooth.intent.action.REMOTE_DEVICE_FOUND", R.string.act_remote_device_found, R.string.act_remote_device_found_detail },
+		{ "android.bluetooth.intent.action.REMOTE_NAME_FAILED", R.string.act_remote_name_failed, R.string.act_remote_name_failed_detail },
+		{ "android.bluetooth.intent.action.REMOTE_NAME_UPDATED", R.string.act_remote_name_updated, R.string.act_remote_name_updated_detail },
+		{ "android.bluetooth.intent.action.BLUETOOTH_STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },  // see android.bluetooth.adapter.action.STATE_CHANGED
+		{ "android.bluetooth.intent.action.BOND_STATE_CHANGED_ACTION", R.string.act_bt_bond_state_changed, R.string.act_bt_bond_state_changed_detail },  // see android.bluetooth.device.action.BOND_STATE_CHANGED
+		{ "android.bluetooth.intent.action.HEADSET_ADUIO_STATE_CHANGED", R.string.act_bt_audio_state_changed, R.string.act_bt_audio_state_changed_detail },  // see android.bluetooth.headset.action.AUDIO_STATE_CHANGED
+		{ "android.bluetooth.intent.action.SCAN_MODE_CHANGED", R.string.act_bt_scan_mode_changed, R.string.act_bt_scan_mode_changed },  // see android.bluetooth.adapter.action.SCAN_MODE_CHANGED
+		// Bluetooth stuff we had collected from wherever in the time before 2.0, but which doesn't appear in the
+		// broadcast_actions.txt files for any version; since 2.0 apparently redesigned/officially introduced the
+		// Bluetooth SDKs, we need  to assume that those are probably gone as well - or some of them might still exist, untested.
+		{ "android.bluetooth.intent.action.BONDING_CREATED", R.string.act_bonding_created, R.string.act_bonding_created_detail },
+		{ "android.bluetooth.intent.action.BONDING_REMOVED", R.string.act_bonding_removed, R.string.act_bonding_removed_detail },
+		{ "android.bluetooth.intent.action.DISABLED", R.string.act_disabled, R.string.act_disabled_detail },
+		{ "android.bluetooth.intent.action.ENABLED", R.string.act_enabled, R.string.act_enabled_detail },
+		{ "android.bluetooth.intent.action.MODE_CHANGED", R.string.act_mode_changed, R.string.act_mode_changed_detail },
+		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", R.string.act_remote_alias_changed, R.string.act_remote_alias_changed_detail },
+		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", R.string.act_remote_alias_cleared, R.string.act_remote_alias_cleared_detail },
 
 		// This is a strange one, since there is literally no information
 		// out there about it, in fact, GSERVICES_CHANGED has only 3 Google
@@ -174,10 +163,6 @@ final class Actions {
 		//    http://www.netmite.com/android/mydroid/cupcake/out/target/common/docs/broadcast_actions.txt
 		// { "com.google.gservices.intent.action.GSERVICES_CHANGED" null, null }
 		{ "com.google.gservices.intent.action.GSERVICES_OVERRIDE", null, null},   // new in 1.6
-
-		// NOTE: The actions below ARE NOT LISTED in "broadcast_actions.txt",
-		// but were collected manually.
-		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
 
 		// android.appwidget.*
 		// Note that except of UPDATE, the others aren't really sent using a

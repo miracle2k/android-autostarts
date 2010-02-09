@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
@@ -17,40 +16,25 @@ import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
  * Takes care of toggling a component's state. This may take a
  * couple of seconds, so we use a thread.
  */
-class ToggleTask extends AsyncTask<Object, Object, Boolean> {
+class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean> {
 
-	private volatile ListActivity mActivity;
 	private ProgressDialog mPg;
 	private Boolean mDoEnable;
 	private ReceiverData mApp;
-	private boolean mPostProcessingDone;
-	private Boolean mResult;
 
 	public ToggleTask(ListActivity wrapActivity) {
-		super();
-		mPostProcessingDone = false;
-		connectToActivity(wrapActivity);
+		super(wrapActivity);
 	}
 
-	public void connectToActivity(ListActivity wrapActivity) {
-		mActivity = wrapActivity;
+	public void connectTo(ListActivity wrappedObject) {
+		super.connectTo(wrappedObject);
 
-		if (mActivity != null) {
-			// Set the task up with the new activity.
-			if (getStatus() == Status.RUNNING)
-				onPreExecute();
-
-			// If we were unable to do the full post processing because of
-			// no activity being available, do so now.
-			else if (getStatus() == Status.FINISHED && !mPostProcessingDone)
-				processPostExecute();
-		}
 		// We are being unconnected from the current activity. Make sure
 		// we reset any current progress dialog, so we don't think later
 		// on that we have to cancel it; we don't need to bother canceling
 		// it here either, because as the old activity is destroyed, so
 		// is the progress dialog.
-		else {
+		if (wrappedObject == null) {
 			mPg = null;
 		}
 	}
@@ -58,41 +42,20 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		mPg = new ProgressDialog(mActivity);
+		mPg = new ProgressDialog(mWrapped);
 		mPg.setIndeterminate(true);
-		mPg.setMessage(mActivity.getResources().getString(R.string.please_wait));
+		mPg.setMessage(mWrapped.getResources().getString(R.string.please_wait));
 		mPg.setCancelable(false);
 		mPg.show();
 	}
 
-	@Override
-	protected void onPostExecute(Boolean result) {
-		super.onPostExecute(result);
-
-		mResult = result;
-
-		// We need to make sure we only go on if an activity is
-		// attached. Since it's possible that, say, an orientation
-		// change happens while we are running, it can happen that
-		// there isn't one. If so, processPostExecute() will be
-		// run the next time one is attached.
-		if (mActivity != null)
-			processPostExecute();
-	}
-
-	/**
-	 * Run processing code once the task is done that requires an
-	 * activity to be attached.
-	 */
-	private void processPostExecute() {
-		mPostProcessingDone = true;
-
+	protected void processPostExecute(Boolean result) {
 		if (mPg != null)
 			mPg.cancel();
 
-		if (!mResult) {
+		if (!result) {
 			// TODO: Use showDialog() so it's managed by Activity.
-			new AlertDialog.Builder(mActivity)
+			new AlertDialog.Builder(mWrapped)
 				.setMessage(R.string.state_change_failed)
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setTitle(R.string.error)
@@ -101,7 +64,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 		else {
 			// We can reasonably expect that the component state
 			// changed, so refresh the list.
-			mActivity.mListAdapter.notifyDataSetInvalidated();
+			mWrapped.mListAdapter.notifyDataSetInvalidated();
 		}
 	}
 
@@ -109,7 +72,7 @@ class ToggleTask extends AsyncTask<Object, Object, Boolean> {
 	protected Boolean doInBackground(Object... params) {
 		// Cache the object locally, since the member might be reset
 		// when the Activity disconnects.
-		final ListActivity activity = mActivity;
+		final ListActivity activity = mWrapped;
 
 		mApp = (ReceiverData)params[0];
 		// We could also read this right now, but we want to ensure

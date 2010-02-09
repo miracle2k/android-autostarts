@@ -118,12 +118,13 @@ public class ListActivity extends ExpandableListActivity {
 			mToggleTask = oldActivity.mToggleTask;
 			mLoadTask = oldActivity.mLoadTask;
 			// Display what we have immediately.
-			apply();
+			if (mReceiversByIntent != null)
+				apply();
 			// Continue loading in case we're not done yet.
 			if (mLoadTask != null)
-				mLoadTask.connectToActivity(this);
+				mLoadTask.connectTo(this);
 			if (mToggleTask != null)
-				mToggleTask.connectToActivity(this);
+				mToggleTask.connectTo(this);
 		}
 		// Otherwise, we are going to have to init certain data
 		// ourselves, and load some from from instance state, if
@@ -178,9 +179,9 @@ public class ListActivity extends ExpandableListActivity {
 		mDb.close();
 		// Unattach the activity from a potentially running task.
 		if (mToggleTask != null)
-			mToggleTask.connectToActivity(null);
+			mToggleTask.connectTo(null);
 		if (mLoadTask != null)
-			mLoadTask.connectToActivity(null);
+			mLoadTask.connectTo(null);
 		super.onDestroy();
 	}
 

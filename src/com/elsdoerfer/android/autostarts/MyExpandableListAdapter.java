@@ -214,7 +214,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		 }
 	 }
 
-	 public boolean getShowDisabledOnly() {
+	 public boolean getShowChangedOnly() {
 		 return mShowChangedOnly;
 	 }
 }

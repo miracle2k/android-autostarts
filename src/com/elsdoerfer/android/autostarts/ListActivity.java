@@ -467,6 +467,7 @@ public class ListActivity extends ExpandableListActivity {
 			}
 		}
 
+		// TODO: Those need to be translated!
 		int t = 0;
 		SpannableStringBuilder b = new SpannableStringBuilder();
 		b.append("Receiver ");

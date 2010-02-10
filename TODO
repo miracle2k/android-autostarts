@@ -1,3 +1,6 @@
+Update the image resources used with the high-res versions that Android
+itself uses, so we render more nicely on Droid/Nexus. 
+
 Loading on a G1 with *lots* of apps is terribly slow now with the new 
 backend (> 1 minute). We could employ caching to improve this, based 
 on the package version number. Only when that one changes do we 

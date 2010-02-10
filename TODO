@@ -1,3 +1,9 @@
+Loading on a G1 with *lots* of apps is terribly slow now with the new 
+backend (> 1 minute). We could employ caching to improve this, based 
+on the package version number. Only when that one changes do we 
+refresh the cache. The "reload" feature would then act as a refresh
+of the full cache.
+
 Show a notification whenever a package is added or updated that includes
 new autostarts; this makes it easy to "review" all autostarts as new
 applications are installed. Ironically, we will have to register a

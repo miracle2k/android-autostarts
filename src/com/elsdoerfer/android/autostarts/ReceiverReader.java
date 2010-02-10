@@ -264,11 +264,11 @@ public class ReceiverReader {
 						data.isSystem = isSystemApp(p);
 						data.packageLabel =  currentApplicationLabel;
 						data.componentLabel = getAttr("label");
-						// XXX: Traceview says this takes 9% of the total load.
-						// We could move it to the drawing code (but that would
-						// would slow down drawing), or it could be done in a
-						// thread. However, if we we decide to do incremental
-						// updates during load anyway, we can just leave it here.
+						// TODO: Traceview says this takes 9% of the total load
+						// time. We could move it to the drawing code (load only
+						// once the user actually sees an icon), but that would
+						// slow down the list view usage. One option possibly would
+						// be to load it on-demand, but do that again in a thread.
 						data.icon = p.applicationInfo.loadIcon(mPackageManager);
 						data.priority = currentFilterPriority;
 						data.defaultEnabled = currentComponentEnabled;

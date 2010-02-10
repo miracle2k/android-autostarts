@@ -102,7 +102,6 @@ public class ListActivity extends ExpandableListActivity {
 				mPrefs.getBoolean(PREF_FILTER_SHOW_CHANGED, false));
 		mListAdapter.setFilterUnknown(
 				mPrefs.getBoolean(PREF_FILTER_UNKNOWN, true));
-		updateEmptyText();
 
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
@@ -148,6 +147,9 @@ public class ListActivity extends ExpandableListActivity {
 			showDialog(DIALOG_USB_DEBUGGING_NOTE);
 			mPrefs.edit().putBoolean(PREF_USB_DEBUGGING_INFO_SHOWN, true).commit();
 		}
+
+		// This depends both on preferences on loading status.
+		updateEmptyText();
 	}
 
 	@Override
@@ -508,9 +510,16 @@ public class ListActivity extends ExpandableListActivity {
 		mLoadTask.execute();
 	}
 
-	protected void updateEmptyText() {
+	/**
+	 * The "loadIsFinished" argument is needed for the call from LoadTask,
+	 * because when it's postExecute() handler is run the task status
+	 * has not yet been switched to FINISHED (it's still RUNNING).
+	 */
+	protected void updateEmptyText(boolean loadIsFinished) {
 		TextView emptyText = (TextView) findViewById(android.R.id.empty);
-		if (!mListAdapter.isFiltered())
+		if (mLoadTask != null && mLoadTask.getStatus() == AsyncTask.Status.RUNNING && !loadIsFinished)
+			emptyText.setText(R.string.still_loading);
+		else if (!mListAdapter.isFiltered())
 			emptyText.setText(R.string.no_receivers);
 		else {
 			// Unfortunately, we cannot link directly from the resource
@@ -545,6 +554,10 @@ public class ListActivity extends ExpandableListActivity {
 				}
 			}
 		}
+	}
+
+	protected void updateEmptyText() {
+		updateEmptyText(false);
 	}
 
 	// TODO: Instead of showing a toast, fade in a custom info bar, then fade out.

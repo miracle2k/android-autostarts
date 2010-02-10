@@ -26,6 +26,7 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, ArrayList<ActionW
 		mWrapped.setProgressBarIndeterminateVisibility(true);
 		if (mWrapped.mReloadItem != null)
 			mWrapped.mReloadItem.setEnabled(false);
+		mWrapped.updateEmptyText();
 	}
 
 	@Override
@@ -49,6 +50,7 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, ArrayList<ActionW
 		mWrapped.setProgressBarIndeterminateVisibility(false);
 		if (mWrapped.mReloadItem != null)
 			mWrapped.mReloadItem.setEnabled(true);
+		mWrapped.updateEmptyText(true);
 	}
 
 	@Override

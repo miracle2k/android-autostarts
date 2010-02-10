@@ -11,9 +11,6 @@ import com.elsdoerfer.android.autostarts.ReceiverReader.OnLoadProgressListener;
 // the list itself cares when notifyDatasetChanged() is called, but
 // at least we don't need to re-filter the whole list on every progress
 // report, but can only apply the filter to what comes in new.
-// TODO: Note that this would also fix another bug: If the user already
-// toggles an app right now while we are still loading, the state change
-// will be lost when the next progress report is sent in.
 class LoadTask extends ActivityAsyncTask<ListActivity, Object, ArrayList<ActionWithReceivers>, ArrayList<ActionWithReceivers>> {
 
 	public LoadTask(ListActivity initialConnect) {

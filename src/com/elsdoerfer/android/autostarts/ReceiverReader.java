@@ -102,6 +102,11 @@ public class ReceiverReader {
 				// background simultaneously (ConcurrentModificationException), and
 				// the core Android ListAdapter stuff itself which complains about the
 				// data having changed without notifyDataSetChanged being called.
+				// Note that what is not copied are the "ReceiverData" objects itself.
+				// This is important so that when a receiver status is toggled while
+				// we are still loading, it's changed attributes are not reset, because
+				// the ToggleTask modifies the single one instance that we have in both
+				// the authoritative and the intermediate copies.
 				ArrayList<ActionWithReceivers> copy = new ArrayList<ActionWithReceivers>();
 				for (ActionWithReceivers action : receiversByIntent) {
 					try {

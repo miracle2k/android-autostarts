@@ -95,7 +95,22 @@ public class ReceiverReader {
 			// Publish an update after every package
 			if (mOnLoadProgressListener != null) {
 				sortResult(receiversByIntent);
-				mOnLoadProgressListener.onProgress(receiversByIntent);
+
+				// It's important that we send out a copy here, or we'll can run into
+				// crashes both inside our ListAdapter filtering code, where we are
+				// iterating over a list that can be changed by the thread in the
+				// background simultaneously (ConcurrentModificationException), and
+				// the core Android ListAdapter stuff itself which complains about the
+				// data having changed without notifyDataSetChanged being called.
+				ArrayList<ActionWithReceivers> copy = new ArrayList<ActionWithReceivers>();
+				for (ActionWithReceivers action : receiversByIntent) {
+					try {
+						copy.add((ActionWithReceivers) action.clone());
+					} catch (CloneNotSupportedException e) {
+						throw new RuntimeException(e);
+					}
+				}
+				mOnLoadProgressListener.onProgress(copy);
 			}
 		}
 
@@ -479,7 +494,7 @@ public class ReceiverReader {
 	 * A particular action and a list of receivers that register for
 	 * the action.
 	 */
-	static class ActionWithReceivers {
+	static class ActionWithReceivers implements Cloneable {
 		public String action;
 		public ArrayList<ReceiverData> receivers;
 
@@ -491,6 +506,15 @@ public class ReceiverReader {
 		ActionWithReceivers(ActionWithReceivers clone) {
 			this.action = clone.action;
 			this.receivers = clone.receivers;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		protected Object clone() throws CloneNotSupportedException {
+			ActionWithReceivers clone = (ActionWithReceivers)super.clone();
+			clone.receivers = (ArrayList<ReceiverData>) receivers.clone();
+			return clone;
+
 		}
 
 		@Override

@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.style.StrikethroughSpan;
@@ -108,7 +112,21 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		else
 			v = convertView;
 		ReceiverData app = (ReceiverData) getChild(groupPosition, childPosition);
-		((ImageView)v.findViewById(R.id.icon)).setImageDrawable(app.icon);
+
+		// Set the icon
+		ImageView img = ((ImageView)v.findViewById(R.id.icon));
+		img.setImageDrawable(app.icon);
+		if (app.isCurrentlyEnabled())
+			img.setColorFilter(null);
+		else {
+			ColorMatrix m = new ColorMatrix();
+			// Brightness=100, Saturation=~-65, matrix generated with:
+			// http://www.adobe.com/devnet/flash/articles/matrix_transformations_04.html
+			m.set(new float[] { 0.58516f,0.36564f,0.0492f,0,100,0.18516f,0.76564f,0.0492f,0,100,0.18516f,0.36564f,0.4492f,0,100,0,0,0,1,0 });
+			img.setColorFilter(new ColorMatrixColorFilter(m));
+		}
+
+		// Set the texts style
 		TextView title = ((TextView)v.findViewById(R.id.title));
 		if (app.isSystem)
 			title.setTextColor(Color.YELLOW);
@@ -119,6 +137,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		else
 			title.setTypeface(Typeface.DEFAULT);
 
+		// Build the text itself
 		SpannableStringBuilder fullTitle = new SpannableStringBuilder();
 		fullTitle.append(app.getAppLabel());
 		if (app.componentLabel != null && !app.componentLabel.equals(""))

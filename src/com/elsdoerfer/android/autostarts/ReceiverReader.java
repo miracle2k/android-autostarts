@@ -353,7 +353,6 @@ public class ReceiverReader {
 		} catch (NumberFormatException e) {
 			return in;
 		} catch (NotFoundException e) {
-			// XXX: Investigate why this occurs on Milestone
 			Log.w(TAG, "Unable to resolve resource "+in, e);
 			return in;
 		}

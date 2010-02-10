@@ -476,6 +476,14 @@ public class ReceiverReader {
 		}
 
 		public void writeToParcel(Parcel dest, int flags) {
+			// TODO: The icon is currently not maintained; since we use this
+			// mechanism to keep data during config change, the icon can
+			// currently be lost there. This usually doesn't happen due to
+			// us also retaining the config, but it should be fixed never
+			// the less. Preferably, we would simply requery the icons rather
+			// than wasting space saving them. This could be combined with
+			// a general-delayed loading of the icons to improve initial
+			// load time.
 			dest.writeString(packageName);
 			dest.writeString(componentName);
 			dest.writeString(packageLabel);

@@ -32,6 +32,7 @@ final class Actions {
 		{ Intent.ACTION_BATTERY_OKAY, R.string.act_battery_okay, R.string.act_battery_okay_detail },   // Added in 1.6
 		{ Intent.ACTION_CLOSE_SYSTEM_DIALOGS, R.string.act_close_system_dialogs, R.string.act_close_system_dialogs_detail },
 		{ Intent.ACTION_CONFIGURATION_CHANGED, R.string.act_configuration_changed, R.string.act_configuration_changed_detail },
+		{ Intent.ACTION_LOCALE_CHANGED, R.string.act_locale_changed, R.string.act_locale_changed_detail },  // new in api level 7.
 		{ Intent.ACTION_DATE_CHANGED, R.string.act_date_changed, R.string.act_date_changed_detail },
 		{ Intent.ACTION_DEVICE_STORAGE_LOW, R.string.act_device_storage_low, R.string.act_device_storage_low_detail },
 		{ Intent.ACTION_DEVICE_STORAGE_OK, R.string.act_device_storage_ok, R.string.act_device_storage_ok_detail },
@@ -78,7 +79,6 @@ final class Actions {
 		{ Intent.ACTION_POWER_DISCONNECTED, R.string.act_power_disconnected, R.string.act_power_disconnected_detail },
 		{ Intent.ACTION_SHUTDOWN, R.string.act_shutdown, R.string.act_shutdown_detail },
 		{ Intent.ACTION_DOCK_EVENT, R.string.act_dock_event, R.string.act_dock_event_detail },
-		{ Intent.ACTION_LOCALE_CHANGED, R.string.act_locale_changed, R.string.act_locale_changed_detail },  // new in api level 7.
 		{ "android.intent.action.ANR", R.string.act_anr, R.string.act_anr_detail },
 		{ "android.intent.action.EVENT_REMINDER", R.string.act_event_reminder, R.string.act_event_reminder_detail },
 

@@ -31,6 +31,8 @@
 
 \n\n<b>Autostarts is freezing when I try to disable something.</b>\n\nThis is a bug in the Şuperuser Whitelist app that comes with most ROMs. You need to activate the \"USB Debugging\" option in your device settings under \"Applications -> Development\".
 
+\n\n<b>When I activate the "show changed only" filter, why do I see stuff that I never actually modified?</b>\n\nWhether a component has changed (and thus displayed in bold) is determined by looking at it\'s default state versus it\'s current state. It is possible for a component to be disabled <i>by default</i> after installation, but being activiated by the application itself once needed (for example after you use a specific feature or enable a setting the application).
+
 \n\n<b>Is it possible to know what a particular application does on a particular event?</b>\n\nNo, not per se. However, if you select an entry, you will be able to see what the name of the <i>component</i> is that handles the event. Sometimes, the name gives you a hint. For example, an <i>AlarmInitReceiver</i> would likely initialize the alarms or notification that you have enabled in the application. Don\'t be surprised then if this application\'s alarms stop working if you disable the component.
 
 \n\n<b>I\'ve disabled a component, but it seems to have it self enabled again after a while?</b>\n\nYes, applications may enable or disable their own components. Some do this depending on settings, or what features are enabled. Unfortunately, there is no workaround for this.

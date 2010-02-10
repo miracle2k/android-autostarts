@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -63,7 +64,8 @@ public class ReceiverReader {
 	private final static String SDK_NS_RESOURCES = "http://schemas.android.com/apk/res/android";
 
 	public interface OnLoadProgressListener {
-		public void onProgress(ArrayList<ActionWithReceivers> currentState);
+		public void onProgress(ArrayList<ActionWithReceivers> currentState,
+				float progress);
 	}
 
 	private static enum ParserState { Unknown, InManifest,
@@ -86,9 +88,13 @@ public class ReceiverReader {
 		ArrayList<ActionWithReceivers> receiversByIntent =
 			new ArrayList<ActionWithReceivers>();
 
-		for (PackageInfo p : mPackageManager.getInstalledPackages(
-				PackageManager.GET_DISABLED_COMPONENTS))
+		List<PackageInfo> packages =
+			mPackageManager.getInstalledPackages(PackageManager.GET_DISABLED_COMPONENTS);
+		int packageCount = packages.size();
+		for (int i=0; i<packageCount; i++)
 		{
+			PackageInfo p = packages.get(i);
+
 			if (LOGV) Log.v(TAG, "Processing package "+p.packageName);
 			parsePackage(p, receiversByIntent);
 
@@ -115,7 +121,7 @@ public class ReceiverReader {
 						throw new RuntimeException(e);
 					}
 				}
-				mOnLoadProgressListener.onProgress(copy);
+				mOnLoadProgressListener.onProgress(copy, i/(float)packageCount);
 			}
 		}
 

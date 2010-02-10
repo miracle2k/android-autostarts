@@ -83,6 +83,7 @@ public class ListActivity extends ExpandableListActivity {
 	public void onCreate(Bundle saved) {
 		super.onCreate(saved);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.list);
 
 		// Set everything up.

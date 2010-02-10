@@ -90,6 +90,11 @@ removes all apps which register for their own intents. Since nobody
 "owns" an action, this can't be determined in a 100% guaranteed way,
 but for many cases, comparing the namespace strings should suffice.
 
+Helpful would also be the ability to filter the list using a hardware
+keyboard, similar to the contact list could be filtered previous to
+the introduction of global search. I believe there should be some builtin
+facilities that we should use to provide this.
+
 Currently, we don't pay any attention to the fact that a single receiver
 may be responsible for multiple events. As a result, disabling a single
 component may effect multiple entries. At the very least, the UI should

@@ -334,7 +334,7 @@ public class ReceiverReader {
 	 */
 	private String getAttr(String attributeName) {
 		String value = mCurrentXML.getAttributeValue(SDK_NS_RESOURCES, attributeName);
-		// XXX: It's possible to use getAttributeResourceValue and check for
+		// TODO: It's possible to use getAttributeResourceValue and check for
 		// default value return rather than parsing the @ ourselves. Is it faster?
 		return resolveValue(value, mCurrentResources);
 	}

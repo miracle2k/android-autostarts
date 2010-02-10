@@ -1,34 +1,17 @@
-config.raw_apk = 'bin/Android-Autostarts.apk'
+config.raw_apk = 'bin/Android-Autostarts-release.apk'
 
 
 import time
 from os import path, unlink
 
-# vars expected from .fabric: 
-#   keystore, keyalias, storepass (optional)
-load('.fabric')
-
 
 def build():
-    # Right now we require $apk to exist.
-    # TODO: Lern how to use aapt to build without Eclipse!   
+    # build the app
+    local('ant release')
     
-    # copy to a temp file with which we can work
-    config.temp_apk = '%s.temp' % config.raw_apk
-    local('cp $(raw_apk) $(temp_apk)')
-
 
 @depends(build)
-def sign():
-    local('jarsigner -verbose -storepass $(storepass) -keystore $(keystore) $(temp_apk) $(keyalias)')
-    local('jarsigner -verify $(temp_apk)')
-
-    
-@depends(sign)
-def align():
-    """Align requires a different output file than the input; we use this
-    opportunity to create the final output file with version number etc.
-    """
+def version():
     
     # determine the version number
     import subprocess, re
@@ -40,16 +23,13 @@ def align():
     base, ext = path.splitext(config.raw_apk)
     config.target_apk = '%s-%s%s' % (base, version, ext)
 
-    local('zipalign -f 4 $(temp_apk) $(target_apk)')
+    # move to final location
+    local('mv $(raw_apk) $(target_apk)')
     
-    # we can delete the tempfile
-    unlink(config.temp_apk)
 
-
-@depends(align)
+@depends(version)
 def make():
-    # sign() prepares the apk.
-    # We now create an .ini section for our site
+    # Create an .ini section for our site
     base, ext = path.splitext(config.target_apk)    
     ini = open('%s.ini' % base, 'w')
     ini.write("[%s]\n" % config.version)

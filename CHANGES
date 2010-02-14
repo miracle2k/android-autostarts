@@ -1,6 +1,8 @@
 1.x.x (2010-xx-xx)
     * Show a warning before disabling Google Talk with respect to Market
       downloads.
+    * Fixed display of component labels (a regression introduced in the 
+      1.5.0 backend refactor).
 
 1.5.0 (2010-02-10)
     * Major rewrite of how we retrieve package information. We no longer

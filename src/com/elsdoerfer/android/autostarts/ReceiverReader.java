@@ -177,6 +177,7 @@ public class ReceiverReader {
 			String tagName = null;
 			String currentComponentName = null;
 			String currentApplicationLabel = null;
+			String currentComponentLabel = null;
 			boolean currentComponentEnabled = true;
 			int currentFilterPriority = 0;
 			ParserState state = ParserState.Unknown;
@@ -198,6 +199,7 @@ public class ReceiverReader {
 
 						currentComponentEnabled =
 							!(getAttr("enabled") == "false");
+						currentComponentLabel = getAttr("label");
 						// Build the component name. We need to do some
 						// normalization here, since we can get the
 						// original string the dev. put into his XML.
@@ -269,7 +271,7 @@ public class ReceiverReader {
 						data.packageName = p.packageName;
 						data.isSystem = isSystemApp(p);
 						data.packageLabel =  currentApplicationLabel;
-						data.componentLabel = getAttr("label");
+						data.componentLabel = currentComponentLabel;
 						// TODO: Traceview says this takes 9% of the total load
 						// time. We could move it to the drawing code (load only
 						// once the user actually sees an icon), but that would
@@ -294,6 +296,7 @@ public class ReceiverReader {
 					}
 					else if (tagName.equals("receiver") && state == ParserState.InReceiver) {
 						currentComponentName = null;
+						currentComponentLabel = null;
 						currentComponentEnabled = true;
 						state = ParserState.InApplication;
 					}

@@ -1,6 +1,6 @@
 1.x.x (2010-xx-xx)
-	* Show a warning before disabling Google Talk with respect to Market
-	  downloads.
+    * Show a warning before disabling Google Talk with respect to Market
+      downloads.
 
 1.5.0 (2010-02-10)
     * Major rewrite of how we retrieve package information. We no longer
@@ -15,51 +15,51 @@
       events.
 
 1.2.2 (2010-01-31)
-	* Added German translation (does not include event texts).
-	* Added support for two new events (SECRET_CODE, SPN_STRINGS_UPDATED).
-	* Improved handling of certain events (like PACKAGE_INSTALLED and
-	  friends) that previously didn't properly show up in many cases.
-	  There is still some work to do here.
-	* On first use and on the help screen we now show information about
-	  how to workaround the freeze bug in the Superuser Whitelist app.
+    * Added German translation (does not include event texts).
+    * Added support for two new events (SECRET_CODE, SPN_STRINGS_UPDATED).
+    * Improved handling of certain events (like PACKAGE_INSTALLED and
+      friends) that previously didn't properly show up in many cases.
+      There is still some work to do here.
+    * On first use and on the help screen we now show information about
+      how to workaround the freeze bug in the Superuser Whitelist app.
 
 1.2.1 (2009-10-29)
-	* "Eclair-ready" (compiled against 2.0).
-	* Support all screen sizes.
-	* Support various new events introduced in 1.6 and 2.0.
+    * "Eclair-ready" (compiled against 2.0).
+    * Support all screen sizes.
+    * Support various new events introduced in 1.6 and 2.0.
 
 1.2.0 (2009-10-17)
-	* Fixed a pretty serious crash on almost every orientation change.
-	* Added option to only show disabled components.
+    * Fixed a pretty serious crash on almost every orientation change.
+    * Added option to only show disabled components.
 
 1.1.9 (2009-10-05)
-	* Warn the user more clearly about the dangers of uninstalling the
-	  app while components are still disabled.
-	* Support orientation change.
-	* Minor architecture improvements under the hood, preparing for
-	  bigger things to come.
+    * Warn the user more clearly about the dangers of uninstalling the
+      app while components are still disabled.
+    * Support orientation change.
+    * Minor architecture improvements under the hood, preparing for
+      bigger things to come.
 
 1.1.4 (2009-09-22)
-	* Support missing camera.NEW_PICTURE intent.
-	* Improved logging when an error occurs during component state change,
-	  to allow investigating problems.
-	* "Donut-ready" (compiled against 1.6).
+    * Support missing camera.NEW_PICTURE intent.
+    * Improved logging when an error occurs during component state change,
+      to allow investigating problems.
+    * "Donut-ready" (compiled against 1.6).
 
 1.1.3 (2009-07-30)
-	* Fixed exception when trying to disable on some non-rooted devices.
-	* Fixed rare exception during system configuration change.
-	* Fixed apostrophe escaping in various texts, the help screen.
+    * Fixed exception when trying to disable on some non-rooted devices.
+    * Fixed rare exception during system configuration change.
+    * Fixed apostrophe escaping in various texts, the help screen.
 
 1.1.2 (2009-07-22)
-	* Support missing CONNECTIVITY_ACTION intent.
+    * Support missing CONNECTIVITY_ACTION intent.
 
 1.1.1 (2009-07-14)
-	* Slightly improved some event descriptions.
-	* Remember state of "toggle system apps" filter across restarts.
+    * Slightly improved some event descriptions.
+    * Remember state of "toggle system apps" filter across restarts.
 
 1.1.0 (2009-07-12)
-	* Allow root users to disable components (and enable them again).
-	* Added support for the PHONE_STATE action, which we previously missed.
+    * Allow root users to disable components (and enable them again).
+    * Added support for the PHONE_STATE action, which we previously missed.
 
 1.0.1 (2009-07-05)
     * Menu option to reload the list.

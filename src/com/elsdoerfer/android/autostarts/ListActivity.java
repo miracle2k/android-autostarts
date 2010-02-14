@@ -51,6 +51,7 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
 	static final private int DIALOG_USB_DEBUGGING_NOTE = 5;
+	static final private int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -274,7 +275,14 @@ public class ListActivity extends ExpandableListActivity {
 						mLastChangeRequestDoEnable = !mLastSelectedReceiver.isCurrentlyEnabled();
 						switch (which) {
 						case 0:
-							if (mLastSelectedReceiver.isSystem && !mLastChangeRequestDoEnable)
+							// Depending on what we disable, show a warning specifically
+							// for that component, a general warning or just proceed without
+							// any explicit warning whatsoever.
+							if (!mLastChangeRequestDoEnable &&
+									mLastSelectedReceiver.packageName.equals("com.google.android.apps.gtalkservice") &&
+									mLastSelectedReceiver.componentName.equals("com.google.android.gtalkservice.ServiceAutoStarter"))
+								showDialog(DIALOG_CONFIRM_GOOGLE_TALK_WARNING);
+							else if (mLastSelectedReceiver.isSystem && !mLastChangeRequestDoEnable)
 								showDialog(DIALOG_CONFIRM_SYSAPP_CHANGE);
 							else {
 								mToggleTask = new ToggleTask(ListActivity.this);
@@ -326,6 +334,23 @@ public class ListActivity extends ExpandableListActivity {
 			return new AlertDialog.Builder(ListActivity.this)
 				.setTitle(R.string.warning)
 				.setMessage(R.string.confirm_sys_disable)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						mToggleTask = new ToggleTask(ListActivity.this);
+						mToggleTask.execute(
+							mLastSelectedReceiver, mLastChangeRequestDoEnable);
+					}
+				})
+				.setNegativeButton(android.R.string.cancel, null)
+				.create();
+		}
+
+		else if (id == DIALOG_CONFIRM_GOOGLE_TALK_WARNING)
+		{
+			return new AlertDialog.Builder(ListActivity.this)
+				.setTitle(R.string.warning)
+				.setMessage(R.string.confirm_google_talk)
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {

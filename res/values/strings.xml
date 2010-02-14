@@ -24,6 +24,7 @@
     <string name="info">Info</string>
     <string name="usb_debugging_note">Please note: If you have trouble with Autostarts hanging while trying to disable or enable an application, please be sure to activate the \"USB Debugging\" option in your device settings under \"Applications -> Development\".\n\nIt\'s a bug in the Superuser Whitelist application that will hopefully be fixed in a future version.</string>
     <string name="confirm_sys_disable">You are about to disable a system component. This could potentially result in your phone no longer functioning properly.\n\nDo not proceed unless you are willing to deal with the consequences.</string>
+    <string name="confirm_google_talk">If Google Talk is disabled, you are likely going to run into issues with hanging Android Market downloads, the starting up Google Talk yourself whenever necessary can help overcome them. Sure you want to proceed?</string>
     <string name="state_change_failed">Unable to change the state of the selected component.\n\nMost likely, your device does not have root access, which is required.</string>
     <string name="help_text"><b>How does it work?</b>\n\nAndroid allows applications to register for a variety of events supported by the system, to be started whenever such an event triggers.\n\nThis allows applications to do important work in the background, but may sometimes also slow down the system.\n\nAutostarts helps you keep control over your phone by letting you know what goes on behind your back.
 

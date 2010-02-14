@@ -1,3 +1,7 @@
+1.x.x (2010-xx-xx)
+	* Show a warning before disabling Google Talk with respect to Market
+	  downloads.
+
 1.5.0 (2010-02-10)
     * Major rewrite of how we retrieve package information. We no longer
       need to keep track of disabled components ourselves, and an uninstall

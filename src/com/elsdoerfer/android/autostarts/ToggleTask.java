@@ -145,9 +145,10 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				{ "pm %s %s/%s", null },
 				{ "sh /system/bin/pm %s %s/%s", null },
 				{ "app_process /system/bin com.android.commands.pm.Pm %s %s/%s", "CLASSPATH=/system/framework/pm.jar" },
+				{ "/system/bin/app_process /system/bin com.android.commands.pm.Pm %s %s/%s", "CLASSPATH=/system/framework/pm.jar" },
 		})
 		{
-			if (!Utils.runRootCommand(String.format(set[0],
+			if (Utils.runRootCommand(String.format(set[0],
 					(mDoEnable ? "enable": "disable"),
 					mApp.packageName, mApp.componentName),
 					(set[1] != null) ? new String[] { set[1] } : null ))

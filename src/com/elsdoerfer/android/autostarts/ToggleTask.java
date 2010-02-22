@@ -158,7 +158,9 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		if (!success)
 			return false;
 
-		// ...and the state should now actually is what we expect.
+		// ...and the state should now actually be what we expect.
+		// TODO: It would be more solid if we would reload
+		// getComponentEnabledSetting() regardless of the return code.
 		final PackageManager pm = activity.getPackageManager();
 		ComponentName c = new ComponentName(
 				mApp.packageName, mApp.componentName);

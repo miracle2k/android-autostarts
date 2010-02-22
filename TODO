@@ -35,28 +35,6 @@ Confirm (file a report), and try to find a workaround.
 
 Add a dialog referring to our other projects / apps.
 
-It seems on some devices, disabling doesn't work. The error we see is:
-  D/Autostarts(  378): Process returned with 254; stdout: ; stderr: su: exec failed for sh
-  /data/data/com.elsdoerfer.android.autostarts/files/pm-call.sh Error:No such file or directory
-This is what the problem might be:
-  http://code.google.com/p/android-wifi-tether/issues/detail?id=111
-A potential solution is suggested here:
-  http://code.google.com/p/android-wifi-tether/issues/detail?id=136
-and basically consists of trying multiple syntaxes:
-    if (NativeTask.runCommand("su -c \""+command+"\"") == 0) {
-       return true;
-    }
-    if (NativeTask.runCommand("su -c "+command+"") == 0) {
-      return true;
-    }
-    if (NativeTask.runCommand("/system/xbin/su -c \""+command+"\"") == 0) {
-      return true;
-    }
-    if (NativeTask.runCommand("/system/xbin/su -c "+command+"") == 0) {
-      return true;
-    }
-See also our email conversation with Alex Speed Kjeldsen.
-
 Support grouping by application.
 
 Now that we may have quite a long list, depending on installed apps,

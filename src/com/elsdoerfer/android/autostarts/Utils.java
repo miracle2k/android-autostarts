@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import android.util.Log;
@@ -77,12 +78,15 @@ public class Utils {
 	 *     to confirm every single call; "Allows allow" would be
 	 *     useless.
 	 *
-	 *  2) su (or the Superuser Whitelist app) seem to have a bug
-	 *     that can cause them to freeze if "USB Debugging" is not
-	 *     enabled. It doesn't happen in every scenario, but when it
-	 *     does, it happens always.
+	 *  2) Rarely, a devices seems to have a su-executable that uses a
+	 *     different argument syntax (`su -c "command args"` vs.
+	 *     `su -c command args`).
 	 *
-	 *  3) Some custom ROMs contain what seems to be a kernel bug,
+	 *  3) Some ROMs have their "su" in a non-standard location, like
+	 *     Archos in /data/bin, and it's not on the path either (this
+	 *     is because they don't have write-access to /system yet).
+	 *
+	 *  4) Some custom ROMs contain what seems to be a kernel bug,
 	 *     in which su/sh?, when run outside of the system shell,
 	 *     cannot access certain paths. The error is "pm: not found".
 	 *     This happens even though the file does exists, and runs
@@ -90,7 +94,9 @@ public class Utils {
 	 *
 	 * The common approach chosen by most root apps seems to be to
 	 * run "su" and pipe commands into it. This will solve at least
-	 * (1). It does't seem to affect (2). We'll have to see about (3).
+	 * (1) and (2). We'll have to see about (4).
+	 *
+	 * (3) we still need to solve.
 	 */
 	static boolean runRootCommand(String command) {
 		Process process = null;
@@ -98,10 +104,10 @@ public class Utils {
 		try {
 			Log.d(ListActivity.TAG, "Running '"+command+"' as root");
 
-			process = Runtime.getRuntime().exec("su");
+			process = runWithEnv("su", null);
 			os = new DataOutputStream(process.getOutputStream());
 			os.writeBytes(command+"\n");
-			os.writeBytes("echo \"rc\" $?\n");
+			os.writeBytes("echo \"rc:\" $?\n");
 			os.writeBytes("exit\n");
 			os.flush();
 			process.waitFor();
@@ -135,5 +141,39 @@ public class Utils {
 			if (process != null)
 				process.destroy();
 		}
+	}
+
+	/**
+	 * This code is adapted from java.lang.ProcessBuilder.start().
+	 *
+	 * The problem is that Android doesn't allow us to modify the
+	 * map returned by ProcessBuilder.environment(), even though the
+	 * docstring indicates that it should. This is because it simply
+	 * returns the SystemEnvironment object that System.getenv() gives
+	 * us. The relevant portion in the source code is marked as
+	 * "// android changed", so presumably it's not the case in the
+	 * original version of the Apache Harmony project.
+	 *
+	 * Note that simply passing the environment variables we want
+	 * to Process.exec won't be good enough, since that would override
+	 * the environment we inherited completely.
+	 *
+	 * We needed to be able to set a CLASSPATH environment variable for
+	 * our new process in order to use the "app_process" command directly.
+	 * Note: "app_process" takes arguments passed on to the Dalvik VM as
+	 * well; this might be an alternative way to set the class path.
+	 */
+	public static Process runWithEnv(String command, String[] customEnv) throws IOException {
+		Map<String, String> environment = System.getenv();
+	    String[] envArray = new String[environment.size()+
+	                                   (customEnv != null ? customEnv.length : 0)];
+	    int i = 0;
+	    for (Map.Entry<String, String> entry : environment.entrySet())
+	        envArray[i++] = entry.getKey() + "=" + entry.getValue();
+	    if (customEnv != null)
+		    for (String entry : customEnv)
+		        envArray[i++] = entry;
+	    Process process = Runtime.getRuntime().exec(command, envArray);
+	    return process;
 	}
 }

@@ -84,13 +84,49 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		// need to be signed with the system certificate to be granted
 		// it.
 		//
-		// Fortunately, there is a sort-of workaround. We can use the
-		// "pm" executable to communicate with the package manager, tell
-		// it to enable or disable a component. We need to do so as root,
-		// so that the PackageManager will skip the permission check
-		// (otherwise, it'll still look at the UID of the calling
-		// process), but it would work for root users.
+		// Fortunately, there is a different way. Android includes a
+		// "pm" command to communicate with the package manager, including
+		// the ability to tell it enable disable a component. We need to
+		// do so as root, so that the PackageManager will skip the
+		// permission check (otherwise, it'll still look at the UID of
+		// the calling process); so it will only work for root users, but
+		// that's better than nothing.
 		//
+		// Unfortunately, we don't get off that easily. Apparently there
+		// is a bug **somewhere** (in Dalvik? In Superuser Whitelist?)
+		// that causes Process.waitFor() to hang if we run any process
+		// that involves the "app_process" executable. "app_process" is
+		// a tool included in Android that will spawn a Dalvik VM and
+		// execute Java code (i.e., the actual pm Command is a wrapper
+		// script around app_process, the actual command is implemented
+		// as a Java class).
+		//
+		// Note that the guilty party indeed is "app_process", not the
+		// "pm" command in particular. Other commands like "ime" exhibit
+		// the same behavior.
+		//
+		// We've tried all kinds of things to find a solution, running
+		// "app_process" directly, replacing Java's "Process" with a
+		// custom native library calling "system" to run the command, but
+		// to no avail. Our further options begin to run thin, but here's
+		// some things we could still try:
+		//
+		// a) Try executing "app_process" directly, but through the native
+		//    library. This is very unlikely to work, but we are growing
+		//    desperate.
+		// b) Try to track down the problem and fix it. For starters, is
+		//    it really Superuser Whitelist, or does the standard su also
+		//    have the same problem. In the latter case, we might even get
+		//    Google to fix it.
+		// c) Try to write a tool that interacts with the PackageManager
+		//    service in C, bypassing "app_process". For reference, have
+		//    a look at frameworks/base.git/servicemanager/binder.c. Note
+		//    also the /dev/binder device.
+		// d) Hack it: Run the process in a thread, and simply wait until
+		//    we determined the state changed occurred, checking every few
+		//    seconds; possibly using a timeout.
+		// e) Give up. Find a way to determine whether USB debugging is
+		//    enabled and enforce this more clearly to the user.
 
 		// TODO: Temporary migration code, remove again.
 		// In the future, we could use this utility function to
@@ -106,8 +142,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		// Run the command; we are only happy if both the command itself
 		// succeed (proper return code) ...
 		if (!Utils.runRootCommand(String.format("pm %s %s/%s",
-			 	(mDoEnable ? "enable": "disable"),
-				mApp.packageName, mApp.componentName)))
+						(mDoEnable ? "enable": "disable"),
+						mApp.packageName, mApp.componentName)))
 			return false;
 
 		// ...and the state should now actually is what we expect.

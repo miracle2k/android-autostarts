@@ -26,30 +26,7 @@ Even for PACKAGE_ADDED et al. it's possible for an application to only
 register for a specific package. This needs to be made clear to the user
 some way, lest he think the app is starting more often than it really is.
 
-When "USB Debugging" is disabled, "su" in some cases never returns. It
-seems to be a known bug in Superuser Whitelist, and our usage of su seems
-to trigger it. We now use the same code as other root apps that work fine
-(piping code into a "su" shell), and we can execute a variety of tools
-without issue, so presumably the issue is "pm".
-Other intriguing things to note:
-    - "pm" is actually a shell script itself; maybe if we were to run the
-      commands in question ourself?
-    - The shell script runs "exec app_process", which causes the script
-      to exit fully one it completes. Any commands after that line are 
-      not executed. If "exec app_process" is run directly in an adb shell,
-      we are kicked out of the shell. Running only "app_process" works
-      fine as well, but does not kick us out. What is this "exec" thing?
-What we can try:
-    - Try a custom version of the "pm" script which doesn't use "exec".
-    - Try running "app_process" directly.
-	- Try with NativeTask.
-	- Try new CM rom, see if it's fixed there.
-	- Implement "pm" ourselves. Like the system pm, it will presumably
-	  need to run in a Dalvik environment as well though, since the
-	  actual implementation is offered by a system service via binder. Is
-	  there a way to interact with a binder service through C?
-	- Try to fix the issue; we need to compile su + Superuser Whitelist,
-	  and need some TCP logging tool (SmartInspect, something custom?).
+Fix the "USB Debugging" hang issue. See ToggleTask.java for more info.
 
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we

@@ -127,6 +127,10 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		//    seconds; possibly using a timeout.
 		// e) Give up. Find a way to determine whether USB debugging is
 		//    enabled and enforce this more clearly to the user.
+		//
+		// Note that a custom replacement for "pm" would also allow us to
+		// change the component state without requirement the restart flag,
+		// which would presumably be a lot faster.
 
 		Log.i(ListActivity.TAG, "Asking package manger to "+
 				"change component state to "+

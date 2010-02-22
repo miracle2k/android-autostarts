@@ -27,35 +27,19 @@ register for a specific package. This needs to be made clear to the user
 some way, lest he think the app is starting more often than it really is.
 
 When "USB Debugging" is disabled, "su" in some cases never returns. It
-seems to be a well known bug in Superuser Whitelist, and our usage of
-su seems to trigger it. But it's not the case for all su calls. In
-particular, we've had some sporadic successes running "pm" directly rather
-than through a shell script.
-Most other apps seem to do their root calls through opening a "su" process
-and piping commands into stdin:
-	http://www.google.com/codesearch/p?hl=en#cCJG8drNlnc/trunk/latitudelauncher/src/com/geekyouup/android/latlauncher/LatitudeLauncher.java&q=%22su%22%20sh%20lang:java%20android%20Process&sa=N&cd=100&ct=rc&l=117
-	http://www.google.com/codesearch/p?hl=en#MBcftcuqEzg/trunk/android/src/org/hfoss/posit/RWGService.java&q=%22su%22%20sh%20lang:java%20android%20Process&sa=N&cd=72&ct=rc&l=61
-	http://www.google.com/codesearch/p?hl=en#g6yx7vKLTS0/trunk/android-sercd/project/src/gnu/sercd/Sercd.java&q=%22su%22%20sh%20lang:java%20android%20Process&sa=N&cd=101&ct=rc&l=71
-	http://www.google.com/codesearch/p?hl=en#slEzds0kxxw/trunk/src/net/biaji/android/cmwrap/utils/Utils.java&q=%22su%22%20sh%20lang:java%20android%20Process&sa=N&cd=43&ct=rc&l=210
-	http://www.google.com/codesearch/p?hl=en#BwQ6HuYx4dA/trunk/hermes/src/android/hermes/AdHocWifiManager.java&q=%22su%22%20sh%20lang:java%20android%20Process&sa=N&cd=69&ct=rc
-android-wifi-thether does it similar to us, running a script via "su -c",
-but it too works without USB Debugging. The differences as far as I can see
-are:
-	- Use of native lib rather than Java Exec (NativeTask).
-	- The command run is not a shell script, but a compiled executable
-	  with the +x flag.
-Other links of relevance:
-	http://code.google.com/p/market-enabler/wiki/ShellCommands
-	http://www.stealthcopter.com/blog/2010/01/android-requesting-root-access-in-your-app/
-	http://gimite.net/en/index.php?Run%20native%20executable%20in%20Android%20App
-	http://groups.google.com/group/android-wifi-tether/browse_thread/thread/20a1228d9ac7eb81
-	http://forum.xda-developers.com/showthread.php?t=509592&page=2
-	http://groups.google.com/group/android-developers/browse_thread/thread/ba1b58cd30a98b96
-What we can do:
-	- Try with +x flag set.
-	- Try +x flag + NativeTask.
-	- Try su pipe.
+seems to be a known bug in Superuser Whitelist, and our usage of su seems
+to trigger it. We now use the same code as other root apps that work fine
+(piping code into a "su" shell), and we can execute a variety of tools
+without issue, so presumably the issue is "pm".
+What we can try:
+	- Try with NativeTask.
 	- Try new CM rom, see if it's fixed there.
+	- Implement "pm" ourselves. Like the system pm, it will presumably
+	  need to run in a Dalvik environment as well though, since the
+	  actual implementation is offered by a system service via binder. Is
+	  there a way to interact with a binder service through C?
+	- Try to fix the issue; we need to compile su + Superuser Whitelist,
+	  and need some TCP logging tool (SmartInspect, something custom?).
 
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we

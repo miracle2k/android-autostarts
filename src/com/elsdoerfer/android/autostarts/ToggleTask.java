@@ -138,9 +138,23 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 
 		// Run the command; we are only happy if both the command itself
 		// succeed (proper return code) ...
-		if (!Utils.runRootCommand(String.format("pm %s %s/%s",
-						(mDoEnable ? "enable": "disable"),
-						mApp.packageName, mApp.componentName)))
+		//
+		// TEST: Run four different invocations
+		boolean success = false;
+		for (String[] set : new String[][] {
+				{ "pm %s %s/%s", null },
+				{ "sh /system/bin/pm %s %s/%s", null },
+				{ "app_process /system/bin com.android.commands.pm.Pm %s %s/%s", "CLASSPATH=/system/framework/pm.jar" },
+		})
+		{
+			if (!Utils.runRootCommand(String.format(set[0],
+					(mDoEnable ? "enable": "disable"),
+					mApp.packageName, mApp.componentName),
+					(set[1] != null) ? new String[] { set[1] } : null ))
+				success = true;
+		}
+
+		if (!success)
 			return false;
 
 		// ...and the state should now actually is what we expect.

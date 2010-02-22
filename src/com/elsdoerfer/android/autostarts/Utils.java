@@ -119,13 +119,13 @@ public class Utils {
 	 * (3) we solve by checking multiple locations for su.
 	 * We'll still have to see about (4).
 	 */
-	static boolean runRootCommand(String command) {
+	static boolean runRootCommand(String command, String[] env) {
 		Process process = null;
 		DataOutputStream os = null;
 		try {
 			Log.d(ListActivity.TAG, "Running '"+command+"' as root");
 
-			process = runWithEnv(getSuPath(), null);
+			process = runWithEnv(getSuPath(), env);
 			os = new DataOutputStream(process.getOutputStream());
 			os.writeBytes(command+"\n");
 			os.writeBytes("echo \"rc:\" $?\n");

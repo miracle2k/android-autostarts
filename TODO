@@ -31,7 +31,17 @@ seems to be a known bug in Superuser Whitelist, and our usage of su seems
 to trigger it. We now use the same code as other root apps that work fine
 (piping code into a "su" shell), and we can execute a variety of tools
 without issue, so presumably the issue is "pm".
+Other intriguing things to note:
+    - "pm" is actually a shell script itself; maybe if we were to run the
+      commands in question ourself?
+    - The shell script runs "exec app_process", which causes the script
+      to exit fully one it completes. Any commands after that line are 
+      not executed. If "exec app_process" is run directly in an adb shell,
+      we are kicked out of the shell. Running only "app_process" works
+      fine as well, but does not kick us out. What is this "exec" thing?
 What we can try:
+    - Try a custom version of the "pm" script which doesn't use "exec".
+    - Try running "app_process" directly.
 	- Try with NativeTask.
 	- Try new CM rom, see if it's fixed there.
 	- Implement "pm" ourselves. Like the system pm, it will presumably

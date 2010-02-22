@@ -54,17 +54,39 @@ public class Utils {
 	}
 
 	/**
-	 * Determine if the device is rooted.
+	 * Determine the path of the su executable.
 	 *
-	 * This is based on the approach from android-wifi-tether.
-	 *
-	 * Note that the emulator and ADP1 device both have a su binary in
+	 * The emulator and ADP1 device both have a su binary in
 	 * /system/xbin/su, but it doesn't allow apps to use it (su app_29
 	 * $ su su: uid 10029 not allowed to su).
+	 *
+	 * Cyanogen used to have su in /system/bin/su, in newer versions
+	 * it's a symlink to /system/xbin/su.
+	 *
+	 * The Archos tablet has it in /data/bin/su, since they don't have
+	 * write access to /system yet.
 	 */
-	static boolean deviceHasRoot() {
-    	File su = new File("/system/bin/su");
-    	return su.exists();
+	static String[] SU_OPTIONS =  {
+		"/system/bin/su",
+		"/data/bin/su",
+		// This is last because we are afraid a proper su might be in
+		// one of those other locations, while this one is secured.
+		"/system/xbin/su",
+	};
+	static String getSuPath() {
+		for (String p : SU_OPTIONS) {
+			File su = new File(p);
+			if (su.exists()) {
+				Log.d(ListActivity.TAG, "su found at: "+p);
+				return p;
+			}
+			else
+				if (ListActivity.LOGV)
+					Log.v(ListActivity.TAG, "No su in: "+p);
+		}
+		Log.d(ListActivity.TAG, "No su found in a well-known location, "+
+				"will just use \"su\".");
+		return "su";
 	}
 
 	/*
@@ -93,10 +115,9 @@ public class Utils {
 	 *     just fine from the shell.
 	 *
 	 * The common approach chosen by most root apps seems to be to
-	 * run "su" and pipe commands into it. This will solve at least
-	 * (1) and (2). We'll have to see about (4).
-	 *
-	 * (3) we still need to solve.
+	 * run "su" and pipe commands into it. This will solve (1) and (2).
+	 * (3) we solve by checking multiple locations for su.
+	 * We'll still have to see about (4).
 	 */
 	static boolean runRootCommand(String command) {
 		Process process = null;
@@ -104,7 +125,7 @@ public class Utils {
 		try {
 			Log.d(ListActivity.TAG, "Running '"+command+"' as root");
 
-			process = runWithEnv("su", null);
+			process = runWithEnv(getSuPath(), null);
 			os = new DataOutputStream(process.getOutputStream());
 			os.writeBytes(command+"\n");
 			os.writeBytes("echo \"rc:\" $?\n");

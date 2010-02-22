@@ -128,13 +128,6 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		// e) Give up. Find a way to determine whether USB debugging is
 		//    enabled and enforce this more clearly to the user.
 
-		// TODO: Temporary migration code, remove again.
-		// In the future, we could use this utility function to
-		// test for root; to make sure it won't look users out,
-		// during a test period let's log the result and we can
-		// have a look at the logs we get from people.
-		Log.i(ListActivity.TAG, "Testing for root: "+Utils.deviceHasRoot());
-
 		Log.i(ListActivity.TAG, "Asking package manger to "+
 				"change component state to "+
 				(mDoEnable ? "enabled": "disabled"));

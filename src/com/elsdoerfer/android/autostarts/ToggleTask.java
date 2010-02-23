@@ -136,10 +136,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				"change component state to "+
 				(mDoEnable ? "enabled": "disabled"));
 
-		// Run the command; we are only happy if both the command itself
-		// succeed (proper return code) ...
-		//
-		// TEST: Run four different invocations
+		// Run the command; we have different invocations we can try, but
+		// we'll stop at the first one we succeed with.
 		boolean success = false;
 		for (String[] set : new String[][] {
 				{ "pm %s %s/%s", null },
@@ -151,10 +149,13 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 			if (Utils.runRootCommand(String.format(set[0],
 					(mDoEnable ? "enable": "disable"),
 					mApp.packageName, mApp.componentName),
-					(set[1] != null) ? new String[] { set[1] } : null ))
+					(set[1] != null) ? new String[] { set[1] } : null )) {
 				success = true;
+				break;
+			}
 		}
 
+		// We are happy if both the command itself succeed (return code)...
 		if (!success)
 			return false;
 

@@ -1,4 +1,4 @@
-1.x.x (2010-xx-xx)
+1.5.3 (2010-02-23)
     * Show a warning before disabling Google Talk with respect to Market
       downloads.
     * Fixed display of component labels (a regression introduced in the

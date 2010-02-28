@@ -1,3 +1,9 @@
+Investigate what we can do about activity intent filters. For example,
+android.intent.action.SEARCH_LONG_PRESS seems something that might just
+as well appear in our list. Are there others? Should they be displayed 
+separately? Will only of all registered activities be called if there
+are more than one (as opposed to the receiver behavior)?
+
 Update the image resources used with the high-res versions that Android
 itself uses, so we render more nicely on Droid/Nexus. 
 

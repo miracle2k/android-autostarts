@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.elsdoerfer.android.autostarts.ReceiverReader.ActionWithReceivers;
 import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
+import com.nullwire.trace.ExceptionHandler;
 
 public class ListActivity extends ExpandableListActivity {
 
@@ -52,6 +53,7 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int DIALOG_VIEW_OPTIONS = 4;
 	static final private int DIALOG_USB_DEBUGGING_NOTE = 5;
 	static final private int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
+	static final private int DIALOG_SUBMITTING_EXCEPTIONS = 7;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -72,6 +74,7 @@ public class ListActivity extends ExpandableListActivity {
 	private Boolean mExpandSuggested = true;
 	private ToggleTask mToggleTask;
 	private LoadTask mLoadTask;
+	private Dialog mSubmittingExceptionsDialog;
 
 	// Due to Android deficiencies (can't pass data to showDialog()),
 	// we need to store that data globally.
@@ -81,12 +84,38 @@ public class ListActivity extends ExpandableListActivity {
 	private boolean mUninstallWarningShown;
 
 	@Override
-	public void onCreate(Bundle saved) {
+	public void onCreate(final Bundle saved) {
 		super.onCreate(saved);
+
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.list);
 
+		ExceptionHandler.setHttpTimeout(15);
+		ExceptionHandler.setMinDelay(4000);
+		ExceptionHandler.setTag(TAG);
+		ExceptionHandler.setUrl("http://elsdoerfer.name/android/trace");
+		ExceptionHandler.setup(this, new ExceptionHandler.Processor() {
+			@Override
+			public boolean beginSubmit() {
+				showDialog(DIALOG_SUBMITTING_EXCEPTIONS);
+				return true;
+			}
+
+			@Override
+			public void submitDone() {
+				if (mSubmittingExceptionsDialog != null)
+					mSubmittingExceptionsDialog.cancel();
+			}
+
+			@Override
+			public void handlerInstalled() {
+				continueStartup(saved);
+			}
+		});
+	}
+
+	private void continueStartup(Bundle saved) {
 		// Set everything up.
 		mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		mDb = new DatabaseHelper(this);
@@ -182,7 +211,8 @@ public class ListActivity extends ExpandableListActivity {
 
 	@Override
 	protected void onDestroy() {
-		mDb.close();
+		if (mDb != null)
+			mDb.close();
 		// Unattach the activity from a potentially running task.
 		if (mToggleTask != null)
 			mToggleTask.connectTo(null);
@@ -371,6 +401,17 @@ public class ListActivity extends ExpandableListActivity {
 				.setIcon(android.R.drawable.ic_dialog_info)
 				.setPositiveButton(android.R.string.ok, null)
 				.create();
+		}
+
+		else if (id == DIALOG_SUBMITTING_EXCEPTIONS)
+		{
+			mSubmittingExceptionsDialog = new AlertDialog.Builder(ListActivity.this)
+				.setTitle(R.string.please_wait)
+				.setMessage(R.string.submitting_exceptions)
+				.setIcon(android.R.drawable.ic_dialog_info)
+				.setCancelable(false)
+				.create();
+			return mSubmittingExceptionsDialog;
 		}
 
 		else if (id == DIALOG_VIEW_OPTIONS)

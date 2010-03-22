@@ -26,6 +26,10 @@ import android.os.AsyncTask;
  *
  * Note "processPostExecute()", which is a replacement for the
  * "postExcute()" method of ASyncTask which you should use instead.
+ *
+ * TODO: there is a small chance at race conditions here when checking
+ * for mWrapped and setting mPostProcessingDone. We should fix those
+ * by using a lock.
  */
 public abstract class ActivityAsyncTask<Connect, Params, Progress, Result>
 		extends AsyncTask<Params, Progress, Result> {

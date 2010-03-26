@@ -1,5 +1,6 @@
 1.5.5 (2010-03-26)
     * Included higher resolution icons for HDPI screens, looks nicer now.
+    * Automated exception-reporting functionality.
 
 1.5.3 (2010-02-23)
     * Show a warning before disabling Google Talk with respect to Market

@@ -13,6 +13,8 @@ import com.elsdoerfer.android.autostarts.ReceiverReader.OnLoadProgressListener;
 // report, but can only apply the filter to what comes in new.
 class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object, ArrayList<ActionWithReceivers>> {
 
+	Integer mCurrentProgress = 0;
+
 	public LoadTask(ListActivity initialConnect) {
 		super(initialConnect);
 	}
@@ -21,7 +23,13 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object, ArrayList
 	protected void onPreExecute() {
 		super.onPreExecute();
 		mWrapped.setProgressBarIndeterminateVisibility(true);
-		mWrapped.setProgress(0);
+		// Note that we have the current progress remembered (there is
+		// no getProgress() apparently), and we need it so that when a
+		// new Activity connects after an orientation change, we can
+		// display the current progress right away, rather than it taking
+		// the time until the next publishProgress() call before we update
+		// the progress bar.
+		mWrapped.setProgress(mCurrentProgress);
 		mWrapped.setProgressBarVisibility(true);
 		if (mWrapped.mReloadItem != null)
 			mWrapped.mReloadItem.setEnabled(false);
@@ -59,7 +67,8 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object, ArrayList
 		if (mWrapped != null) {
 			mWrapped.mReceiversByIntent = (ArrayList<ActionWithReceivers>)values[0];
 			mWrapped.apply();
-			mWrapped.setProgress((int)(((Float)values[1])*10000));
+			mCurrentProgress = (int)(((Float)values[1])*10000);
+			mWrapped.setProgress(mCurrentProgress);
 		}
 	}
 }

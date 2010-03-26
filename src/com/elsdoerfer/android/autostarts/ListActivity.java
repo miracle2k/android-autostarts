@@ -91,7 +91,7 @@ public class ListActivity extends ExpandableListActivity {
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.list);
 
-		ExceptionHandler.setHttpTimeout(15);
+		ExceptionHandler.setHttpTimeout(15000);
 		ExceptionHandler.setMinDelay(4000);
 		ExceptionHandler.setTag(TAG);
 		ExceptionHandler.setUrl("http://elsdoerfer.name/android/trace");

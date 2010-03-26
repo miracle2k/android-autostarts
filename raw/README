@@ -1,4 +1,4 @@
-Icon.png:
+icon.png:
     iCandy Junior win/Run 1.png
      - Mirrored horz. 180
      - Moved car futher down to bottom, to avoid it hovering
@@ -6,6 +6,18 @@ Icon.png:
        Launcher.
        
        
-res/ic_collapse_expand.png
-    Android 1.5, res/drawable/ic_menu_chat_dashboard.png
-    Rotated 90°
+res/drawable-*/ic_collapse_expand.png
+    Android 1.5, frameworks/base/core/res/res/drawable-*/ic_menu_chat_dashboard.png
+    Rotated 90Â°
+
+
+res/drawable-*/ic_dialog_info_btn_*
+    Android 2.1, frameworks/base/core/res/res/drawable-*/ic_dialog_info.png
+    Reduced content size of actual image by 1/3, i.e. 32x32 -> 24x24, while
+      maintaining the canvas size.
+    Pressed versions are "colorized" (using GIMP), with the following data:
+      Hue: 21, Saturation: +85, Lightness: -26
+
+
+res/drawable-*/*
+    Android 2.1, frameworks/base/core/res/res/drawable-*/*

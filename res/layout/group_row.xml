@@ -35,7 +35,7 @@
         android:paddingBottom="6dp"
         android:paddingRight="7dp"
         android:adjustViewBounds="false"
-        android:src="@drawable/ic_dialog_info"
+        android:src="@drawable/ic_dialog_info_btn"
     	/>
 
 </LinearLayout>

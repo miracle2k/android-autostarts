@@ -8,8 +8,8 @@
 
     <ImageView
     	android:id="@+id/info"
-    	android:layout_width="32px"
-        android:layout_height="32px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginRight="13dp"
         android:src="@drawable/ic_dialog_info"
     	/>

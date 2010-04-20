@@ -29,6 +29,14 @@ Even for PACKAGE_ADDED et al. it's possible for an application to only
 register for a specific package. This needs to be made clear to the user
 some way, lest he think the app is starting more often than it really is.
 
+One of the problems our current way of reading the intents has is that
+we essentially trust the apps, that whatever they declare is correct.
+Specifically, there are some intents like SCREEN_ON or SCREEN_OFF which
+an app cannot register for through the manifest. Possible the right way
+to fix this would be to simply remove those intents from the "known" list.
+Alternatively, we could show a hint indicating that does events will
+not actually be executed; it'll even be helpful for developers to debug.
+
 Fix the "USB Debugging" hang issue. See ToggleTask.java for more info.
 
 The dropdown icons of the ExpandableListView are not properly rendered on a

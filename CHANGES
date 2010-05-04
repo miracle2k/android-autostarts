@@ -1,3 +1,8 @@
+1.5.6 (2010-05-04)
+    * Work around an Android bug that caused Autostarts to crash when
+      processing certain packages that are advertised as being installed,
+      but really are broken.
+
 1.5.5 (2010-03-26)
     * Included higher resolution icons for HDPI screens, looks nicer now.
     * Automated exception-reporting functionality.

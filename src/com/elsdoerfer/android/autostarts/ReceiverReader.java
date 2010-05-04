@@ -165,6 +165,22 @@ public class ReceiverReader {
 			Log.e(TAG, "Unable to open manifest or resources for "+p.packageName, e);
 		} catch (NameNotFoundException e) {
 			Log.e(TAG, "Unable to open manifest or resources for "+p.packageName, e);
+		} catch (NullPointerException e) {
+			// I've been seeing a lot of NullPointerException's in
+			// "android.app.ApplicationContext.init", called by
+			// createPackageContext(). Due to the help of a user it was
+			// determined that the problem can be reproduced by removing
+			// or renaming an application file in /data/app. That this is
+			// going to cause unexpected problems - given. But why is
+			// it happening in the first place on production phones?
+			//
+			// Anyway, as I said, this is happening a lot - a bunch of
+			// stacktraces get sent my way every single day. This should
+			// be working around it.
+			Log.e(TAG, "Error processing "+p.packageName + " - most likely,"+
+					" the createPackageContext() call failed; if so, your"+
+					" application directory is somehow screwed up. Android" +
+					" is probably to blame, since it shouldn't be happening. Skipping.", e);
 		}
 
 		if (xml == null)

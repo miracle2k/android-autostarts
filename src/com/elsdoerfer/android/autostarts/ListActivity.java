@@ -109,10 +109,10 @@ public class ListActivity extends ExpandableListActivity {
 			}
 
 			@Override
-			public void handlerInstalled() {
-				continueStartup(saved);
-			}
+			public void handlerInstalled() {}
 		});
+
+		continueStartup(saved);
 	}
 
 	private void continueStartup(Bundle saved) {

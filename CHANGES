@@ -1,3 +1,7 @@
+1.5.7 (2010-05-11)
+    * Fixed a stupid bug introduced in the last commit that broke
+      orientation change and potentially caused crashes.
+
 1.5.6 (2010-05-04)
     * Work around an Android bug that caused Autostarts to crash when
       processing certain packages that are advertised as being installed,

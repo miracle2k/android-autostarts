@@ -1,6 +1,7 @@
 1.6.0 (2010-05-??)
     * Retired our custom crash reporting in favor of Google's new
       built-in reporting facility (available starting with Froyo).
+    * Support installation on SD card.
 
 1.5.7 (2010-05-11)
     * Fixed a stupid bug introduced in the last commit that broke

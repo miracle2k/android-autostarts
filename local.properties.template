@@ -1,5 +1,4 @@
 sdk.dir=/opt/android/sdk
-trace.jar=android-remote-stacktrace/trace.jar
 
 key.store=my-android.keystore
 key.alias=my-android

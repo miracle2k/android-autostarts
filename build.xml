@@ -86,7 +86,6 @@
             <classpath>
                 <fileset dir="${external.libs.absolute.dir}" includes="*.jar" />
                     <!-- Our own custom jars -->
-                    <fileset file="${trace.jar}" />
             </classpath>
         </javac>
     </target>
@@ -95,7 +94,6 @@
     <target name="-dex" depends="compile">
         <dex-helper>
             <external-libs>
-                <fileset file="${trace.jar}" />
              </external-libs>
         </dex-helper>
     </target>

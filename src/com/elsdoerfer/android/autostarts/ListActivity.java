@@ -36,7 +36,6 @@ import android.widget.Toast;
 
 import com.elsdoerfer.android.autostarts.ReceiverReader.ActionWithReceivers;
 import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
-import com.nullwire.trace.ExceptionHandler;
 
 public class ListActivity extends ExpandableListActivity {
 
@@ -91,31 +90,6 @@ public class ListActivity extends ExpandableListActivity {
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.list);
 
-		ExceptionHandler.setHttpTimeout(15000);
-		ExceptionHandler.setMinDelay(4000);
-		ExceptionHandler.setTag(TAG);
-		ExceptionHandler.setUrl("http://elsdoerfer.name/android/trace");
-		ExceptionHandler.setup(this, new ExceptionHandler.Processor() {
-			@Override
-			public boolean beginSubmit() {
-				showDialog(DIALOG_SUBMITTING_EXCEPTIONS);
-				return true;
-			}
-
-			@Override
-			public void submitDone() {
-				if (mSubmittingExceptionsDialog != null)
-					mSubmittingExceptionsDialog.cancel();
-			}
-
-			@Override
-			public void handlerInstalled() {}
-		});
-
-		continueStartup(saved);
-	}
-
-	private void continueStartup(Bundle saved) {
 		// Set everything up.
 		mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		mDb = new DatabaseHelper(this);

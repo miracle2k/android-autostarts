@@ -298,4 +298,22 @@
 	<string name="act_network_set_timezone_detail">The phone\'s timezone was set by the carrier.</string>
 	<string name="act_wifi_state_changed">Wi-Fi state changed</string>
 	<string name="act_wifi_state_changed_detail">The state of the Wi-Fi chip has changed, for example when it is enabled or disabled.</string>
+	<string name="act_external_apps_available">Externals apps available</string>
+	<string name="act_external_apps_available_detail">Externals apps (e.g. stored on SD card) have become available.</string>
+	<string name="act_external_apps_unavailable">Externals apps unavailable</string>
+	<string name="act_external_apps_unavailable_detail">Externals apps (e.g. stored on SD card) are no longer available.</string>
+	<string name="act_password_changed">Password changed</string>
+	<string name="act_password_changed_detail">Sent to a device admin when the user changes their password.</string>
+	<string name="act_password_failed">Password failed</string>
+	<string name="act_password_failed_detail">Sent to a device admin when the user has failed at attempted to enter the password.</string>
+	<string name="act_password_succeeded">Password succeeded</string>
+	<string name="act_password_succeeded_detail">Sent to a device admin when the user has successfully entered their password, after failing one or more times.</string>
+	<string name="act_device_admin_disabled">Device Admin Disabled</string>
+	<string name="act_device_admin_disabled_detail">Sent to a device admin when it has been disabled.</string>
+	<string name="act_device_admin_disable_req">Device Admin Disable Request</string>
+	<string name="act_device_admin_disable_req_detail">Sent to a device admin when it is about to be disabled.</string>
+	<string name="act_device_admin_enabled">Device Admin Enabled</string>
+	<string name="act_device_admin_enabled_detail">Sent to a device admin when it has been enabled.</string>
+	<string name="act_login_accounts_changed">Accounts changed</string>
+	<string name="act_login_accounts_changed_detail">Accounts have been added, or removed, or an account\'s credentials are changed.</string>
 </resources>

@@ -81,6 +81,17 @@ final class Actions {
 		{ Intent.ACTION_DOCK_EVENT, R.string.act_dock_event, R.string.act_dock_event_detail },
 		{ "android.intent.action.ANR", R.string.act_anr, R.string.act_anr_detail },
 		{ "android.intent.action.EVENT_REMINDER", R.string.act_event_reminder, R.string.act_event_reminder_detail },
+		{ "android.accounts.LOGIN_ACCOUNTS_CHANGED", R.string.act_login_accounts_changed, R.string.act_login_accounts_changed_detail },
+
+		// New in API Level 8:
+		{ Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE, R.string.act_external_apps_available, R.string.act_external_apps_available_detail },
+		{ Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE, R.string.act_external_apps_unavailable, R.string.act_external_apps_unavailable_detail },
+		{ "android.app.action.ACTION_PASSWORD_CHANGED" , R.string.act_password_changed, R.string.act_password_changed_detail },
+		{ "android.app.action.ACTION_PASSWORD_FAILED", R.string.act_password_failed, R.string.act_password_failed_detail },
+		{ "android.app.action.ACTION_PASSWORD_SUCCEEDED", R.string.act_password_succeeded, R.string.act_password_succeeded_detail },
+		{ "android.app.action.DEVICE_ADMIN_DISABLED", R.string.act_device_admin_disabled, R.string.act_device_admin_disabled_detail },
+		{ "android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED", R.string.act_device_admin_disable_req, R.string.act_device_admin_disable_req_detail },
+		{ "android.app.action.DEVICE_ADMIN_ENABLED", R.string.act_device_admin_enabled, R.string.act_device_admin_enabled_detail },
 
 		// com.android.launcher.*
 		{ "com.android.launcher.action.INSTALL_SHORTCUT", R.string.act_install_shortcut, R.string.act_install_shortcut_detail },

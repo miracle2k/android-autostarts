@@ -21,5 +21,4 @@
     	android:smallScreens="true"
     	android:anyDensity="true" />
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="5" />
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

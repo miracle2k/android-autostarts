@@ -1,3 +1,7 @@
+1.6.1 (2010-08-29)
+    * No longer ask for INTERNET permission.
+    * Re-release without Market copy protection.
+
 1.6.0 (2010-05-22)
     * Retired our custom crash reporting in favor of Google's new
       built-in reporting facility (available starting with Froyo).

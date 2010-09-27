@@ -90,6 +90,9 @@ Some guy here wrote up explanations for a number of broadcasts, some of
 which are still missing from our db:
     http://androidvoid.blogspot.com/2009/04/android-broadcast-intent-message.html
 
+Exporting the changes made to SD card, so they can be re-applied in bulk
+after an OS reinstall (suggested by Jeffrey Lee).
+
 Far-Future Ideas, might never be implemented
 ============================================
 

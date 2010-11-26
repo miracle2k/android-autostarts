@@ -1,3 +1,7 @@
+1.6.2 (?)
+    * Fixed: Occasionally, apps could not be disabled, and an "you might
+      not have root" messages was accidentally shown (thanks to Dan Feigt).
+
 1.6.1 (2010-08-29)
     * No longer ask for INTERNET permission.
     * Re-release without Market copy protection.

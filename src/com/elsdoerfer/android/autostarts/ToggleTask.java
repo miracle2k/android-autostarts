@@ -140,10 +140,10 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		// we'll stop at the first one we succeed with.
 		boolean success = false;
 		for (String[] set : new String[][] {
-				{ "pm %s %s/%s", null },
-				{ "sh /system/bin/pm %s %s/%s", null },
-				{ "app_process /system/bin com.android.commands.pm.Pm %s %s/%s", "CLASSPATH=/system/framework/pm.jar" },
-				{ "/system/bin/app_process /system/bin com.android.commands.pm.Pm %s %s/%s", "CLASSPATH=/system/framework/pm.jar" },
+				{ "pm %s '%s/%s'", null },
+				{ "sh /system/bin/pm %s '%s/%s'", null },
+				{ "app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },
+				{ "/system/bin/app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },
 		})
 		{
 			if (Utils.runRootCommand(String.format(set[0],

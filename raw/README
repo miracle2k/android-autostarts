@@ -5,8 +5,6 @@ icon.png:
        too high above it's respective caption text in Android
        Launcher.
 
-    512px version simply scaled up, for now.
-
 
 res/drawable-*/ic_collapse_expand.png
     Android 1.5, frameworks/base/core/res/res/drawable-*/ic_menu_chat_dashboard.png

@@ -3,3 +3,6 @@
 /.fabric
 /local.properties
 /BRANCH_TODO
+
+# fabfile.py
+*.pyc

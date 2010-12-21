@@ -64,38 +64,4 @@
     -->
     <setup />
 
-    <!-- Compiles this project's .java files into .class files.
-
-	Copied from "latforms/android-2.1/templates/android_rules.xml" so
-	we can insert our own custom jars (we is this not supported by default?)
-	-->
-    <target name="compile" depends="-resource-src, -aidl"
-                description="Compiles project's .java files into .class files">
-        <!-- If android rules are used for a test project, its classpath should include
-             tested project's location -->
-        <condition property="extensible.classpath"
-                           value="${tested.project.absolute.dir}/bin/classes" else=".">
-            <isset property="tested.project.absolute.dir" />
-        </condition>
-        <javac encoding="ascii" target="1.5" debug="true" extdirs=""
-                destdir="${out.classes.absolute.dir}"
-                bootclasspathref="android.target.classpath"
-                verbose="${verbose}" classpath="${extensible.classpath}">
-            <src path="${source.absolute.dir}" />
-            <src path="${gen.absolute.dir}" />
-            <classpath>
-                <fileset dir="${external.libs.absolute.dir}" includes="*.jar" />
-                    <!-- Our own custom jars -->
-            </classpath>
-        </javac>
-    </target>
-
-    <!-- We also need to dex' our custom jars -->
-    <target name="-dex" depends="compile">
-        <dex-helper>
-            <external-libs>
-             </external-libs>
-        </dex-helper>
-    </target>
-
 </project>

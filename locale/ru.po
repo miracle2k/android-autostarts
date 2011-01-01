@@ -1,0 +1,1516 @@
+# Translations template for PROJECT.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2011-01-01 14:42+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+
+msgctxt "app_name"
+msgid "Autostarts"
+msgstr "Autostarts"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr "Нет программ в автозагрузке"
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr "Нет программв автозагрузке, подходящих вашему критерию отбора."
+
+msgctxt "still_loading"
+msgid "Please wait while I am loading the applications installed on your phone..."
+msgstr "Пожалуйста, ждите. Идет поиск программ установленных на телефон..."
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr "Изменить настройки фильтра."
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr "Информация о программе."
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr "Найти в Маркете."
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "Запретить"
+
+msgctxt "enable"
+msgid "Enable"
+msgstr "Разрешить"
+
+msgctxt "view_options"
+msgid "View"
+msgstr "Просмотр"
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr "Скрыть системные программы"
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr "Показывать только измененные"
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr "Скрыть неизвестные события"
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr "Развернуть все"
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr "Свернуть все"
+
+msgctxt "reload"
+msgid "Reload"
+msgstr "Обновить"
+
+msgctxt "help"
+msgid "Help"
+msgstr "Help"
+
+msgctxt "please_wait"
+msgid "Please Wait..."
+msgstr "Ожидайте..."
+
+msgctxt "error"
+msgid "Error"
+msgstr "Ошибка"
+
+msgctxt "warning"
+msgid "Warning"
+msgstr "Внимание"
+
+msgctxt "info"
+msgid "Info"
+msgstr "Информация"
+
+msgctxt "usb_debugging_note"
+msgid ""
+"Please note: If you have trouble with Autostarts hanging while trying to "
+"disable or enable an application, please be sure to activate the \"USB "
+"Debugging\" option in your device settings under \"Applications -&gt; "
+"Development\".\n"
+"\n"
+"It's a bug in the Superuser Whitelist application that will hopefully be "
+"fixed in a future version."
+msgstr ""
+"Обратите внимание: Если у вас проблемы с зависанием Autostarts при "
+"попытке запретить или разрешить автозагрузку программы, проверьте "
+"включена ли опция /Отладка USB/ в настройках телефона /Приложения -&gt; "
+"Разработка/. \n"
+"\n"
+"Это ошибка в Белом списке Суперпользователя, есть надежда, что ошибка "
+"будет исправлена в будующей версии."
+
+msgctxt "submitting_exceptions"
+msgid ""
+"I noticed that the application previously crashed; I am sending some "
+"information that will help us fix the problem. <b>No personal data "
+"whatsoever is included.</b> Hold on, this will only take a few seconds..."
+msgstr ""
+"Похоже что программа была завершена аварийно; Будет послан отчет который "
+"поможет решить эту проблему. Никаких персональных данных послано не "
+"будет. Это займет пару секунд..."
+
+msgctxt "confirm_sys_disable"
+msgid ""
+"You are about to disable a system component. This could potentially "
+"result in your phone no longer functioning properly.\n"
+"\n"
+"Do not proceed unless you are willing to deal with the consequences."
+msgstr ""
+"Вы хотите заблокировать системный компонент. Это может привести к "
+"нестабильной работе телефона. Не продолжайте, пока будете точно уверенны "
+"=)"
+
+msgctxt "confirm_google_talk"
+msgid ""
+"If Google Talk is disabled, you are likely going to run into issues with "
+"hanging Android Market downloads, the starting up Google Talk yourself "
+"whenever necessary can help overcome them. Sure you want to proceed?"
+msgstr ""
+"Если будет заблокирован Google Talk, у вас будут проблемы с загрузкой из "
+"Маркета. Ручная загрузка Google Talk когда это будет необходимо поможет "
+"решить эти проблемы. Действительно продолжить?"
+
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of the selected component.\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr ""
+"Невозможно изменить состояние выбранного компонента. Вероятнее всего, ваш"
+" телефон не имеет root прав."
+
+msgctxt "help_text"
+msgid ""
+"<b>How does it work?</b>\n"
+"\n"
+"Android allows applications to register for a variety of events supported"
+" by the system, to be started whenever such an event triggers.\n"
+"\n"
+"This allows applications to do important work in the background, but may "
+"sometimes also slow down the system.\n"
+"\n"
+"Autostarts helps you keep control over your phone by letting you know "
+"what goes on behind your back. \n"
+"\n"
+"<b>Can I remove an application from a particular event?</b>\n"
+"\n"
+"Yes, but due to Android API limitations, it only works on rooted devices."
+" <b>Please be careful when disabling stuff.</b> In particular note that "
+"the component in question may be responsible for other parts of the "
+"application's functionality than just the given event. As a result, you "
+"may experience unintended side effects. For the most part though, you can"
+" just give things a try, and enable the component again should the "
+"application break. \n"
+"\n"
+"<b>Autostarts is freezing when I try to disable something.</b>\n"
+"\n"
+"This is a bug in the Şuperuser Whitelist app that comes with most ROMs. "
+"You need to activate the \"USB Debugging\" option in your device settings"
+" under \"Applications -&gt; Development\". \n"
+"\n"
+"<b>When I activate the show changed only filter, why do I see stuff that "
+"I never actually modified?</b>\n"
+"\n"
+"Whether a component has changed (and thus displayed in bold) is "
+"determined by looking at it's default state versus it's current state. It"
+" is possible for a component to be disabled <i>by default</i> after "
+"installation, but being activiated by the application itself once needed "
+"(for example after you use a specific feature or enable a setting the "
+"application). \n"
+"\n"
+"<b>Is it possible to know what a particular application does on a "
+"particular event?</b>\n"
+"\n"
+"No, not per se. However, if you select an entry, you will be able to see "
+"what the name of the <i>component</i> is that handles the event. "
+"Sometimes, the name gives you a hint. For example, an "
+"<i>AlarmInitReceiver</i> would likely initialize the alarms or "
+"notification that you have enabled in the application. Don't be surprised"
+" then if this application's alarms stop working if you disable the "
+"component. \n"
+"\n"
+"<b>I've disabled a component, but it seems to have it self enabled again "
+"after a while?</b>\n"
+"\n"
+"Yes, applications may enable or disable their own components. Some do "
+"this depending on settings, or what features are enabled. Unfortunately, "
+"there is no workaround for this. \n"
+"\n"
+"<b>My market downloads stopped working.</b>\n"
+"\n"
+"This is usually not the fault of <i>Autotstarts</i>, don't get ideas. "
+"However, there is one issue you might have run into. If you thought you "
+"weren't using Google Talk anyway and disabled it's <i>On Boot</i> event, "
+"this is likely to be the problem (it also occurs of you shutdown Google "
+"Talk using a task manager). Apparently, for some reason, if Google Talk "
+"is not running, market downloads do not work."
+msgstr ""
+"Как это работает? \n"
+"\n"
+" Android позволяет приложениям регистрацию различных событий, "
+"поддерживаемых системой, чтобы быть запущенными таких триггерах событий."
+" \n"
+"\n"
+" Это позволяет приложениям выполнять важную работу в фоновом режиме, но "
+"иногда также замедлить работу системы. \n"
+" \n"
+" Autostarts поможет вам сохранить контроль над вашим телефоном, позволяя "
+"Вам знать, что происходит за вашей спиной. \n"
+" огу я удалить приложение из определенного события? \n"
+" \n"
+"Да, но из-за ограничения Android API, это работает только на устройствах "
+"имеющих root права. Пожалуйста, будьте осторожны при отключении программ."
+" В частности обратите внимание, что программа, может нести "
+"ответственность за функциональность других частей приложения, а не только"
+" за данное событие. Как результат, у вас могут возникнуть "
+"непреднамеренные побочные эффекты. Хотя, вы можете просто попробовать и "
+"включить компонент снова. \n"
+" \n"
+"Autostarts подвисает, когда я пытаюсь что-то отключить. \n"
+"\n"
+"Скорее всего ошибка в белом списке Root, который присутствует в "
+"большинстве прошивок. Вам необходимо активировать опцию \"USB Отладка \" "
+"в настройках устройства в \"Приложения -&gt; Разработка \". \n"
+"\n"
+"Если активировать фильтр Показывать только измененные,почему я вижу вещи "
+"которые я никогда не трогал? \n"
+" \n"
+"Возможно изменилась компонента после какого нибудь специфического "
+"действия.\n"
+" \n"
+" Можно ли знать, что конкретное приложение делает на определенное "
+"событие? \n"
+"\n"
+" Нет. Однако, если вы выберите запись, вы сможете увидеть, что имя "
+"компонентs, которая обрабатывает событие. Иногда, имя дает вам подсказку."
+" Например, AlarmInitReceiver активирует уведомления которые вы включили в"
+" программе. Не удивляйтесь потом, если перестать работать уведомления, "
+"когда вы отключили эту программу.\n"
+"\n"
+"Я отключил программу но кажеться она включается снова, через некоторое "
+"время? \n"
+"\n"
+"Да, приложения могут включать или отключать свои собственные компоненты. "
+"Некоторые делают это в зависимости от настроек, или какие функции "
+"включены. К сожалению, не существует обходного пути для этого. \n"
+"\n"
+"Мои загрузки из Маркета перестали работать?\n"
+"\n"
+"Вероятно вы выключили Googe Talk. Если хотите чтобы загрузки заработали "
+"запустите его вручную перед запуском маркета или включите сбытия с его "
+"участием назад."
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr "Закрыть помощь и вернуться в программу"
+
+msgctxt "act_airplane_mode_changed"
+msgid "Airplane mode changed"
+msgstr "Режим самолета изменен"
+
+msgctxt "act_airplane_mode_changed_detail"
+msgid "Airplane mode was switched on or off."
+msgstr "Режим самолета был переключен в вкл. или выкл."
+
+msgctxt "act_battery_changed"
+msgid "Battery changed"
+msgstr "Аккамулятор был заменен."
+
+msgctxt "act_battery_changed_detail"
+msgid "The charging state, or the charge level of the battery has changed."
+msgstr "Состояние зарядки или уровень заряда батареи изменено."
+
+msgctxt "act_battery_low"
+msgid "Battery low"
+msgstr "Батарея разряжена"
+
+msgctxt "act_battery_low_detail"
+msgid "The device entered a low battery state."
+msgstr "Состояние низкого заряда батареи"
+
+msgctxt "act_battery_okay"
+msgid "Battery okay"
+msgstr "батарея в порядке"
+
+msgctxt "act_battery_okay_detail"
+msgid "The device left the low battery state."
+msgstr "Устройство вышло из состояния низкого заряда батареи"
+
+msgctxt "act_pre_boot_completed"
+msgid "During Startup"
+msgstr "Во время загрузки"
+
+msgctxt "act_pre_boot_completed_detail"
+msgid "The device is booting up, the user cannot interact yet."
+msgstr "Устройство загружается, на действия пользователя еще не реагирует."
+
+msgctxt "act_boot_completed"
+msgid "After Startup"
+msgstr "После загрузки"
+
+msgctxt "act_boot_completed_detail"
+msgid "The device just completed booting up, the user can now interact."
+msgstr "Устройство уже загрузилось. Реагирует на действия пользователя."
+
+msgctxt "act_power_connected"
+msgid "Power connected"
+msgstr "Питание подключено"
+
+msgctxt "act_power_connected_detail"
+msgid "External power has been connected to the device."
+msgstr "Подключено внешнее питание"
+
+msgctxt "act_power_disconnected"
+msgid "Power disconnected"
+msgstr "Питание отключено."
+
+msgctxt "act_power_disconnected_detail"
+msgid "External power has been removed from the device."
+msgstr "Внешнее питание было отключено."
+
+msgctxt "act_shutdown"
+msgid "Shutdown"
+msgstr "Выключение"
+
+msgctxt "act_shutdown_detail"
+msgid "The device is shutting down."
+msgstr "Телефон выключается."
+
+msgctxt "act_dock_event"
+msgid "Docking changed"
+msgstr "Поключено к компьютеру"
+
+msgctxt "act_dock_event_detail"
+msgid "The device was docked or undocked."
+msgstr "Устройство подключено или отключено."
+
+msgctxt "act_camera_button"
+msgid "Camera button pressed"
+msgstr "Кнопка камеры нажата"
+
+msgctxt "act_camera_button_detail"
+msgid "The Camera button was pressed."
+msgstr "Кнопка камеры нажата"
+
+msgctxt "act_close_system_dialogs"
+msgid "On System dialogs close"
+msgstr "На закрытие системного диалога."
+
+msgctxt "act_close_system_dialogs_detail"
+msgid ""
+"Due to a user action, the system asks a temporary system dialog to be "
+"dismissed."
+msgstr "Отключение временного системного диалога на действия пользователя."
+
+msgctxt "act_configuration_changed"
+msgid "Configuration changed"
+msgstr "Конфигурация изменена"
+
+msgctxt "act_configuration_changed_detail"
+msgid ""
+"The device configuration changed. This includes things like locale "
+"settings, but also the device orientation."
+msgstr ""
+"Конфигурация устройства изменилась. Это включает вещи как настройки "
+"локали и ориентация устройства."
+
+msgctxt "act_locale_changed"
+msgid "Locale changed"
+msgstr "Локаль изменена"
+
+msgctxt "act_locale_changed_detail"
+msgid ""
+"The device's locale setting has changed. This is a subset of "
+"\"Configuration changed\"."
+msgstr "Настройки локали изменены. Это поднастройка /Конфигурация изменена/"
+
+msgctxt "act_date_changed"
+msgid "Date changed"
+msgstr "Дата изменена"
+
+msgctxt "act_date_changed_detail"
+msgid "The system date has changed."
+msgstr "Системная дата изменилась"
+
+msgctxt "act_device_storage_low"
+msgid "Storage low"
+msgstr "Мало места в основной памяти"
+
+msgctxt "act_device_storage_low_detail"
+msgid "The device storage space has passed below a certain threshold."
+msgstr "Место для хранения устройства прошло ниже определенного порога."
+
+msgctxt "act_device_storage_ok"
+msgid "Storage ok"
+msgstr "Внутренняя память ОК"
+
+msgctxt "act_device_storage_ok_detail"
+msgid ""
+"The device storage space has increased beyond the critical threshold, and"
+" the low memory condition no longer exists."
+msgstr ""
+"Количество внутренней памяти устройства выше критического порога. "
+"Состояние малого объема памяти больше не активно."
+
+msgctxt "act_gtalk_service_connected"
+msgid "GTalk connected"
+msgstr "Google Talk подключен"
+
+msgctxt "act_gtalk_service_connected_detail"
+msgid "A GTalk connection was established."
+msgstr "Соединение Google Talk установлено"
+
+msgctxt "act_gtalk_service_disconnected"
+msgid "GTalk disconnected"
+msgstr "Google Talk отключен"
+
+msgctxt "act_gtalk_service_disconnected_detail"
+msgid "A GTalk connection was disconnected."
+msgstr "Подключение Google Talk было отключено"
+
+msgctxt "act_headset_plug"
+msgid "Headset plugged or unplugged"
+msgstr "Гарнитура подключена или отключена"
+
+msgctxt "act_headset_plug_detail"
+msgid "A wired headset was either plugged in or unplugged."
+msgstr "Проводная гарнитура была включена/отключена."
+
+msgctxt "act_input_method_changed"
+msgid "IME changed"
+msgstr "Метод ввода изменен."
+
+msgctxt "act_input_method_changed_detail"
+msgid "The input method engine changed, i.e. the virtual keyboard in use."
+msgstr "Метод ввода изменен."
+
+msgctxt "act_manage_package_storage"
+msgid "Package management requested"
+msgstr "Запрос управления пакетом"
+
+msgctxt "act_manage_package_storage_detail"
+msgid ""
+"The user acknowledged a \"low memory\" notification, and the package "
+"management is about to be started."
+msgstr ""
+"Пользователь извещен о \"нехватке памяти\" и управление установленными "
+"пакетами будет запущено."
+
+msgctxt "act_media_bad_removal"
+msgid "Bad media removal"
+msgstr "Ошибка при извлечении карты памяти"
+
+msgctxt "act_media_bad_removal_detail"
+msgid "External media was removed, but not correctly unmounted."
+msgstr "Внешняя память была извлечена, но некорректно размонтированна."
+
+msgctxt "act_media_button"
+msgid "Media button pressed"
+msgstr "Кнопка гарнитуры"
+
+msgctxt "act_media_button_detail"
+msgid ""
+"The \"Media Button\" was pressed. Usually, this will refer to a button on"
+" your headset/earplugs."
+msgstr "Кнопка гарнитуры нажата"
+
+msgctxt "act_media_checking"
+msgid "Checking media"
+msgstr "Проверка карты"
+
+msgctxt "act_media_checking_detail"
+msgid "External media is present and is currently being disk-checked."
+msgstr "внешняя катра присутствует и проверяется на наличие ошибок."
+
+msgctxt "act_media_eject"
+msgid "Media ejecting"
+msgstr "Карта извлечена"
+
+msgctxt "act_media_eject_detail"
+msgid "External media is about to be ejected, likely due to a user request."
+msgstr "Внешняя карта извлечена. Обычно по запросу пользователя."
+
+msgctxt "act_media_mounted"
+msgid "Media mounted"
+msgstr "Карта смонтированна"
+
+msgctxt "act_media_mounted_detail"
+msgid "External media is present, was mounted and is now available to the device."
+msgstr "Внешняя карта присутствует, смонтированна и сейчас доступна."
+
+msgctxt "act_media_nofs"
+msgid "Media invalid or blank"
+msgstr "Внешняя карта сломанна или пуста"
+
+msgctxt "act_media_nofs_detail"
+msgid ""
+"External media was detected, but is using an incompatible filesystem or "
+"is blank."
+msgstr ""
+"Внешняя карта обнаружена, но используется несовместимая файловая система "
+"или карта пуста."
+
+msgctxt "act_media_removed"
+msgid "Media removed"
+msgstr "Карта извлечена"
+
+msgctxt "act_media_removed_detail"
+msgid ""
+"External media was just removed, and is now no longer available to the "
+"device."
+msgstr "Внешняя карта только извлечена и уже не доступна системе."
+
+msgctxt "act_media_scanner_finished"
+msgid "Media scanner finished"
+msgstr "Мультимедиа сканер завершен"
+
+msgctxt "act_media_scanner_finished_detail"
+msgid "The media scanner has finished scanning a directory."
+msgstr "Медиа сканер закончил сканировать каталог."
+
+msgctxt "act_media_scanner_scan_file"
+msgid "Media scanner handling file"
+msgstr "Медиа сканер удерживает файл."
+
+msgctxt "act_media_scanner_scan_file_detail"
+msgid ""
+"The media scanner has started to scan a file and add it to the media "
+"database."
+msgstr "Сканер начал проверять файл и добавил его в медиа библиотеку"
+
+msgctxt "act_media_scanner_started"
+msgid "Media scanner started"
+msgstr "Медиа сканер запущен"
+
+msgctxt "act_media_scanner_started_detail"
+msgid "The media scanner has started scanning a directory."
+msgstr "Медиа сканер начал сканировать каталог."
+
+msgctxt "act_media_shared"
+msgid "Media sharing enabled"
+msgstr "Режим накопителя включен"
+
+msgctxt "act_media_shared_detail"
+msgid ""
+"External media is now being shared via USB mass storage mode, and is at "
+"this time no longer available to the device."
+msgstr ""
+"внешняя карта памяти включена в режиме USB накопителя и больше не "
+"доступна системе."
+
+msgctxt "act_media_unmountable"
+msgid "Media unmountable"
+msgstr "Карта немонтируема"
+
+msgctxt "act_media_unmountable_detail"
+msgid "External media was detected, but cannot be used, likely due to an error."
+msgstr "Внешняя карта найдена, но не может быть использованна из-за ошибки"
+
+msgctxt "act_media_unmounted"
+msgid "Media unmounted"
+msgstr "Карта размонтированна"
+
+msgctxt "act_media_unmounted_detail"
+msgid ""
+"External media is available, but unmounted, and not available to the "
+"device."
+msgstr "Внешняя карта памяти доступна, но размонтированна и недоступна системе."
+
+msgctxt "act_new_outgoing_call"
+msgid "New outgoing call"
+msgstr "Новый исходящий звонок"
+
+msgctxt "act_new_outgoing_call_detail"
+msgid ""
+"A new outgoing call is about to be placed. Applications may preprocess "
+"the call, and for example change or filter the phone number."
+msgstr ""
+"Новый исходящий звонок будет совершен. Программы могуд предобрабатывать "
+"звонок. Например изменять или фильтровать звонок."
+
+msgctxt "act_package_added"
+msgid "Application installed"
+msgstr "Программа установлена"
+
+msgctxt "act_package_added_detail"
+msgid "A new application package has been installed on the device."
+msgstr "Новая программа установлена на телефон"
+
+msgctxt "act_package_changed"
+msgid "Application changed"
+msgstr "Програма изменена"
+
+msgctxt "act_package_changed_detail"
+msgid ""
+"An application package has been changed; for example, a component may "
+"have been enabled or disabled."
+msgstr "Программа была изменена. Например компонент стал недоступен или доступен."
+
+msgctxt "act_package_data_cleared"
+msgid "Application data cleared"
+msgstr "Данные программы очищены."
+
+msgctxt "act_package_data_cleared_detail"
+msgid "The user data associated with an application package was cleared."
+msgstr "Данные пользователя связанные с программой были удалены."
+
+msgctxt "act_package_install"
+msgid "Installing application"
+msgstr "Установка программы"
+
+msgctxt "act_package_install_detail"
+msgid "An application is about to be downloaded and installed."
+msgstr "Программу будет закачанна и установленна."
+
+msgctxt "act_package_removed"
+msgid "Application removed"
+msgstr "Программа удалена"
+
+msgctxt "act_package_removed_detail"
+msgid "An application package has been removed from the device."
+msgstr "Программа удалена с телефона."
+
+msgctxt "act_package_replaced"
+msgid "Application replaced"
+msgstr "Программа заменена"
+
+msgctxt "act_package_replaced_detail"
+msgid "An application package has been replaced by a new version."
+msgstr "Программа заменена другой версией."
+
+msgctxt "act_package_restarted"
+msgid "Application restarted"
+msgstr "Программа перезапущена"
+
+msgctxt "act_package_restarted_detail"
+msgid ""
+"An application package was restarted, and all it's processes have been "
+"killed."
+msgstr "Программа перезапущена и все процессы связанные с ней завершены."
+
+msgctxt "act_provider_changed"
+msgid "Content provider changed"
+msgstr "Поставщик содержимого изменен"
+
+msgctxt "act_provider_changed_detail"
+msgid ""
+"A content provider publishes a new event; for example, this is triggered "
+"by the GMail Storage provider when the set of unread email in the inbox "
+"changes."
+msgstr ""
+"Поставщик содержимого публикует о новом событии. Например, хранилище "
+"GMail активирует это событие, когда количество непрочитанной почты "
+"изменяется."
+
+msgctxt "act_reboot"
+msgid "Reboot"
+msgstr "Перезагрузка"
+
+msgctxt "act_reboot_detail"
+msgid "The system is about to reboot."
+msgstr "Система будет перезагружена."
+
+msgctxt "act_screen_off"
+msgid "Screen off"
+msgstr "Экран выключен"
+
+msgctxt "act_screen_off_detail"
+msgid "The screen just turned off."
+msgstr "Экран только что выключен."
+
+msgctxt "act_screen_on"
+msgid "Screen on"
+msgstr "Экран включен"
+
+msgctxt "act_screen_on_detail"
+msgid "The screen just turned on."
+msgstr "Экран только что включен."
+
+msgctxt "act_timezone_changed"
+msgid "Timezone changed"
+msgstr "Часовой пояс изменен"
+
+msgctxt "act_timezone_changed_detail"
+msgid "The system timezone setting has changed."
+msgstr "Системный часовой пояс изменен."
+
+msgctxt "act_time_changed"
+msgid "Time changed"
+msgstr "Время изменено"
+
+msgctxt "act_time_changed_detail"
+msgid "The system time has changed."
+msgstr "Системное время изменено"
+
+msgctxt "act_time_tick"
+msgid "Time tick"
+msgstr "Прошло время"
+
+msgctxt "act_time_tick_detail"
+msgid "The current time has changed. This is triggered once every minute."
+msgstr "Текущее время изменилось. Это событие возникает каждую минуту."
+
+msgctxt "act_uid_removed"
+msgid "User removed"
+msgstr "Пользователь удалил"
+
+msgctxt "act_uid_removed_detail"
+msgid ""
+"A user id was removed from the system. This is usually related to the "
+"removal of an installed application."
+msgstr ""
+"Идентификатор пользователя был удален из системы. Это, как правило, "
+"события связанные с удалением установленного приложения"
+
+msgctxt "act_ums_connected"
+msgid "USB connected"
+msgstr "В режиме USB"
+
+msgctxt "act_ums_connected_detail"
+msgid "The device has entered USB Mass Storage mode."
+msgstr "Устройство в режиме USB (хранилище данных)"
+
+msgctxt "act_ums_disconnected"
+msgid "USB disconnected"
+msgstr "USB отключен"
+
+msgctxt "act_ums_disconnected_detail"
+msgid "The device has exited USB Mass Storage mode."
+msgstr "Устройство вышло из режима USB (хранилище данных)"
+
+msgctxt "act_user_present"
+msgid "User present"
+msgstr "Пользователь настоящий =)"
+
+msgctxt "act_user_present_detail"
+msgid ""
+"The user woke up the device and successfully passed the keyguard (if "
+"enabled)."
+msgstr ""
+"Пользователь разблокировал устройство и успешно прошел защиту (если "
+"активна)"
+
+msgctxt "act_wallpaper_changed"
+msgid "Wallpaper changed"
+msgstr "Фон рабочего стола изменен"
+
+msgctxt "act_wallpaper_changed_detail"
+msgid ""
+"The system wallpaper has changed, either due to a user action, or by an "
+"application."
+msgstr "Фон рабочего стола изменен. Пользователем или программой."
+
+msgctxt "act_sim_full"
+msgid "SIM is full"
+msgstr "SIM карта заполнена"
+
+msgctxt "act_sim_full_detail"
+msgid "The SIM storage for SMS messages is full."
+msgstr "Место для SMS на SIM карте закончилось."
+
+msgctxt "act_sms_received"
+msgid "SMS received"
+msgstr "SMS получено"
+
+msgctxt "act_sms_received_detail"
+msgid "A new text based SMS message has been received."
+msgstr "Новой текстовое SMS полученно."
+
+msgctxt "act_data_sms_received"
+msgid "Data SMS received"
+msgstr "SMS с данными полученно"
+
+msgctxt "act_data_sms_received_detail"
+msgid "A new data SMS message has been received."
+msgstr "Новое SMS с данными полученно"
+
+msgctxt "act_sms_rejected"
+msgid "SMS rejected"
+msgstr "SMS отклонено"
+
+msgctxt "act_sms_rejected_detail"
+msgid "A text based SMS message has been rejected."
+msgstr "Текстовое SMS отклонено."
+
+msgctxt "act_wap_push_received"
+msgid "WAP PUSH received"
+msgstr "WAP PUSH получен"
+
+msgctxt "act_wap_push_received_detail"
+msgid "A new WAP PUSH message has been received."
+msgstr "Новое WAP PUSH сообщение получено."
+
+msgctxt "act_network_ids_changed"
+msgid "Wi-Fi network IDs changed"
+msgstr "ID сети Wi-Fi изменено"
+
+msgctxt "act_network_ids_changed_detail"
+msgid "The network IDs of the configured networks may have changed."
+msgstr "ID сконфигурированой сети изменено."
+
+msgctxt "act_rssi_changed"
+msgid "RSSI changed"
+msgstr "RSSI (уровень сигнала Wi-Fi) изменен"
+
+msgctxt "act_rssi_changed_detail"
+msgid "The Wi-Fi signal strength (RSSI) has changed."
+msgstr "Уровень сигнала Wi-Fi (RSSI) изменен"
+
+msgctxt "act_scan_results_available"
+msgid "Wi-Fi scan completed"
+msgstr "Поиск Wi-Fi окончен"
+
+msgctxt "act_scan_results_available_detail"
+msgid "An access point scan has completed, and results are available."
+msgstr ""
+"Поиск точек доступа окончен и результаты получены. (Отсутствие точек "
+"доступа- тоже результат прим. пер.)"
+
+msgctxt "act_network_state_changed"
+msgid "Wi-Fi state changed"
+msgstr "Состояние Wi-Fi изменено"
+
+msgctxt "act_network_state_changed_detail"
+msgid "The state of Wi-Fi connectivity has changed."
+msgstr "Состояние соединения Wi-Fi изменено"
+
+msgctxt "act_supplicant_connection_change"
+msgid "Wi-Fi connection changed"
+msgstr "Соединение Wi-fi изменено"
+
+msgctxt "act_supplicant_connection_change_detail"
+msgid ""
+"The connection to a Wi-Fi access point was either successfully "
+"established, or an existing connection lost."
+msgstr "Соединение Wi-Fi успешно установлено или существующее соединение утеряно."
+
+msgctxt "act_suplicant_state_changed"
+msgid "Wi-Fi connecting state changed"
+msgstr "Wi-Fi состояние подключения изменено"
+
+msgctxt "act_suplicant_state_changed_detail"
+msgid "The state of of establishing a connection to an access point has changed."
+msgstr "Состояние подключения к точке доступа изменено."
+
+msgctxt "act_ringer_mode_changed"
+msgid "Ringer mode changed"
+msgstr "Режим звонка изменен"
+
+msgctxt "act_ringer_mode_changed_detail"
+msgid "The ringer mode has changed (silent, vibrate, etc)."
+msgstr "Режим звонка изменен (безшумный, вибро и т.п.)"
+
+msgctxt "act_vibrate_setting_changed"
+msgid "Vibrate setting changed"
+msgstr "Настройки вибро изменены"
+
+msgctxt "act_vibrate_setting_changed_detail"
+msgid "The vibrate setting has changed (on, off, etc)."
+msgstr "Настройки вибро изменены (вкл., выкл. и т.п.)"
+
+msgctxt "act_audio_becoming_noisy"
+msgid "Audio becoming noisy"
+msgstr "Звук становиться громче"
+
+msgctxt "act_audio_becoming_noisy_detail"
+msgid ""
+"Audio is about to become 'noisy' due to a change in audio outputs, e.g. "
+"when a headset is unplugged."
+msgstr ""
+"Аудио становиться громче из-за изменения аудиовыхода. Например, когда "
+"гарнитура отключается."
+
+msgctxt "act_tts_queue_completed"
+msgid "TTS queue completed"
+msgstr "Очередь TTS завершена"
+
+msgctxt "act_tts_queue_completed_detail"
+msgid ""
+"The TextToSpeech synthesizer has completed processing of all the text in "
+"the speech queue."
+msgstr "Синтезатор TextToSpeech закончил весь текст в очереди."
+
+msgctxt "act_tts_data_installed"
+msgid "TTS data installed"
+msgstr "Данные TTS установлены"
+
+msgctxt "act_tts_data_installed_detail"
+msgid ""
+"Signals the completion of the installation of the data files used by the "
+"synthesis engine."
+msgstr "Сигнал об окончании установки данных используемых синтезатором речи."
+
+msgctxt "act_sink_state_changed"
+msgid "BT sink state changed"
+msgstr "Состояние синхронизации Bluetooth изменено"
+
+msgctxt "act_sink_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bonding_created"
+msgid "BT bonding created"
+msgstr "BT связь создана"
+
+msgctxt "act_bonding_created_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bonding_removed"
+msgid "BT bonding removed"
+msgstr "Соединение Bluetooth удалено"
+
+msgctxt "act_bonding_removed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_disabled"
+msgid "Bluetooth disabled"
+msgstr "Bluetooth отключен"
+
+msgctxt "act_disabled_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_discovery_completed"
+msgid "BT discovery completed"
+msgstr "BT обнаружение завершено"
+
+msgctxt "act_discovery_completed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_discovery_started"
+msgid "BT discovery started"
+msgstr "BT обнаружение начато"
+
+msgctxt "act_discovery_started_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_enabled"
+msgid "Bluetooth enabled"
+msgstr "Bluetooth включен"
+
+msgctxt "act_enabled_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_headset_state_changed"
+msgid "BT headset state changed"
+msgstr "BT наушники, состояние изменилось"
+
+msgctxt "act_headset_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_mode_changed"
+msgid "BT mode changed"
+msgstr "BT режим изменился"
+
+msgctxt "act_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_name_changed"
+msgid "BT name changed"
+msgstr "BT имя изменилось"
+
+msgctxt "act_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_pairing_cancel"
+msgid "BT pairing canceled"
+msgstr "Сопряжение BT отменено"
+
+msgctxt "act_pairing_cancel_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_pairing_request"
+msgid "BT pairing requested"
+msgstr "Запрос на сопряжение BT"
+
+msgctxt "act_pairing_request_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_alias_changed"
+msgid "BT alias changed"
+msgstr "BT псевдоним изменился"
+
+msgctxt "act_remote_alias_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_alias_cleared"
+msgid "BT alias cleared"
+msgstr "BT псевдоним удален"
+
+msgctxt "act_remote_alias_cleared_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_device_connected"
+msgid "BT device connected"
+msgstr "BT устройство соеденино"
+
+msgctxt "act_remote_device_connected_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_device_disappeared"
+msgid "BT device disappeared"
+msgstr "BT устройство исчезло"
+
+msgctxt "act_remote_device_disappeared_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_device_disconnected"
+msgid "BT device disconnected"
+msgstr "BT устройство отключено"
+
+msgctxt "act_remote_device_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_device_disconnect_requested"
+msgid "BT disconnect requested"
+msgstr "BT запрос разрыва соединения"
+
+msgctxt "act_remote_device_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_device_found"
+msgid "BT device found"
+msgstr "BT устройство найдено"
+
+msgctxt "act_remote_device_found_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_name_failed"
+msgid "BT name failed"
+msgstr "BT удаленное имя ошибочно"
+
+msgctxt "act_remote_name_failed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_remote_name_updated"
+msgid "BT name updated"
+msgstr "BT имя обновлено"
+
+msgctxt "act_remote_name_updated_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_state_changed"
+msgid "BT state changed"
+msgstr "BT состояние изменилось"
+
+msgctxt "act_bt_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_name_changed"
+msgid "BT name changed"
+msgstr "BT имя изменено"
+
+msgctxt "act_bt_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_bond_state_changed"
+msgid "BT bond state changed"
+msgstr "BT связь состояние изменено"
+
+msgctxt "act_bt_bond_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_audio_state_changed"
+msgid "BT audio state changed"
+msgstr "BT аудио, состояние изменено"
+
+msgctxt "act_bt_audio_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_local_name_changed"
+msgid "BT local name changed"
+msgstr "BT локальное имя изменилось"
+
+msgctxt "act_bt_local_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_scan_mode_changed"
+msgid "BT scan mode changed"
+msgstr "BT режим сканирования изменен"
+
+msgctxt "act_bt_scan_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_discovery_finished"
+msgid "BT discovery finished"
+msgstr "Поиск BT окончен"
+
+msgctxt "act_bt_discovery_finished_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_acl_connected"
+msgid "BT ACL connected"
+msgstr "BT ACL связано"
+
+msgctxt "act_bt_acl_connected_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_acl_disconnected"
+msgid "BT ACL disconnected"
+msgstr "BT ACL отключено"
+
+msgctxt "act_bt_acl_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_acl_disconnect_requested"
+msgid "BT ACL disconnect requested"
+msgstr "Запрос отсоединения BT ACL"
+
+msgctxt "act_bt_acl_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_class_changed"
+msgid "BT class changed"
+msgstr "Класс BT изменился"
+
+msgctxt "act_bt_class_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_found"
+msgid "BT found"
+msgstr "BT найден"
+
+msgctxt "act_bt_found_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_device_selected"
+msgid "BT device selected"
+msgstr "BT устройство выбрано"
+
+msgctxt "act_bt_device_selected_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_bt_launch"
+msgid "BT launch"
+msgstr "BT запущен"
+
+msgctxt "act_bt_launch_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
+msgctxt "act_background_data_setting_changed"
+msgid "Background data setting changed"
+msgstr "Настройка фоновые данные изменена"
+
+msgctxt "act_background_data_setting_changed_detail"
+msgid "The setting for background data usage has changed values."
+msgstr "Использование фоновых данных изменено."
+
+msgctxt "act_appwidget_enabled"
+msgid "Widget enabled"
+msgstr "Виджет активен"
+
+msgctxt "act_appwidget_enabled_detail"
+msgid "The first copy of a widget was added."
+msgstr "Первая копия виджета добавлена."
+
+msgctxt "act_appwidget_update"
+msgid "Widget updating"
+msgstr "Виджет обновляется"
+
+msgctxt "act_appwidget_update_detail"
+msgid ""
+"A widget is asked to update itself. How often this is triggered depends "
+"on the widget in question, but never for widgets that are not in use.\n"
+"\n"
+"<b>Note that disabling this event will likely render the widget "
+"defunct.</b>"
+msgstr ""
+"Виджет запрашивает обновление сам. Как часто это произходит, вопрос еще "
+"тот. Но никогда для виджетов, которые не используются. \n"
+"\n"
+"Внимание, блокировка этого события заблокирует обновление иконки виджета."
+
+msgctxt "act_appwidget_disabled"
+msgid "Widget disabled"
+msgstr "Виджет деактивирован"
+
+msgctxt "act_appwidget_disabled_detail"
+msgid "The last copy of a widget was removed."
+msgstr "Последняя копия виджета удалена"
+
+msgctxt "act_appwidget_deleted"
+msgid "Widget deleted"
+msgstr "Виджет обнаружен"
+
+msgctxt "act_appwidget_deleted_detail"
+msgid ""
+"A copy of a widget was removed. Note that most widgets support multiple "
+"copies."
+msgstr "Копия виджета удалена. Большинство виджетов поддерживают много копий."
+
+msgctxt "act_phone_state_changed"
+msgid "Call state changed"
+msgstr "Состояние звонка изменилось"
+
+msgctxt "act_phone_state_changed_detail"
+msgid ""
+"The call state of the phone has changed, for example when a new call is "
+"coming in, a call is accepted, or a previously active call ends."
+msgstr ""
+"Состояние звонка изменилось. Например, новый звонок, звонок принят, или "
+"предыдущий активный звонок окончен."
+
+msgctxt "act_connectivity"
+msgid "Connectivity changed"
+msgstr "Соединение изменилось"
+
+msgctxt "act_connectivity_detail"
+msgid ""
+"The current network connection has changed, e.g. when switching from Wi-"
+"Fi to GSM. Note that since this is also triggered when a connection is "
+"initially established, it effectively entails the On Startup behavior."
+msgstr ""
+"Текущее сетевое подключение изменилось, например, когда переключаемся с "
+"WI-Fi на GSM. Этот триггер срабатывает при загрузке, когда "
+"восстанавливается последнее состояние."
+
+msgctxt "act_new_picture"
+msgid "New Picture"
+msgstr "Новое фото"
+
+msgctxt "act_new_picture_detail"
+msgid ""
+"A new photo was added to the gallery, usually by the Camera application "
+"after the user made a new photo."
+msgstr ""
+"Новое фото добавлено в Галлерею. Обычно приложением Камера, после снимка "
+"новой фотографии."
+
+msgctxt "act_secret_code"
+msgid "Secret Code entered"
+msgstr "Секретный код введен"
+
+msgctxt "act_secret_code_detail"
+msgid "A secret code was entered in the dialer. They are in the form of *#*##*#*."
+msgstr "Секретный код введен в звонилку. Они имеют вид *#*##*#*."
+
+msgctxt "act_spn_strings_updated"
+msgid "Service provider data changed"
+msgstr "Данные оператора изменились"
+
+msgctxt "act_spn_strings_updated_detail"
+msgid "The name of the network operator or service provider have changed."
+msgstr "Имя оператора сети или сервиса изменилось."
+
+msgctxt "act_anr"
+msgid "Application not responding"
+msgstr "Программа не отвечает"
+
+msgctxt "act_anr_detail"
+msgid ""
+"An application is not responding. This is when you see the infamous "
+"dialog box."
+msgstr "Программа не отвечает.Это событие когда видно позорное =) окошко."
+
+msgctxt "act_event_reminder"
+msgid "Event reminder"
+msgstr "Напоминание о событиях"
+
+msgctxt "act_event_reminder_detail"
+msgid ""
+"A reminder for a scheduled event should now be shown. This is used by the"
+" Calendar application."
+msgstr ""
+"Напоминание о запланированном событии, которое будет показанно. "
+"Используется Календарем."
+
+msgctxt "act_install_shortcut"
+msgid "Install Shortcut"
+msgstr "Установить ярлык"
+
+msgctxt "act_install_shortcut_detail"
+msgid ""
+"An application wants to put a shortcut on your home screen. Home screen "
+"application will usually register for this."
+msgstr "Программа хочет установить ярлык на ваш домашний экран."
+
+msgctxt "act_uninstall_shortcut"
+msgid "Uninstall Shortcut"
+msgstr "Удаление ярлыка"
+
+msgctxt "act_uninstall_shortcut_detail"
+msgid ""
+"An application wants to remove a shortcut from your home screen. Home "
+"screen application will usually register for this."
+msgstr "Программа хочет удалить ярлык с домашнего экрана."
+
+msgctxt "act_any_data_state"
+msgid "Data state changed"
+msgstr "Состояние соединения"
+
+msgctxt "act_any_data_state_detail"
+msgid ""
+"The state of a data connection (for example MMS, GPS) has changed, for "
+"example when you connect to a new APN."
+msgstr "Состояние соединения (например MMS, GPS) было изменено."
+
+msgctxt "act_service_state"
+msgid "Service state changed"
+msgstr "Провайдер изменил состояние"
+
+msgctxt "act_service_state_detail"
+msgid ""
+"The phone's service state has changed, for example when you start "
+"roaming, or connect to a different mobile network."
+msgstr "Услуга связи была изменена, например когда вы в роуминге."
+
+msgctxt "act_data_connection_failed"
+msgid "Data connection failed"
+msgstr "Подключение неуспешно"
+
+msgctxt "act_data_connection_failed_detail"
+msgid "An attempt to establish a data connection has failed."
+msgstr "Попытка установить подключение провалиась."
+
+msgctxt "act_sim_state_changed"
+msgid "SIM state changed"
+msgstr "Состояние SIM изменилось"
+
+msgctxt "act_sim_state_changed_detail"
+msgid ""
+"The sim card state has changed, for example when it is initially loaded, "
+"or when it becomes locked due to incorrect PIN entry."
+msgstr ""
+"Состояние SIM изменилось. Например когда она впервые активировалась или "
+"заблокирована неверным вводом PIN."
+
+msgctxt "act_signal_strength"
+msgid "Signal strength changed"
+msgstr "уровень сигнала изменился"
+
+msgctxt "act_signal_strength_detail"
+msgid "The phone's signal strength has changed."
+msgstr "Уровень сигнала изменился."
+
+msgctxt "act_network_set_time"
+msgid "Network Time Change"
+msgstr "Сетевое время изменилось"
+
+msgctxt "act_network_set_time_detail"
+msgid "The phone's time was set by the carrier."
+msgstr ""
+"Время телефона изменилось несущим сигналом.\n"
+"Вероятно, имеется ввиду команда изменения времени по сети. Прим. пер."
+
+msgctxt "act_network_set_timezone"
+msgid "Network Timezone Change"
+msgstr "Сетевой часовой пояс изменен"
+
+msgctxt "act_network_set_timezone_detail"
+msgid "The phone's timezone was set by the carrier."
+msgstr ""
+"Часовой пояс изменен.\n"
+"Вероятно, имеется ввиду команда изменения времени по сети. Прим. пер."
+
+msgctxt "act_wifi_state_changed"
+msgid "Wi-Fi state changed"
+msgstr "Состояние Wi-Fi изменилось"
+
+msgctxt "act_wifi_state_changed_detail"
+msgid ""
+"The state of the Wi-Fi chip has changed, for example when it is enabled "
+"or disabled."
+msgstr ""
+"Состояние микросхемы Wi-Fi изменено. Например, когда Wi-Fi включен или "
+"выключен"
+
+msgctxt "act_external_apps_available"
+msgid "Externals apps available"
+msgstr "Внешние приложения доступны"
+
+msgctxt "act_external_apps_available_detail"
+msgid "Externals apps (e.g. stored on SD card) have become available."
+msgstr "Внешние программы (которые хранятся на карте памяти) станут доступны."
+
+msgctxt "act_external_apps_unavailable"
+msgid "Externals apps unavailable"
+msgstr "Внешние приложения не доступны"
+
+msgctxt "act_external_apps_unavailable_detail"
+msgid "Externals apps (e.g. stored on SD card) are no longer available."
+msgstr "Внешние программы (которые хранятся на карте памяти) станут не доступны."
+
+msgctxt "act_password_changed"
+msgid "Password changed"
+msgstr "Пароль изменился"
+
+msgctxt "act_password_changed_detail"
+msgid "Sent to a device admin when the user changes their password."
+msgstr ""
+"Извещение администратора устройства, когда пользователи меняют свои "
+"пароли. Вероятно системную службу (прим.пер)"
+
+msgctxt "act_password_failed"
+msgid "Password failed"
+msgstr "Неправильный пароль"
+
+msgctxt "act_password_failed_detail"
+msgid ""
+"Sent to a device admin when the user has failed at attempted to enter the"
+" password."
+msgstr ""
+"Извещение администратора устройства, когда пользователь неправильно ввел "
+"пароль. Вероятно системную службу (прим.пер)"
+
+msgctxt "act_password_succeeded"
+msgid "Password succeeded"
+msgstr "Пароль правильный"
+
+msgctxt "act_password_succeeded_detail"
+msgid ""
+"Sent to a device admin when the user has successfully entered their "
+"password, after failing one or more times."
+msgstr ""
+"Извещение администратора устройства, когда пользователь правильно ввел "
+"пароль после 1-й или более неудачной попытки. Вероятно системную службу "
+"(прим.пер)"
+
+msgctxt "act_device_admin_disabled"
+msgid "Device Admin Disabled"
+msgstr "Администратор не активен"
+
+msgctxt "act_device_admin_disabled_detail"
+msgid "Sent to a device admin when it has been disabled."
+msgstr "Посылаеться Администратору устройства перед блокировкой"
+
+msgctxt "act_device_admin_disable_req"
+msgid "Device Admin Disable Request"
+msgstr "Запрос на отключение Администратора устройства"
+
+msgctxt "act_device_admin_disable_req_detail"
+msgid "Sent to a device admin when it is about to be disabled."
+msgstr "Послать администратору устройства перед отключением"
+
+msgctxt "act_device_admin_enabled"
+msgid "Device Admin Enabled"
+msgstr "Администратор устройства активен"
+
+msgctxt "act_device_admin_enabled_detail"
+msgid "Sent to a device admin when it has been enabled."
+msgstr "Посылается Администратору устройства перед активацией"
+
+msgctxt "act_login_accounts_changed"
+msgid "Accounts changed"
+msgstr "Аккаунты изменены"
+
+msgctxt "act_login_accounts_changed_detail"
+msgid ""
+"Accounts have been added, or removed, or an account's credentials are "
+"changed."
+msgstr ""
+"Аккаунты были добавлены, или удалены, или данные об аккаунтах были "
+"изменены."
+

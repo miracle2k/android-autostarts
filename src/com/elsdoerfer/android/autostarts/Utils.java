@@ -146,13 +146,13 @@ public class Utils {
 			return true;
 
 		} catch (FileNotFoundException e) {
-			Log.e(ListActivity.TAG, "Failed to change state", e);
+			Log.e(ListActivity.TAG, "Failed to run command", e);
 			return false;
 		} catch (IOException e) {
-			Log.e(ListActivity.TAG, "Failed to change state", e);
+			Log.e(ListActivity.TAG, "Failed to run command", e);
 			return false;
 		} catch (InterruptedException e) {
-			Log.e(ListActivity.TAG, "Failed to change state", e);
+			Log.e(ListActivity.TAG, "Failed to run command", e);
 			return false;
 		}
 		finally {

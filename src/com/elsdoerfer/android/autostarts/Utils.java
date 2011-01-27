@@ -119,11 +119,14 @@ public class Utils {
 	 * (3) we solve by checking multiple locations for su.
 	 * We'll still have to see about (4).
 	 */
-	static boolean runRootCommand(String command, String[] env) {
+	static boolean runRootCommand(String command, String[] env,
+			Integer timeout)
+	{
 		Process process = null;
 		DataOutputStream os = null;
 		try {
-			Log.d(ListActivity.TAG, "Running '"+command+"' as root");
+			Log.d(ListActivity.TAG, String.format(
+					"Running '%s' as root, timeout=%s", command, timeout));
 
 			process = runWithEnv(getSuPath(), env);
 			os = new DataOutputStream(process.getOutputStream());
@@ -131,7 +134,33 @@ public class Utils {
 			os.writeBytes("echo \"rc:\" $?\n");
 			os.writeBytes("exit\n");
 			os.flush();
-			process.waitFor();
+
+			// Handle a requested timeout, or just use waitFor() otherwise.
+			if (timeout != null) {
+				long finish = System.currentTimeMillis() + timeout;
+				while (true) {
+					Thread.sleep(300);
+					if (!isProcessAlive(process))
+						break;
+					if (System.currentTimeMillis() > finish) {
+						// Usually, this can't be considered a success.
+						// However, in terms of the bug we're trying to
+						// work around here (the call hanging if adb
+						// debugging is disabled), the command would
+						// have successfully run, but just doesn't
+						// return. We report success, just in case, and
+						// the caller will have to check whether the
+						// command actually did do it's job.
+						Log.w(ListActivity.TAG, "Process doesn't seem "+
+								"to stop on it's own, assuming it's hanging");
+						// Note: 'finally' will call destroy(), but you
+						// might still see zombies.
+						return true;
+					}
+				}
+			}
+			else
+			  process.waitFor();
 
 			Log.d(ListActivity.TAG, "Process returned with "+process.exitValue());
 			Log.d(ListActivity.TAG, "Process stdout was: "+
@@ -196,5 +225,18 @@ public class Utils {
 		        envArray[i++] = entry;
 	    Process process = Runtime.getRuntime().exec(command, envArray);
 	    return process;
+	}
+
+	/**
+	 * Check whether a process is still alive. We use this as a naive
+	 * way to implement timeouts.
+	 */
+	public static boolean isProcessAlive(Process p) {
+	    try {
+	        p.exitValue();
+	        return false;
+	    } catch (IllegalThreadStateException e) {
+	        return true;
+	    }
 	}
 }

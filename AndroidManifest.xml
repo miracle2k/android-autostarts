@@ -15,6 +15,18 @@
         <activity android:name=".HelpActivity"
         	      android:theme="@android:style/Theme.Light" />
     </application>
+    <!-- We generally won't get those permissions. WRITE_SECURE_SETTINGS is
+         protectionLevel "signatureOrSystem", and changing other component's
+         states is even only allowed with a system signature, which is why
+         we need to work around those limitations with root.
+
+         However, it's possible that we might get those permissions in some
+         cases, for example if a user installs us on the system, in which
+         case we can then skip the root hacks and do things properly.
+         -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
     <supports-screens
     	android:largeScreens="true"
     	android:normalScreens="true"

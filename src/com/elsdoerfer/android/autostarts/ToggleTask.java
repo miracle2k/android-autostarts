@@ -152,8 +152,6 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 
 		// As described above, in the rare case we are allowed to use
 		// setComponentEnabledSetting(), we should do so.
-		// TODO: This codepath was never actually tested; we'd have to build
-		// a custom version of Android to give it a try.
 		if (mWrapped.checkCallingOrSelfPermission(permission.CHANGE_COMPONENT_ENABLED_STATE)
 				     == PackageManager.PERMISSION_GRANTED) {
 			Log.i(ListActivity.TAG, "Calling setComponentEnabledState() directly");

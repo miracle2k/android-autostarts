@@ -51,7 +51,6 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
 	static final private int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
-	static final private int DIALOG_SUBMITTING_EXCEPTIONS = 7;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -71,7 +70,6 @@ public class ListActivity extends ExpandableListActivity {
 	private Boolean mExpandSuggested = true;
 	private ToggleTask mToggleTask;
 	private LoadTask mLoadTask;
-	private Dialog mSubmittingExceptionsDialog;
 
 	// Due to Android deficiencies (can't pass data to showDialog()),
 	// we need to store that data globally.
@@ -358,17 +356,6 @@ public class ListActivity extends ExpandableListActivity {
 				})
 				.setNegativeButton(android.R.string.cancel, null)
 				.create();
-		}
-
-		else if (id == DIALOG_SUBMITTING_EXCEPTIONS)
-		{
-			mSubmittingExceptionsDialog = new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.please_wait)
-				.setMessage(R.string.submitting_exceptions)
-				.setIcon(android.R.drawable.ic_dialog_info)
-				.setCancelable(false)
-				.create();
-			return mSubmittingExceptionsDialog;
 		}
 
 		else if (id == DIALOG_VIEW_OPTIONS)

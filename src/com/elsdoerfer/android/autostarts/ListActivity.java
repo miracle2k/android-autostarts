@@ -50,7 +50,6 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int DIALOG_RECEIVER_DETAIL = 1;
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
-	static final private int DIALOG_USB_DEBUGGING_NOTE = 5;
 	static final private int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
 	static final private int DIALOG_SUBMITTING_EXCEPTIONS = 7;
 
@@ -58,7 +57,6 @@ public class ListActivity extends ExpandableListActivity {
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
 	static final private String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
 	static final private String PREF_FILTER_UNKNOWN = "filter-unknown-events";
-	static final private String PREF_USB_DEBUGGING_INFO_SHOWN = "usb-debug-info-shown";
 
 
 	private MenuItem mExpandCollapseToggleItem;
@@ -146,11 +144,6 @@ public class ListActivity extends ExpandableListActivity {
 
 			// Initial load.
 			loadAndApply();
-		}
-
-		if (!mPrefs.getBoolean(PREF_USB_DEBUGGING_INFO_SHOWN, false)) {
-			showDialog(DIALOG_USB_DEBUGGING_NOTE);
-			mPrefs.edit().putBoolean(PREF_USB_DEBUGGING_INFO_SHOWN, true).commit();
 		}
 
 		// This depends both on preferences on loading status.
@@ -364,16 +357,6 @@ public class ListActivity extends ExpandableListActivity {
 					}
 				})
 				.setNegativeButton(android.R.string.cancel, null)
-				.create();
-		}
-
-		else if (id == DIALOG_USB_DEBUGGING_NOTE)
-		{
-			return new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.info)
-				.setMessage(R.string.usb_debugging_note)
-				.setIcon(android.R.drawable.ic_dialog_info)
-				.setPositiveButton(android.R.string.ok, null)
 				.create();
 		}
 

@@ -76,13 +76,6 @@ could be made more obvious to the user.
 
 Update our custom colors to be stateful.
 
-Add a "system view" that goes through packages.xml manually and shows
-all receivers (or even: all components?), allowing users to disable or
-enable them. Explain in help section, why this separate view is necessary:
-Because due to API limitations (GET_INTENT_FILTERS not implemented), we
-are unable to get information about which intents a disabled component
-would handle.
-
 Implement the ability to disable a app as a whole; nice to get rid of
 pre-installed applications.
 

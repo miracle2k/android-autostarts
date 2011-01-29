@@ -207,10 +207,12 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 							(mDoEnable ? "enable": "disable"),
 							mApp.packageName, mApp.componentName),
 							(set[1] != null) ? new String[] { set[1] } : null,
-							// Only bother to set a timeout if adb is not enabled,
-							// since only then do we expect that the process will
-							// hang.
-							adbEnabled ? null : 20000)) {
+							// The timeout shouldn't really be needed ever, since
+							// we now automatically enable ADB, which should work
+							// around any freezing issue. However, in rare, hard
+							// to reproduce cases, it still occurs, and in those
+							// cases the timeout will improve the user experience.
+							25000)) {
 						success = true;
 						break;
 					}

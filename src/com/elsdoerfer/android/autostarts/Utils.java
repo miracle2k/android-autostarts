@@ -142,6 +142,18 @@ public class Utils {
 					Thread.sleep(300);
 					if (!isProcessAlive(process))
 						break;
+					// TODO: We could use a callback to let the caller
+					// check the success-condition (like the state properly
+					// being changed), and then end early, rather than
+					// waiting for the timeout to occur. However, this
+					// is made more complicated by us not really wanting
+					// to kill a process early that would never have hung,
+					// but which might not actually be completely finished yet
+					// when the callback would register success.
+					// Also, now that the timeout is only used as a last-resort
+					// mechanism anyway, with most cases of a hanging process
+					// being avoided by switching on ADB Debugging, improving
+					// the timeout handling isn't that important anymore.
 					if (System.currentTimeMillis() > finish) {
 						// Usually, this can't be considered a success.
 						// However, in terms of the bug we're trying to
@@ -151,6 +163,10 @@ public class Utils {
 						// return. We report success, just in case, and
 						// the caller will have to check whether the
 						// command actually did do it's job.
+						// TODO: It might be core "correct" to return false
+						// here, or indicate the timeout in some other way,
+						// and let the caller ignore those values on their
+						// own volition.
 						Log.w(ListActivity.TAG, "Process doesn't seem "+
 								"to stop on it's own, assuming it's hanging");
 						// Note: 'finally' will call destroy(), but you

@@ -68,10 +68,14 @@ Debugging enabled. There are however a few things we can do to help:
      partition, we can enable ADB (and re-disable it) automatically,
      because we have the right to write to the secure settings area.
 
-   - We make it clear to the user that ADB needs to be enabled for
-     optional functioning via a bar on the top.
+   - If we don't have WRITE_SECURE_SETTINGS, we can use a "su setprop"
+     call to change the ADB Debugging setting.
 
-   - We ues a timeout when running in action, so that when we can see
+   - We make it clear to the user that ADB needs to be enabled for
+     optional functioning via a bar on the top (this is currently not
+     done, since auto-enabling ADB works well enough).
+
+   - We use a timeout when running in action, so that when we can see
      that the state has changed, we simply stop waiting for the process
      to finish. This at least improves the user experience.
 */
@@ -176,14 +180,11 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				throw new RuntimeException(e);
 			}
 
-			// If adb is disabled and we can enable it temporarily, do so. This will
+			// If adb is disabled, try to enable it, temporarily. This will
 			// make our root call go through without hanging.
-			if (mWrapped.checkCallingOrSelfPermission(permission.WRITE_SECURE_SETTINGS)
-		            == PackageManager.PERMISSION_GRANTED) {
-				adbNeedsRedisable = !adbEnabled;
-				if (!adbEnabled) {
-					Log.i(ListActivity.TAG, "Switching on adb for the root call");
-					Settings.Secure.putInt(cr, Settings.Secure.ADB_ENABLED, 1);
+			if (!adbEnabled) {
+				Log.i(ListActivity.TAG, "Switching ADB on for the root call");
+				if (setADBEnabledState(cr, true)) {
 					adbEnabled = true;
 					adbNeedsRedisable = true;
 					// Let's be extra sure we don't run into any timing-related hiccups.
@@ -236,8 +237,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 			}
 			finally {
 				if (adbNeedsRedisable) {
-					Log.i(ListActivity.TAG, "Switching adb off again");
-					Settings.Secure.putInt(cr, Settings.Secure.ADB_ENABLED, 0);
+					Log.i(ListActivity.TAG, "Switching ADB off again");
+					setADBEnabledState(cr, false);
 					// Delay releasing the GUI for a while, there seems to
 					// be a mysterious problem of repeating this process multiple
 					// times causing it to somehow lock up, no longer work.
@@ -245,6 +246,24 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 					Utils.sleep(5000);
 				}
 			}
+		}
+	}
+
+	/**
+	 * Enable/Disable the "ADB Debugging" setting. We do this either by employing
+	 * the WRITE_SECURE_SETTINGS permission, if we have it, or by using a root call.
+	 */
+	private boolean setADBEnabledState(ContentResolver cr, boolean enable) {
+		if (mWrapped.checkCallingOrSelfPermission(permission.WRITE_SECURE_SETTINGS)
+                == PackageManager.PERMISSION_GRANTED) {
+			Log.i(ListActivity.TAG, "Using secure settings API to touch ADB setting");
+			return Settings.Secure.putInt(cr, Settings.Secure.ADB_ENABLED, enable ? 1 : 0);
+		}
+		else {
+			Log.i(ListActivity.TAG, "Using setprop call to touch ADB setting");
+			return Utils.runRootCommand(
+					String.format("setprop persist.service.adb.enable %s", enable ? 1 : 0),
+					null, null);
 		}
 	}
 }

@@ -239,4 +239,15 @@ public class Utils {
 	        return true;
 	    }
 	}
+
+	/**
+	 * Sleep for a while; without dealing with the exception.
+	 */
+	public static void sleep(long time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }

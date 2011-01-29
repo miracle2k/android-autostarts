@@ -186,6 +186,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 					Settings.Secure.putInt(cr, Settings.Secure.ADB_ENABLED, 1);
 					adbEnabled = true;
 					adbNeedsRedisable = true;
+					// Let's be extra sure we don't run into any timing-related hiccups.
+					Utils.sleep(1000);
 				}
 			}
 
@@ -240,9 +242,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 					// be a mysterious problem of repeating this process multiple
 					// times causing it to somehow lock up, no longer work.
 					// I'm hoping this might help.
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) { e.printStackTrace(); }
+					Utils.sleep(5000);
 				}
 			}
 		}

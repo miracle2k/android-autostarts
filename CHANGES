@@ -1,4 +1,8 @@
 1.x.x (unreleased)
+    * It's no longer necessary to manually keep ADB Debugging enabled.
+    * If signed with the system certificate, use Android's official APIs
+      rather than root access. This won't be relevant for most users, but
+      is useful when compiling a custom Android.
     * Russian translation (Andrew Ivanchenko).
 
 1.6.2 (2010-11-26)
@@ -47,7 +51,7 @@
       disabled by default, and make a clean distinction between that
       initial state and changes by the user.
     * Compiled against 2.1 SDK.
-    * Included pretty names and descriptions for a large number of new 
+    * Included pretty names and descriptions for a large number of new
       events.
 
 1.2.2 (2010-01-31)

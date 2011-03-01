@@ -1,11 +1,11 @@
 /bin/*
 /gen/*
 /.settings/
-/.fabric
 /local.properties
 /BRANCH_TODO
 
 /res/values-*/*.xml
 
-# fabfile.py
+# fabric
+/.fabricrc
 *.pyc

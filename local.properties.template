@@ -1,5 +1,0 @@
-sdk.dir=/opt/android/sdk
-
-key.store=my-android.keystore
-key.alias=my-android
-

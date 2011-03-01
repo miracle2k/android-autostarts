@@ -6,6 +6,7 @@ from fabric.api import local, env
 from fabric.main import load_settings
 from android.build import AndroidProject, get_platform
 
+
 env.raw_apk = 'bin/Android-Autostarts-release.apk'
 settings = load_settings('.fabricrc')
 if  not settings:
@@ -24,7 +25,7 @@ def build():
 
      print "Building the APK."
      p = AndroidProject('AndroidManifest.xml', 'Android-Autostarts',
-                        sdk_dir=env.sdk_dir)
+                        sdk_dir=env.sdk_dir, target='8')
      apk = p.build(env.raw_apk)
      password = raw_input('Enter keystore password:')
      if not password:

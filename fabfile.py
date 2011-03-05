@@ -18,6 +18,7 @@ logging.getLogger('py-androidbuild').addHandler(logging.StreamHandler())
 
 
 def locales():
+     local('tx pull')
      local('a2po import')
 
 def build():

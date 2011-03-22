@@ -1,5 +1,7 @@
 package com.elsdoerfer.android.autostarts;
 
+import com.elsdoerfer.android.autostarts.db.ComponentInfo;
+
 import android.Manifest.permission;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -158,7 +160,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				     == PackageManager.PERMISSION_GRANTED) {
 			Log.i(ListActivity.TAG, "Calling setComponentEnabledState() directly");
 			PackageManager pm = activity.getPackageManager();
-			ComponentName c = new ComponentName(mComponent.packageName, mComponent.componentName);
+			ComponentName c = new ComponentName(mComponent.packageInfo.packageName, mComponent.componentName);
 			pm.setComponentEnabledSetting(
 					c, mDoEnable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
 						: PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
@@ -203,7 +205,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				{
 					if (Utils.runRootCommand(String.format(set[0],
 							(mDoEnable ? "enable": "disable"),
-							mComponent.packageName, mComponent.componentName),
+							mComponent.packageInfo.packageName, mComponent.componentName),
 							(set[1] != null) ? new String[] { set[1] } : null,
 							// The timeout shouldn't really be needed ever, since
 							// we now automatically enable ADB, which should work
@@ -225,7 +227,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				// getComponentEnabledSetting() regardless of the return code.
 				final PackageManager pm = activity.getPackageManager();
 				ComponentName c = new ComponentName(
-						mComponent.packageName, mComponent.componentName);
+						mComponent.packageInfo.packageName, mComponent.componentName);
 				mComponent.currentEnabledState = pm.getComponentEnabledSetting(c);
 
 				success = mComponent.isCurrentlyEnabled() == mDoEnable;

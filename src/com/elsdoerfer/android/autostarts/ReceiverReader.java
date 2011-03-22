@@ -7,10 +7,13 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.elsdoerfer.android.autostarts.db.ComponentInfo;
+import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
+import com.elsdoerfer.android.autostarts.db.PackageInfo;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
@@ -19,7 +22,6 @@ import android.content.res.Resources.NotFoundException;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
 
-import com.elsdoerfer.android.autostarts.ComponentInfo.IntentFilterInfo;
 
 /**
  * Load the broadcast receivers installed by applications.
@@ -76,9 +78,9 @@ public class ReceiverReader {
 	private ArrayList<IntentFilterInfo> mResult;
 
 	// Parser state flags
+	android.content.pm.PackageInfo mAndroidPackage = null;
 	PackageInfo mCurrentPackage = null;
 	ParserState mCurrentState = ParserState.Unknown;
-	String mCurrentApplicationLabel = null;
 	ComponentInfo mCurrentComponent = null;
 	int mCurrentFilterPriority = 0;
 
@@ -98,12 +100,12 @@ public class ReceiverReader {
 	public ArrayList<IntentFilterInfo> load() {
 		mResult = new ArrayList<IntentFilterInfo>();
 
-		List<PackageInfo> packages =
+		List<android.content.pm.PackageInfo> packages =
 			mPackageManager.getInstalledPackages(PackageManager.GET_DISABLED_COMPONENTS);
 		int packageCount = packages.size();
 		for (int i=0; i<packageCount; i++)
 		{
-			PackageInfo p = packages.get(i);
+			android.content.pm.PackageInfo p = packages.get(i);
 
 			if (LOGV) Log.v(TAG, "Processing package "+p.packageName);
 			parsePackage(p);
@@ -131,7 +133,7 @@ public class ReceiverReader {
 		return mResult;
 	}
 
-	private void parsePackage(PackageInfo p) {
+	private void parsePackage(android.content.pm.PackageInfo p) {
 		// Open the manifest file
 		XmlResourceParser xml = null;
 		Resources resources = null;
@@ -164,7 +166,15 @@ public class ReceiverReader {
 		if (xml == null)
 			return;
 
-		mCurrentPackage = p;
+		mAndroidPackage = p;
+		mCurrentPackage = new PackageInfo(p);
+		mCurrentPackage.isSystem = isSystemApp(p);
+		// TODO: Traceview says this takes 9% of the total load
+		// time. We could move it to the drawing code (load only
+		// once the user actually sees an icon), but that would
+		// slow down the list view usage. One option possibly would
+		// be to load it on-demand, but do that again in a thread.
+		mCurrentPackage.icon = p.applicationInfo.loadIcon(mPackageManager);
 		mCurrentXML = xml;
 		mCurrentResources = resources;
 
@@ -229,12 +239,11 @@ public class ReceiverReader {
 		if (mCurrentState != ParserState.InManifest)
 			return;
 		mCurrentState = ParserState.InApplication;
-		mCurrentApplicationLabel = getAttr("label");
+		mCurrentPackage.packageLabel = getAttr("label");
 	}
 
 	void endApplication() {
 		if (mCurrentState == ParserState.InApplication) {
-			mCurrentApplicationLabel = null;
 			mCurrentState = ParserState.InManifest;
 		}
 	}
@@ -259,22 +268,16 @@ public class ReceiverReader {
 		else if (!componentName.contains("."))
 			componentName = mCurrentPackage.packageName + "." + componentName;
 
+		// XXX: We can speed up loading by moving the code that creates
+		// the PackageInfo objects etc. here.
 		mCurrentComponent = new ComponentInfo();
+		mCurrentComponent.packageInfo = mCurrentPackage;
 		mCurrentComponent.componentName = componentName;
-		mCurrentComponent.packageName = mCurrentPackage.packageName;
-		mCurrentComponent.isSystem = isSystemApp(mCurrentPackage);
-		mCurrentComponent.packageLabel =  mCurrentApplicationLabel;
 		mCurrentComponent.componentLabel = getAttr("label");
-		// TODO: Traceview says this takes 9% of the total load
-		// time. We could move it to the drawing code (load only
-		// once the user actually sees an icon), but that would
-		// slow down the list view usage. One option possibly would
-		// be to load it on-demand, but do that again in a thread.
-		mCurrentComponent.icon = mCurrentPackage.applicationInfo.loadIcon(mPackageManager);
 		mCurrentComponent.defaultEnabled = !(getAttr("enabled") == "false");;
 		mCurrentComponent.currentEnabledState =
 		    mPackageManager.getComponentEnabledSetting(
-			    new ComponentName(mCurrentComponent.packageName,
+			    new ComponentName(mCurrentPackage.packageName,
 			    		mCurrentComponent.componentName));
 	}
 
@@ -345,7 +348,7 @@ public class ReceiverReader {
 	/**
 	 * True if this app is installed on the system partition.
 	 */
-	static boolean isSystemApp(PackageInfo p) {
+	static boolean isSystemApp(android.content.pm.PackageInfo p) {
 		// You'd think that it would be possible to determine the
 		// system status of packages that do not have a application,
 		// as rare as that may be, but alas, it doesn't look like it.

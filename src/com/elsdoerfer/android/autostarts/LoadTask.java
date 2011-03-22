@@ -2,8 +2,8 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
-import com.elsdoerfer.android.autostarts.ComponentInfo.IntentFilterInfo;
 import com.elsdoerfer.android.autostarts.ReceiverReader.OnLoadProgressListener;
+import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
 
 // TODO: We could speed this up (probably not too much) by returning

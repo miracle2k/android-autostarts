@@ -34,7 +34,8 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.elsdoerfer.android.autostarts.ComponentInfo.IntentFilterInfo;
+import com.elsdoerfer.android.autostarts.db.ComponentInfo;
+import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
 public class ListActivity extends ExpandableListActivity {
 
@@ -274,10 +275,10 @@ public class ListActivity extends ExpandableListActivity {
 							// for that component, a general warning or just proceed without
 							// any explicit warning whatsoever.
 							if (!mLastChangeRequestDoEnable &&
-									mLastSelectedComponent.packageName.equals("com.google.android.apps.gtalkservice") &&
+									mLastSelectedComponent.packageInfo.packageName.equals("com.google.android.apps.gtalkservice") &&
 									mLastSelectedComponent.componentName.equals("com.google.android.gtalkservice.ServiceAutoStarter"))
 								showDialog(DIALOG_CONFIRM_GOOGLE_TALK_WARNING);
-							else if (mLastSelectedComponent.isSystem && !mLastChangeRequestDoEnable)
+							else if (mLastSelectedComponent.packageInfo.isSystem && !mLastChangeRequestDoEnable)
 								showDialog(DIALOG_CONFIRM_SYSAPP_CHANGE);
 							else {
 								mToggleTask = new ToggleTask(ListActivity.this);
@@ -291,14 +292,14 @@ public class ListActivity extends ExpandableListActivity {
 							// "we shouldn't rely on this entrance into the settings app"
 							infoIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
 							infoIntent.putExtra("com.android.settings.ApplicationPkgName",
-									mLastSelectedComponent.packageName);
+									mLastSelectedComponent.packageInfo.packageName);
 							startActivity(infoIntent);
 							break;
 						case 2:
 							try {
 								Intent marketIntent = new Intent(Intent.ACTION_VIEW);
 								marketIntent.setData(Uri.parse("market://search?q=pname:"+
-									mLastSelectedComponent.packageName));
+									mLastSelectedComponent.packageInfo.packageName));
 								startActivity(marketIntent);
 							}
 							catch (ActivityNotFoundException e) {}
@@ -432,7 +433,7 @@ public class ListActivity extends ExpandableListActivity {
 	private void prepareReceiverDetailDialog(Dialog dialog, View view,
 			boolean rewriteCaption) {
 
-		dialog.setTitle(mLastSelectedComponent.getAnyLabel());
+		dialog.setTitle(mLastSelectedComponent.getLabel());
 
 		// This is a terribly terrible hack to change the menu item caption
 		// to match the current state of the selected item. Unfortunately,

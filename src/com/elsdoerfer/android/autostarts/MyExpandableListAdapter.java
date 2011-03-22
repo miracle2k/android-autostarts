@@ -21,7 +21,11 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.elsdoerfer.android.autostarts.ComponentInfo.IntentFilterInfo;
+import com.elsdoerfer.android.autostarts.db.ComponentInfo;
+import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
+import com.elsdoerfer.android.autostarts.db.PackageInfo;
+
+
 
 /**
  * ListAdapter used by the ListActivity. Has it's own top-level file to
@@ -68,7 +72,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private boolean checkAgainstFilters(IntentFilterInfo info) {
 		ComponentInfo comp = info.componentInfo;
-		if (mHideSystemApps && comp.isSystem)
+		if (mHideSystemApps && comp.packageInfo.isSystem)
 			return false;
 		if (mShowChangedOnly && comp.isCurrentlyEnabled() ==
 			    comp.defaultEnabled)
@@ -315,11 +319,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 			// Set the icon
 			ImageView img = ((ImageView)v.findViewById(R.id.icon));
-		    img.setImageDrawable(comp.icon);
+		    img.setImageDrawable(comp.packageInfo.icon);
 
 			// Set the texts style
 			TextView title = ((TextView)v.findViewById(R.id.title));
-			if (comp.isSystem)
+			if (comp.packageInfo.isSystem)
 				title.setTextColor(Color.YELLOW);
 			else
 				title.setTextColor(mParent.mActivity.getResources().getColor(android.R.color.primary_text_dark));
@@ -330,7 +334,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 			// Build the text itself
 			SpannableStringBuilder fullTitle = new SpannableStringBuilder();
-			fullTitle.append(comp.getAppLabel());
+			fullTitle.append(comp.getLabel());
 			if (comp.componentLabel != null && !comp.componentLabel.equals(""))
 				fullTitle.append(" ("+comp.componentLabel+")");
 			if (!comp.isCurrentlyEnabled())
@@ -375,29 +379,29 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	static private class GroupByPackageImpl extends GroupingImpl {
 
 		MyExpandableListAdapter mParent;
-		ArrayList<String> mGroups;
-		MapOfIntents<String> mChildren;
+		ArrayList<PackageInfo> mGroups;
+		MapOfIntents<PackageInfo> mChildren;
 
 		GroupByPackageImpl(ArrayList<IntentFilterInfo> data, MyExpandableListAdapter adapter) {
 			mParent = adapter;
 
-			mGroups = new ArrayList<String>();
-			mChildren = new MapOfIntents<String>();
+			mGroups = new ArrayList<PackageInfo>();
+			mChildren = new MapOfIntents<PackageInfo>();
 
 			for (IntentFilterInfo info : data)
 			{
 				if (adapter.checkAgainstFilters(info))
 				{
-					if (!mGroups.contains(info.componentInfo.packageName))
-						mGroups.add(info.componentInfo.packageName);
-					mChildren.put(info.componentInfo.packageName, info);
+					if (!mGroups.contains(info.componentInfo.packageInfo))
+						mGroups.add(info.componentInfo.packageInfo);
+					mChildren.put(info.componentInfo.packageInfo, info);
 				}
 			}
 
-			Collections.sort(mGroups, new Comparator<String>() {
+			Collections.sort(mGroups, new Comparator<PackageInfo>() {
 				@Override
-				public int compare(String object1, String object2) {
-					return object1.compareToIgnoreCase(object2);
+				public int compare(PackageInfo object1, PackageInfo object2) {
+					return object1.getLabel().compareToIgnoreCase(object2.getLabel());
 				}
 			});
 		}
@@ -435,11 +439,13 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			else
 				v = convertView;
 
+			PackageInfo pkg = (PackageInfo)getGroup(groupPosition);
+
 			// Set the icon
 			ImageView img = ((ImageView)v.findViewById(R.id.icon));
-		    img.setImageDrawable(((IntentFilterInfo) getChild(groupPosition, 0)).componentInfo.icon);
+		    img.setImageDrawable(pkg.icon);
 
-			final String p = ((IntentFilterInfo) getChild(groupPosition, 0)).componentInfo.getAppLabel();
+			final String p = pkg.getLabel();
 			((TextView)v.findViewById(R.id.title)).setText(p);
 			return v;
 		}

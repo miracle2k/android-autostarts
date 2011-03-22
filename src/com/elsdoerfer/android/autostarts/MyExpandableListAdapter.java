@@ -242,6 +242,83 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 				ViewGroup parent);
 		public abstract long getChildId(int groupPosition, int childPosition);
 		public abstract Object getChild(int groupPosition, int childPosition);
+
+		protected MyExpandableListAdapter mParent;
+
+		GroupingImpl(MyExpandableListAdapter parent) {
+			mParent = parent;
+		}
+
+		/**
+		 * Helper for child classes to return a view for a list item.
+		 *
+		 * If "existing" has a tag that matches "tag", it will be
+		 * re-used (this is necessary due to different grouping modes
+		 * using different layouts). Otherwise, a new view is created
+		 * based on "layout", as a child of "parent".
+		 */
+		protected View getView(View existing, String tag, int layout,
+				ViewGroup parent) {
+			if (existing == null || (String)existing.getTag() != "tag")
+				return mParent.mInflater.inflate(layout, parent, false);
+			else
+				return existing;
+		}
+
+		/**
+		 * Helper for child classes to initialize a "show info" button
+		 * that would display information about am event.
+		 */
+		protected void setActionInfo(View root, final String action) {
+			View v = root.findViewById(R.id.show_info);
+			if (!Actions.MAP.containsKey(action))
+				v.setVisibility(View.GONE);
+			else {
+				v.setOnClickListener(new OnClickListener() {
+					public void onClick(View _v) {
+						mParent.mActivity.showInfoToast(action);
+					}
+				});
+			}
+		}
+
+		/**
+		 * Helper to set the text style for a list item based on
+		 * whether it represents a system app, something that disabled
+		 * etc.
+		 *
+		 * Arguments can be null.
+		 */
+		protected void setTextStyle(TextView t, PackageInfo pkg,
+				ComponentInfo comp) {
+			if (pkg!= null && pkg.isSystem)
+				t.setTextColor(Color.YELLOW);
+			else
+				t.setTextColor(mParent.mActivity.getResources().getColor(
+						android.R.color.primary_text_dark));
+
+			if (comp != null && comp.isCurrentlyEnabled() != comp.defaultEnabled)
+				t.setTypeface(Typeface.DEFAULT_BOLD);
+			else
+				t.setTypeface(Typeface.DEFAULT);
+		}
+
+		/**
+		 * Helper for child classes to set the text of an item that
+		 * represents a component. This adds the component label to "base"
+		 * in the rare case one exists, and also makes sure to strike
+		 * the text if the component is disabled.
+		 */
+		protected void setComponentText(TextView t, ComponentInfo comp,
+				String base) {
+			SpannableStringBuilder fullText = new SpannableStringBuilder();
+			fullText.append(base);
+			if (comp.componentLabel != null && !comp.componentLabel.equals(""))
+				fullText.append(" ("+comp.componentLabel+")");
+			if (!comp.isCurrentlyEnabled())
+				fullText.setSpan(new StrikethroughSpan(), 0, fullText.length(), 0);
+			t.setText(fullText);
+		}
 	}
 
 	/**
@@ -249,12 +326,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	 */
 	static private class GroupByActionImpl extends GroupingImpl {
 
-		MyExpandableListAdapter mParent;
 		ArrayList<String> mGroups;
 		MapOfIntents<String> mChildren;
 
-		GroupByActionImpl(ArrayList<IntentFilterInfo> data, MyExpandableListAdapter adapter) {
-			mParent = adapter;
+		GroupByActionImpl(ArrayList<IntentFilterInfo> data,
+				MyExpandableListAdapter adapter) {
+			super(adapter);
 
 			mGroups = new ArrayList<String>();
 			mChildren = new MapOfIntents<String>();
@@ -289,30 +366,26 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 
 		public View getGroupView(int groupPosition, boolean isExpanded,
-				View convertView, ViewGroup parent) {
-			final View v;
-			if (convertView == null || (String)convertView.getTag() != "act-group")
-				v = mParent.mInflater.inflate(R.layout.by_act_group_row, parent, false);
-			else
-				v = convertView;
-			final String action = (String) getGroup(groupPosition);
+				View convertView, ViewGroup parent)
+		{
+			String action = (String) getGroup(groupPosition);
+
+			View v = getView(convertView, "act-group",
+					R.layout.by_act_group_row, parent);
+			setActionInfo(v, action);
+
 			((TextView)v.findViewById(R.id.title)).setText(
 					mParent.mActivity.getIntentName(action));
-			((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
-				public void onClick(View _v) {
-					mParent.mActivity.showInfoToast(action);
-				}
-			});
+
 			return v;
 		}
 
 		public View getChildView(int groupPosition, int childPosition,
-				boolean isLastChild, View convertView, ViewGroup parent) {
-			View v;
-			if (convertView == null || (String)convertView.getTag() != "act-child")
-				v = mParent.mInflater.inflate(R.layout.by_act_child_row, parent, false);
-			else
-				v = convertView;
+				boolean isLastChild, View convertView, ViewGroup parent)
+		{
+			View v = getView(convertView, "act-child",
+					R.layout.by_act_child_row, parent);
+
 			IntentFilterInfo info = (IntentFilterInfo) getChild(
 					groupPosition, childPosition);
 			ComponentInfo comp = info.componentInfo;
@@ -321,25 +394,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			ImageView img = ((ImageView)v.findViewById(R.id.icon));
 		    img.setImageDrawable(comp.packageInfo.icon);
 
-			// Set the texts style
+			// Set the text
 			TextView title = ((TextView)v.findViewById(R.id.title));
-			if (comp.packageInfo.isSystem)
-				title.setTextColor(Color.YELLOW);
-			else
-				title.setTextColor(mParent.mActivity.getResources().getColor(android.R.color.primary_text_dark));
-			if (comp.isCurrentlyEnabled() != comp.defaultEnabled)
-				title.setTypeface(Typeface.DEFAULT_BOLD);
-			else
-				title.setTypeface(Typeface.DEFAULT);
+			setTextStyle(title, comp.packageInfo, comp);
+			setComponentText(title, comp, comp.getLabel());
 
-			// Build the text itself
-			SpannableStringBuilder fullTitle = new SpannableStringBuilder();
-			fullTitle.append(comp.getLabel());
-			if (comp.componentLabel != null && !comp.componentLabel.equals(""))
-				fullTitle.append(" ("+comp.componentLabel+")");
-			if (!comp.isCurrentlyEnabled())
-				fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
-			title.setText(fullTitle);
 			return v;
 		}
 
@@ -378,12 +437,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	 */
 	static private class GroupByPackageImpl extends GroupingImpl {
 
-		MyExpandableListAdapter mParent;
 		ArrayList<PackageInfo> mGroups;
 		MapOfIntents<PackageInfo> mChildren;
 
-		GroupByPackageImpl(ArrayList<IntentFilterInfo> data, MyExpandableListAdapter adapter) {
-			mParent = adapter;
+		GroupByPackageImpl(ArrayList<IntentFilterInfo> data,
+				MyExpandableListAdapter adapter) {
+			super(adapter);
 
 			mGroups = new ArrayList<PackageInfo>();
 			mChildren = new MapOfIntents<PackageInfo>();
@@ -432,37 +491,40 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 		@Override
 		public View getGroupView(int groupPosition, boolean isExpanded,
-				View convertView, ViewGroup parent) {
-			final View v;
-			if (convertView == null || (String)convertView.getTag() != "pkg-group")
-				v = mParent.mInflater.inflate(R.layout.by_pkg_group_row, parent, false);
-			else
-				v = convertView;
-
+				View convertView, ViewGroup parent)
+		{
 			PackageInfo pkg = (PackageInfo)getGroup(groupPosition);
+			View v = getView(convertView, "pkg-group",
+					R.layout.by_pkg_group_row, parent);
 
 			// Set the icon
 			ImageView img = ((ImageView)v.findViewById(R.id.icon));
 		    img.setImageDrawable(pkg.icon);
 
-			final String p = pkg.getLabel();
-			((TextView)v.findViewById(R.id.title)).setText(p);
+		    // Set the text (app name)
+			TextView textView = (TextView)v.findViewById(R.id.title);
+			textView.setText(pkg.getLabel());
+			setTextStyle(textView, pkg, null);
+
 			return v;
 		}
 
 		@Override
 		public View getChildView(int groupPosition, int childPosition,
-				boolean isLastChild, View convertView, ViewGroup parent) {
-			View v;
-			if (convertView == null || (String)convertView.getTag() != "pkg-child")
-				v = mParent.mInflater.inflate(R.layout.by_pkg_child_row, parent, false);
-			else
-				v = convertView;
+				boolean isLastChild, View convertView, ViewGroup parent)
+		{
 			IntentFilterInfo info = (IntentFilterInfo) getChild(
 					groupPosition, childPosition);
-			// Set the texts style
-			TextView title = ((TextView)v.findViewById(R.id.title));
-			title.setText(mParent.mActivity.getIntentName(info.action));
+
+			View v = getView(convertView, "pkg-child",
+					R.layout.by_pkg_child_row, parent);
+			setActionInfo(v, info.action);
+
+			TextView text = ((TextView)v.findViewById(R.id.title));
+			setTextStyle(text, null, info.componentInfo);
+			setComponentText(text, info.componentInfo,
+					mParent.mActivity.getIntentName(info.action));
+
 			return v;
 		}
 	}

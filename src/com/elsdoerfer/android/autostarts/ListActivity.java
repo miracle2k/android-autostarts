@@ -90,8 +90,7 @@ public class ListActivity extends ExpandableListActivity {
 		// This is just to workaround "Can't upgrade read-only database..."
 		// exceptions, when an upgrade is necessary.
 		mDb.getWritableDatabase().close();
-		mListAdapter = new MyExpandableListAdapter(
-				this, R.layout.group_row, R.layout.child_row);
+		mListAdapter = new MyExpandableListAdapter(this);
 		setListAdapter(mListAdapter);
 
 		// Restore preferences

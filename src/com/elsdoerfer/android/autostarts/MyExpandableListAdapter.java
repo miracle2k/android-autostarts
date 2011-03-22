@@ -33,8 +33,6 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	static final public int GROUP_BY_PACKAGE = 2;
 
 	private ListActivity mActivity;
-	private int mChildLayout;
-	private int mGroupLayout;
 	private ArrayList<IntentFilterInfo> mDataAll;
 	private GroupingImpl mGroupDisplay;
 	private int mCurrentGrouping = GROUP_BY_ACTION;
@@ -45,11 +43,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater mInflater;
 
-	public MyExpandableListAdapter(ListActivity activity, int groupLayout,
-			int childLayout) {
+	public MyExpandableListAdapter(ListActivity activity) {
 		mActivity = activity;
-		mChildLayout = childLayout;
-		mGroupLayout = groupLayout;
 		mInflater = (LayoutInflater) activity.getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 		setData(new ArrayList<IntentFilterInfo>());
@@ -65,6 +60,10 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			mCurrentGrouping = groupMode;
 			rebuildGroupDisplay();
 		}
+	}
+
+	public int getGrouping() {
+		return mCurrentGrouping;
 	}
 
 	private boolean checkAgainstFilters(IntentFilterInfo info) {
@@ -288,8 +287,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
 			final View v;
-			if (convertView == null)
-				v = mParent.mInflater.inflate(mParent.mGroupLayout, parent, false);
+			if (convertView == null || (String)convertView.getTag() != "act-group")
+				v = mParent.mInflater.inflate(R.layout.by_act_group_row, parent, false);
 			else
 				v = convertView;
 			final String action = (String) getGroup(groupPosition);
@@ -306,8 +305,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		public View getChildView(int groupPosition, int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
 			View v;
-			if (convertView == null)
-				v = mParent.mInflater.inflate(mParent.mChildLayout, parent, false);
+			if (convertView == null || (String)convertView.getTag() != "act-child")
+				v = mParent.mInflater.inflate(R.layout.by_act_child_row, parent, false);
 			else
 				v = convertView;
 			IntentFilterInfo info = (IntentFilterInfo) getChild(
@@ -431,11 +430,16 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
 			final View v;
-			if (convertView == null)
-				v = mParent.mInflater.inflate(mParent.mGroupLayout, parent, false);
+			if (convertView == null || (String)convertView.getTag() != "pkg-group")
+				v = mParent.mInflater.inflate(R.layout.by_pkg_group_row, parent, false);
 			else
 				v = convertView;
-			final String p = (String) getGroup(groupPosition);
+
+			// Set the icon
+			ImageView img = ((ImageView)v.findViewById(R.id.icon));
+		    img.setImageDrawable(((IntentFilterInfo) getChild(groupPosition, 0)).componentInfo.icon);
+
+			final String p = ((IntentFilterInfo) getChild(groupPosition, 0)).componentInfo.getAppLabel();
 			((TextView)v.findViewById(R.id.title)).setText(p);
 			return v;
 		}
@@ -444,15 +448,15 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		public View getChildView(int groupPosition, int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
 			View v;
-			if (convertView == null)
-				v = mParent.mInflater.inflate(mParent.mChildLayout, parent, false);
+			if (convertView == null || (String)convertView.getTag() != "pkg-child")
+				v = mParent.mInflater.inflate(R.layout.by_pkg_child_row, parent, false);
 			else
 				v = convertView;
 			IntentFilterInfo info = (IntentFilterInfo) getChild(
 					groupPosition, childPosition);
 			// Set the texts style
 			TextView title = ((TextView)v.findViewById(R.id.title));
-			title.setText(info.action);
+			title.setText(mParent.mActivity.getIntentName(info.action));
 			return v;
 		}
 	}

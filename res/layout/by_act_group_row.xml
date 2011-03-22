@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="0dp">
+    android:padding="0dp"
+    android:tag="act-group">
 
     <!-- Note how the padding is applied not to the parent,
          but to each individual child; The idea is to make
@@ -26,8 +27,8 @@
 	<!-- Note the right padding is slightly larger to account for a
 	     potential scrollbar. Doesn't look to good if it's too close. -->
     <ImageView
-    	android:id="@+id/show_info"
-    	android:layout_width="wrap_content"
+        android:id="@+id/show_info"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:paddingLeft="6dp"
@@ -36,6 +37,6 @@
         android:paddingRight="7dp"
         android:adjustViewBounds="false"
         android:src="@drawable/ic_dialog_info_btn"
-    	/>
+        />
 
 </LinearLayout>

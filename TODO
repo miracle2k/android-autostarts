@@ -1,3 +1,22 @@
+Try using the new Loader API:
+    http://android-developers.blogspot.com/2011/03/fragments-for-all.html),
+instead of the current AsyncTask-based loading.
+
+Add a search/filter feature. MENU long press brings up a keyboard,
+let the user type away to restrict the list to matches. Should also
+react to the SEARCH button.
+
+When displaying actions that have no pretty name, the text often
+doesn't fit the screen. We show an ellipsis then, but it would be
+nicer to adjust the font size, iOS-like. See:
+    http://stackoverflow.com/questions/2617266/how-to-adjust-text-font-size-to-fit-textview
+	http://stackoverflow.com/questions/5033012/auto-scale-textview-text-to-fit-within-bounds
+
+See if we can replace the current dialog-based GUI with inline-actions.
+That is, if an item is selected, it is expanded and includes a button
+to disable/enable, and all the other information from the dialog.
+Long-press may still be used for infrequently used actions.
+
 Investigate what we can do about activity intent filters. For example,
 android.intent.action.SEARCH_LONG_PRESS seems something that might just
 as well appear in our list. Are there others? Should they be displayed
@@ -42,8 +61,6 @@ QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we
 don't even really touch those, we need to assume it's a bug in Android.
 Confirm (file a report), and try to find a workaround.
 
-Add a dialog referring to our other projects / apps.
-
 Now that we may have quite a long list, depending on installed apps,
 a sorting options might also make sense. We could sort alphabetically,
 by the number of components in a group, or by "importance" of a receiver.
@@ -62,9 +79,12 @@ facilities that we should use to provide this.
 
 Currently, we don't pay any attention to the fact that a single receiver
 may be responsible for multiple events. As a result, disabling a single
-component may effect multiple entries. At the very least, the UI should
-update accordingly when a component is disabled (striking out multiple
-rows).
+component may effect multiple entries. We already reflect this correctly
+in the UI, but we want the user to be made aware of it as well. So show
+a message like:
+  "$APPNAME processes this event in bulk together with $NUM other events.
+   If you disable/enable $EVENT, the following events of the app will also
+   be enabled."
 
 There are a number of broadcasts which effectively seem to be equivalent to
 BOOT_COMPLETED, like a lot of the network state change stuff. Maybe this
@@ -92,6 +112,8 @@ The user could be allowed to disable it, but a serious warning would be
 necessary. I suggest that something like a thick red border could be used to
 ensure the user is aware that this different than the standard "
 system application" warning.
+
+Create a tablet version.
 
 
 Far-Future Ideas, might never be implemented

@@ -1,9 +1,13 @@
 [main]
 host = http://www.transifex.net
 
-[android-autostarts.default]
-source_file = locale/template.pot
+[android-autostarts.strings]
+file_filter = locale/strings-<lang>.po
+source_file = locale/strings.pot
 source_lang = en
-trans.de = locale/de.po
-trans.ru = locale/ru.po
+
+[android-autostarts.actions]
+file_filter = locale/actions-<lang>.po
+source_file = locale/actions.pot
+source_lang = en
 

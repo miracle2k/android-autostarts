@@ -20,6 +20,11 @@ public class PackageInfo implements Parcelable {
 		this.packageName = packageInfo.packageName;
 	}
 
+	@Override
+    public int hashCode() {
+		return this.packageName.hashCode();
+	}
+
 	/**
 	 * Return a label identifying the package.
 	 */

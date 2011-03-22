@@ -1,5 +1,8 @@
 package com.elsdoerfer.android.autostarts.db;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * A single intent filter applied to a Component. The Android
  * PackageManager API does not expose this info, which is why
@@ -17,7 +20,7 @@ package com.elsdoerfer.android.autostarts.db;
  * the Component class, handling multi-intent components correctly
  * is almost automatic.
  */
-public class IntentFilterInfo {
+public class IntentFilterInfo implements Parcelable {
 	public ComponentInfo componentInfo;
 	public String action;
 	public int priority;
@@ -32,5 +35,33 @@ public class IntentFilterInfo {
 	@Override
     public int hashCode() {
 		return this.componentInfo.hashCode() ^ this.action.hashCode();
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(action);
+		dest.writeInt(priority);
+	}
+
+	public static final Parcelable.Creator<IntentFilterInfo> CREATOR
+	= new Parcelable.Creator<IntentFilterInfo>()
+	{
+		public IntentFilterInfo createFromParcel(Parcel in) {
+			return new IntentFilterInfo(in);
+		}
+
+		public IntentFilterInfo[] newArray(int size) {
+			return new IntentFilterInfo[size];
+		}
+	};
+
+	private IntentFilterInfo(Parcel in) {
+		action = in.readString();
+		priority = in.readInt();
 	}
 }

@@ -2,8 +2,6 @@ package com.elsdoerfer.android.autostarts;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -17,12 +15,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.content.res.Resources.NotFoundException;
-import android.graphics.drawable.Drawable;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.content.res.XmlResourceParser;
 import android.util.Log;
+
+import com.elsdoerfer.android.autostarts.ComponentInfo.IntentFilterInfo;
 
 /**
  * Load the broadcast receivers installed by applications.
@@ -61,11 +58,11 @@ public class ReceiverReader {
 	private static final String TAG = ListActivity.TAG;
 
 	// From com.android.sdklib.SdkConstants.NS_RESOURCES.
-	private final static String SDK_NS_RESOURCES = "http://schemas.android.com/apk/res/android";
+	private final static String SDK_NS_RESOURCES =
+		"http://schemas.android.com/apk/res/android";
 
 	public interface OnLoadProgressListener {
-		public void onProgress(ArrayList<ActionWithReceivers> currentState,
-				float progress);
+		public void onProgress(ArrayList<IntentFilterInfo> currentState, float progress);
 	}
 
 	private static enum ParserState { Unknown, InManifest,
@@ -76,7 +73,18 @@ public class ReceiverReader {
 	private XmlResourceParser mCurrentXML;
 	private Resources mCurrentResources;
 	private OnLoadProgressListener mOnLoadProgressListener;
+	private ArrayList<IntentFilterInfo> mResult;
 
+	// Parser state flags
+	PackageInfo mCurrentPackage = null;
+	ParserState mCurrentState = ParserState.Unknown;
+	String mCurrentApplicationLabel = null;
+	ComponentInfo mCurrentComponent = null;
+	int mCurrentFilterPriority = 0;
+
+	/**
+	 * Constructor.
+	 */
 	public ReceiverReader(Context context,
 			OnLoadProgressListener progressListener) {
 		mContext = context;
@@ -84,9 +92,11 @@ public class ReceiverReader {
 		mOnLoadProgressListener = progressListener;
 	}
 
-	public ArrayList<ActionWithReceivers> load() {
-		ArrayList<ActionWithReceivers> receiversByIntent =
-			new ArrayList<ActionWithReceivers>();
+	/**
+	 * Main method to make this class go ahead and do it's job.
+	 */
+	public ArrayList<IntentFilterInfo> load() {
+		mResult = new ArrayList<IntentFilterInfo>();
 
 		List<PackageInfo> packages =
 			mPackageManager.getInstalledPackages(PackageManager.GET_DISABLED_COMPONENTS);
@@ -96,64 +106,32 @@ public class ReceiverReader {
 			PackageInfo p = packages.get(i);
 
 			if (LOGV) Log.v(TAG, "Processing package "+p.packageName);
-			parsePackage(p, receiversByIntent);
+			parsePackage(p);
 
 			// Publish an update after every package
 			if (mOnLoadProgressListener != null) {
-				sortResult(receiversByIntent);
-
-				// It's important that we send out a copy here, or we'll can run into
-				// crashes both inside our ListAdapter filtering code, where we are
-				// iterating over a list that can be changed by the thread in the
-				// background simultaneously (ConcurrentModificationException), and
-				// the core Android ListAdapter stuff itself which complains about the
-				// data having changed without notifyDataSetChanged being called.
-				// Note that what is not copied are the "ReceiverData" objects itself.
-				// This is important so that when a receiver status is toggled while
-				// we are still loading, it's changed attributes are not reset, because
-				// the ToggleTask modifies the single one instance that we have in both
-				// the authoritative and the intermediate copies.
-				ArrayList<ActionWithReceivers> copy = new ArrayList<ActionWithReceivers>();
-				for (ActionWithReceivers action : receiversByIntent) {
-					try {
-						copy.add((ActionWithReceivers) action.clone());
-					} catch (CloneNotSupportedException e) {
-						throw new RuntimeException(e);
-					}
-				}
+				// It's important that we send out a copy there, or we'll
+				// can run into crashes both inside our ListAdapter filtering
+				// code, where we are iterating over a list that can be
+				// changed by the thread in the background simultaneously
+				// (ConcurrentModificationException), and the core Android
+				// ListAdapter stuff itself which complains about the
+				// data having changed without notifyDataSetChanged being
+				// called. Note that this is a shallow copy, the actual
+				// objects in both lists remain the same. This is important
+				// so that when a receiver status is toggled while we are
+				// still loading, it's changed attributes are not reset by
+				// the next progress update.
+				@SuppressWarnings("unchecked")
+				ArrayList<IntentFilterInfo> copy = (ArrayList<IntentFilterInfo>) mResult.clone();
 				mOnLoadProgressListener.onProgress(copy, i/(float)packageCount);
 			}
 		}
 
-		sortResult(receiversByIntent);
-		return receiversByIntent;
+		return mResult;
 	}
 
-	private void sortResult(ArrayList<ActionWithReceivers> receiverList) {
-		// Sort both groups and children. Groups are sorted by the
-		// order in which we define our known intents, children
-		// are simply sorted alphabetically.
-		Collections.sort(receiverList, new Comparator<ActionWithReceivers>() {
-			public int compare(ActionWithReceivers object1,
-					ActionWithReceivers object2) {
-				int idx1 = Utils.getHashMapIndex(Actions.MAP, object1.action);
-				int idx2 = Utils.getHashMapIndex(Actions.MAP, object2.action);
-				// Make sure that unknown intents (-1) are sorted at the bottom.
-				if (idx1 == -1 && idx2 == -1)
-					return object1.action.compareTo(object2.action);
-				else if (idx1 == -1)
-					return +1;
-				else if (idx2 == -1)
-					return -1;
-				else
-					return ((Integer)idx1).compareTo(idx2);
-			}
-		});
-		for (ActionWithReceivers action : receiverList)
-			Collections.sort(action.receivers);
-	}
-
-	private void parsePackage(PackageInfo p, ArrayList<ActionWithReceivers> result) {
+	private void parsePackage(PackageInfo p) {
 		// Open the manifest file
 		XmlResourceParser xml = null;
 		Resources resources = null;
@@ -186,142 +164,42 @@ public class ReceiverReader {
 		if (xml == null)
 			return;
 
+		mCurrentPackage = p;
 		mCurrentXML = xml;
 		mCurrentResources = resources;
 
 		try {
 			String tagName = null;
-			String currentComponentName = null;
-			String currentApplicationLabel = null;
-			String currentComponentLabel = null;
-			boolean currentComponentEnabled = true;
-			int currentFilterPriority = 0;
-			ParserState state = ParserState.Unknown;
-
+			mCurrentState = ParserState.Unknown;
 			int eventType = xml.getEventType();
 			while (eventType != XmlPullParser.END_DOCUMENT) {
 				switch (eventType) {
 				case XmlPullParser.START_TAG:
 					tagName = xml.getName();
-					if (tagName.equals("manifest") && state == ParserState.Unknown)
-						state = ParserState.InManifest;
-					else if (tagName.equals("application") && state == ParserState.InManifest) {
-						state = ParserState.InApplication;
-						currentApplicationLabel = getAttr("label");
-					}
-					else if (tagName.equals("receiver") && state == ParserState.InApplication)
-					{
-						state = ParserState.InReceiver;
-
-						currentComponentEnabled =
-							!(getAttr("enabled") == "false");
-						currentComponentLabel = getAttr("label");
-						// Build the component name. We need to do some
-						// normalization here, since we can get the
-						// original string the dev. put into his XML.
-						// Our current logic is: If the component name
-						// starts with a dot, or doesn't contain one,
-						// we assume a relative name and prepend the
-						// package name. Otherwise, we consider the
-						// component name to be absolute already.
-						currentComponentName = getAttr("name");
-						if (currentComponentName == null)
-							Log.e(TAG, "A receiver in "+p.packageName+" has no name.");
-						else if (currentComponentName.startsWith("."))
-							currentComponentName = p.packageName + currentComponentName;
-						else if (!currentComponentName.contains("."))
-							currentComponentName = p.packageName + "." + currentComponentName;
-					}
-					else if (tagName.equals("intent-filter") && state == ParserState.InReceiver)
-					{
-						state = ParserState.InIntentFilter;
-
-						String priorityRaw = getAttr("priority");
-						if (priorityRaw != null)
-							try {
-								currentFilterPriority = Integer.parseInt(priorityRaw);
-							} catch (NumberFormatException e) {
-								Log.w(TAG, "Unable to parse priority value "+
-										"for receiver "+currentComponentName+
-										" in package "+p.packageName+": "+priorityRaw);
-							}
-							if (LOGV && currentFilterPriority != 0)
-								Log.v(TAG, "Receiver "+currentComponentName+
-										" in package "+p.packageName+" has "+
-								"an intent filter with priority != 0");
-					}
-					else if (tagName.equals("action") && state == ParserState.InIntentFilter)
-					{
-						state = ParserState.InAction;
-
-						// A component name is missing, we can't proceed.
-						if (currentComponentName == null)
-							break;
-
-						String action = getAttr("name");
-						if (action == null) {
-							Log.w(TAG, "Receiver "+currentComponentName+
-									" of package "+p.packageName+" has "+
-							"action without name");
-							break;
-						}
-
-						// See if a record for this action exists,
-						// otherwise create a new one.
-						ActionWithReceivers record = null;
-						for (ActionWithReceivers r : result) {
-							if (r.action.equals(action)) {
-								record = r;
-								break;
-							}
-						}
-						if (record == null) {
-							record = new ActionWithReceivers(action);
-							result.add(record);
-						}
-
-						// Add this receiver to the list
-						ReceiverData data = new ReceiverData();
-						data.action = action;
-						data.componentName = currentComponentName;
-						data.packageName = p.packageName;
-						data.isSystem = isSystemApp(p);
-						data.packageLabel =  currentApplicationLabel;
-						data.componentLabel = currentComponentLabel;
-						// TODO: Traceview says this takes 9% of the total load
-						// time. We could move it to the drawing code (load only
-						// once the user actually sees an icon), but that would
-						// slow down the list view usage. One option possibly would
-						// be to load it on-demand, but do that again in a thread.
-						data.icon = p.applicationInfo.loadIcon(mPackageManager);
-						data.priority = currentFilterPriority;
-						data.defaultEnabled = currentComponentEnabled;
-						data.currentEnabled = mPackageManager.getComponentEnabledSetting(
-								new ComponentName(data.packageName, data.componentName));
-						record.receivers.add(data);
-					}
+					if (tagName.equals("manifest"))
+						startManifest();
+					else if (tagName.equals("application"))
+						startApplication();
+					else if (tagName.equals("receiver"))
+						startReceiver();
+					else if (tagName.equals("intent-filter"))
+						startIntentFilter();
+					else if (tagName.equals("action"))
+						startAction();
 					break;
 
 				case XmlPullParser.END_TAG:
 					tagName = xml.getName();
-					if (tagName.equals("action") && state == ParserState.InAction)
-						state = ParserState.InIntentFilter;
-					else if (tagName.equals("intent-filter") && state == ParserState.InIntentFilter) {
-						state = ParserState.InReceiver;
-						currentFilterPriority = 0;
-					}
-					else if (tagName.equals("receiver") && state == ParserState.InReceiver) {
-						currentComponentName = null;
-						currentComponentLabel = null;
-						currentComponentEnabled = true;
-						state = ParserState.InApplication;
-					}
-					else if (tagName.equals("application") && state == ParserState.InApplication) {
-						currentApplicationLabel = null;
-						state = ParserState.InManifest;
-					}
-					else if (tagName.equals("manifest") && state == ParserState.InManifest)
-						state = ParserState.Unknown;
+					if (tagName.equals("manifest"))
+						endManifest();
+					else if (tagName.equals("application"))
+						endApplication();
+					else if (tagName.equals("receiver"))
+						endReceiver();
+					else if (tagName.equals("intent-filter"))
+						endIntentFilter();
+					else if (tagName.equals("action"))
+						endAction();
 					break;
 				}
 				eventType = xml.nextToken();
@@ -335,6 +213,133 @@ public class ReceiverReader {
 			mCurrentXML = null;
 			mCurrentResources = null;
 		}
+	}
+
+	void startManifest() {
+		if (mCurrentState == ParserState.Unknown)
+			mCurrentState = ParserState.InManifest;
+	}
+
+	void endManifest() {
+		if (mCurrentState == ParserState.InManifest)
+			mCurrentState = ParserState.Unknown;
+	}
+
+	void startApplication() {
+		if (mCurrentState != ParserState.InManifest)
+			return;
+		mCurrentState = ParserState.InApplication;
+		mCurrentApplicationLabel = getAttr("label");
+	}
+
+	void endApplication() {
+		if (mCurrentState == ParserState.InApplication) {
+			mCurrentApplicationLabel = null;
+			mCurrentState = ParserState.InManifest;
+		}
+	}
+
+	void startReceiver() {
+		if (mCurrentState != ParserState.InApplication)
+			return;
+
+		mCurrentState = ParserState.InReceiver;
+
+		// Build the component name. We need to do some normalization here,
+		// since we can get the original string the dev. put into his XML.
+		// Our current logic is: If the component name starts with a dot,
+		// or doesn't contain one, we assume a relative name and prepend the
+		// package name. Otherwise, we consider the component name to be
+		// absolute already.
+		String componentName = getAttr("name");
+		if (componentName == null)
+			Log.e(TAG, "A receiver in "+mCurrentPackage.packageName+" has no name.");
+		else if (componentName.startsWith("."))
+			componentName = mCurrentPackage.packageName + componentName;
+		else if (!componentName.contains("."))
+			componentName = mCurrentPackage.packageName + "." + componentName;
+
+		mCurrentComponent = new ComponentInfo();
+		mCurrentComponent.componentName = componentName;
+		mCurrentComponent.packageName = mCurrentPackage.packageName;
+		mCurrentComponent.isSystem = isSystemApp(mCurrentPackage);
+		mCurrentComponent.packageLabel =  mCurrentApplicationLabel;
+		mCurrentComponent.componentLabel = getAttr("label");
+		// TODO: Traceview says this takes 9% of the total load
+		// time. We could move it to the drawing code (load only
+		// once the user actually sees an icon), but that would
+		// slow down the list view usage. One option possibly would
+		// be to load it on-demand, but do that again in a thread.
+		mCurrentComponent.icon = mCurrentPackage.applicationInfo.loadIcon(mPackageManager);
+		mCurrentComponent.defaultEnabled = !(getAttr("enabled") == "false");;
+		mCurrentComponent.currentEnabledState =
+		    mPackageManager.getComponentEnabledSetting(
+			    new ComponentName(mCurrentComponent.packageName,
+			    		mCurrentComponent.componentName));
+	}
+
+	void endReceiver() {
+		if (mCurrentState == ParserState.InReceiver) {
+			mCurrentComponent = null;
+			mCurrentState = ParserState.InApplication;
+		}
+	}
+
+	void startIntentFilter() {
+		if (mCurrentState != ParserState.InReceiver)
+			 return;
+
+		mCurrentState = ParserState.InIntentFilter;
+
+		String priorityRaw = getAttr("priority");
+		if (priorityRaw != null)
+			try {
+				mCurrentFilterPriority = Integer.parseInt(priorityRaw);
+			} catch (NumberFormatException e) {
+				Log.w(TAG, "Unable to parse priority value "+
+						"for receiver "+mCurrentComponent.componentName+
+						" in package "+mCurrentPackage.packageName+": "+priorityRaw);
+			}
+			if (LOGV && mCurrentFilterPriority != 0)
+				Log.v(TAG, "Receiver "+mCurrentComponent.componentName+
+						" in package "+mCurrentPackage.packageName+" has "+
+				"an intent filter with priority != 0");
+    }
+
+	void endIntentFilter() {
+		if (mCurrentState == ParserState.InIntentFilter) {
+			mCurrentState = ParserState.InReceiver;
+			mCurrentFilterPriority = 0;
+		}
+	}
+
+	void startAction() {
+		if (mCurrentState != ParserState.InIntentFilter)
+			return;
+
+		mCurrentState = ParserState.InAction;
+
+		// A component name is missing, we can't proceed.
+		if (mCurrentComponent == null)
+			return;
+
+		String action = getAttr("name");
+		if (action == null) {
+			Log.w(TAG, "Receiver "+mCurrentComponent.componentName+
+					   " of package "+mCurrentPackage.packageName+" has "+
+			           "action without name");
+			return;
+		}
+
+		// Add this receiver to the result
+		IntentFilterInfo filter = new IntentFilterInfo(
+				mCurrentComponent, action, mCurrentFilterPriority);
+		mResult.add(filter);
+	}
+
+	void endAction() {
+		if (mCurrentState == ParserState.InAction)
+			mCurrentState = ParserState.InIntentFilter;
 	}
 
 	/**
@@ -388,181 +393,5 @@ public class ReceiverReader {
 		// formerly noted errors here, but simply not resolving works better
 		//	return in;
 		//}
-	}
-
-	/**
-	 * Represent a receiver for a single action.
-	 */
-	static class ReceiverData implements Comparable<ReceiverData>, Parcelable {
-
-		// These identify the component
-		public String packageName;
-		public String componentName;
-
-		// This is peripheral data
-		String packageLabel;
-		String componentLabel;
-		public String action;
-		public Drawable icon;
-		public boolean isSystem;
-		public int priority;
-		public boolean defaultEnabled;
-		public int currentEnabled;
-
-		private ReceiverData(Parcel in) {
-			packageName = in.readString();
-			componentName = in.readString();
-			packageLabel = in.readString();
-			componentLabel = in.readString();
-			action = in.readString();
-			priority = in.readInt();
-			isSystem = in.readInt() == 1;
-			defaultEnabled = in.readInt() == 1;
-			currentEnabled = in.readInt();
-		}
-
-		public ReceiverData() {}
-
-		@Override
-		public String toString() {
-			return String.format("%s/%s for %s",
-					packageName, componentName, action);
-		}
-
-		/**
-		 * Return the best label we have.
-		 */
-		public String getAnyLabel() {
-			if (componentLabel != null && !componentLabel.equals(""))
-				return componentLabel;
-			else if (packageLabel != null && !packageLabel.equals(""))
-				return packageLabel;
-			else
-				return packageName;
-		}
-
-		/**
-		 * Return a label identifying the app.
-		 */
-		public String getAppLabel() {
-			if (packageLabel != null && !packageLabel.equals(""))
-				return packageLabel;
-			else
-				return packageName;
-		}
-
-		/**
-		 * Resolve the current and default "enabled" state.
-		 */
-		public boolean isCurrentlyEnabled() {
-			if (currentEnabled == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
-				return true;
-			else if (currentEnabled == PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
-				return false;
-			else if (currentEnabled == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
-				return defaultEnabled;
-			else
-				throw new RuntimeException("Not a valid enabled state: "+currentEnabled);
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			// The code merging the cached components with those found in
-			// recovery relies on this method.
-			// See also hashCode(), of course.
-			if (!(o instanceof ReceiverData))
-				return false;
-			return (((ReceiverData)o).componentName.equals(componentName) &&
-					((ReceiverData)o).packageName.equals(packageName));
-		}
-
-		@Override
-		public int hashCode() {
-			return (packageName+componentName).hashCode();
-		}
-
-		public int compareTo(ReceiverData another) {
-			int result = ((Integer)priority).compareTo(((ReceiverData)another).priority);
-			if (result != 0)
-				return result;
-			else
-				return componentName.compareToIgnoreCase(
-						((ReceiverData)another).componentName);
-		}
-
-		public int describeContents() {
-			return 0;
-		}
-
-		public void writeToParcel(Parcel dest, int flags) {
-			// TODO: The icon is currently not maintained; since we use this
-			// mechanism to keep data during config change, the icon can
-			// currently be lost there. This usually doesn't happen due to
-			// us also retaining the config, but it should be fixed never
-			// the less. Preferably, we would simply requery the icons rather
-			// than wasting space saving them. This could be combined with
-			// a general-delayed loading of the icons to improve initial
-			// load time.
-			dest.writeString(packageName);
-			dest.writeString(componentName);
-			dest.writeString(packageLabel);
-			dest.writeString(componentLabel);
-			dest.writeString(action);
-			dest.writeInt(priority);
-			dest.writeInt(isSystem ? 1 : 0);
-			dest.writeInt(defaultEnabled ? 1 : 0);
-			dest.writeInt(currentEnabled);
-		}
-
-		public static final Parcelable.Creator<ReceiverData> CREATOR
-		= new Parcelable.Creator<ReceiverData>()
-		{
-			public ReceiverData createFromParcel(Parcel in) {
-				return new ReceiverData(in);
-			}
-
-			public ReceiverData[] newArray(int size) {
-				return new ReceiverData[size];
-			}
-		};
-	}
-
-	/**
-	 * A particular action and a list of receivers that register for
-	 * the action.
-	 */
-	static class ActionWithReceivers implements Cloneable {
-		public String action;
-		public ArrayList<ReceiverData> receivers;
-
-		ActionWithReceivers(String action) {
-			this.action = action;
-			this.receivers = new ArrayList<ReceiverData>();
-		}
-
-		ActionWithReceivers(ActionWithReceivers clone) {
-			this.action = clone.action;
-			this.receivers = clone.receivers;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Object clone() throws CloneNotSupportedException {
-			ActionWithReceivers clone = (ActionWithReceivers)super.clone();
-			clone.receivers = (ArrayList<ReceiverData>) receivers.clone();
-			return clone;
-
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (o instanceof ActionWithReceivers)
-				return action.equals(((ActionWithReceivers)o).action);
-			else
-				return action.equals(o);
-		}
-
-		@Override
-		public int hashCode() { return action.hashCode(); }
 	}
 }

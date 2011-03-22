@@ -6,8 +6,6 @@ import android.content.ComponentName;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
-
 /**
  * Takes care of toggling a component's state. This may take a
  * couple of seconds, so we use a thread.
@@ -16,7 +14,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 
 	private ProgressDialog mPg;
 	private Boolean mDoEnable;
-	private ReceiverData mApp;
+	private ComponentInfo mComponent;
 
 	public ToggleTask(ListActivity wrapActivity) {
 		super(wrapActivity);
@@ -70,7 +68,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		// when the Activity disconnects.
 		final ListActivity activity = mWrapped;
 
-		mApp = (ReceiverData)params[0];
+		mComponent = (ComponentInfo)params[0];
 		// We could also read this right now, but we want to ensure
 		// we always do the state change that we announced to the user
 		// through the menu item caption (it's unlikely but possible
@@ -148,7 +146,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		{
 			if (Utils.runRootCommand(String.format(set[0],
 					(mDoEnable ? "enable": "disable"),
-					mApp.packageName, mApp.componentName),
+					mComponent.packageName, mComponent.componentName),
 					(set[1] != null) ? new String[] { set[1] } : null )) {
 				success = true;
 				break;
@@ -164,8 +162,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		// getComponentEnabledSetting() regardless of the return code.
 		final PackageManager pm = activity.getPackageManager();
 		ComponentName c = new ComponentName(
-				mApp.packageName, mApp.componentName);
-		mApp.currentEnabled = pm.getComponentEnabledSetting(c);
-		return (mApp.isCurrentlyEnabled() == mDoEnable);
+				mComponent.packageName, mComponent.componentName);
+		mComponent.currentEnabledState = pm.getComponentEnabledSetting(c);
+		return (mComponent.isCurrentlyEnabled() == mDoEnable);
 	}
 }

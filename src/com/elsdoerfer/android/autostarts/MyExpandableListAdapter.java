@@ -4,6 +4,9 @@
 package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,14 +15,13 @@ import android.text.SpannableStringBuilder;
 import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.elsdoerfer.android.autostarts.ReceiverReader.ActionWithReceivers;
-import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
+import com.elsdoerfer.android.autostarts.ComponentInfo.IntentFilterInfo;
 
 /**
  * ListAdapter used by the ListActivity. Has it's own top-level file to
@@ -27,11 +29,15 @@ import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
  */
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
+	static final public int GROUP_BY_ACTION = 1;
+	static final public int GROUP_BY_PACKAGE = 2;
+
 	private ListActivity mActivity;
 	private int mChildLayout;
 	private int mGroupLayout;
-	private ArrayList<ActionWithReceivers> mDataAll;
-	private ArrayList<ActionWithReceivers> mDataRender;
+	private ArrayList<IntentFilterInfo> mDataAll;
+	private GroupingImpl mGroupDisplay;
+	private int mCurrentGrouping = GROUP_BY_ACTION;
 
 	private boolean mHideSystemApps = false;
 	private boolean mHideUnknownEvents = false;
@@ -39,129 +45,93 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater mInflater;
 
-	public MyExpandableListAdapter(ListActivity activity, int groupLayout, int childLayout) {
+	public MyExpandableListAdapter(ListActivity activity, int groupLayout,
+			int childLayout) {
 		mActivity = activity;
 		mChildLayout = childLayout;
 		mGroupLayout = groupLayout;
-		mInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		setData(new ArrayList<ActionWithReceivers>());
+		mInflater = (LayoutInflater) activity.getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE);
+		setData(new ArrayList<IntentFilterInfo>());
 	}
 
-	public void setData(ArrayList<ActionWithReceivers> data) {
+	public void setData(ArrayList<IntentFilterInfo> data) {
 		mDataAll = data;
-		// Re-apply our filters.
-		updateRenderData();
+		rebuildGroupDisplay();
 	}
+
+	public void setGrouping(int groupMode) {
+		if (mCurrentGrouping != groupMode) {
+			mCurrentGrouping = groupMode;
+			rebuildGroupDisplay();
+		}
+	}
+
+	private boolean checkAgainstFilters(IntentFilterInfo info) {
+		ComponentInfo comp = info.componentInfo;
+		if (mHideSystemApps && comp.isSystem)
+			return false;
+		if (mShowChangedOnly && comp.isCurrentlyEnabled() ==
+			    comp.defaultEnabled)
+			return false;
+		if (mHideUnknownEvents && Utils.getHashMapIndex
+				(Actions.MAP, info.action) == -1)
+			return false;
+		return true;
+	};
 
 	/**
-	 * Based on the full data available, updates the data set we use to
-	 * display the list; i.e. if there are filters set, those are applied.
+	 * Rebuild the grouping-mode specific rendering object. This
+	 * re-applies the filters.
 	 *
-	 * TODO: Add a way to init all filters without updating the data
-	 * once for every filter option. Simplest way: generate this on demand?
+	 * TODO: Add a way to init all filters (setFilterFOO calls) without
+	 * updating the data once for every filter option. Simplest way:
+	 * generate this on demand?
 	 */
-	private void updateRenderData() {
-		// Short-circuit - no filters
-		if (!isFiltered())
-			mDataRender = mDataAll;
-
-		else {
-			mDataRender = new ArrayList<ActionWithReceivers>();
-			for (ActionWithReceivers row : mDataAll) {
-				ActionWithReceivers filtered_row = new ActionWithReceivers(row);
-				filtered_row.receivers = new ArrayList<ReceiverData>();  // needs a new (filtered) list
-				for (ReceiverData app : row.receivers) {
-					boolean match = true;
-					if (mHideSystemApps && app.isSystem)
-						match = false;
-					if (mShowChangedOnly && app.isCurrentlyEnabled() == app.defaultEnabled)
-						match = false;
-					if (mHideUnknownEvents && Utils.getHashMapIndex(Actions.MAP, app.action) == -1)
-						match = false;
-
-					if (match)
-						filtered_row.receivers.add(app);
-				}
-				if (filtered_row.receivers.size() > 0)
-					mDataRender.add(filtered_row);
-			}
+	private void rebuildGroupDisplay() {
+		switch (mCurrentGrouping) {
+		case GROUP_BY_ACTION:
+			mGroupDisplay = new GroupByActionImpl(mDataAll, this);
+			break;
+		case GROUP_BY_PACKAGE:
+			mGroupDisplay = new GroupByPackageImpl(mDataAll, this);
 		}
 	}
 
 	public Object getChild(int groupPosition, int childPosition) {
-		return getGroupData(groupPosition).receivers.get(childPosition);
+		return mGroupDisplay.getChild(groupPosition, childPosition);
 	}
 
 	public long getChildId(int groupPosition, int childPosition) {
-		return ((ReceiverData)getChild(groupPosition, childPosition)).componentName.hashCode();
+		return mGroupDisplay.getChildId(groupPosition, childPosition);
 	}
 
 	public int getChildrenCount(int groupPosition) {
-		return getGroupData(groupPosition).receivers.size();
+		return mGroupDisplay.getChildrenCount(groupPosition);
 	}
 
-	public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-			View convertView, ViewGroup parent) {
-		View v;
-		if (convertView == null)
-			v = mInflater.inflate(mChildLayout, parent, false);
-		else
-			v = convertView;
-		ReceiverData app = (ReceiverData) getChild(groupPosition, childPosition);
-
-		// Set the icon
-		ImageView img = ((ImageView)v.findViewById(R.id.icon));
-		img.setImageDrawable(app.icon);
-
-		// Set the texts style
-		TextView title = ((TextView)v.findViewById(R.id.title));
-		if (app.isSystem)
-			title.setTextColor(Color.YELLOW);
-		else
-			title.setTextColor(mActivity.getResources().getColor(android.R.color.primary_text_dark));
-		if (app.isCurrentlyEnabled() != app.defaultEnabled)
-			title.setTypeface(Typeface.DEFAULT_BOLD);
-		else
-			title.setTypeface(Typeface.DEFAULT);
-
-		// Build the text itself
-		SpannableStringBuilder fullTitle = new SpannableStringBuilder();
-		fullTitle.append(app.getAppLabel());
-		if (app.componentLabel != null && !app.componentLabel.equals(""))
-			fullTitle.append(" ("+app.componentLabel+")");
-		if (!app.isCurrentlyEnabled())
-			fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
-		title.setText(fullTitle);
-		return v;
+	public View getChildView(int groupPosition, int childPosition,
+			boolean isLastChild, View convertView, ViewGroup parent) {
+		return mGroupDisplay.getChildView(groupPosition, childPosition,
+				isLastChild, convertView, parent);
 	}
 
 	public Object getGroup(int groupPosition) {
-		return getGroupData(groupPosition);
+		return mGroupDisplay.getGroup(groupPosition);
 	}
 
 	public int getGroupCount() {
-		return mDataRender.size();
+		return mGroupDisplay.getGroupCount();
 	}
 
 	public long getGroupId(int groupPosition) {
-		return getGroupData(groupPosition).action.hashCode();
+		return mGroupDisplay.getGroupId(groupPosition);
 	}
 
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
 			ViewGroup parent) {
-		final View v;
-		if (convertView == null)
-			v = mInflater.inflate(mGroupLayout, parent, false);
-		else
-			v = convertView;
-		final ActionWithReceivers group = (ActionWithReceivers) getGroup(groupPosition);
-		((TextView)v.findViewById(R.id.title)).setText(mActivity.getIntentName(group));
-		((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
-			public void onClick(View _v) {
-				mActivity.showInfoToast(group);
-			}
-		});
-		return v;
+		return mGroupDisplay.getGroupView(groupPosition, isExpanded,
+				convertView, parent);
 	}
 
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
@@ -173,69 +143,318 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	}
 
 	/**
-	 * Return the data record for the given group.
+	 * Return true if any filters are active.
 	 */
-	 private ActionWithReceivers getGroupData(int groupPosition) {
-		 return mDataRender.get(groupPosition);
-	 }
+	public boolean isFiltered() {
+		return mHideSystemApps || mShowChangedOnly || mHideUnknownEvents;
+	}
 
-	 /**
-	  * Return true if any filters are active.
-	  */
-	 public boolean isFiltered() {
-		 return mHideSystemApps || mShowChangedOnly || mHideUnknownEvents;
-	 }
+	/**
+	 * Allow owner to hide (and show) the system applications.
+	 *
+	 * Returns True if the list is filtered.
+	 *
+	 * Expects the caller to also call notifyDataSetChanged(), if
+	 * necessary.
+	 */
+	public boolean toggleFilterSystemApps() {
+	    setFilterSystemApps(!mHideSystemApps);
+		return mHideSystemApps;
+	}
 
-	 /**
-	  * Allow owner to hide (and show) the system applications.
-	  *
-	  * Returns True if the list is filtered.
-	  *
-	  * Expects the caller to also call notifyDataSetChanged(), if
-	  * necessary.
-	  */
-	 public boolean toggleFilterSystemApps() {
-		 setFilterSystemApps(!mHideSystemApps);
-		 return mHideSystemApps;
-	 }
+	/**
+	 * Manually decide whether to filter out system applications.
+	 *
+	 * Expects the caller to also call notifyDataSetChanged(), if
+	 * necessary.
+	 */
+	public void setFilterSystemApps(boolean newState) {
+		if (newState != mHideSystemApps) {
+			mHideSystemApps = newState;
+			rebuildGroupDisplay();
+		}
+	}
 
-	 /**
-	  * Manually decide whether to filter out system applications.
-	  *
-	  * Expects the caller to also call notifyDataSetChanged(), if
-	  * necessary.
-	  */
-	 public void setFilterSystemApps(boolean newState) {
-		 if (newState != mHideSystemApps) {
-			 mHideSystemApps = newState;
-			 updateRenderData();
-		 }
-	 }
+	public boolean getFilterSystemApps() {
+		return mHideSystemApps;
+	}
 
-	 public boolean getFilterSystemApps() {
-		 return mHideSystemApps;
-	 }
+	public void setShowChangedOnly(boolean newState) {
+		if (newState != mShowChangedOnly) {
+			mShowChangedOnly = newState;
+			rebuildGroupDisplay();
+		}
+	}
 
-	 public void setShowChangedOnly(boolean newState) {
-		 if (newState != mShowChangedOnly) {
-			 mShowChangedOnly = newState;
-			 updateRenderData();
-		 }
-	 }
+	public boolean getShowChangedOnly() {
+		return mShowChangedOnly;
+	}
 
-	 public boolean getShowChangedOnly() {
-		 return mShowChangedOnly;
-	 }
+	public void setFilterUnknown(boolean newState) {
+		if (newState != mHideUnknownEvents) {
+			mHideUnknownEvents = newState;
+			rebuildGroupDisplay();
+		}
+	}
 
-	 public void setFilterUnknown(boolean newState) {
-		 if (newState != mHideUnknownEvents) {
-			 mHideUnknownEvents = newState;
-			 updateRenderData();
-		 }
-	 }
+	public boolean getFilterUnknown() {
+		return mHideUnknownEvents;
+	}
 
-	 public boolean getFilterUnknown() {
-		 return mHideUnknownEvents;
-	 }
+	@SuppressWarnings("serial")
+	static class MapOfIntents<K> extends HashMap<K, ArrayList<IntentFilterInfo>> {
+		/**
+		 * Simplified put() that will automatically create the list
+		 * object that is the TreeMap value, and appends to that list.
+		 */
+		public K put(K key, IntentFilterInfo value) {
+			if (!this.containsKey(key)) {
+				this.put(key, new ArrayList<IntentFilterInfo>());
+			}
+			this.get(key).add(value);
+			return key;
+		}
+	}
+
+	/**
+	 * Abstract a "group view". We want to allow our data be be shown
+	 * in different group modes: group by package, or group by action.
+	 *
+	 * Rather than using two ExpandableListAdapter implementations
+	 * (where we would have to keep the applied filter options etc. in
+	 * sync), we instead use a single adapter and abstracting out the
+	 * code that is specific to a grouping mode.
+	 *
+	 */
+	static private abstract class GroupingImpl
+	{
+		public abstract int getGroupCount();
+		public abstract Object getGroup(int groupPosition);
+		public abstract long getGroupId(int groupPosition);
+		public abstract View getGroupView(int groupPosition,
+				boolean isExpanded, View convertView, ViewGroup parent);
+		public abstract int getChildrenCount(int groupPosition);
+		public abstract View getChildView(int groupPosition,
+				int childPosition, boolean isLastChild, View convertView,
+				ViewGroup parent);
+		public abstract long getChildId(int groupPosition, int childPosition);
+		public abstract Object getChild(int groupPosition, int childPosition);
+	}
+
+	/**
+	 * Group by Action.
+	 */
+	static private class GroupByActionImpl extends GroupingImpl {
+
+		MyExpandableListAdapter mParent;
+		ArrayList<String> mGroups;
+		MapOfIntents<String> mChildren;
+
+		GroupByActionImpl(ArrayList<IntentFilterInfo> data, MyExpandableListAdapter adapter) {
+			mParent = adapter;
+
+			mGroups = new ArrayList<String>();
+			mChildren = new MapOfIntents<String>();
+
+			for (IntentFilterInfo info : data)
+			{
+				if (adapter.checkAgainstFilters(info))
+				{
+					if (!mGroups.contains(info.action))
+						mGroups.add(info.action);
+					mChildren.put(info.action, info);
+				}
+			}
+
+			// Sort by order of actions in our known action database.
+			Collections.sort(mGroups, new Comparator<String>() {
+				public int compare(String action1, String action2) {
+					int idx1 = Utils.getHashMapIndex(Actions.MAP, action1);
+					int idx2 = Utils.getHashMapIndex(Actions.MAP, action2);
+					// Make sure that unknown intents (-1) are sorted at the bottom.
+					if (idx1 == -1 && idx2 == -1)
+						return action1.compareTo(action2);
+					else if (idx1 == -1)
+						return +1;
+					else if (idx2 == -1)
+						return -1;
+					else
+						return ((Integer)idx1).compareTo(idx2);
+				}
+			});
+			// XXX: Sort children, by priority
+		}
+
+		public View getGroupView(int groupPosition, boolean isExpanded,
+				View convertView, ViewGroup parent) {
+			final View v;
+			if (convertView == null)
+				v = mParent.mInflater.inflate(mParent.mGroupLayout, parent, false);
+			else
+				v = convertView;
+			final String action = (String) getGroup(groupPosition);
+			((TextView)v.findViewById(R.id.title)).setText(
+					mParent.mActivity.getIntentName(action));
+			((View)v.findViewById(R.id.show_info)).setOnClickListener(new OnClickListener() {
+				public void onClick(View _v) {
+					mParent.mActivity.showInfoToast(action);
+				}
+			});
+			return v;
+		}
+
+		public View getChildView(int groupPosition, int childPosition,
+				boolean isLastChild, View convertView, ViewGroup parent) {
+			View v;
+			if (convertView == null)
+				v = mParent.mInflater.inflate(mParent.mChildLayout, parent, false);
+			else
+				v = convertView;
+			IntentFilterInfo info = (IntentFilterInfo) getChild(
+					groupPosition, childPosition);
+			ComponentInfo comp = info.componentInfo;
+
+			// Set the icon
+			ImageView img = ((ImageView)v.findViewById(R.id.icon));
+		    img.setImageDrawable(comp.icon);
+
+			// Set the texts style
+			TextView title = ((TextView)v.findViewById(R.id.title));
+			if (comp.isSystem)
+				title.setTextColor(Color.YELLOW);
+			else
+				title.setTextColor(mParent.mActivity.getResources().getColor(android.R.color.primary_text_dark));
+			if (comp.isCurrentlyEnabled() != comp.defaultEnabled)
+				title.setTypeface(Typeface.DEFAULT_BOLD);
+			else
+				title.setTypeface(Typeface.DEFAULT);
+
+			// Build the text itself
+			SpannableStringBuilder fullTitle = new SpannableStringBuilder();
+			fullTitle.append(comp.getAppLabel());
+			if (comp.componentLabel != null && !comp.componentLabel.equals(""))
+				fullTitle.append(" ("+comp.componentLabel+")");
+			if (!comp.isCurrentlyEnabled())
+				fullTitle.setSpan(new StrikethroughSpan(), 0, fullTitle.length(), 0);
+			title.setText(fullTitle);
+			return v;
+		}
+
+		public int getGroupCount() {
+			return mGroups.size();
+		}
+
+		@Override
+		public Object getGroup(int groupPosition) {
+			return mGroups.get(groupPosition);
+		}
+
+		@Override
+		public long getGroupId(int groupPosition) {
+			return mGroups.get(groupPosition).hashCode();
+		}
+
+		@Override
+		public int getChildrenCount(int groupPosition) {
+			return mChildren.get(mGroups.get(groupPosition)).size();
+		}
+
+		@Override
+		public long getChildId(int groupPosition, int childPosition) {
+			return getChild(groupPosition, childPosition).hashCode();
+		}
+
+		@Override
+		public Object getChild(int groupPosition, int childPosition) {
+			return mChildren.get(mGroups.get(groupPosition)).get(childPosition);
+		}
+	}
+
+	/**
+	 * Group events by package.
+	 */
+	static private class GroupByPackageImpl extends GroupingImpl {
+
+		MyExpandableListAdapter mParent;
+		ArrayList<String> mGroups;
+		MapOfIntents<String> mChildren;
+
+		GroupByPackageImpl(ArrayList<IntentFilterInfo> data, MyExpandableListAdapter adapter) {
+			mParent = adapter;
+
+			mGroups = new ArrayList<String>();
+			mChildren = new MapOfIntents<String>();
+
+			for (IntentFilterInfo info : data)
+			{
+				if (adapter.checkAgainstFilters(info))
+				{
+					if (!mGroups.contains(info.componentInfo.packageName))
+						mGroups.add(info.componentInfo.packageName);
+					mChildren.put(info.componentInfo.packageName, info);
+				}
+			}
+
+			Collections.sort(mGroups, new Comparator<String>() {
+				@Override
+				public int compare(String object1, String object2) {
+					return object1.compareToIgnoreCase(object2);
+				}
+			});
+		}
+
+		public int getGroupCount() {
+			return mGroups.size();
+		}
+
+		public long getGroupId(int groupPosition) {
+			return mGroups.get(groupPosition).hashCode();
+		}
+
+		public Object getGroup(int groupPosition) {
+			return mGroups.get(groupPosition);
+		}
+
+		public int getChildrenCount(int groupPosition) {
+			return mChildren.get(mGroups.get(groupPosition)).size();
+		}
+
+		public long getChildId(int groupPosition, int childPosition) {
+			return getChild(groupPosition, childPosition).hashCode();
+		}
+
+		public Object getChild(int groupPosition, int childPosition) {
+			return mChildren.get(mGroups.get(groupPosition)).get(childPosition);
+		}
+
+		@Override
+		public View getGroupView(int groupPosition, boolean isExpanded,
+				View convertView, ViewGroup parent) {
+			final View v;
+			if (convertView == null)
+				v = mParent.mInflater.inflate(mParent.mGroupLayout, parent, false);
+			else
+				v = convertView;
+			final String p = (String) getGroup(groupPosition);
+			((TextView)v.findViewById(R.id.title)).setText(p);
+			return v;
+		}
+
+		@Override
+		public View getChildView(int groupPosition, int childPosition,
+				boolean isLastChild, View convertView, ViewGroup parent) {
+			View v;
+			if (convertView == null)
+				v = mParent.mInflater.inflate(mParent.mChildLayout, parent, false);
+			else
+				v = convertView;
+			IntentFilterInfo info = (IntentFilterInfo) getChild(
+					groupPosition, childPosition);
+			// Set the texts style
+			TextView title = ((TextView)v.findViewById(R.id.title));
+			title.setText(info.action);
+			return v;
+		}
+	}
 
 }

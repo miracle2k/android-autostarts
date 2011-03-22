@@ -2,7 +2,7 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
-import com.elsdoerfer.android.autostarts.ReceiverReader.ActionWithReceivers;
+import com.elsdoerfer.android.autostarts.ComponentInfo.IntentFilterInfo;
 import com.elsdoerfer.android.autostarts.ReceiverReader.OnLoadProgressListener;
 
 
@@ -11,7 +11,8 @@ import com.elsdoerfer.android.autostarts.ReceiverReader.OnLoadProgressListener;
 // the list itself cares when notifyDatasetChanged() is called, but
 // at least we don't need to re-filter the whole list on every progress
 // report, but can only apply the filter to what comes in new.
-class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object, ArrayList<ActionWithReceivers>> {
+class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object,
+    ArrayList<IntentFilterInfo>> {
 
 	Integer mCurrentProgress = 0;
 
@@ -37,11 +38,10 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object, ArrayList
 	}
 
 	@Override
-	protected ArrayList<ActionWithReceivers> doInBackground(
-			Object... params) {
+	protected ArrayList<IntentFilterInfo> doInBackground(Object... params) {
 		ReceiverReader reader = new ReceiverReader(mWrapped, new OnLoadProgressListener() {
 			@Override
-			public void onProgress(ArrayList<ActionWithReceivers> currentState, float progress) {
+			public void onProgress(ArrayList<IntentFilterInfo> currentState, float progress) {
 				publishProgress(currentState, progress);
 			}
 		});
@@ -49,8 +49,8 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object, ArrayList
 	}
 
 	@Override
-	protected void processPostExecute(ArrayList<ActionWithReceivers> result) {
-		mWrapped.mReceiversByIntent = result;
+	protected void processPostExecute(ArrayList<IntentFilterInfo> result) {
+		mWrapped.mEvents = result;
 		mWrapped.apply();
 
 		mWrapped.setProgressBarIndeterminateVisibility(false);
@@ -65,7 +65,7 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object, ArrayList
 	protected void onProgressUpdate(Object... values) {
 		super.onProgressUpdate(values);
 		if (mWrapped != null) {
-			mWrapped.mReceiversByIntent = (ArrayList<ActionWithReceivers>)values[0];
+			mWrapped.mEvents = (ArrayList<IntentFilterInfo>)values[0];
 			mWrapped.apply();
 			mCurrentProgress = (int)(((Float)values[1])*10000);
 			mWrapped.setProgress(mCurrentProgress);

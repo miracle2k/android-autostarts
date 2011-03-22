@@ -44,8 +44,6 @@ Confirm (file a report), and try to find a workaround.
 
 Add a dialog referring to our other projects / apps.
 
-Support grouping by application.
-
 Now that we may have quite a long list, depending on installed apps,
 a sorting options might also make sense. We could sort alphabetically,
 by the number of components in a group, or by "importance" of a receiver.

@@ -6,6 +6,7 @@
       is useful when compiling a custom Android.
     * Easier scrolling via a draggable thumb, as known from the Contacts
       app.
+    * Fixed "Application Info" option on Gingerbread.
     * Russian translation (Andrew Ivanchenko).
 
 1.6.2 (2010-11-26)

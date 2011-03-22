@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -347,13 +348,25 @@ public class ListActivity extends ExpandableListActivity {
 							}
 							break;
 						case 1:
+							String packageName =
+								mLastSelectedEvent.componentInfo.packageInfo.packageName;
 							Intent infoIntent = new Intent();
-							// From android-cookbook/GroupHome - it notes:
-							// "we shouldn't rely on this entrance into the settings app"
-							infoIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
-							infoIntent.putExtra("com.android.settings.ApplicationPkgName",
-									mLastSelectedEvent.componentInfo.packageInfo.packageName);
-							startActivity(infoIntent);
+							infoIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+							infoIntent.setData(Uri.parse("package:"+packageName));
+							try {
+								startActivity(infoIntent);
+							}
+							catch (ActivityNotFoundException e) {
+								// 2.2 and below.
+								infoIntent = new Intent();
+								infoIntent.setClassName("com.android.settings",
+										"com.android.settings.InstalledAppDetails");
+								infoIntent.putExtra("com.android.settings.ApplicationPkgName",
+										packageName);
+								try {
+									startActivity(infoIntent);
+								} catch (ActivityNotFoundException e2) {}
+							}
 							break;
 						case 2:
 							try {

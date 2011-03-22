@@ -1,25 +1,21 @@
 # Translations template for PROJECT.
-# Copyright (C) 2010 ORGANIZATION
+# Copyright (C) 2011 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2010-03-22 15:24+0100\n"
+"POT-Creation-Date: 2011-03-22 21:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 1.0dev-r0\n"
-
-msgctxt "app_name"
-msgid "Autostarts"
-msgstr ""
+"Generated-By: Babel 1.0dev\n"
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
@@ -55,6 +51,14 @@ msgstr ""
 
 msgctxt "view_options"
 msgid "View"
+msgstr ""
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr ""
+
+msgctxt "group_by_action"
+msgid "Group by event"
 msgstr ""
 
 msgctxt "hide_sys_apps"
@@ -101,24 +105,6 @@ msgctxt "info"
 msgid "Info"
 msgstr ""
 
-msgctxt "usb_debugging_note"
-msgid ""
-"Please note: If you have trouble with Autostarts hanging while trying to "
-"disable or enable an application, please be sure to activate the \"USB "
-"Debugging\" option in your device settings under \"Applications -&gt; "
-"Development\".\n"
-"\n"
-"It's a bug in the Superuser Whitelist application that will hopefully be "
-"fixed in a future version."
-msgstr ""
-
-msgctxt "submitting_exceptions"
-msgid ""
-"I noticed that the application previously crashed; I am sending some "
-"information that will help us fix the problem. <b>No personal data "
-"whatsoever is included.</b> Hold on, this will only take a few seconds..."
-msgstr ""
-
 msgctxt "confirm_sys_disable"
 msgid ""
 "You are about to disable a system component. This could potentially "
@@ -163,12 +149,6 @@ msgid ""
 "may experience unintended side effects. For the most part though, you can"
 " just give things a try, and enable the component again should the "
 "application break. \n"
-"\n"
-"<b>Autostarts is freezing when I try to disable something.</b>\n"
-"\n"
-"This is a bug in the Şuperuser Whitelist app that comes with most ROMs. "
-"You need to activate the \"USB Debugging\" option in your device settings"
-" under \"Applications -&gt; Development\". \n"
 "\n"
 "<b>When I activate the show changed only filter, why do I see stuff that "
 "I never actually modified?</b>\n"
@@ -1309,5 +1289,83 @@ msgctxt "act_wifi_state_changed_detail"
 msgid ""
 "The state of the Wi-Fi chip has changed, for example when it is enabled "
 "or disabled."
+msgstr ""
+
+msgctxt "act_external_apps_available"
+msgid "Externals apps available"
+msgstr ""
+
+msgctxt "act_external_apps_available_detail"
+msgid "Externals apps (e.g. stored on SD card) have become available."
+msgstr ""
+
+msgctxt "act_external_apps_unavailable"
+msgid "Externals apps unavailable"
+msgstr ""
+
+msgctxt "act_external_apps_unavailable_detail"
+msgid "Externals apps (e.g. stored on SD card) are no longer available."
+msgstr ""
+
+msgctxt "act_password_changed"
+msgid "Password changed"
+msgstr ""
+
+msgctxt "act_password_changed_detail"
+msgid "Sent to a device admin when the user changes their password."
+msgstr ""
+
+msgctxt "act_password_failed"
+msgid "Password failed"
+msgstr ""
+
+msgctxt "act_password_failed_detail"
+msgid ""
+"Sent to a device admin when the user has failed at attempted to enter the"
+" password."
+msgstr ""
+
+msgctxt "act_password_succeeded"
+msgid "Password succeeded"
+msgstr ""
+
+msgctxt "act_password_succeeded_detail"
+msgid ""
+"Sent to a device admin when the user has successfully entered their "
+"password, after failing one or more times."
+msgstr ""
+
+msgctxt "act_device_admin_disabled"
+msgid "Device Admin Disabled"
+msgstr ""
+
+msgctxt "act_device_admin_disabled_detail"
+msgid "Sent to a device admin when it has been disabled."
+msgstr ""
+
+msgctxt "act_device_admin_disable_req"
+msgid "Device Admin Disable Request"
+msgstr ""
+
+msgctxt "act_device_admin_disable_req_detail"
+msgid "Sent to a device admin when it is about to be disabled."
+msgstr ""
+
+msgctxt "act_device_admin_enabled"
+msgid "Device Admin Enabled"
+msgstr ""
+
+msgctxt "act_device_admin_enabled_detail"
+msgid "Sent to a device admin when it has been enabled."
+msgstr ""
+
+msgctxt "act_login_accounts_changed"
+msgid "Accounts changed"
+msgstr ""
+
+msgctxt "act_login_accounts_changed_detail"
+msgid ""
+"Accounts have been added, or removed, or an account's credentials are "
+"changed."
 msgstr ""
 

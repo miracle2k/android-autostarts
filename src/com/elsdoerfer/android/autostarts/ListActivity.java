@@ -160,8 +160,45 @@ public class ListActivity extends ExpandableListActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		// Storing the last selected event (needed for dialog persistence)
+		// is problematic because saving and loading it as a parcable will
+		// break the identify of the ComponentInfo/PackageInfo relations.
+		// In other words, the attached ComponentInfo will not be the same
+		// object as the one we use to render the list items, so changing
+		// the "disabledState" of a mLastSelectedEvent restored in this way
+		// will not affect the GUI display. There are different approaches
+		// can take to solve this (TODO):
+		//   - A complicated scheme where IntentFilterInfo stores the
+		//     package and component names as strings, and upon restore
+		//     from a bundle will look up the actual ComponentInfo parent
+		//     as soon as it becomes available. A kind of delayed-loaded
+		//     weak reference.
+		//   - Since we're only talking about a single property that is
+		//     modified by use (disabled state), this data could be stored
+		//     by the Activity as a kind of "overlay", as a list of changes
+		//     made by the user. We then would no longer need the
+		//     ComponentInfo/PackageInfo relations to have a shared identity.
+		//   - The ToggleTask, rather than modifing the ComponentInfo
+		//     object, could have the Activity's callback method deal with
+		//     the state change. If the component is already loaded, it's
+		//     state is changed, otherwise, we can assume it will be loaded
+		//     correctly (we can assume? would there be race conditions)?
+		//   - We could simply store the list of events globally, bypassing
+		//     all these problems.
 		outState.putBoolean("change-do-enable", mLastChangeRequestDoEnable);
 		outState.putParcelable("selected-event", mLastSelectedEvent);
+		// TODO: Note that we do not store the event list. In cases where
+		// onRetainNonConfigurationInstance() is not available, we will
+		// need to reload all events. It would not be *that* hard to store
+		// the events list (of course, this only works if loading is
+		// finished): We'd just store a list of PackageInfo parcelables,
+		// with all ComponentInfo and IntentFilterInfo children, and upon
+		// load would simply have to connect each child with it's parent
+		// again. However, in the hope that the new Loader API will allow
+		// us to avoid all these problems, we don't bother to implement
+		// this now.
+		// In case the Loader API should prove to be insufficient, I think
+		// we would want to switch to a global state.
 		super.onSaveInstanceState(outState);
 	}
 

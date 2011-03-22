@@ -44,6 +44,7 @@ public class IntentFilterInfo implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		this.componentInfo.writeToParcel(dest, flags);
 		dest.writeString(action);
 		dest.writeInt(priority);
 	}
@@ -61,6 +62,7 @@ public class IntentFilterInfo implements Parcelable {
 	};
 
 	private IntentFilterInfo(Parcel in) {
+		ComponentInfo.CREATOR.createFromParcel(in);
 		action = in.readString();
 		priority = in.readInt();
 	}

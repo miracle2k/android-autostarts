@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="act_airplane_mode_changed">Airplane mode changed</string>
+    <string name="act_airplane_mode_changed">Airplane mode changed</string>
     <string name="act_airplane_mode_changed_detail">Airplane mode was switched on or off.</string>
     <string name="act_battery_changed">Battery changed</string>
     <string name="act_battery_changed_detail">The charging state, or the charge level of the battery has changed.</string>

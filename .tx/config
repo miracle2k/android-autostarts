@@ -11,3 +11,8 @@ file_filter = locale/actions-<lang>.po
 source_file = locale/actions.pot
 source_lang = en
 
+[android-autostarts.help]
+file_filter = locale/help-<lang>.po
+source_file = locale/help.pot
+source_lang = en
+

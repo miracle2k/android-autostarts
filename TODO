@@ -1,12 +1,12 @@
 Investigate what we can do about activity intent filters. For example,
 android.intent.action.SEARCH_LONG_PRESS seems something that might just
-as well appear in our list. Are there others? Should they be displayed 
+as well appear in our list. Are there others? Should they be displayed
 separately? Will only of all registered activities be called if there
 are more than one (as opposed to the receiver behavior)?
 
-Loading on a G1 with *lots* of apps is terribly slow now with the new 
-backend (> 1 minute). We could employ caching to improve this, based 
-on the package version number. Only when that one changes do we 
+Loading on a G1 with *lots* of apps is terribly slow now with the new
+backend (> 1 minute). We could employ caching to improve this, based
+on the package version number. Only when that one changes do we
 refresh the cache. The "reload" feature would then act as a refresh
 of the full cache.
 
@@ -17,7 +17,7 @@ broadcast receiver ourselves to implement this.
 
 The notification-feature is a good opportunity to implement some kind
 of hashing, where we can determine whether I package is new or has changed
-very quickly, instead of having to reparse it again everytime, which 
+very quickly, instead of having to reparse it again everytime, which
 turns out to be a costly process (our new backend is considerably slower
 then the old one).
 
@@ -37,8 +37,6 @@ to fix this would be to simply remove those intents from the "known" list.
 Alternatively, we could show a hint indicating that does events will
 not actually be executed; it'll even be helpful for developers to debug.
 
-Fix the "USB Debugging" hang issue. See ToggleTask.java for more info.
-
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we
 don't even really touch those, we need to assume it's a bug in Android.
@@ -49,7 +47,7 @@ Add a dialog referring to our other projects / apps.
 Support grouping by application.
 
 Now that we may have quite a long list, depending on installed apps,
-a sorting options might also make sense. We could sort alphabetically, 
+a sorting options might also make sense. We could sort alphabetically,
 by the number of components in a group, or by "importance" of a receiver.
 The latter would be a number determined by us, and would be an attempt
 to maintain the current order, i.e. BOOT would be on top.
@@ -107,6 +105,6 @@ outside of our app is changed.
 Add social features: People can write comments about individual
 components, and what effects disabling them had. This would need to include
 information about the version etc. We probably would want to work with
-the OpenIntents.org database here; we could even act as an automated 
+the OpenIntents.org database here; we could even act as an automated
 data source for OpenIntents by submitting which applications hook into
 which broadcast intents.

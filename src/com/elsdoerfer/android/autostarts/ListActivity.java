@@ -46,6 +46,7 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int MENU_EXPAND_COLLAPSE = 2;
 	static final private int MENU_RELOAD = 3;
 	static final private int MENU_HELP = 4;
+	static final private int MENU_GROUPING = 5;
 
 	static final private int DIALOG_RECEIVER_DETAIL = 1;
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
@@ -56,9 +57,11 @@ public class ListActivity extends ExpandableListActivity {
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
 	static final private String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
 	static final private String PREF_FILTER_UNKNOWN = "filter-unknown-events";
+	static final private String PREF_GROUPING = "grouping";
 
 
 	private MenuItem mExpandCollapseToggleItem;
+	private MenuItem mGroupingModeItem;
 	MenuItem mReloadItem;
 	private Toast mInfoToast;
 
@@ -101,6 +104,9 @@ public class ListActivity extends ExpandableListActivity {
 				mPrefs.getBoolean(PREF_FILTER_SHOW_CHANGED, false));
 		mListAdapter.setFilterUnknown(
 				mPrefs.getBoolean(PREF_FILTER_UNKNOWN, true));
+		mListAdapter.setGrouping(mPrefs.getString(PREF_GROUPING, "action").equals("package")
+				? MyExpandableListAdapter.GROUP_BY_PACKAGE
+				: MyExpandableListAdapter.GROUP_BY_ACTION);
 
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
@@ -186,6 +192,9 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
+		mGroupingModeItem =
+			menu.add(0, MENU_GROUPING, 0, R.string.group_by_action).
+			    setIcon(R.drawable.ic_menu_windows);
 		menu.add(0, MENU_VIEW, 0, R.string.view_options).
 			setIcon(R.drawable.ic_menu_view);
 		mExpandCollapseToggleItem =
@@ -201,6 +210,11 @@ public class ListActivity extends ExpandableListActivity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
+		// Proper title for the grouping mode toggle item.
+		if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION)
+			mGroupingModeItem.setTitle(R.string.group_by_package);
+		else
+			mGroupingModeItem.setTitle(R.string.group_by_action);
 		// Decide whether we want to offer the option to collapse, or
 		// expand, depending on the current group expansion count.
 		ExpandableListView lv = getExpandableListView();
@@ -223,9 +237,22 @@ public class ListActivity extends ExpandableListActivity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case MENU_GROUPING:
+			String groupingPref = "";
+			if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION) {
+				mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_PACKAGE);
+				groupingPref = "package";
+			}
+			else {
+				mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_ACTION);
+				groupingPref = "action";
+			}
+			mListAdapter.notifyDataSetChanged();
+			mPrefs.edit().putString(PREF_GROUPING, groupingPref).commit();
+			return true;
+
 		case MENU_VIEW:
-			//showDialog(DIALOG_VIEW_OPTIONS);
-			mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_PACKAGE);
+			showDialog(DIALOG_VIEW_OPTIONS);
 			mListAdapter.notifyDataSetChanged();
 			return true;
 

@@ -8,6 +8,7 @@
       app.
     * Fixed "Application Info" option on Gingerbread.
     * Russian translation (Andrew Ivanchenko).
+    * Use the new Honecomb-theme on 3.0 devices.
 
 1.6.2 (2010-11-26)
     * Fixed: Occasionally, apps could not be disabled, and an "you might

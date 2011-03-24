@@ -26,7 +26,7 @@ def build():
 
      print "Building the APK."
      p = AndroidProject('AndroidManifest.xml', 'Android-Autostarts',
-                        sdk_dir=env.sdk_dir, target='8')
+                        sdk_dir=env.sdk_dir, target='10')
      apk = p.build(env.raw_apk)
      password = raw_input('Enter keystore password:')
      if not password:

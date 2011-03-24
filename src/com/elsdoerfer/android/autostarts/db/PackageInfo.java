@@ -45,7 +45,12 @@ public class PackageInfo implements Parcelable {
 		dest.writeString(packageName);
 		dest.writeString(packageLabel);
 		dest.writeInt(isSystem ? 1 : 0);
-		// TODO: deal with icon!
+		// TODO: We don't currently parcel the icon. However,
+		// due to how we use the ability to save to parcel at
+		// this time (to remember the last selected receiver for an
+		// in-progress toggle action), the icon isn't really needed.
+		// Ultimately, we want a different fix for the whole
+		// problem (see other TODOs).
 	}
 
 	public static final Parcelable.Creator<PackageInfo> CREATOR

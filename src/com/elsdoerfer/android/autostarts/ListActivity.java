@@ -11,18 +11,16 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Html;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -564,24 +562,12 @@ public class ListActivity extends ExpandableListActivity {
 			}
 		}
 
-		// XXX: Those need to be translated!
-		int t = 0;
-		SpannableStringBuilder b = new SpannableStringBuilder();
-		b.append("Receiver ");
-		t = b.length();
-		b.append(mLastSelectedEvent.componentInfo.componentName);
-		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
-		b.append(" handles action ");
-		t = b.length();
-		b.append((String)(mLastSelectedEvent.action));
-		b.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), t, b.length(), 0);
-		b.append(" with priority ");
-		t = b.length();
-		b.append(Integer.toString(mLastSelectedEvent.priority));
-		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
-		b.append(".");
-
-		((TextView)view.findViewById(R.id.message)).setText(b);
+		String formattedString = String.format(
+				getString(R.string.receiver_info),
+				mLastSelectedEvent.componentInfo.componentName,
+				mLastSelectedEvent.action, mLastSelectedEvent.priority);
+		((TextView)view.findViewById(R.id.message)).setText(
+				Html.fromHtml(formattedString));
 	}
 
 	@Override

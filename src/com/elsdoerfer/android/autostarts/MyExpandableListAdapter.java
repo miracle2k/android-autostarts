@@ -349,20 +349,19 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			// Sort by order of actions in our known action database.
 			Collections.sort(mGroups, new Comparator<String>() {
 				public int compare(String action1, String action2) {
-					int idx1 = Utils.getHashMapIndex(Actions.MAP, action1);
-					int idx2 = Utils.getHashMapIndex(Actions.MAP, action2);
-					// Make sure that unknown intents (-1) are sorted at the bottom.
-					if (idx1 == -1 && idx2 == -1)
-						return action1.compareTo(action2);
-					else if (idx1 == -1)
-						return +1;
-					else if (idx2 == -1)
-						return -1;
-					else
-						return ((Integer)idx1).compareTo(idx2);
+					return Actions.compare(action1, action2);
 				}
 			});
-			// XXX: Sort children, by priority
+			// Sort children by descending priority
+			for (ArrayList<IntentFilterInfo> group : mChildren.values()) {
+				Collections.sort(group, new Comparator<IntentFilterInfo>() {
+					@Override
+					public int compare(IntentFilterInfo object1,
+							IntentFilterInfo object2) {
+						return -Float.compare(object1.priority, object2.priority);
+					}
+				});
+			}
 		}
 
 		public View getGroupView(int groupPosition, boolean isExpanded,
@@ -457,12 +456,23 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 				}
 			}
 
+			// Sort groups alphabetically
 			Collections.sort(mGroups, new Comparator<PackageInfo>() {
 				@Override
 				public int compare(PackageInfo object1, PackageInfo object2) {
 					return object1.getLabel().compareToIgnoreCase(object2.getLabel());
 				}
 			});
+			// Sort children by our action ordering.
+			for (ArrayList<IntentFilterInfo> group : mChildren.values()) {
+				Collections.sort(group, new Comparator<IntentFilterInfo>() {
+					@Override
+					public int compare(IntentFilterInfo object1,
+							IntentFilterInfo object2) {
+						return Actions.compare(object1.action, object2.action);
+					}
+				});
+			}
 		}
 
 		public int getGroupCount() {

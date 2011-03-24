@@ -210,4 +210,21 @@ final class Actions {
 		for (Object[] action : Actions.ALL)
 			MAP.put((String)action[0], action);
 	}
+
+	/**
+	 * Helper to sort actions based on the order in our map.
+	 */
+	static public int compare(String action1, String action2) {
+		int idx1 = Utils.getHashMapIndex(Actions.MAP, action1);
+		int idx2 = Utils.getHashMapIndex(Actions.MAP, action2);
+		// Make sure that unknown intents (-1) are sorted at the bottom.
+		if (idx1 == -1 && idx2 == -1)
+			return action1.compareTo(action2);
+		else if (idx1 == -1)
+			return +1;
+		else if (idx2 == -1)
+			return -1;
+		else
+			return ((Integer)idx1).compareTo(idx2);
+	}
 }

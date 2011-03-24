@@ -79,6 +79,7 @@ public class ReceiverReader {
 
 	// Parser state flags
 	android.content.pm.PackageInfo mAndroidPackage = null;
+	String mCurrentApplicationLabel = null;
 	PackageInfo mCurrentPackage = null;
 	ParserState mCurrentState = ParserState.Unknown;
 	ComponentInfo mCurrentComponent = null;
@@ -167,14 +168,7 @@ public class ReceiverReader {
 			return;
 
 		mAndroidPackage = p;
-		mCurrentPackage = new PackageInfo(p);
-		mCurrentPackage.isSystem = isSystemApp(p);
-		// TODO: Traceview says this takes 9% of the total load
-		// time. We could move it to the drawing code (load only
-		// once the user actually sees an icon), but that would
-		// slow down the list view usage. One option possibly would
-		// be to load it on-demand, but do that again in a thread.
-		mCurrentPackage.icon = p.applicationInfo.loadIcon(mPackageManager);
+		mCurrentPackage = null;
 		mCurrentXML = xml;
 		mCurrentResources = resources;
 
@@ -239,12 +233,13 @@ public class ReceiverReader {
 		if (mCurrentState != ParserState.InManifest)
 			return;
 		mCurrentState = ParserState.InApplication;
-		mCurrentPackage.packageLabel = getAttr("label");
+		mCurrentApplicationLabel = getAttr("label");
 	}
 
 	void endApplication() {
 		if (mCurrentState == ParserState.InApplication) {
 			mCurrentState = ParserState.InManifest;
+			mCurrentApplicationLabel = null;
 		}
 	}
 
@@ -262,16 +257,29 @@ public class ReceiverReader {
 		// absolute already.
 		String componentName = getAttr("name");
 		if (componentName == null) {
-			Log.e(TAG, "A receiver in "+mCurrentPackage.packageName+" has no name.");
+			Log.e(TAG, "A receiver in "+mAndroidPackage.packageName+" has no name.");
 			return;
 		}
 		else if (componentName.startsWith("."))
-			componentName = mCurrentPackage.packageName + componentName;
+			componentName = mAndroidPackage.packageName + componentName;
 		else if (!componentName.contains("."))
-			componentName = mCurrentPackage.packageName + "." + componentName;
+			componentName = mAndroidPackage.packageName + "." + componentName;
 
-		// XXX: We can speed up loading by moving the code that creates
-		// the PackageInfo objects etc. here.
+		// Note that we specifically delay creating the package object
+		// until we are sure there are actually receivers in this package.
+		if (mCurrentPackage == null) {
+			mCurrentPackage = new PackageInfo(mAndroidPackage);
+			mCurrentPackage.isSystem = isSystemApp(mAndroidPackage);
+			mCurrentPackage.packageLabel = mCurrentApplicationLabel;
+			// TODO: Traceview says this takes 9% of the total load
+			// time. We could move it to the drawing code (load only
+			// once the user actually sees an icon), but that would
+			// slow down the list view usage. One option possibly would
+			// be to load it on-demand, but do that again in a thread.
+			mCurrentPackage.icon =
+				mAndroidPackage.applicationInfo.loadIcon(mPackageManager);
+		}
+
 		mCurrentComponent = new ComponentInfo();
 		mCurrentComponent.packageInfo = mCurrentPackage;
 		mCurrentComponent.componentName = componentName;

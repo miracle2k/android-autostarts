@@ -52,6 +52,7 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
 	static final private int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
+	static final int DIALOG_STATE_CHANGE_FAILED = 7;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -432,6 +433,15 @@ public class ListActivity extends ExpandableListActivity {
 				})
 				.setNegativeButton(android.R.string.cancel, null)
 				.create();
+		}
+
+		else if (id == DIALOG_STATE_CHANGE_FAILED)
+		{
+			return new AlertDialog.Builder(ListActivity.this)
+				.setMessage(R.string.state_change_failed)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(R.string.error)
+				.setPositiveButton(android.R.string.ok, null).create();
 		}
 
 		else if (id == DIALOG_VIEW_OPTIONS)

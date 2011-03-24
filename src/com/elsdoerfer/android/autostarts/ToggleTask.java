@@ -1,9 +1,6 @@
 package com.elsdoerfer.android.autostarts;
 
-import com.elsdoerfer.android.autostarts.db.ComponentInfo;
-
 import android.Manifest.permission;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -11,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+
+import com.elsdoerfer.android.autostarts.db.ComponentInfo;
 
 /**
 How we toggle a component's states. Beware: This is a long comment.
@@ -121,14 +120,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 		if (mPg != null)
 			mPg.cancel();
 
-		if (!result) {
-			// TODO: Use showDialog() so it's managed by Activity.
-			new AlertDialog.Builder(mWrapped)
-				.setMessage(R.string.state_change_failed)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setTitle(R.string.error)
-				.setPositiveButton(android.R.string.ok, null).show();
-		}
+		if (!result)
+			mWrapped.showDialog(ListActivity.DIALOG_STATE_CHANGE_FAILED);
 		else {
 			// We can reasonably expect that the component state
 			// changed, so refresh the list.

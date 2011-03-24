@@ -19,6 +19,8 @@ logging.getLogger('py-androidbuild').addHandler(logging.StreamHandler())
 
 def locales():
      local('tx pull -a')
+     # Workaround for Android not supporting this language (no ISO-639-2 support?)
+     local('rm locale/*-ast.po')
      local('a2po import')
 
 def build():

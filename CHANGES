@@ -1,4 +1,4 @@
-1.x.x (unreleased)
+1.7.0 (2011-03-24)
     * Added a new "Group by application" view.
     * It's no longer necessary to manually keep ADB Debugging enabled.
     * If signed with the system certificate, use Android's official APIs

@@ -7,7 +7,7 @@ from fabric.main import load_settings
 from android.build import AndroidProject, get_platform, ProgramFailedError
 
 
-env.raw_apk = 'bin/Android-Autostarts-release.apk'
+env.raw_apk = 'bin/Android-Autostarts-Full.apk'
 settings = load_settings('.fabricrc')
 if not settings:
      raise RuntimeError('.fabricrc is needed')
@@ -74,3 +74,6 @@ def make():
 
 def deploy():
     make()
+
+    local('scp -P 2211 %s %s' % (env.target_apk, env.deploy_target))
+

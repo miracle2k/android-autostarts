@@ -261,8 +261,10 @@ public class ReceiverReader {
 		// package name. Otherwise, we consider the component name to be
 		// absolute already.
 		String componentName = getAttr("name");
-		if (componentName == null)
+		if (componentName == null) {
 			Log.e(TAG, "A receiver in "+mCurrentPackage.packageName+" has no name.");
+			return;
+		}
 		else if (componentName.startsWith("."))
 			componentName = mCurrentPackage.packageName + componentName;
 		else if (!componentName.contains("."))

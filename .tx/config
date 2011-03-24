@@ -1,9 +1,6 @@
-[main]
-host = http://www.transifex.net
-
-[android-autostarts.strings]
-file_filter = locale/strings-<lang>.po
-source_file = locale/strings.pot
+[android-autostarts.help]
+file_filter = locale/help-<lang>.po
+source_file = locale/help.pot
 source_lang = en
 
 [android-autostarts.actions]
@@ -11,8 +8,11 @@ file_filter = locale/actions-<lang>.po
 source_file = locale/actions.pot
 source_lang = en
 
-[android-autostarts.help]
-file_filter = locale/help-<lang>.po
-source_file = locale/help.pot
+[android-autostarts.strings]
+file_filter = locale/strings-<lang>.po
+source_file = locale/strings.pot
 source_lang = en
+
+[main]
+host = http://www.transifex.net
 

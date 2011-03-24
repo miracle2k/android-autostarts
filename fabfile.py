@@ -4,7 +4,7 @@ import logging
 
 from fabric.api import local, env
 from fabric.main import load_settings
-from android.build import AndroidProject, get_platform
+from android.build import AndroidProject, get_platform, ProgramFailedError
 
 
 env.raw_apk = 'bin/Android-Autostarts-release.apk'
@@ -25,16 +25,19 @@ def build():
      locales()
 
      print "Building the APK."
-     p = AndroidProject('AndroidManifest.xml', 'Android-Autostarts',
-                        sdk_dir=env.sdk_dir, target='10')
-     apk = p.build(env.raw_apk)
-     password = raw_input('Enter keystore password:')
-     if not password:
-          print "Not signing the package."
-     else:
-          apk.sign(env.keystore, env.keyalias, env.keyalias, password,)
-     apk.align()
-
+     try:
+         p = AndroidProject('AndroidManifest.xml', 'Android-Autostarts',
+                            sdk_dir=env.sdk_dir, target='10')
+         apk = p.build(env.raw_apk)
+         password = raw_input('Enter keystore password:')
+         if not password:
+              print "Not signing the package."
+         else:
+              apk.sign(env.keystore, env.keyalias, env.keyalias, password,)
+         apk.align()
+     except ProgramFailedError, e:
+         print e
+         print e.stdout
 
 def version():
     build()

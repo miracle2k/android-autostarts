@@ -9,7 +9,7 @@ from android.build import AndroidProject, get_platform, ProgramFailedError
 
 env.raw_apk = 'bin/Android-Autostarts-release.apk'
 settings = load_settings('.fabricrc')
-if  not settings:
+if not settings:
      raise RuntimeError('.fabricrc is needed')
 env.update(settings)
 
@@ -35,7 +35,7 @@ def build():
          if not password:
               print "Not signing the package."
          else:
-              apk.sign(env.keystore, env.keyalias, env.keyalias, password,)
+              apk.sign(env.keystore, env.keyalias, password,)
          apk.align()
      except ProgramFailedError, e:
          print e

@@ -13,9 +13,10 @@ import android.telephony.TelephonyManager;
  * The broadcast actions/intents we know about. This allows us to show
  * some basic information and a prettyfied title to the user.
  *
- * TODO: Should this be versioned? I.e. if running an application using
- * new events on an old version of Android, we could hide those events,
- * or mark them as not active.
+ * TODO: This is becoming hard to  manage. Convert this to an XML file,
+ * with additional information like version added etc. When running an
+ * application using new events on an old version of Android, we could
+ * hide those events, or mark them as not active.
  */
 final class Actions {
 
@@ -82,7 +83,21 @@ final class Actions {
 		{ "android.intent.action.ANR", R.string.act_anr, R.string.act_anr_detail },
 		{ "android.intent.action.EVENT_REMINDER", R.string.act_event_reminder, R.string.act_event_reminder_detail },
 		{ "android.accounts.LOGIN_ACCOUNTS_CHANGED", R.string.act_login_accounts_changed, R.string.act_login_accounts_changed_detail },
-
+		{ "android.intent.action.STATISTICS_REPORT", R.string.act_statistics_report, R.string.act_statistics_report_detail },
+		{ "android.intent.action.MASTER_CLEAR", R.string.act_master_clear, R.string.act_master_clear_detail },
+		{ "com.android.sync.SYNC_CONN_STATUS_CHANGED", R.string.act_sync_connection_setting_changed, R.string.act_sync_connection_setting_changed_detail }, // SYNC_CONNECTION_SETTING_CHANGED_INTENT
+		{ "android.bluetooth.headset.action.STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },
+		// New in API Level 11:
+		{ "android.intent.action.PROXY_CHANGE", R.string.act_proxy_changed, R.string.act_proxy_changed_detail },
+		// Added in API Level 4:
+		{ "android.search.action.SETTINGS_CHANGED", R.string.act_search_settings_changed, R.string.act_search_settings_changed_detail },
+		{ "android.search.action.SEARCHABLES_CHANGED", R.string.act_searchables_changed, R.string.act_searchables_changed_detail },
+		// Added in API level 9:
+		{ "android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED", R.string.act_download_notification_clicked, R.string.act_download_notification_clicked_detail },
+		{ "android.intent.action.DOWNLOAD_COMPLETED", R.string.act_download_completed, R.string.act_download_completed_detail },
+		{ "android.location.PROVIDERS_CHANGED", R.string.act_location_providers_changed, R.string.act_location_providers_changed_detail },
+		{ "android.media.action.OPEN_AUDIO_EFFECT_CONTROL_SESSION", R.string.act_open_audio_effect_session, R.string.act_open_audio_effect_session_detail },
+		{ "android.media.action.CLOSE_AUDIO_EFFECT_CONTROL_SESSION", R.string.act_close_audio_effect_session, R.string.act_close_audio_effect_session_detail },
 		// New in API Level 8:
 		{ Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE, R.string.act_external_apps_available, R.string.act_external_apps_available_detail },
 		{ Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE, R.string.act_external_apps_unavailable, R.string.act_external_apps_unavailable_detail },
@@ -92,6 +107,8 @@ final class Actions {
 		{ "android.app.action.DEVICE_ADMIN_DISABLED", R.string.act_device_admin_disabled, R.string.act_device_admin_disabled_detail },
 		{ "android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED", R.string.act_device_admin_disable_req, R.string.act_device_admin_disable_req_detail },
 		{ "android.app.action.DEVICE_ADMIN_ENABLED", R.string.act_device_admin_enabled, R.string.act_device_admin_enabled_detail },
+		// New in API Level 11:
+		{ "android.app.action.ACTION_PASSWORD_EXPIRING", R.string.act_password_expiring, R.string.act_password_expiring_detail },
 
 		// com.android.launcher.*
 		{ "com.android.launcher.action.INSTALL_SHORTCUT", R.string.act_install_shortcut, R.string.act_install_shortcut_detail },
@@ -141,13 +158,13 @@ final class Actions {
 		{ "android.speech.tts.engine.TTS_DATA_INSTALLED", R.string.act_tts_data_installed, R.string.act_tts_data_installed_detail },
 
 		// android.bluetooth.* (officially introduced in 2.0)
-		{ "android.bluetooth.a2dp.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
 		{ "android.bluetooth.adapter.action.DISCOVERY_FINISHED", R.string.act_bt_discovery_finished, R.string.act_bt_discovery_finished_detail },
 		{ "android.bluetooth.adapter.action.DISCOVERY_STARTED", R.string.act_discovery_started, R.string.act_discovery_started_detail },
 		{ "android.bluetooth.adapter.action.LOCAL_NAME_CHANGED", R.string.act_bt_local_name_changed, R.string.act_bt_local_name_changed_detail },
 		{ "android.bluetooth.adapter.action.SCAN_MODE_CHANGED", R.string.act_bt_scan_mode_changed, R.string.act_bt_scan_mode_changed_detail }, // see android.bluetooth.intent.action.SCAN_MODE_CHANGED
 		{ "android.bluetooth.adapter.action.STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },  // see android.bluetooth.intent.action.BLUETOOTH_STATE_CHANGED
 		{ "android.bluetooth.device.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },   // see android.bluetooth.intent.action.PAIRING_REQUEST
+		{ "android.bluetooth.device.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel },   // see android.bluetooth.intent.action.PAIRING_CANCEL
 		{ "android.bluetooth.device.action.ACL_CONNECTED", R.string.act_bt_acl_connected, R.string.act_bt_acl_connected_detail },
 		{ "android.bluetooth.device.action.ACL_DISCONNECTED", R.string.act_bt_acl_disconnected, R.string.act_bt_acl_disconnected_detail },
 		{ "android.bluetooth.device.action.ACL_DISCONNECT_REQUESTED", R.string.act_bt_acl_disconnect_requested, R.string.act_bt_acl_disconnect_requested_detail },
@@ -157,8 +174,17 @@ final class Actions {
 		{ "android.bluetooth.device.action.NAME_CHANGED", R.string.act_bt_name_changed, R.string.act_bt_name_changed_detail },  // see android.bluetooth.intent.action.NAME_CHANGED
 		{ "android.bluetooth.devicepicker.action.DEVICE_SELECTED", R.string.act_bt_device_selected, R.string.act_bt_device_selected_detail },
 		{ "android.bluetooth.devicepicker.action.LAUNCH", R.string.act_bt_launch, R.string.act_bt_launch_detail },
+		// Potentially deprecated in API Level 11 (no longer in broadcast_events.txt).
 		{ "android.bluetooth.headset.action.AUDIO_STATE_CHANGED", R.string.act_bt_audio_state_changed, R.string.act_bt_audio_state_changed_detail }, // see android.bluetooth.intent.action.HEADSET_ADUIO_STATE_CHANGED
 		{ "android.bluetooth.headset.action.STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },
+		{ "android.bluetooth.a2dp.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
+		// New in API Level 11
+		{ "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGE", R.string.act_bt_a2dp_connection_state_changed, R.string.act_bt_a2dp_connection_state_changed_detail },
+		{ "android.bluetooth.a2dp.profile.action.PLAYING_STATE_CHANGED", R.string.act_bt_a2dp_playing_state_changed, R.string.act_bt_a2dp_playing_state_changed_detail },
+		{ "android.bluetooth.adapter.action.CONNECTION_STATE_CHANGED", R.string.act_bt_connection_state_changed, R.string.act_bt_connection_state_changed_detail },
+		{ "android.bluetooth.headset.profile.action.AUDIO_STATE_CHANGED", R.string.act_bt_headset_audio_state_changed, R.string.act_bt_headset_audio_state_changed_detail },
+		{ "android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED", R.string.act_bt_headset_connection_state_changed, R.string.act_bt_headset_connection_state_changed_detail },
+		{ "android.bluetooth.headset.action.VENDOR_SPECIFIC_HEADSET_EVENT", R.string.act_bt_headset_vendor_event, R.string.act_bt_headset_vendor_event_detail },
 		// Old deprecated 1.5/1.6 events; they are no longer listed in 2.0's broadcast_events.txt,
 		// though I haven't tested whether they are really no longer available as well.
 		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
@@ -167,7 +193,7 @@ final class Actions {
 		{ "android.bluetooth.intent.action.HEADSET_STATE_CHANGED", R.string.act_headset_state_changed, R.string.act_headset_state_changed_detail },
 		{ "android.bluetooth.intent.action.NAME_CHANGED", R.string.act_bt_name_changed, R.string.act_bt_name_changed_detail },  // see android.bluetooth.device.action.NAME_CHANGED
 		{ "android.bluetooth.intent.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },  // see android.bluetooth.device.action.PAIRING_REQUEST
-		{ "android.bluetooth.intent.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel_detail },
+		{ "android.bluetooth.intent.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel_detail },  // see android.bluetooth.device.action.PAIRING_CANCEL
 		{ "android.bluetooth.intent.action.REMOTE_DEVICE_CONNECTED", R.string.act_remote_device_connected, R.string.act_remote_device_connected_detail },
 		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISAPPEARED", R.string.act_remote_device_disappeared, R.string.act_remote_device_disappeared_detail },
 		{ "android.bluetooth.intent.action.REMOTE_DEVICE_DISCONNECTED", R.string.act_remote_device_disconnected, R.string.act_remote_device_disconnected_detail },

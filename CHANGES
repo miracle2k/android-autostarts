@@ -4,6 +4,7 @@
     * If signed with the system certificate, use Android's official APIs
       rather than root access. This won't be relevant for most users, but
       is useful when compiling a custom Android.
+    * Added new events from 2.3 and 3.0.
     * Easier scrolling via a draggable thumb, as known from the Contacts
       app.
     * Fixed "Application Info" option on Gingerbread.

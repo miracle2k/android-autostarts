@@ -8,34 +8,32 @@ import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.Html;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.elsdoerfer.android.autostarts.ReceiverReader.ActionWithReceivers;
-import com.elsdoerfer.android.autostarts.ReceiverReader.ReceiverData;
+import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
 public class ListActivity extends ExpandableListActivity {
 
@@ -46,39 +44,39 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int MENU_EXPAND_COLLAPSE = 2;
 	static final private int MENU_RELOAD = 3;
 	static final private int MENU_HELP = 4;
+	static final private int MENU_GROUPING = 5;
 
 	static final private int DIALOG_RECEIVER_DETAIL = 1;
 	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
-	static final private int DIALOG_USB_DEBUGGING_NOTE = 5;
 	static final private int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
-	static final private int DIALOG_SUBMITTING_EXCEPTIONS = 7;
+	static final int DIALOG_STATE_CHANGE_FAILED = 7;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
 	static final private String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
 	static final private String PREF_FILTER_UNKNOWN = "filter-unknown-events";
-	static final private String PREF_USB_DEBUGGING_INFO_SHOWN = "usb-debug-info-shown";
+	static final private String PREF_GROUPING = "grouping";
 
 
 	private MenuItem mExpandCollapseToggleItem;
+	private MenuItem mGroupingModeItem;
 	MenuItem mReloadItem;
 	private Toast mInfoToast;
 
 	MyExpandableListAdapter mListAdapter;
-	// TODO: Would it make sense for this to be a HashMap?
-	ArrayList<ActionWithReceivers> mReceiversByIntent;
+	ArrayList<IntentFilterInfo> mEvents;
 	private DatabaseHelper mDb;
 	private SharedPreferences mPrefs;
 	private Boolean mExpandSuggested = true;
 	private ToggleTask mToggleTask;
 	private LoadTask mLoadTask;
-	private Dialog mSubmittingExceptionsDialog;
 
 	// Due to Android deficiencies (can't pass data to showDialog()),
 	// we need to store that data globally.
-	private ReceiverData mLastSelectedReceiver;
-	private String mLastSelectedAction;
+	// TODO: I believe Honeycomb has a solution for this; Fix once
+	// it's feasible for us to require it.
+	private IntentFilterInfo mLastSelectedEvent;
 	private boolean mLastChangeRequestDoEnable;
 	private boolean mUninstallWarningShown;
 
@@ -96,8 +94,7 @@ public class ListActivity extends ExpandableListActivity {
 		// This is just to workaround "Can't upgrade read-only database..."
 		// exceptions, when an upgrade is necessary.
 		mDb.getWritableDatabase().close();
-		mListAdapter = new MyExpandableListAdapter(
-				this, R.layout.group_row, R.layout.child_row);
+		mListAdapter = new MyExpandableListAdapter(this);
 		setListAdapter(mListAdapter);
 
 		// Restore preferences
@@ -107,6 +104,9 @@ public class ListActivity extends ExpandableListActivity {
 				mPrefs.getBoolean(PREF_FILTER_SHOW_CHANGED, false));
 		mListAdapter.setFilterUnknown(
 				mPrefs.getBoolean(PREF_FILTER_UNKNOWN, true));
+		mListAdapter.setGrouping(mPrefs.getString(PREF_GROUPING, "action").equals("package")
+				? MyExpandableListAdapter.GROUP_BY_PACKAGE
+				: MyExpandableListAdapter.GROUP_BY_ACTION);
 
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
@@ -116,15 +116,14 @@ public class ListActivity extends ExpandableListActivity {
 			// Be careful not to copy any objects that reference the
 			// activity itself, or we would leak it!
 			ListActivity oldActivity = (ListActivity) retained;
-			mLastSelectedReceiver = oldActivity.mLastSelectedReceiver;
-			mLastSelectedAction = oldActivity.mLastSelectedAction;
+			mLastSelectedEvent = oldActivity.mLastSelectedEvent;
 			mLastChangeRequestDoEnable = oldActivity.mLastChangeRequestDoEnable;
-			mReceiversByIntent = oldActivity.mReceiversByIntent;
+			mEvents = oldActivity.mEvents;
 			mUninstallWarningShown = oldActivity.mUninstallWarningShown;
 			mToggleTask = oldActivity.mToggleTask;
 			mLoadTask = oldActivity.mLoadTask;
 			// Display what we have immediately.
-			if (mReceiversByIntent != null)
+			if (mEvents != null)
 				apply();
 			// Continue loading in case we're not done yet.
 			if (mLoadTask != null)
@@ -137,8 +136,7 @@ public class ListActivity extends ExpandableListActivity {
 		// available.
 		else {
 			if (saved != null) {
-				mLastSelectedReceiver = saved.getParcelable("selected-receiver");
-				mLastSelectedAction = saved.getString("selected-action");
+				mLastSelectedEvent = saved.getParcelable("selected-event");
 				mLastChangeRequestDoEnable = saved.getBoolean("change-do-enable");
 				mUninstallWarningShown = saved.getBoolean("uninstall-warning-shown");
 			}
@@ -146,11 +144,6 @@ public class ListActivity extends ExpandableListActivity {
 
 			// Initial load.
 			loadAndApply();
-		}
-
-		if (!mPrefs.getBoolean(PREF_USB_DEBUGGING_INFO_SHOWN, false)) {
-			showDialog(DIALOG_USB_DEBUGGING_NOTE);
-			mPrefs.edit().putBoolean(PREF_USB_DEBUGGING_INFO_SHOWN, true).commit();
 		}
 
 		// This depends both on preferences on loading status.
@@ -167,12 +160,45 @@ public class ListActivity extends ExpandableListActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		// Storing the last selected event (needed for dialog persistence)
+		// is problematic because saving and loading it as a parcable will
+		// break the identify of the ComponentInfo/PackageInfo relations.
+		// In other words, the attached ComponentInfo will not be the same
+		// object as the one we use to render the list items, so changing
+		// the "disabledState" of a mLastSelectedEvent restored in this way
+		// will not affect the GUI display. There are different approaches
+		// can take to solve this (TODO):
+		//   - A complicated scheme where IntentFilterInfo stores the
+		//     package and component names as strings, and upon restore
+		//     from a bundle will look up the actual ComponentInfo parent
+		//     as soon as it becomes available. A kind of delayed-loaded
+		//     weak reference.
+		//   - Since we're only talking about a single property that is
+		//     modified by use (disabled state), this data could be stored
+		//     by the Activity as a kind of "overlay", as a list of changes
+		//     made by the user. We then would no longer need the
+		//     ComponentInfo/PackageInfo relations to have a shared identity.
+		//   - The ToggleTask, rather than modifing the ComponentInfo
+		//     object, could have the Activity's callback method deal with
+		//     the state change. If the component is already loaded, it's
+		//     state is changed, otherwise, we can assume it will be loaded
+		//     correctly (we can assume? would there be race conditions)?
+		//   - We could simply store the list of events globally, bypassing
+		//     all these problems.
 		outState.putBoolean("change-do-enable", mLastChangeRequestDoEnable);
-		outState.putParcelable("selected-receiver", mLastSelectedReceiver);
-		// No need to store the whole list of receivers for this action as
-		// well; we just store the action name (which is unique), and can
-		// thus restore based on it.
-		outState.putString("selected-action", mLastSelectedAction);
+		outState.putParcelable("selected-event", mLastSelectedEvent);
+		// TODO: Note that we do not store the event list. In cases where
+		// onRetainNonConfigurationInstance() is not available, we will
+		// need to reload all events. It would not be *that* hard to store
+		// the events list (of course, this only works if loading is
+		// finished): We'd just store a list of PackageInfo parcelables,
+		// with all ComponentInfo and IntentFilterInfo children, and upon
+		// load would simply have to connect each child with it's parent
+		// again. However, in the hope that the new Loader API will allow
+		// us to avoid all these problems, we don't bother to implement
+		// this now.
+		// In case the Loader API should prove to be insufficient, I think
+		// we would want to switch to a global state.
 		super.onSaveInstanceState(outState);
 	}
 
@@ -196,6 +222,9 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
+		mGroupingModeItem =
+			menu.add(0, MENU_GROUPING, 0, R.string.group_by_action).
+			    setIcon(R.drawable.ic_menu_windows);
 		menu.add(0, MENU_VIEW, 0, R.string.view_options).
 			setIcon(R.drawable.ic_menu_view);
 		mExpandCollapseToggleItem =
@@ -211,6 +240,11 @@ public class ListActivity extends ExpandableListActivity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
+		// Proper title for the grouping mode toggle item.
+		if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION)
+			mGroupingModeItem.setTitle(R.string.group_by_package);
+		else
+			mGroupingModeItem.setTitle(R.string.group_by_action);
 		// Decide whether we want to offer the option to collapse, or
 		// expand, depending on the current group expansion count.
 		ExpandableListView lv = getExpandableListView();
@@ -233,8 +267,23 @@ public class ListActivity extends ExpandableListActivity {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case MENU_GROUPING:
+			String groupingPref = "";
+			if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION) {
+				mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_PACKAGE);
+				groupingPref = "package";
+			}
+			else {
+				mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_ACTION);
+				groupingPref = "action";
+			}
+			mListAdapter.notifyDataSetChanged();
+			mPrefs.edit().putString(PREF_GROUPING, groupingPref).commit();
+			return true;
+
 		case MENU_VIEW:
 			showDialog(DIALOG_VIEW_OPTIONS);
+			mListAdapter.notifyDataSetChanged();
 			return true;
 
 		case MENU_EXPAND_COLLAPSE:
@@ -268,7 +317,8 @@ public class ListActivity extends ExpandableListActivity {
 
 			Dialog d = new AlertDialog.Builder(this).setItems(
 				new CharSequence[] {
-						getResources().getString((mLastSelectedReceiver.isCurrentlyEnabled())
+						getResources().getString(
+								(mLastSelectedEvent.componentInfo.isCurrentlyEnabled())
 								? R.string.disable
 								: R.string.enable),
 						getResources().getString(R.string.appliation_info),
@@ -276,38 +326,52 @@ public class ListActivity extends ExpandableListActivity {
 				new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which) {
-						mLastChangeRequestDoEnable = !mLastSelectedReceiver.isCurrentlyEnabled();
+						mLastChangeRequestDoEnable =
+							!mLastSelectedEvent.componentInfo.isCurrentlyEnabled();
 						switch (which) {
 						case 0:
 							// Depending on what we disable, show a warning specifically
 							// for that component, a general warning or just proceed without
 							// any explicit warning whatsoever.
 							if (!mLastChangeRequestDoEnable &&
-									mLastSelectedReceiver.packageName.equals("com.google.android.apps.gtalkservice") &&
-									mLastSelectedReceiver.componentName.equals("com.google.android.gtalkservice.ServiceAutoStarter"))
+									mLastSelectedEvent.componentInfo.packageInfo.packageName.equals("com.google.android.apps.gtalkservice") &&
+									mLastSelectedEvent.componentInfo.componentName.equals("com.google.android.gtalkservice.ServiceAutoStarter"))
 								showDialog(DIALOG_CONFIRM_GOOGLE_TALK_WARNING);
-							else if (mLastSelectedReceiver.isSystem && !mLastChangeRequestDoEnable)
+							else if (mLastSelectedEvent.componentInfo.packageInfo.isSystem && !mLastChangeRequestDoEnable)
 								showDialog(DIALOG_CONFIRM_SYSAPP_CHANGE);
 							else {
 								mToggleTask = new ToggleTask(ListActivity.this);
 								mToggleTask.execute(
-									mLastSelectedReceiver, mLastChangeRequestDoEnable);
+										mLastSelectedEvent.componentInfo,
+										mLastChangeRequestDoEnable);
 							}
 							break;
 						case 1:
+							String packageName =
+								mLastSelectedEvent.componentInfo.packageInfo.packageName;
 							Intent infoIntent = new Intent();
-							// From android-cookbook/GroupHome - it notes:
-							// "we shouldn't rely on this entrance into the settings app"
-							infoIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
-							infoIntent.putExtra("com.android.settings.ApplicationPkgName",
-								mLastSelectedReceiver.packageName);
-							startActivity(infoIntent);
+							infoIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+							infoIntent.setData(Uri.parse("package:"+packageName));
+							try {
+								startActivity(infoIntent);
+							}
+							catch (ActivityNotFoundException e) {
+								// 2.2 and below.
+								infoIntent = new Intent();
+								infoIntent.setClassName("com.android.settings",
+										"com.android.settings.InstalledAppDetails");
+								infoIntent.putExtra("com.android.settings.ApplicationPkgName",
+										packageName);
+								try {
+									startActivity(infoIntent);
+								} catch (ActivityNotFoundException e2) {}
+							}
 							break;
 						case 2:
 							try {
 								Intent marketIntent = new Intent(Intent.ACTION_VIEW);
 								marketIntent.setData(Uri.parse("market://search?q=pname:"+
-										mLastSelectedReceiver.packageName));
+									mLastSelectedEvent.componentInfo.packageInfo.packageName));
 								startActivity(marketIntent);
 							}
 							catch (ActivityNotFoundException e) {}
@@ -343,7 +407,8 @@ public class ListActivity extends ExpandableListActivity {
 					public void onClick(DialogInterface dialog, int which) {
 						mToggleTask = new ToggleTask(ListActivity.this);
 						mToggleTask.execute(
-							mLastSelectedReceiver, mLastChangeRequestDoEnable);
+							mLastSelectedEvent.componentInfo,
+							mLastChangeRequestDoEnable);
 					}
 				})
 				.setNegativeButton(android.R.string.cancel, null)
@@ -360,32 +425,21 @@ public class ListActivity extends ExpandableListActivity {
 					public void onClick(DialogInterface dialog, int which) {
 						mToggleTask = new ToggleTask(ListActivity.this);
 						mToggleTask.execute(
-							mLastSelectedReceiver, mLastChangeRequestDoEnable);
+							mLastSelectedEvent.componentInfo,
+							mLastChangeRequestDoEnable);
 					}
 				})
 				.setNegativeButton(android.R.string.cancel, null)
 				.create();
 		}
 
-		else if (id == DIALOG_USB_DEBUGGING_NOTE)
+		else if (id == DIALOG_STATE_CHANGE_FAILED)
 		{
 			return new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.info)
-				.setMessage(R.string.usb_debugging_note)
-				.setIcon(android.R.drawable.ic_dialog_info)
-				.setPositiveButton(android.R.string.ok, null)
-				.create();
-		}
-
-		else if (id == DIALOG_SUBMITTING_EXCEPTIONS)
-		{
-			mSubmittingExceptionsDialog = new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.please_wait)
-				.setMessage(R.string.submitting_exceptions)
-				.setIcon(android.R.drawable.ic_dialog_info)
-				.setCancelable(false)
-				.create();
-			return mSubmittingExceptionsDialog;
+				.setMessage(R.string.state_change_failed)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(R.string.error)
+				.setPositiveButton(android.R.string.ok, null).create();
 		}
 
 		else if (id == DIALOG_VIEW_OPTIONS)
@@ -462,7 +516,7 @@ public class ListActivity extends ExpandableListActivity {
 	private void prepareReceiverDetailDialog(Dialog dialog, View view,
 			boolean rewriteCaption) {
 
-		dialog.setTitle(mLastSelectedReceiver.getAnyLabel());
+		dialog.setTitle(mLastSelectedEvent.componentInfo.getLabel());
 
 		// This is a terribly terrible hack to change the menu item caption
 		// to match the current state of the selected item. Unfortunately,
@@ -493,7 +547,8 @@ public class ListActivity extends ExpandableListActivity {
 						((TextView)current).getText().equals(searchFor1) ||
 						((TextView)current).getText().equals(searchFor2)))
 				{
-					((TextView)current).setText((mLastSelectedReceiver.isCurrentlyEnabled())
+					((TextView)current).setText(
+							(mLastSelectedEvent.componentInfo.isCurrentlyEnabled())
 							? R.string.disable
 							: R.string.enable);
 					break;
@@ -507,39 +562,25 @@ public class ListActivity extends ExpandableListActivity {
 			}
 		}
 
-		// TODO: Those need to be translated!
-		int t = 0;
-		SpannableStringBuilder b = new SpannableStringBuilder();
-		b.append("Receiver ");
-		t = b.length();
-		b.append(mLastSelectedReceiver.componentName);
-		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
-		b.append(" handles action ");
-		t = b.length();
-		b.append((String)(mLastSelectedAction));
-		b.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), t, b.length(), 0);
-		b.append(" with priority ");
-		t = b.length();
-		b.append(Integer.toString(mLastSelectedReceiver.priority));
-		b.setSpan(new StyleSpan(Typeface.BOLD), t, b.length(), 0);
-		b.append(".");
-
-		((TextView)view.findViewById(R.id.message)).setText(b);
+		String formattedString = String.format(
+				getString(R.string.receiver_info),
+				mLastSelectedEvent.componentInfo.componentName,
+				mLastSelectedEvent.action, mLastSelectedEvent.priority);
+		((TextView)view.findViewById(R.id.message)).setText(
+				Html.fromHtml(formattedString));
 	}
 
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		mLastSelectedAction =
-			((ActionWithReceivers) mListAdapter.getGroup(groupPosition)).action;
-		mLastSelectedReceiver =
-			(ReceiverData) mListAdapter.getChild(groupPosition, childPosition);
+		mLastSelectedEvent =
+			(IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition);
 		showDialog(DIALOG_RECEIVER_DETAIL);
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
 
 	void apply() {
-		mListAdapter.setData(mReceiversByIntent);
+		mListAdapter.setData(mEvents);
 		mListAdapter.notifyDataSetChanged();
 	}
 
@@ -602,11 +643,12 @@ public class ListActivity extends ExpandableListActivity {
 		updateEmptyText(false);
 	}
 
-	// TODO: Instead of showing a toast, fade in a custom info bar, then fade out.
-	// This would be an improvement because we could control it better: Show it longer,
-	// but have it disappear when the user clicks on it (toasts don't receive clicks).
-	public void showInfoToast(ActionWithReceivers action) {
-		Object[] data = Actions.MAP.get(action.action);
+	// TODO: Instead of showing a toast, fade in a custom info bar, then
+	// fade out. This would be an improvement because we could control
+	// it better: Show it longer, but have it disappear when the user
+	// clicks on it (toasts don't receive clicks).
+	public void showInfoToast(String action) {
+		Object[] data = Actions.MAP.get(action);
 		if (mInfoToast == null) {
 			LayoutInflater inflater = getLayoutInflater();
 			View layout = inflater.inflate(R.layout.detail_toast,
@@ -639,10 +681,10 @@ public class ListActivity extends ExpandableListActivity {
 	 * Return a name for the given intent; tries the pretty name,
 	 * if available, and falls back to the raw class name.
 	 */
-	String getIntentName(ActionWithReceivers action) {
-		Object[] data = Actions.MAP.get(action.action);
+	String getIntentName(String action) {
+		Object[] data = Actions.MAP.get(action);
 		if (data == null)
-			return action.action;
+			return action;
 		return (data[1] != null) ?
 				getResources().getString((Integer)data[1]) :
 				(String)data[0];

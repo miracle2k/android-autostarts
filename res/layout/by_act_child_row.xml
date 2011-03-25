@@ -5,14 +5,15 @@
 	android:paddingTop="2dip"
 	android:paddingBottom="2dip"
 	android:paddingRight="5dip"
-    android:paddingLeft="25dip">
+    android:paddingLeft="25dip"
+    android:tag="act-child">
 
     <ImageView
-    	android:id="@+id/icon"
-    	android:layout_width="28dp"
+        android:id="@+id/icon"
+        android:layout_width="28dp"
         android:layout_height="28dp"
         android:paddingRight="5sp"
-     	/>
+        />
 
     <TextView
         android:id="@+id/title"

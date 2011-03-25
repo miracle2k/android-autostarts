@@ -1,3 +1,16 @@
+1.7.0 (2011-03-24)
+    * Added a new "Group by application" view.
+    * It's no longer necessary to manually keep ADB Debugging enabled.
+    * If signed with the system certificate, use Android's official APIs
+      rather than root access. This won't be relevant for most users, but
+      is useful when compiling a custom Android.
+    * Added new events from 2.3 and 3.0.
+    * Easier scrolling via a draggable thumb, as known from the Contacts
+      app.
+    * Fixed "Application Info" option on Gingerbread.
+    * Russian translation (Andrew Ivanchenko).
+    * Use the new Honecomb-theme on 3.0 devices.
+
 1.6.2 (2010-11-26)
     * Fixed: Occasionally, apps could not be disabled, and an "you might
       not have root" messages was accidentally shown (thanks to Dan Feigt).
@@ -44,7 +57,7 @@
       disabled by default, and make a clean distinction between that
       initial state and changes by the user.
     * Compiled against 2.1 SDK.
-    * Included pretty names and descriptions for a large number of new 
+    * Included pretty names and descriptions for a large number of new
       events.
 
 1.2.2 (2010-01-31)

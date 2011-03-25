@@ -1,12 +1,31 @@
+Try using the new Loader API:
+    http://android-developers.blogspot.com/2011/03/fragments-for-all.html),
+instead of the current AsyncTask-based loading.
+
+Add a search/filter feature. MENU long press brings up a keyboard,
+let the user type away to restrict the list to matches. Should also
+react to the SEARCH button.
+
+When displaying actions that have no pretty name, the text often
+doesn't fit the screen. We show an ellipsis then, but it would be
+nicer to adjust the font size, iOS-like. See:
+    http://stackoverflow.com/questions/2617266/how-to-adjust-text-font-size-to-fit-textview
+	http://stackoverflow.com/questions/5033012/auto-scale-textview-text-to-fit-within-bounds
+
+See if we can replace the current dialog-based GUI with inline-actions.
+That is, if an item is selected, it is expanded and includes a button
+to disable/enable, and all the other information from the dialog.
+Long-press may still be used for infrequently used actions.
+
 Investigate what we can do about activity intent filters. For example,
 android.intent.action.SEARCH_LONG_PRESS seems something that might just
-as well appear in our list. Are there others? Should they be displayed 
+as well appear in our list. Are there others? Should they be displayed
 separately? Will only of all registered activities be called if there
 are more than one (as opposed to the receiver behavior)?
 
-Loading on a G1 with *lots* of apps is terribly slow now with the new 
-backend (> 1 minute). We could employ caching to improve this, based 
-on the package version number. Only when that one changes do we 
+Loading on a G1 with *lots* of apps is terribly slow now with the new
+backend (> 1 minute). We could employ caching to improve this, based
+on the package version number. Only when that one changes do we
 refresh the cache. The "reload" feature would then act as a refresh
 of the full cache.
 
@@ -17,7 +36,7 @@ broadcast receiver ourselves to implement this.
 
 The notification-feature is a good opportunity to implement some kind
 of hashing, where we can determine whether I package is new or has changed
-very quickly, instead of having to reparse it again everytime, which 
+very quickly, instead of having to reparse it again everytime, which
 turns out to be a costly process (our new backend is considerably slower
 then the old one).
 
@@ -37,19 +56,13 @@ to fix this would be to simply remove those intents from the "known" list.
 Alternatively, we could show a hint indicating that does events will
 not actually be executed; it'll even be helpful for developers to debug.
 
-Fix the "USB Debugging" hang issue. See ToggleTask.java for more info.
-
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we
 don't even really touch those, we need to assume it's a bug in Android.
 Confirm (file a report), and try to find a workaround.
 
-Add a dialog referring to our other projects / apps.
-
-Support grouping by application.
-
 Now that we may have quite a long list, depending on installed apps,
-a sorting options might also make sense. We could sort alphabetically, 
+a sorting options might also make sense. We could sort alphabetically,
 by the number of components in a group, or by "importance" of a receiver.
 The latter would be a number determined by us, and would be an attempt
 to maintain the current order, i.e. BOOT would be on top.
@@ -66,22 +79,18 @@ facilities that we should use to provide this.
 
 Currently, we don't pay any attention to the fact that a single receiver
 may be responsible for multiple events. As a result, disabling a single
-component may effect multiple entries. At the very least, the UI should
-update accordingly when a component is disabled (striking out multiple
-rows).
+component may effect multiple entries. We already reflect this correctly
+in the UI, but we want the user to be made aware of it as well. So show
+a message like:
+  "$APPNAME processes this event in bulk together with $NUM other events.
+   If you disable/enable $EVENT, the following events of the app will also
+   be enabled."
 
 There are a number of broadcasts which effectively seem to be equivalent to
 BOOT_COMPLETED, like a lot of the network state change stuff. Maybe this
 could be made more obvious to the user.
 
 Update our custom colors to be stateful.
-
-Add a "system view" that goes through packages.xml manually and shows
-all receivers (or even: all components?), allowing users to disable or
-enable them. Explain in help section, why this separate view is necessary:
-Because due to API limitations (GET_INTENT_FILTERS not implemented), we
-are unable to get information about which intents a disabled component
-would handle.
 
 Implement the ability to disable a app as a whole; nice to get rid of
 pre-installed applications.
@@ -93,23 +102,29 @@ which are still missing from our db:
 Exporting the changes made to SD card, so they can be re-applied in bulk
 after an OS reinstall (suggested by Jeffrey Lee).
 
+There are other ways that applications can potentially start that are not
+based on a broadcast event being sent to a receiver. For example, the account
+implementation (see  android.accounts.AccountAuthenticator,
+android.content.SyncAdapter) requires a service to be defined with an intent
+filter. We cannot really do anything here without breaking the functionality
+itself. However, we could show to the user the existence of the service.
+The user could be allowed to disable it, but a serious warning would be
+necessary. I suggest that something like a thick red border could be used to
+ensure the user is aware that this different than the standard "
+system application" warning.
+
+Create a tablet version.
+
+
 Far-Future Ideas, might never be implemented
 ============================================
 
 Use a enabled/disabled receiver to automatically reload if a package
 outside of our app is changed.
 
-We could use a custom executable instead of "pm", allowing us to call
-setComponentEnabledState with the NO_RESTART flag - currently, the
-package is always restarted when we chance something. Code to look at
-in frameworks/base:
-  cmds/pm/pm
-  cmds/pm/src/../Pm.java
-  cmds/app_process/*
-
 Add social features: People can write comments about individual
 components, and what effects disabling them had. This would need to include
 information about the version etc. We probably would want to work with
-the OpenIntents.org database here; we could even act as an automated 
+the OpenIntents.org database here; we could even act as an automated
 data source for OpenIntents by submitting which applications hook into
 which broadcast intents.

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="0dp"
+    android:tag="pkg-child">
+
+    <!-- Note how the padding is applied not to the parent,
+         but to each individual child; The idea is to make
+         the clickable area of the "show info" icon as
+         large as possible. -->
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_height="28dp"
+        android:paddingRight="5dip"
+        android:paddingLeft="25dip"
+        android:text="dsf" android:gravity="center_vertical"/>
+
+	<!-- Note the right padding is slightly larger to account for a
+	     potential scrollbar. Doesn't look to good if it's too close. -->
+    <ImageView
+        android:id="@+id/show_info"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="6dp"
+        android:paddingRight="7dp"
+        android:layout_height="28dp"
+        android:adjustViewBounds="false"
+        android:src="@drawable/ic_dialog_info_btn"
+        />
+
+</LinearLayout>

@@ -1,0 +1,3 @@
+sdk_dir = /opt/android/sdk
+keystore = ~/.android/debug.keystore
+keyalias = androiddebugkey

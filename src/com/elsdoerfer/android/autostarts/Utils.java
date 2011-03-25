@@ -119,11 +119,14 @@ public class Utils {
 	 * (3) we solve by checking multiple locations for su.
 	 * We'll still have to see about (4).
 	 */
-	static boolean runRootCommand(String command, String[] env) {
+	static boolean runRootCommand(String command, String[] env,
+			Integer timeout)
+	{
 		Process process = null;
 		DataOutputStream os = null;
 		try {
-			Log.d(ListActivity.TAG, "Running '"+command+"' as root");
+			Log.d(ListActivity.TAG, String.format(
+					"Running '%s' as root, timeout=%s", command, timeout));
 
 			process = runWithEnv(getSuPath(), env);
 			os = new DataOutputStream(process.getOutputStream());
@@ -131,7 +134,49 @@ public class Utils {
 			os.writeBytes("echo \"rc:\" $?\n");
 			os.writeBytes("exit\n");
 			os.flush();
-			process.waitFor();
+
+			// Handle a requested timeout, or just use waitFor() otherwise.
+			if (timeout != null) {
+				long finish = System.currentTimeMillis() + timeout;
+				while (true) {
+					Thread.sleep(300);
+					if (!isProcessAlive(process))
+						break;
+					// TODO: We could use a callback to let the caller
+					// check the success-condition (like the state properly
+					// being changed), and then end early, rather than
+					// waiting for the timeout to occur. However, this
+					// is made more complicated by us not really wanting
+					// to kill a process early that would never have hung,
+					// but which might not actually be completely finished yet
+					// when the callback would register success.
+					// Also, now that the timeout is only used as a last-resort
+					// mechanism anyway, with most cases of a hanging process
+					// being avoided by switching on ADB Debugging, improving
+					// the timeout handling isn't that important anymore.
+					if (System.currentTimeMillis() > finish) {
+						// Usually, this can't be considered a success.
+						// However, in terms of the bug we're trying to
+						// work around here (the call hanging if adb
+						// debugging is disabled), the command would
+						// have successfully run, but just doesn't
+						// return. We report success, just in case, and
+						// the caller will have to check whether the
+						// command actually did do it's job.
+						// TODO: It might be core "correct" to return false
+						// here, or indicate the timeout in some other way,
+						// and let the caller ignore those values on their
+						// own volition.
+						Log.w(ListActivity.TAG, "Process doesn't seem "+
+								"to stop on it's own, assuming it's hanging");
+						// Note: 'finally' will call destroy(), but you
+						// might still see zombies.
+						return true;
+					}
+				}
+			}
+			else
+			  process.waitFor();
 
 			Log.d(ListActivity.TAG, "Process returned with "+process.exitValue());
 			Log.d(ListActivity.TAG, "Process stdout was: "+
@@ -146,13 +191,13 @@ public class Utils {
 			return true;
 
 		} catch (FileNotFoundException e) {
-			Log.e(ListActivity.TAG, "Failed to change state", e);
+			Log.e(ListActivity.TAG, "Failed to run command", e);
 			return false;
 		} catch (IOException e) {
-			Log.e(ListActivity.TAG, "Failed to change state", e);
+			Log.e(ListActivity.TAG, "Failed to run command", e);
 			return false;
 		} catch (InterruptedException e) {
-			Log.e(ListActivity.TAG, "Failed to change state", e);
+			Log.e(ListActivity.TAG, "Failed to run command", e);
 			return false;
 		}
 		finally {
@@ -196,5 +241,29 @@ public class Utils {
 		        envArray[i++] = entry;
 	    Process process = Runtime.getRuntime().exec(command, envArray);
 	    return process;
+	}
+
+	/**
+	 * Check whether a process is still alive. We use this as a naive
+	 * way to implement timeouts.
+	 */
+	public static boolean isProcessAlive(Process p) {
+	    try {
+	        p.exitValue();
+	        return false;
+	    } catch (IllegalThreadStateException e) {
+	        return true;
+	    }
+	}
+
+	/**
+	 * Sleep for a while; without dealing with the exception.
+	 */
+	public static void sleep(long time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

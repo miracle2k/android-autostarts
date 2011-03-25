@@ -11,10 +11,10 @@
 	    android:padding="5dp"
 	    >
 
-	    <TextView
+	    <WebView
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="@string/help_text"
+	        android:id="@+id/faq_text"
 	        />
 
 	    <Button

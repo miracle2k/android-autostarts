@@ -1,11 +1,17 @@
 /bin/*
 /gen/*
-/.settings/
-/local.properties
+/res/values-*/*.xml
 /BRANCH_TODO
 
-/res/values-*/*.xml
+# Eclipse
+/.settings/
+/local.properties
 
+# IDEA
+/*.iml
+/.idea/
+
+# Fabric
 # fabric
 /.fabricrc
 *.pyc

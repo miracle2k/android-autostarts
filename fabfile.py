@@ -23,9 +23,8 @@ def locales():
      local('rm locale/*-ast.po')
      local('a2po import')
 
-def build():
-     locales()
 
+def build():
      print "Building the APK."
      try:
          p = AndroidProject('AndroidManifest.xml', 'Android-Autostarts',
@@ -41,9 +40,8 @@ def build():
          print e
          print e.stdout
 
-def version():
-    build()
 
+def make_version():
     # determine the version number
     import subprocess, re
     manifest = subprocess.Popen(
@@ -58,9 +56,7 @@ def version():
     local('mv %s %s' % (env.raw_apk, env.target_apk))
 
 
-def make():
-    version()
-
+def make_ini():
     # Create an .ini section for our site
     base, ext = path.splitext(env.target_apk)
     ini = open('%s.ini' % base, 'w')
@@ -73,7 +69,10 @@ def make():
 
 
 def deploy():
-    make()
+    locales()
+    build()
+    make_version()
+    make_ini()
 
     local('scp -P 2211 %s %s' % (env.target_apk, env.deploy_target))
 

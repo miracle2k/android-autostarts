@@ -1,0 +1,150 @@
+# Translations template for PROJECT.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-autostarts/issues\n"
+"POT-Creation-Date: 2011-03-24 14:35+0100\n"
+"PO-Revision-Date: 2011-04-15 16:04+0000\n"
+"Last-Translator: imksa <malham1@gmail.com>\n"
+"Language-Team: Arabic (Saudi Arabia) <None>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+"Language: ar_SA\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr "لا التطبيقات تبدأ تلقائياً."
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr "لا التطبيقات تبدأ تلقائياً ضمن تحديدك الحالي."
+
+msgctxt "still_loading"
+msgid ""
+"Please wait while I am loading the applications installed on your phone..."
+msgstr "الرجاء الانتظار بينما يتم تحميل التطبيقات المثبتة على هاتفك..."
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr "تغيير إعدادات التصفية."
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr " التطبيق معلومات"
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr "البحث في السوق"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "تعطيل"
+
+msgctxt "enable"
+msgid "Enable"
+msgstr "تمكين"
+
+msgctxt "view_options"
+msgid "View"
+msgstr "عرض"
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr "تجميع حسب التطبيق"
+
+msgctxt "group_by_action"
+msgid "Group by event"
+msgstr "تجميع حسب الأحداث"
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr "إخفاء تطبيقات النظام"
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr "عرض التغييرات فقط"
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr "إخفاء الأحداث غير المعروف"
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr "توسيع الكل"
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr "طي الكل"
+
+msgctxt "reload"
+msgid "Reload"
+msgstr "إعادة تحميل"
+
+msgctxt "help"
+msgid "Help"
+msgstr "مساعدة"
+
+msgctxt "please_wait"
+msgid "Please Wait..."
+msgstr "الرجاء الانتظار..."
+
+msgctxt "error"
+msgid "Error"
+msgstr "خطأ"
+
+msgctxt "warning"
+msgid "Warning"
+msgstr "تحذير"
+
+msgctxt "info"
+msgid "Info"
+msgstr "معلومات"
+
+#, c-format
+msgctxt "receiver_info"
+msgid ""
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
+" priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr ""
+"استقبال &lt;b&gt;%1$s&lt;/b&gt;معالجة الحدث &lt;i&gt;%2$s&lt;/i&gt; بأولوية "
+"&lt;b&gt;%3$d&lt;/b&gt;."
+
+msgctxt "confirm_sys_disable"
+msgid ""
+"You are about to disable a system component. This could potentially result in your phone no longer functioning properly.\n"
+"\n"
+"Do not proceed unless you are willing to deal with the consequences."
+msgstr ""
+"أنت على وشك تعطيل أوامر النظام. قد يتسبب هذا في تعطل بعض وظائف الهاتف.\n"
+"\n"
+"لا تواصل إلا إذا كنت على استعداد للتعامل مع العواقب."
+
+msgctxt "confirm_google_talk"
+msgid ""
+"If Google Talk is disabled, you are likely going to run into issues with "
+"hanging Android Market downloads, the starting up Google Talk yourself "
+"whenever necessary can help overcome them. Sure you want to proceed?"
+msgstr ""
+"إذا تم تعطيل GTalk ،فإن هذا قد يعطل خدمات سوق التطبيقات، إذا شغلت Gtalk "
+"بنفسك إذا ا دعت الضرورة يمكن أن يساعد في حل المشكلة هل تريد المتابعة؟"
+
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of the selected component.\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr ""
+"غير قادر على تغيير حالة التحديد.\n"
+"\n"
+"على الأرجح ، الجهاز لا يملك صلاحية الوصول للجذر، وهو مطلوب."
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr "إغلاق المساعدة والرجوع إلى التطبيق"

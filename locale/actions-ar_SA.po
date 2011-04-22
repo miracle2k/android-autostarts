@@ -1,0 +1,1228 @@
+# Translations template for PROJECT.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-autostarts/issues\n"
+"POT-Creation-Date: 2011-03-22 23:46+0100\n"
+"PO-Revision-Date: 2011-04-16 08:02+0000\n"
+"Last-Translator: imksa <malham1@gmail.com>\n"
+"Language-Team: Arabic (Saudi Arabia) <None>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+"Language: ar_SA\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "act_airplane_mode_changed"
+msgid "Airplane mode changed"
+msgstr "تغير لنمط الطائرة"
+
+msgctxt "act_airplane_mode_changed_detail"
+msgid "Airplane mode was switched on or off."
+msgstr "وضع الطائرة إيقاف أو تشغيله."
+
+msgctxt "act_battery_changed"
+msgid "Battery changed"
+msgstr "تغيير البطارية"
+
+msgctxt "act_battery_changed_detail"
+msgid "The charging state, or the charge level of the battery has changed."
+msgstr "مستوى شحن البطارية أو حالت الشحن تغيرت."
+
+msgctxt "act_battery_low"
+msgid "Battery low"
+msgstr "البطارية منخفضة"
+
+msgctxt "act_battery_low_detail"
+msgid "The device entered a low battery state."
+msgstr "الجهاز دخل في حالة البطارية المنخفضة"
+
+msgctxt "act_battery_okay"
+msgid "Battery okay"
+msgstr "البطارية مقبولة"
+
+msgctxt "act_battery_okay_detail"
+msgid "The device left the low battery state."
+msgstr "الجهاز خرج من حالة البطارية المنخفضة"
+
+msgctxt "act_pre_boot_completed"
+msgid "During Startup"
+msgstr "أثناء بدء التشغيل"
+
+msgctxt "act_pre_boot_completed_detail"
+msgid "The device is booting up, the user cannot interact yet."
+msgstr "يتم تشغيل الجهاز الآن ، لا يمكن للمستخدم التفاعل الآن."
+
+msgctxt "act_boot_completed"
+msgid "After Startup"
+msgstr "بعد التشغيل"
+
+msgctxt "act_boot_completed_detail"
+msgid "The device just completed booting up, the user can now interact."
+msgstr "تم تشغيل الجهاز بالكامل ، يمكن للمستخدم التفاعل الآن."
+
+msgctxt "act_power_connected"
+msgid "Power connected"
+msgstr "تم توصيل الطاقة"
+
+msgctxt "act_power_connected_detail"
+msgid "External power has been connected to the device."
+msgstr "تم توصيل الطاقة الخارجية للجهاز."
+
+msgctxt "act_power_disconnected"
+msgid "Power disconnected"
+msgstr "تم الفصل  من الطاقة"
+
+msgctxt "act_power_disconnected_detail"
+msgid "External power has been removed from the device."
+msgstr "تم توصيل الطاقة الخارجية للجهاز."
+
+msgctxt "act_shutdown"
+msgid "Shutdown"
+msgstr "إقاف التشغيل"
+
+msgctxt "act_shutdown_detail"
+msgid "The device is shutting down."
+msgstr " يتم إيقاف الجهاز."
+
+msgctxt "act_dock_event"
+msgid "Docking changed"
+msgstr "تغيير الإقتران"
+
+msgctxt "act_dock_event_detail"
+msgid "The device was docked or undocked."
+msgstr "اقتران وإلغاء اقتران الجهاز."
+
+msgctxt "act_camera_button"
+msgid "Camera button pressed"
+msgstr "ضغط زر الكاميرا"
+
+msgctxt "act_camera_button_detail"
+msgid "The Camera button was pressed."
+msgstr "تم الضغط على زر الكاميرا."
+
+msgctxt "act_close_system_dialogs"
+msgid "On System dialogs close"
+msgstr "في نظام إغلاق مربعات الحوار"
+
+msgctxt "act_close_system_dialogs_detail"
+msgid ""
+"Due to a user action, the system asks a temporary system dialog to be "
+"dismissed."
+msgstr "نظراً لإجراء المستخدم، فإن النظام سيسألك أسئلة حول رفض النظام."
+
+msgctxt "act_configuration_changed"
+msgid "Configuration changed"
+msgstr "تغيير الإعدادات"
+
+msgctxt "act_configuration_changed_detail"
+msgid ""
+"The device configuration changed. This includes things like locale settings,"
+" but also the device orientation."
+msgstr ""
+"تغيير إعدادات الجهاز. وهذا يشمل أشياء مثل الإعدادات المحلية، وأيضا توجه "
+"الجهاز."
+
+msgctxt "act_locale_changed"
+msgid "Locale changed"
+msgstr "تغييرات محلية"
+
+msgctxt "act_locale_changed_detail"
+msgid ""
+"The device's locale setting has changed. This is a subset of \"Configuration"
+" changed\"."
+msgstr "تم تغيير إعدادات الجهاز المحلية. هذه مجموعة فرعية من \"تغيير الإعدادات\"."
+
+msgctxt "act_date_changed"
+msgid "Date changed"
+msgstr "تغير التاريخ"
+
+msgctxt "act_date_changed_detail"
+msgid "The system date has changed."
+msgstr "تم تغيير تاريخ النظام."
+
+msgctxt "act_device_storage_low"
+msgid "Storage low"
+msgstr "التخزين منخفض"
+
+msgctxt "act_device_storage_low_detail"
+msgid "The device storage space has passed below a certain threshold."
+msgstr "مساحة تخزين الجهاز اجتازت مستوى معين."
+
+msgctxt "act_device_storage_ok"
+msgid "Storage ok"
+msgstr "مستوى التخزين جيد"
+
+msgctxt "act_device_storage_ok_detail"
+msgid ""
+"The device storage space has increased beyond the critical threshold, and "
+"the low memory condition no longer exists."
+msgstr ""
+"زادت مساحة تخزين الجهاز وتجاوزت عتبة الحرج، وشرط الذاكرة المنخفضة لم يعد "
+"موجوداً."
+
+msgctxt "act_gtalk_service_connected"
+msgid "GTalk connected"
+msgstr "GTalk متصل"
+
+msgctxt "act_gtalk_service_connected_detail"
+msgid "A GTalk connection was established."
+msgstr "تم تأسيس اتصال GTalk."
+
+msgctxt "act_gtalk_service_disconnected"
+msgid "GTalk disconnected"
+msgstr "قطع اتصال GTalk"
+
+msgctxt "act_gtalk_service_disconnected_detail"
+msgid "A GTalk connection was disconnected."
+msgstr "تم قطع اتصال GTalk."
+
+msgctxt "act_headset_plug"
+msgid "Headset plugged or unplugged"
+msgstr "سماعات رأس توصيل أم لا"
+
+msgctxt "act_headset_plug_detail"
+msgid "A wired headset was either plugged in or unplugged."
+msgstr "توصيل سماعات رأس سلكية أو غير موصل."
+
+msgctxt "act_input_method_changed"
+msgid "IME changed"
+msgstr "تغيير IME"
+
+msgctxt "act_input_method_changed_detail"
+msgid "The input method engine changed, i.e. the virtual keyboard in use."
+msgstr "تغيير أسلوب الإدخال،i.e باستخدام لوحة المفاتيح الافتراضية."
+
+msgctxt "act_manage_package_storage"
+msgid "Package management requested"
+msgstr "طلب مدير الحزم"
+
+msgctxt "act_manage_package_storage_detail"
+msgid ""
+"The user acknowledged a \"low memory\" notification, and the package "
+"management is about to be started."
+msgstr "إعلام المستخدم ب\"نقص الذاكرة\"، ومدير الحزم على وشك البدء."
+
+msgctxt "act_media_bad_removal"
+msgid "Bad media removal"
+msgstr "إزالة الوسائط التالفة"
+
+msgctxt "act_media_bad_removal_detail"
+msgid "External media was removed, but not correctly unmounted."
+msgstr "تم إزالة الوسائط الخارجية، لكن الفصل لم يتم بشكل صحيح."
+
+msgctxt "act_media_button"
+msgid "Media button pressed"
+msgstr "ضغط زر الوسائط"
+
+msgctxt "act_media_button_detail"
+msgid ""
+"The \"Media Button\" was pressed. Usually, this will refer to a button on "
+"your headset/earplugs."
+msgstr "الضغط على زر \"الوسائط\" عادة، يشير إلى زر على سماعات الرأس."
+
+msgctxt "act_media_checking"
+msgid "Checking media"
+msgstr "التحقق من الوسائط"
+
+msgctxt "act_media_checking_detail"
+msgid "External media is present and is currently being disk-checked."
+msgstr "الوسائط الخارجية غير موجودة ويجري حاليا فحص القرص."
+
+msgctxt "act_media_eject"
+msgid "Media ejecting"
+msgstr "إخراج الوسائط"
+
+msgctxt "act_media_eject_detail"
+msgid "External media is about to be ejected, likely due to a user request."
+msgstr "الوسائط الخارجية على وشك الخروج بناء على طلب مستخدم."
+
+msgctxt "act_media_mounted"
+msgid "Media mounted"
+msgstr "تحميل الوسائط"
+
+msgctxt "act_media_mounted_detail"
+msgid ""
+"External media is present, was mounted and is now available to the device."
+msgstr "تم تحميل الوسائط الخارجية الآن على الجهاز."
+
+msgctxt "act_media_nofs"
+msgid "Media invalid or blank"
+msgstr "الوسائط غير صالحة أو فارغة"
+
+msgctxt "act_media_nofs_detail"
+msgid ""
+"External media was detected, but is using an incompatible filesystem or is "
+"blank."
+msgstr "تم اكتشاف وسائط خارجية، لكن تستخدم نظام ملفات غير متوافقة أو فارغة."
+
+msgctxt "act_media_removed"
+msgid "Media removed"
+msgstr "إزالة الوسائط"
+
+msgctxt "act_media_removed_detail"
+msgid ""
+"External media was just removed, and is now no longer available to the "
+"device."
+msgstr "تمت إزالة الوسائط الخارجية من الجهاز."
+
+msgctxt "act_media_scanner_finished"
+msgid "Media scanner finished"
+msgstr "انتهى من البحث عن الوسائط"
+
+msgctxt "act_media_scanner_finished_detail"
+msgid "The media scanner has finished scanning a directory."
+msgstr "تم الانتهاء من فحص أدلة الوسائط."
+
+msgctxt "act_media_scanner_scan_file"
+msgid "Media scanner handling file"
+msgstr "يتم فحص ملفات الوسائط"
+
+msgctxt "act_media_scanner_scan_file_detail"
+msgid ""
+"The media scanner has started to scan a file and add it to the media "
+"database."
+msgstr "بدأ فحص ملفات الوسائط وإضافتها إلى قاعدة بيانات الوسائط."
+
+msgctxt "act_media_scanner_started"
+msgid "Media scanner started"
+msgstr "بدأ البحث عن الوسائط"
+
+msgctxt "act_media_scanner_started_detail"
+msgid "The media scanner has started scanning a directory."
+msgstr "بدأ تفحص دليل الوسائط."
+
+msgctxt "act_media_shared"
+msgid "Media sharing enabled"
+msgstr "تمكين مشاركة الوسائط"
+
+msgctxt "act_media_shared_detail"
+msgid ""
+"External media is now being shared via USB mass storage mode, and is at this"
+" time no longer available to the device."
+msgstr ""
+"يتم تبادل الوسائط حاليا بواسطة مخزن كبير السعة USB، في هذا الوقت لا يمكن "
+"الوصول للجهاز."
+
+msgctxt "act_media_unmountable"
+msgid "Media unmountable"
+msgstr "الجهاز غير قابل للتوصيل"
+
+msgctxt "act_media_unmountable_detail"
+msgid ""
+"External media was detected, but cannot be used, likely due to an error."
+msgstr "تم الكشف عن وسائط خارجية، ولكن لا يمكن استخدامها، يرجح أن هناك خطأ."
+
+msgctxt "act_media_unmounted"
+msgid "Media unmounted"
+msgstr "تم فصل الوسائط"
+
+msgctxt "act_media_unmounted_detail"
+msgid ""
+"External media is available, but unmounted, and not available to the device."
+msgstr "تم تحميل الوسائط الخارجية لكن لا يمكن استخدامها على الجهاز."
+
+msgctxt "act_new_outgoing_call"
+msgid "New outgoing call"
+msgstr "مكالمة صادرة جديدة"
+
+msgctxt "act_new_outgoing_call_detail"
+msgid ""
+"A new outgoing call is about to be placed. Applications may preprocess the "
+"call, and for example change or filter the phone number."
+msgstr ""
+"المكالمة الصادرة الجديدة على وشك أن تُبعد. التطبيقات على وشك معالجة "
+"المكالمة، على سبيل المثال تغيير أو تصفية رقم الهاتف."
+
+msgctxt "act_package_added"
+msgid "Application installed"
+msgstr "تثبت التطبيق"
+
+msgctxt "act_package_added_detail"
+msgid "A new application package has been installed on the device."
+msgstr "تم تثبيت تطبيق جديد على الجهاز."
+
+msgctxt "act_package_changed"
+msgid "Application changed"
+msgstr "تغيير التطبيق"
+
+msgctxt "act_package_changed_detail"
+msgid ""
+"An application package has been changed; for example, a component may have "
+"been enabled or disabled."
+msgstr "تم تغيير حزمة تطبيقات؛ على سبيل المثال، تم تمكين أو تعطيل المكونات."
+
+msgctxt "act_package_data_cleared"
+msgid "Application data cleared"
+msgstr "بيانات التطبيق مسحت"
+
+msgctxt "act_package_data_cleared_detail"
+msgid "The user data associated with an application package was cleared."
+msgstr "تم مسح بيانات المستخدم المرتبطة بحزمة تطبيقات."
+
+msgctxt "act_package_install"
+msgid "Installing application"
+msgstr "تثبيت التطبيق"
+
+msgctxt "act_package_install_detail"
+msgid "An application is about to be downloaded and installed."
+msgstr "تطبيق على وشك أن يتم تحميله وتثبيته."
+
+msgctxt "act_package_removed"
+msgid "Application removed"
+msgstr "إزالة التطبيق"
+
+msgctxt "act_package_removed_detail"
+msgid "An application package has been removed from the device."
+msgstr "تمت إزالة تطبيقات من الجهاز."
+
+msgctxt "act_package_replaced"
+msgid "Application replaced"
+msgstr "استبدال التطبيق"
+
+msgctxt "act_package_replaced_detail"
+msgid "An application package has been replaced by a new version."
+msgstr "تم استبدال تطبيق بإصدار جديد."
+
+msgctxt "act_package_restarted"
+msgid "Application restarted"
+msgstr "إعادة تشغيل التطبيق"
+
+msgctxt "act_package_restarted_detail"
+msgid ""
+"An application package was restarted, and all it's processes have been "
+"killed."
+msgstr "تمت إعادة تشغيل التطبيق، وتم إغلاق جميع العمليات بالقوة."
+
+msgctxt "act_provider_changed"
+msgid "Content provider changed"
+msgstr "تغيير موفر المحتوى"
+
+msgctxt "act_provider_changed_detail"
+msgid ""
+"A content provider publishes a new event; for example, this is triggered by "
+"the GMail Storage provider when the set of unread email in the inbox "
+"changes."
+msgstr ""
+"حدث تجديد في محتوى النشر ، على سبيل المثال ، يتم تشغيل هذا من قبل بريد جوجل "
+"عند وجوده في البريد الإلكتروني غير المقروءة في علبة الوارد."
+
+msgctxt "act_reboot"
+msgid "Reboot"
+msgstr "إعادة التشغيل"
+
+msgctxt "act_reboot_detail"
+msgid "The system is about to reboot."
+msgstr "النظام على وشك إعادة التشغيل."
+
+msgctxt "act_screen_off"
+msgid "Screen off"
+msgstr "الشاشة مغلقة"
+
+msgctxt "act_screen_off_detail"
+msgid "The screen just turned off."
+msgstr "تم إغلاق الشاشة."
+
+msgctxt "act_screen_on"
+msgid "Screen on"
+msgstr "الشاشة تعمل"
+
+msgctxt "act_screen_on_detail"
+msgid "The screen just turned on."
+msgstr "تم تشغيل الشاشة."
+
+msgctxt "act_timezone_changed"
+msgid "Timezone changed"
+msgstr "تم تغيير المنطقة الزمنية"
+
+msgctxt "act_timezone_changed_detail"
+msgid "The system timezone setting has changed."
+msgstr "المنطقة الزمنية للنظام تغيرت."
+
+msgctxt "act_time_changed"
+msgid "Time changed"
+msgstr "الزمن تغير"
+
+msgctxt "act_time_changed_detail"
+msgid "The system time has changed."
+msgstr "تم تغيير وقت النظام."
+
+msgctxt "act_time_tick"
+msgid "Time tick"
+msgstr "علامة الوقت"
+
+msgctxt "act_time_tick_detail"
+msgid "The current time has changed. This is triggered once every minute."
+msgstr "تغيرت الوقت الحالي. يتم تشغيل هذا مرة واحدة كل دقيقة."
+
+msgctxt "act_uid_removed"
+msgid "User removed"
+msgstr "إزالة المستخدم"
+
+msgctxt "act_uid_removed_detail"
+msgid ""
+"A user id was removed from the system. This is usually related to the "
+"removal of an installed application."
+msgstr "تمت إزالة مستخدم من النظام. هذا يرتبط عادة بإزالة تطبيق مثبت."
+
+msgctxt "act_ums_connected"
+msgid "USB connected"
+msgstr "توصيل USB"
+
+msgctxt "act_ums_connected_detail"
+msgid "The device has entered USB Mass Storage mode."
+msgstr "دخل الجهاز وضع مخزن كبير السعة USB."
+
+msgctxt "act_ums_disconnected"
+msgid "USB disconnected"
+msgstr "قطع اتصال USB"
+
+msgctxt "act_ums_disconnected_detail"
+msgid "The device has exited USB Mass Storage mode."
+msgstr "تم إنهاء وضع مخزن كبير السعة USB."
+
+msgctxt "act_user_present"
+msgid "User present"
+msgstr "المستخدم الحالي"
+
+msgctxt "act_user_present_detail"
+msgid ""
+"The user woke up the device and successfully passed the keyguard (if "
+"enabled)."
+msgstr "أيقض المستخدم الجهاز بنجاح ( إذا تم تفعيله ) ."
+
+msgctxt "act_wallpaper_changed"
+msgid "Wallpaper changed"
+msgstr "تغيير خلفية"
+
+msgctxt "act_wallpaper_changed_detail"
+msgid ""
+"The system wallpaper has changed, either due to a user action, or by an "
+"application."
+msgstr "خلفية النظام تغيرت، من قبل المستخدم، أو تطبيق ما."
+
+msgctxt "act_sim_full"
+msgid "SIM is full"
+msgstr "SIM ممتلئ"
+
+msgctxt "act_sim_full_detail"
+msgid "The SIM storage for SMS messages is full."
+msgstr "مساحة تخزين SIM للرسائل ممتلئة بالكامل."
+
+msgctxt "act_sms_received"
+msgid "SMS received"
+msgstr "راسله نصية واردة"
+
+msgctxt "act_sms_received_detail"
+msgid "A new text based SMS message has been received."
+msgstr "تم استقبال راسله نصية."
+
+msgctxt "act_data_sms_received"
+msgid "Data SMS received"
+msgstr "وردت بيانات رسالة نصية"
+
+msgctxt "act_data_sms_received_detail"
+msgid "A new data SMS message has been received."
+msgstr "تم تلقي بيانات رسالة نصية جديدة."
+
+msgctxt "act_sms_rejected"
+msgid "SMS rejected"
+msgstr "رسالة نصية مرفوضة"
+
+msgctxt "act_sms_rejected_detail"
+msgid "A text based SMS message has been rejected."
+msgstr "تم رفض نص على رسالة نصية."
+
+msgctxt "act_wap_push_received"
+msgid "WAP PUSH received"
+msgstr "استقبال دفع WAP"
+
+msgctxt "act_wap_push_received_detail"
+msgid "A new WAP PUSH message has been received."
+msgstr "تم تلقي رسالة WAP جديدة."
+
+msgctxt "act_network_ids_changed"
+msgid "Wi-Fi network IDs changed"
+msgstr "تغيير معرفات شبكة واي فاي"
+
+msgctxt "act_network_ids_changed_detail"
+msgid "The network IDs of the configured networks may have changed."
+msgstr "ربما تم تغيير إعدادات الشبكة المُعرفة."
+
+msgctxt "act_rssi_changed"
+msgid "RSSI changed"
+msgstr "تغيير RSSI"
+
+msgctxt "act_rssi_changed_detail"
+msgid "The Wi-Fi signal strength (RSSI) has changed."
+msgstr "لقد تغير قوة إشارة واي فاي (RSSI)."
+
+msgctxt "act_scan_results_available"
+msgid "Wi-Fi scan completed"
+msgstr "انتهى من فحص واي فاي"
+
+msgctxt "act_scan_results_available_detail"
+msgid "An access point scan has completed, and results are available."
+msgstr "تم استكمال مسح نقاط الوصول، وتتوفر نتائج."
+
+msgctxt "act_network_state_changed"
+msgid "Wi-Fi state changed"
+msgstr "تغيرت حالة واي فاي"
+
+msgctxt "act_network_state_changed_detail"
+msgid "The state of Wi-Fi connectivity has changed."
+msgstr "لقد تغيرت حالة اتصال واي فاي."
+
+msgctxt "act_supplicant_connection_change"
+msgid "Wi-Fi connection changed"
+msgstr "تغير اتصال وأي فأي"
+
+msgctxt "act_supplicant_connection_change_detail"
+msgid ""
+"The connection to a Wi-Fi access point was either successfully established, "
+"or an existing connection lost."
+msgstr "إما أن تأسيس الاتصال بنقطة الوصول وأي فأي نجح، أو أن الاتصال مفقود."
+
+msgctxt "act_suplicant_state_changed"
+msgid "Wi-Fi connecting state changed"
+msgstr "تغير اتصال وأي فأي"
+
+msgctxt "act_suplicant_state_changed_detail"
+msgid ""
+"The state of of establishing a connection to an access point has changed."
+msgstr "حالة تأسيس الاتصال إلى نقطة وصول تغيرت."
+
+msgctxt "act_ringer_mode_changed"
+msgid "Ringer mode changed"
+msgstr "تغير وضع الجرس"
+
+msgctxt "act_ringer_mode_changed_detail"
+msgid "The ringer mode has changed (silent, vibrate, etc)."
+msgstr "تغير وضع الجرس إلى (الصامت، هزاز، وغير ذلك)."
+
+msgctxt "act_vibrate_setting_changed"
+msgid "Vibrate setting changed"
+msgstr "تغيرت إعداد الهزاز"
+
+msgctxt "act_vibrate_setting_changed_detail"
+msgid "The vibrate setting has changed (on, off, etc)."
+msgstr "تغير وضع الهزاز (تشغيل ، إطفاء ، الخ)."
+
+msgctxt "act_audio_becoming_noisy"
+msgid "Audio becoming noisy"
+msgstr "الصوت يصبح صاخب"
+
+msgctxt "act_audio_becoming_noisy_detail"
+msgid ""
+"Audio is about to become 'noisy' due to a change in audio outputs, e.g. when"
+" a headset is unplugged."
+msgstr ""
+"الصوت على وشك أن يصبح 'صاخب' عند تغيير مخرج الصوت ، على سبيل المثال عندما "
+"يتم توصيل سماعة."
+
+msgctxt "act_tts_queue_completed"
+msgid "TTS queue completed"
+msgstr "انتهى تحويل النص إلى كلام"
+
+msgctxt "act_tts_queue_completed_detail"
+msgid ""
+"The TextToSpeech synthesizer has completed processing of all the text in the"
+" speech queue."
+msgstr "تم الانتهاء من تحويل كل النصوص في قائمة الانتظار إلى كلام"
+
+msgctxt "act_tts_data_installed"
+msgid "TTS data installed"
+msgstr "تثبيت بيانات تحويل النص إلى كلام"
+
+msgctxt "act_tts_data_installed_detail"
+msgid ""
+"Signals the completion of the installation of the data files used by the "
+"synthesis engine."
+msgstr "إشارات إكمال تركيب ملفات البيانات المستخدمة من قبل محرك التوليف."
+
+msgctxt "act_sink_state_changed"
+msgid "BT sink state changed"
+msgstr "تغيرت حالة اتصال البلوتوث"
+
+msgctxt "act_sink_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bonding_created"
+msgid "BT bonding created"
+msgstr "تم  إنشاء ارتباط بلوتوث"
+
+msgctxt "act_bonding_created_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bonding_removed"
+msgid "BT bonding removed"
+msgstr "تم  حذف ارتباط بلوتوث"
+
+msgctxt "act_bonding_removed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_disabled"
+msgid "Bluetooth disabled"
+msgstr "تعطيل بلوتوث"
+
+msgctxt "act_disabled_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_discovery_completed"
+msgid "BT discovery completed"
+msgstr "انتهى بحث بلوتوث"
+
+msgctxt "act_discovery_completed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_discovery_started"
+msgid "BT discovery started"
+msgstr "بدأ بحث بلوتوث"
+
+msgctxt "act_discovery_started_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_enabled"
+msgid "Bluetooth enabled"
+msgstr "تمكين بلوتوث"
+
+msgctxt "act_enabled_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_headset_state_changed"
+msgid "BT headset state changed"
+msgstr "سماعات رأس بلوتوث"
+
+msgctxt "act_headset_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_mode_changed"
+msgid "BT mode changed"
+msgstr "حالة بلوتوث تغيرت"
+
+msgctxt "act_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_name_changed"
+msgid "BT name changed"
+msgstr "اسم بلوتوث تغير"
+
+msgctxt "act_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_pairing_cancel"
+msgid "BT pairing canceled"
+msgstr "تم إلغاء اقتران بلوتوث"
+
+msgctxt "act_pairing_cancel_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_pairing_request"
+msgid "BT pairing requested"
+msgstr "تم طلب اقتران بلوتوث"
+
+msgctxt "act_pairing_request_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_alias_changed"
+msgid "BT alias changed"
+msgstr "تغيير الاسم المستعار للبلوتوث"
+
+msgctxt "act_remote_alias_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_alias_cleared"
+msgid "BT alias cleared"
+msgstr "تم مسح الاسم المستعار للبلوتوث"
+
+msgctxt "act_remote_alias_cleared_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_device_connected"
+msgid "BT device connected"
+msgstr "جهاز بلوتوث متصل"
+
+msgctxt "act_remote_device_connected_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_device_disappeared"
+msgid "BT device disappeared"
+msgstr "اختفى جهاز بلوتوث"
+
+msgctxt "act_remote_device_disappeared_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_device_disconnected"
+msgid "BT device disconnected"
+msgstr "جهاز بلوتوث غير متصل"
+
+msgctxt "act_remote_device_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_device_disconnect_requested"
+msgid "BT disconnect requested"
+msgstr "طلب قطع اتصال بلوتوث"
+
+msgctxt "act_remote_device_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_device_found"
+msgid "BT device found"
+msgstr "تم العثور على جهاز بلوتوث"
+
+msgctxt "act_remote_device_found_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_name_failed"
+msgid "BT name failed"
+msgstr "اسم بلوتوث غير صالح"
+
+msgctxt "act_remote_name_failed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_remote_name_updated"
+msgid "BT name updated"
+msgstr "تحديث اسم بلوتوث"
+
+msgctxt "act_remote_name_updated_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_state_changed"
+msgid "BT state changed"
+msgstr "تغيرت حالة البلوتوث"
+
+msgctxt "act_bt_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_name_changed"
+msgid "BT name changed"
+msgstr "تغير اسم بلوتوث"
+
+msgctxt "act_bt_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_bond_state_changed"
+msgid "BT bond state changed"
+msgstr "تغيرت حالة ربط بلوتوث"
+
+msgctxt "act_bt_bond_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_audio_state_changed"
+msgid "BT audio state changed"
+msgstr "تغيرت حالة صوت بلوتوث"
+
+msgctxt "act_bt_audio_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_local_name_changed"
+msgid "BT local name changed"
+msgstr "تغير اسم بلوتوث المحلي"
+
+msgctxt "act_bt_local_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_scan_mode_changed"
+msgid "BT scan mode changed"
+msgstr "حالة بحث بلوتوث تغيرت"
+
+msgctxt "act_bt_scan_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_discovery_finished"
+msgid "BT discovery finished"
+msgstr "الانتهاء من اكتشاف بلوتوث"
+
+msgctxt "act_bt_discovery_finished_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_acl_connected"
+msgid "BT ACL connected"
+msgstr "بلوتوث متصل ب ACL"
+
+msgctxt "act_bt_acl_connected_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_acl_disconnected"
+msgid "BT ACL disconnected"
+msgstr "بلوتوث غير متصل ب ACL"
+
+msgctxt "act_bt_acl_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_acl_disconnect_requested"
+msgid "BT ACL disconnect requested"
+msgstr "طلب ACL قطع اتصال بلوتوث"
+
+msgctxt "act_bt_acl_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_class_changed"
+msgid "BT class changed"
+msgstr "تغير درجة بلوتوث"
+
+msgctxt "act_bt_class_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_found"
+msgid "BT found"
+msgstr "العثور على بلوتوث"
+
+msgctxt "act_bt_found_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_device_selected"
+msgid "BT device selected"
+msgstr "تم اختيار جهاز بلوتوث المحدد"
+
+msgctxt "act_bt_device_selected_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_bt_launch"
+msgid "BT launch"
+msgstr "تم إطلاق بلوتوث"
+
+msgctxt "act_bt_launch_detail"
+msgid "(Bluetooth event)"
+msgstr "(حدث بلوتوث)"
+
+msgctxt "act_background_data_setting_changed"
+msgid "Background data setting changed"
+msgstr "إعدادات البيانات الخلفية تغيرت"
+
+msgctxt "act_background_data_setting_changed_detail"
+msgid "The setting for background data usage has changed values."
+msgstr "تم تغيير قيم الإعداد من أجل استخدام البيانات الخلفية."
+
+msgctxt "act_appwidget_enabled"
+msgid "Widget enabled"
+msgstr "تمكين الودجة"
+
+msgctxt "act_appwidget_enabled_detail"
+msgid "The first copy of a widget was added."
+msgstr "تمت إضافة النسخة الأولى من الودجة"
+
+msgctxt "act_appwidget_update"
+msgid "Widget updating"
+msgstr "تحديث الودجة"
+
+msgctxt "act_appwidget_update_detail"
+msgid ""
+"A widget is asked to update itself. How often this is triggered depends on the widget in question, but never for widgets that are not in use.\n"
+"\n"
+"<b>Note that disabling this event will likely render the widget defunct.</b>"
+msgstr ""
+"ودجة تطلب تحديث نفسها. وهذا يتوقف على استخدامك للودجة المعنية، لا تحدث ابدأ للودجة التي لا تستخدمها.\n"
+"\n"
+"<b>ملاحظة أن تعطيل هذا التحديث قد يحدث مشاكل في الودجة.</b>"
+
+msgctxt "act_appwidget_disabled"
+msgid "Widget disabled"
+msgstr "تعطيل الودجة"
+
+msgctxt "act_appwidget_disabled_detail"
+msgid "The last copy of a widget was removed."
+msgstr "تمت إزالة آخر نسخة من الودجة."
+
+msgctxt "act_appwidget_deleted"
+msgid "Widget deleted"
+msgstr "حذفت الودجة"
+
+msgctxt "act_appwidget_deleted_detail"
+msgid ""
+"A copy of a widget was removed. Note that most widgets support multiple "
+"copies."
+msgstr "تمت إزالة نسخة من الودجة. لاحظ أن معظم الودجات تدعم نسخ متعددة."
+
+msgctxt "act_phone_state_changed"
+msgid "Call state changed"
+msgstr "تغيرت حالة الاتصال"
+
+msgctxt "act_phone_state_changed_detail"
+msgid ""
+"The call state of the phone has changed, for example when a new call is "
+"coming in, a call is accepted, or a previously active call ends."
+msgstr ""
+"تغير حالة مكالمات الهاتف، على سبيل المثال عندما تأتي مكالمة جديدة،يتم قبول "
+"المكالمة أو إنهاء المكالمة النشطة مسبقاً."
+
+msgctxt "act_connectivity"
+msgid "Connectivity changed"
+msgstr "تغيير الاتصال"
+
+msgctxt "act_connectivity_detail"
+msgid ""
+"The current network connection has changed, e.g. when switching from Wi-Fi "
+"to GSM. Note that since this is also triggered when a connection is "
+"initially established, it effectively entails the On Startup behavior."
+msgstr ""
+"اتصال شبكة الاتصال الحالية تغير، بعد التبديل من وأي فأي إلى جي إس أم. لاحظ "
+"أنه بعد هذا التبديل فإنه سيتبع نفس السلوك \"عند بدء التشغيل\"."
+
+msgctxt "act_new_picture"
+msgid "New Picture"
+msgstr "صورة جديدة"
+
+msgctxt "act_new_picture_detail"
+msgid ""
+"A new photo was added to the gallery, usually by the Camera application "
+"after the user made a new photo."
+msgstr "صورة جديدة اضيفت لمعرض الصور، عادة تضاف الصور بعد التقاطها بالكاميرا."
+
+msgctxt "act_secret_code"
+msgid "Secret Code entered"
+msgstr "تم إدخال الرقم السري"
+
+msgctxt "act_secret_code_detail"
+msgid ""
+"A secret code was entered in the dialer. They are in the form of *#*##*#*."
+msgstr "تم إدخال الرقم السري للاتصال. إنها في شكل *#*##*#*."
+
+msgctxt "act_spn_strings_updated"
+msgid "Service provider data changed"
+msgstr "تم تغيير مزود الخدمة"
+
+msgctxt "act_spn_strings_updated_detail"
+msgid "The name of the network operator or service provider have changed."
+msgstr "تغير اسم مزود الخدمة أو الشبكة."
+
+msgctxt "act_anr"
+msgid "Application not responding"
+msgstr "التطبيق لا يستجيب"
+
+msgctxt "act_anr_detail"
+msgid ""
+"An application is not responding. This is when you see the infamous dialog "
+"box."
+msgstr "التطبيق لا يستجيب. هذا عندما ترى مربع معلومات الاتصال."
+
+msgctxt "act_event_reminder"
+msgid "Event reminder"
+msgstr "تذكير بالحدث"
+
+msgctxt "act_event_reminder_detail"
+msgid ""
+"A reminder for a scheduled event should now be shown. This is used by the "
+"Calendar application."
+msgstr "سيظهر الآن تذكرة لحدث مجدول. يتم استخدامه قبل تطبيق التقويم."
+
+msgctxt "act_install_shortcut"
+msgid "Install Shortcut"
+msgstr "تثبيت اختصار"
+
+msgctxt "act_install_shortcut_detail"
+msgid ""
+"An application wants to put a shortcut on your home screen. Home screen "
+"application will usually register for this."
+msgstr ""
+"تطبيق يرغب بإضافة اختصار على سطح المكتب.عادة سطح المكتب يسجل هذه الإضافات"
+
+msgctxt "act_uninstall_shortcut"
+msgid "Uninstall Shortcut"
+msgstr "إزالة الاختصار"
+
+msgctxt "act_uninstall_shortcut_detail"
+msgid ""
+"An application wants to remove a shortcut from your home screen. Home screen"
+" application will usually register for this."
+msgstr ""
+"تطبيق يرغب بإزالة اختصار على سطح المكتب.عادة سطح المكتب يسجل هذه الإضافات"
+
+msgctxt "act_any_data_state"
+msgid "Data state changed"
+msgstr "تغيرت حالة المعلومات"
+
+msgctxt "act_any_data_state_detail"
+msgid ""
+"The state of a data connection (for example MMS, GPS) has changed, for "
+"example when you connect to a new APN."
+msgstr ""
+"تغيرت حالة اتصال البيانات (على سبيل المثال رسائل الوسائط المتعددة ، نظام "
+"تحديد المواقع) ، تحدث هذه عند تغيير الاتصال APN."
+
+msgctxt "act_service_state"
+msgid "Service state changed"
+msgstr "تغيرت حالة الخدمة"
+
+msgctxt "act_service_state_detail"
+msgid ""
+"The phone's service state has changed, for example when you start roaming, "
+"or connect to a different mobile network."
+msgstr ""
+"تغير حالة خدمة الهاتف، على سبيل المثال عند بدء تشغيل خدمة التجوال، أو "
+"الاتصال بشبكة هاتف محمول مختلفة."
+
+msgctxt "act_data_connection_failed"
+msgid "Data connection failed"
+msgstr "فشل اتصال البيانات"
+
+msgctxt "act_data_connection_failed_detail"
+msgid "An attempt to establish a data connection has failed."
+msgstr "فشلت محاولة تأسيس اتصال البيانات."
+
+msgctxt "act_sim_state_changed"
+msgid "SIM state changed"
+msgstr "تغيرت حالة SIM"
+
+msgctxt "act_sim_state_changed_detail"
+msgid ""
+"The sim card state has changed, for example when it is initially loaded, or "
+"when it becomes locked due to incorrect PIN entry."
+msgstr ""
+"تغيرت حالة بطاقة SIM، على سبيل المثال عندما يتم تحميلها في البداية ، أو "
+"عندما تغلق بسبب إدخال PIN غير صحيح."
+
+msgctxt "act_signal_strength"
+msgid "Signal strength changed"
+msgstr "قوة الإشارة تغيير"
+
+msgctxt "act_signal_strength_detail"
+msgid "The phone's signal strength has changed."
+msgstr "تغيرت قوة إشارة الهاتف."
+
+msgctxt "act_network_set_time"
+msgid "Network Time Change"
+msgstr "تغيير وقت الشبكة"
+
+msgctxt "act_network_set_time_detail"
+msgid "The phone's time was set by the carrier."
+msgstr "تم تعيين وقت للهاتف من المشغل."
+
+msgctxt "act_network_set_timezone"
+msgid "Network Timezone Change"
+msgstr "تغيير المنطقة الزمنية في شبكة الاتصال"
+
+msgctxt "act_network_set_timezone_detail"
+msgid "The phone's timezone was set by the carrier."
+msgstr "تم تعيين التوقيت الهاتف من قبل المشغل."
+
+msgctxt "act_wifi_state_changed"
+msgid "Wi-Fi state changed"
+msgstr "تغيرت حالة واي فاي"
+
+msgctxt "act_wifi_state_changed_detail"
+msgid ""
+"The state of the Wi-Fi chip has changed, for example when it is enabled or "
+"disabled."
+msgstr "تغير حالة رقاقة وأي فأي، على سبيل المثال عند تمكين أو تعطيل الشبكة."
+
+msgctxt "act_external_apps_available"
+msgid "Externals apps available"
+msgstr "التطبيقات الخارجية متاحة"
+
+msgctxt "act_external_apps_available_detail"
+msgid "Externals apps (e.g. stored on SD card) have become available."
+msgstr ""
+"أصبحت التطبيقات الخارجية متاحة (مثل المخزنة على بطاقة الذاكرة الرقمية SD)."
+
+msgctxt "act_external_apps_unavailable"
+msgid "Externals apps unavailable"
+msgstr "التطبيقات الخارجية غير متاحة"
+
+msgctxt "act_external_apps_unavailable_detail"
+msgid "Externals apps (e.g. stored on SD card) are no longer available."
+msgstr ""
+"التطبيقات الخارجية غير متاحة (مثل المخزنة على بطاقة الذاكرة الرقمية SD)."
+
+msgctxt "act_password_changed"
+msgid "Password changed"
+msgstr "تم تغيير كلمة المرور"
+
+msgctxt "act_password_changed_detail"
+msgid "Sent to a device admin when the user changes their password."
+msgstr ""
+"أرسلت إلى مسئول الجهاز عند قيام المستخدم بتغيير كلمة المرور الخاصة به."
+
+msgctxt "act_password_failed"
+msgid "Password failed"
+msgstr "فشل كلمة المرور"
+
+msgctxt "act_password_failed_detail"
+msgid ""
+"Sent to a device admin when the user has failed at attempted to enter the "
+"password."
+msgstr ""
+"أرسلت إلى مسئول الجهاز عند فشل المستخدم في تغيير كلمة المرور الخاصة به."
+
+msgctxt "act_password_succeeded"
+msgid "Password succeeded"
+msgstr "تم قبول كلمة المرور"
+
+msgctxt "act_password_succeeded_detail"
+msgid ""
+"Sent to a device admin when the user has successfully entered their "
+"password, after failing one or more times."
+msgstr "عند قيام المستخدم بتغيير كلمة المرور الخاصة به، ترسل إلى مسئول الجهاز"
+
+msgctxt "act_device_admin_disabled"
+msgid "Device Admin Disabled"
+msgstr "مسؤول الجهاز معطل"
+
+msgctxt "act_device_admin_disabled_detail"
+msgid "Sent to a device admin when it has been disabled."
+msgstr "أرسلت إلى مدير الجهاز عند تعطيلها."
+
+msgctxt "act_device_admin_disable_req"
+msgid "Device Admin Disable Request"
+msgstr "طلب تعطيل مدير الجهاز"
+
+msgctxt "act_device_admin_disable_req_detail"
+msgid "Sent to a device admin when it is about to be disabled."
+msgstr "أرسلت إلى مدير الجهاز عندما يراد تعطيلها."
+
+msgctxt "act_device_admin_enabled"
+msgid "Device Admin Enabled"
+msgstr "مسؤول الجهاز مفعل"
+
+msgctxt "act_device_admin_enabled_detail"
+msgid "Sent to a device admin when it has been enabled."
+msgstr "أرسلت إلى مدير الجهاز عند تفعيلها."
+
+msgctxt "act_login_accounts_changed"
+msgid "Accounts changed"
+msgstr "الحسابات تغيرت"
+
+msgctxt "act_login_accounts_changed_detail"
+msgid ""
+"Accounts have been added, or removed, or an account's credentials are "
+"changed."
+msgstr "تم إضافة أو إزالة الحسابات،أو تم تغيير الحساب."

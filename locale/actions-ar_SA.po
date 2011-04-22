@@ -1,22 +1,22 @@
-# Translations template for PROJECT.
+# Arabic (Saudi Arabia) translations for .
 # Copyright (C) 2011 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the  project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: android-autostarts\n"
-"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-autostarts/issues\n"
-"POT-Creation-Date: 2011-03-22 23:46+0100\n"
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
+"autostarts/issues\n"
+"POT-Creation-Date: 2011-04-22 17:32+0200\n"
 "PO-Revision-Date: 2011-04-16 08:02+0000\n"
 "Last-Translator: imksa <malham1@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <None>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
-"Language: ar_SA\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgctxt "act_airplane_mode_changed"
 msgid "Airplane mode changed"
@@ -122,8 +122,8 @@ msgstr "تغيير الإعدادات"
 
 msgctxt "act_configuration_changed_detail"
 msgid ""
-"The device configuration changed. This includes things like locale settings,"
-" but also the device orientation."
+"The device configuration changed. This includes things like locale "
+"settings, but also the device orientation."
 msgstr ""
 "تغيير إعدادات الجهاز. وهذا يشمل أشياء مثل الإعدادات المحلية، وأيضا توجه "
 "الجهاز."
@@ -134,8 +134,8 @@ msgstr "تغييرات محلية"
 
 msgctxt "act_locale_changed_detail"
 msgid ""
-"The device's locale setting has changed. This is a subset of \"Configuration"
-" changed\"."
+"The device's locale setting has changed. This is a subset of "
+"\"Configuration changed\"."
 msgstr "تم تغيير إعدادات الجهاز المحلية. هذه مجموعة فرعية من \"تغيير الإعدادات\"."
 
 msgctxt "act_date_changed"
@@ -160,8 +160,8 @@ msgstr "مستوى التخزين جيد"
 
 msgctxt "act_device_storage_ok_detail"
 msgid ""
-"The device storage space has increased beyond the critical threshold, and "
-"the low memory condition no longer exists."
+"The device storage space has increased beyond the critical threshold, and"
+" the low memory condition no longer exists."
 msgstr ""
 "زادت مساحة تخزين الجهاز وتجاوزت عتبة الحرج، وشرط الذاكرة المنخفضة لم يعد "
 "موجوداً."
@@ -222,8 +222,8 @@ msgstr "ضغط زر الوسائط"
 
 msgctxt "act_media_button_detail"
 msgid ""
-"The \"Media Button\" was pressed. Usually, this will refer to a button on "
-"your headset/earplugs."
+"The \"Media Button\" was pressed. Usually, this will refer to a button on"
+" your headset/earplugs."
 msgstr "الضغط على زر \"الوسائط\" عادة، يشير إلى زر على سماعات الرأس."
 
 msgctxt "act_media_checking"
@@ -247,8 +247,7 @@ msgid "Media mounted"
 msgstr "تحميل الوسائط"
 
 msgctxt "act_media_mounted_detail"
-msgid ""
-"External media is present, was mounted and is now available to the device."
+msgid "External media is present, was mounted and is now available to the device."
 msgstr "تم تحميل الوسائط الخارجية الآن على الجهاز."
 
 msgctxt "act_media_nofs"
@@ -257,8 +256,8 @@ msgstr "الوسائط غير صالحة أو فارغة"
 
 msgctxt "act_media_nofs_detail"
 msgid ""
-"External media was detected, but is using an incompatible filesystem or is "
-"blank."
+"External media was detected, but is using an incompatible filesystem or "
+"is blank."
 msgstr "تم اكتشاف وسائط خارجية، لكن تستخدم نظام ملفات غير متوافقة أو فارغة."
 
 msgctxt "act_media_removed"
@@ -303,8 +302,8 @@ msgstr "تمكين مشاركة الوسائط"
 
 msgctxt "act_media_shared_detail"
 msgid ""
-"External media is now being shared via USB mass storage mode, and is at this"
-" time no longer available to the device."
+"External media is now being shared via USB mass storage mode, and is at "
+"this time no longer available to the device."
 msgstr ""
 "يتم تبادل الوسائط حاليا بواسطة مخزن كبير السعة USB، في هذا الوقت لا يمكن "
 "الوصول للجهاز."
@@ -314,8 +313,7 @@ msgid "Media unmountable"
 msgstr "الجهاز غير قابل للتوصيل"
 
 msgctxt "act_media_unmountable_detail"
-msgid ""
-"External media was detected, but cannot be used, likely due to an error."
+msgid "External media was detected, but cannot be used, likely due to an error."
 msgstr "تم الكشف عن وسائط خارجية، ولكن لا يمكن استخدامها، يرجح أن هناك خطأ."
 
 msgctxt "act_media_unmounted"
@@ -324,7 +322,8 @@ msgstr "تم فصل الوسائط"
 
 msgctxt "act_media_unmounted_detail"
 msgid ""
-"External media is available, but unmounted, and not available to the device."
+"External media is available, but unmounted, and not available to the "
+"device."
 msgstr "تم تحميل الوسائط الخارجية لكن لا يمكن استخدامها على الجهاز."
 
 msgctxt "act_new_outgoing_call"
@@ -333,8 +332,8 @@ msgstr "مكالمة صادرة جديدة"
 
 msgctxt "act_new_outgoing_call_detail"
 msgid ""
-"A new outgoing call is about to be placed. Applications may preprocess the "
-"call, and for example change or filter the phone number."
+"A new outgoing call is about to be placed. Applications may preprocess "
+"the call, and for example change or filter the phone number."
 msgstr ""
 "المكالمة الصادرة الجديدة على وشك أن تُبعد. التطبيقات على وشك معالجة "
 "المكالمة، على سبيل المثال تغيير أو تصفية رقم الهاتف."
@@ -353,8 +352,8 @@ msgstr "تغيير التطبيق"
 
 msgctxt "act_package_changed_detail"
 msgid ""
-"An application package has been changed; for example, a component may have "
-"been enabled or disabled."
+"An application package has been changed; for example, a component may "
+"have been enabled or disabled."
 msgstr "تم تغيير حزمة تطبيقات؛ على سبيل المثال، تم تمكين أو تعطيل المكونات."
 
 msgctxt "act_package_data_cleared"
@@ -405,12 +404,12 @@ msgstr "تغيير موفر المحتوى"
 
 msgctxt "act_provider_changed_detail"
 msgid ""
-"A content provider publishes a new event; for example, this is triggered by "
-"the GMail Storage provider when the set of unread email in the inbox "
+"A content provider publishes a new event; for example, this is triggered "
+"by the GMail Storage provider when the set of unread email in the inbox "
 "changes."
 msgstr ""
-"حدث تجديد في محتوى النشر ، على سبيل المثال ، يتم تشغيل هذا من قبل بريد جوجل "
-"عند وجوده في البريد الإلكتروني غير المقروءة في علبة الوارد."
+"حدث تجديد في محتوى النشر ، على سبيل المثال ، يتم تشغيل هذا من قبل بريد "
+"جوجل عند وجوده في البريد الإلكتروني غير المقروءة في علبة الوارد."
 
 msgctxt "act_reboot"
 msgid "Reboot"
@@ -584,8 +583,8 @@ msgstr "تغير اتصال وأي فأي"
 
 msgctxt "act_supplicant_connection_change_detail"
 msgid ""
-"The connection to a Wi-Fi access point was either successfully established, "
-"or an existing connection lost."
+"The connection to a Wi-Fi access point was either successfully "
+"established, or an existing connection lost."
 msgstr "إما أن تأسيس الاتصال بنقطة الوصول وأي فأي نجح، أو أن الاتصال مفقود."
 
 msgctxt "act_suplicant_state_changed"
@@ -593,8 +592,7 @@ msgid "Wi-Fi connecting state changed"
 msgstr "تغير اتصال وأي فأي"
 
 msgctxt "act_suplicant_state_changed_detail"
-msgid ""
-"The state of of establishing a connection to an access point has changed."
+msgid "The state of of establishing a connection to an access point has changed."
 msgstr "حالة تأسيس الاتصال إلى نقطة وصول تغيرت."
 
 msgctxt "act_ringer_mode_changed"
@@ -619,11 +617,11 @@ msgstr "الصوت يصبح صاخب"
 
 msgctxt "act_audio_becoming_noisy_detail"
 msgid ""
-"Audio is about to become 'noisy' due to a change in audio outputs, e.g. when"
-" a headset is unplugged."
+"Audio is about to become 'noisy' due to a change in audio outputs, e.g. "
+"when a headset is unplugged."
 msgstr ""
-"الصوت على وشك أن يصبح 'صاخب' عند تغيير مخرج الصوت ، على سبيل المثال عندما "
-"يتم توصيل سماعة."
+"الصوت على وشك أن يصبح 'صاخب' عند تغيير مخرج الصوت ، على سبيل المثال عندما"
+" يتم توصيل سماعة."
 
 msgctxt "act_tts_queue_completed"
 msgid "TTS queue completed"
@@ -631,8 +629,8 @@ msgstr "انتهى تحويل النص إلى كلام"
 
 msgctxt "act_tts_queue_completed_detail"
 msgid ""
-"The TextToSpeech synthesizer has completed processing of all the text in the"
-" speech queue."
+"The TextToSpeech synthesizer has completed processing of all the text in "
+"the speech queue."
 msgstr "تم الانتهاء من تحويل كل النصوص في قائمة الانتظار إلى كلام"
 
 msgctxt "act_tts_data_installed"
@@ -925,6 +923,61 @@ msgctxt "act_bt_launch_detail"
 msgid "(Bluetooth event)"
 msgstr "(حدث بلوتوث)"
 
+#, fuzzy
+msgctxt "act_bt_a2dp_connection_state_changed"
+msgid "BT A2DP connection state changed"
+msgstr "تغير اتصال وأي فأي"
+
+msgctxt "act_bt_a2dp_connection_state_changed_detail"
+msgid "Connection state of the A2DP profile has changed."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_bt_a2dp_playing_state_changed"
+msgid "BT A2DP playing state changed"
+msgstr "تغيرت حالة صوت بلوتوث"
+
+msgctxt "act_bt_a2dp_playing_state_changed_detail"
+msgid "Playing state of the A2DP profile has changed."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_bt_connection_state_changed"
+msgid "BT connection state changed"
+msgstr "تغير اتصال وأي فأي"
+
+msgctxt "act_bt_connection_state_changed_detail"
+msgid ""
+"The connection state of the local Bluetooth adapter to a profile of the "
+"remote device has changed."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_bt_headset_audio_state_changed"
+msgid "BT A2DP audio state changed"
+msgstr "تغيرت حالة صوت بلوتوث"
+
+msgctxt "act_bt_headset_audio_state_changed_detail"
+msgid "The Audio Connection state of the A2DP profile has changed."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_bt_headset_connection_state_changed"
+msgid "BT Headset connection state changed"
+msgstr "سماعات رأس بلوتوث"
+
+msgctxt "act_bt_headset_connection_state_changed_detail"
+msgid "Reports a change in connection state of the Headset profile."
+msgstr ""
+
+msgctxt "act_bt_headset_vendor_event"
+msgid "BT Headset vendor event"
+msgstr ""
+
+msgctxt "act_bt_headset_vendor_event_detail"
+msgid "The headset has posted a vendor-specific event."
+msgstr ""
+
 msgctxt "act_background_data_setting_changed"
 msgid "Background data setting changed"
 msgstr "إعدادات البيانات الخلفية تغيرت"
@@ -947,11 +1000,14 @@ msgstr "تحديث الودجة"
 
 msgctxt "act_appwidget_update_detail"
 msgid ""
-"A widget is asked to update itself. How often this is triggered depends on the widget in question, but never for widgets that are not in use.\n"
+"A widget is asked to update itself. How often this is triggered depends "
+"on the widget in question, but never for widgets that are not in use.\n"
 "\n"
-"<b>Note that disabling this event will likely render the widget defunct.</b>"
+"<b>Note that disabling this event will likely render the widget "
+"defunct.</b>"
 msgstr ""
-"ودجة تطلب تحديث نفسها. وهذا يتوقف على استخدامك للودجة المعنية، لا تحدث ابدأ للودجة التي لا تستخدمها.\n"
+"ودجة تطلب تحديث نفسها. وهذا يتوقف على استخدامك للودجة المعنية، لا تحدث "
+"ابدأ للودجة التي لا تستخدمها.\n"
 "\n"
 "<b>ملاحظة أن تعطيل هذا التحديث قد يحدث مشاكل في الودجة.</b>"
 
@@ -982,8 +1038,8 @@ msgid ""
 "The call state of the phone has changed, for example when a new call is "
 "coming in, a call is accepted, or a previously active call ends."
 msgstr ""
-"تغير حالة مكالمات الهاتف، على سبيل المثال عندما تأتي مكالمة جديدة،يتم قبول "
-"المكالمة أو إنهاء المكالمة النشطة مسبقاً."
+"تغير حالة مكالمات الهاتف، على سبيل المثال عندما تأتي مكالمة جديدة،يتم "
+"قبول المكالمة أو إنهاء المكالمة النشطة مسبقاً."
 
 msgctxt "act_connectivity"
 msgid "Connectivity changed"
@@ -991,12 +1047,12 @@ msgstr "تغيير الاتصال"
 
 msgctxt "act_connectivity_detail"
 msgid ""
-"The current network connection has changed, e.g. when switching from Wi-Fi "
-"to GSM. Note that since this is also triggered when a connection is "
+"The current network connection has changed, e.g. when switching from Wi-"
+"Fi to GSM. Note that since this is also triggered when a connection is "
 "initially established, it effectively entails the On Startup behavior."
 msgstr ""
-"اتصال شبكة الاتصال الحالية تغير، بعد التبديل من وأي فأي إلى جي إس أم. لاحظ "
-"أنه بعد هذا التبديل فإنه سيتبع نفس السلوك \"عند بدء التشغيل\"."
+"اتصال شبكة الاتصال الحالية تغير، بعد التبديل من وأي فأي إلى جي إس أم. "
+"لاحظ أنه بعد هذا التبديل فإنه سيتبع نفس السلوك \"عند بدء التشغيل\"."
 
 msgctxt "act_new_picture"
 msgid "New Picture"
@@ -1013,8 +1069,7 @@ msgid "Secret Code entered"
 msgstr "تم إدخال الرقم السري"
 
 msgctxt "act_secret_code_detail"
-msgid ""
-"A secret code was entered in the dialer. They are in the form of *#*##*#*."
+msgid "A secret code was entered in the dialer. They are in the form of *#*##*#*."
 msgstr "تم إدخال الرقم السري للاتصال. إنها في شكل *#*##*#*."
 
 msgctxt "act_spn_strings_updated"
@@ -1031,8 +1086,8 @@ msgstr "التطبيق لا يستجيب"
 
 msgctxt "act_anr_detail"
 msgid ""
-"An application is not responding. This is when you see the infamous dialog "
-"box."
+"An application is not responding. This is when you see the infamous "
+"dialog box."
 msgstr "التطبيق لا يستجيب. هذا عندما ترى مربع معلومات الاتصال."
 
 msgctxt "act_event_reminder"
@@ -1041,8 +1096,8 @@ msgstr "تذكير بالحدث"
 
 msgctxt "act_event_reminder_detail"
 msgid ""
-"A reminder for a scheduled event should now be shown. This is used by the "
-"Calendar application."
+"A reminder for a scheduled event should now be shown. This is used by the"
+" Calendar application."
 msgstr "سيظهر الآن تذكرة لحدث مجدول. يتم استخدامه قبل تطبيق التقويم."
 
 msgctxt "act_install_shortcut"
@@ -1053,8 +1108,7 @@ msgctxt "act_install_shortcut_detail"
 msgid ""
 "An application wants to put a shortcut on your home screen. Home screen "
 "application will usually register for this."
-msgstr ""
-"تطبيق يرغب بإضافة اختصار على سطح المكتب.عادة سطح المكتب يسجل هذه الإضافات"
+msgstr "تطبيق يرغب بإضافة اختصار على سطح المكتب.عادة سطح المكتب يسجل هذه الإضافات"
 
 msgctxt "act_uninstall_shortcut"
 msgid "Uninstall Shortcut"
@@ -1062,10 +1116,9 @@ msgstr "إزالة الاختصار"
 
 msgctxt "act_uninstall_shortcut_detail"
 msgid ""
-"An application wants to remove a shortcut from your home screen. Home screen"
-" application will usually register for this."
-msgstr ""
-"تطبيق يرغب بإزالة اختصار على سطح المكتب.عادة سطح المكتب يسجل هذه الإضافات"
+"An application wants to remove a shortcut from your home screen. Home "
+"screen application will usually register for this."
+msgstr "تطبيق يرغب بإزالة اختصار على سطح المكتب.عادة سطح المكتب يسجل هذه الإضافات"
 
 msgctxt "act_any_data_state"
 msgid "Data state changed"
@@ -1085,8 +1138,8 @@ msgstr "تغيرت حالة الخدمة"
 
 msgctxt "act_service_state_detail"
 msgid ""
-"The phone's service state has changed, for example when you start roaming, "
-"or connect to a different mobile network."
+"The phone's service state has changed, for example when you start "
+"roaming, or connect to a different mobile network."
 msgstr ""
 "تغير حالة خدمة الهاتف، على سبيل المثال عند بدء تشغيل خدمة التجوال، أو "
 "الاتصال بشبكة هاتف محمول مختلفة."
@@ -1105,8 +1158,8 @@ msgstr "تغيرت حالة SIM"
 
 msgctxt "act_sim_state_changed_detail"
 msgid ""
-"The sim card state has changed, for example when it is initially loaded, or "
-"when it becomes locked due to incorrect PIN entry."
+"The sim card state has changed, for example when it is initially loaded, "
+"or when it becomes locked due to incorrect PIN entry."
 msgstr ""
 "تغيرت حالة بطاقة SIM، على سبيل المثال عندما يتم تحميلها في البداية ، أو "
 "عندما تغلق بسبب إدخال PIN غير صحيح."
@@ -1141,8 +1194,8 @@ msgstr "تغيرت حالة واي فاي"
 
 msgctxt "act_wifi_state_changed_detail"
 msgid ""
-"The state of the Wi-Fi chip has changed, for example when it is enabled or "
-"disabled."
+"The state of the Wi-Fi chip has changed, for example when it is enabled "
+"or disabled."
 msgstr "تغير حالة رقاقة وأي فأي، على سبيل المثال عند تمكين أو تعطيل الشبكة."
 
 msgctxt "act_external_apps_available"
@@ -1151,8 +1204,7 @@ msgstr "التطبيقات الخارجية متاحة"
 
 msgctxt "act_external_apps_available_detail"
 msgid "Externals apps (e.g. stored on SD card) have become available."
-msgstr ""
-"أصبحت التطبيقات الخارجية متاحة (مثل المخزنة على بطاقة الذاكرة الرقمية SD)."
+msgstr "أصبحت التطبيقات الخارجية متاحة (مثل المخزنة على بطاقة الذاكرة الرقمية SD)."
 
 msgctxt "act_external_apps_unavailable"
 msgid "Externals apps unavailable"
@@ -1160,8 +1212,7 @@ msgstr "التطبيقات الخارجية غير متاحة"
 
 msgctxt "act_external_apps_unavailable_detail"
 msgid "Externals apps (e.g. stored on SD card) are no longer available."
-msgstr ""
-"التطبيقات الخارجية غير متاحة (مثل المخزنة على بطاقة الذاكرة الرقمية SD)."
+msgstr "التطبيقات الخارجية غير متاحة (مثل المخزنة على بطاقة الذاكرة الرقمية SD)."
 
 msgctxt "act_password_changed"
 msgid "Password changed"
@@ -1169,8 +1220,7 @@ msgstr "تم تغيير كلمة المرور"
 
 msgctxt "act_password_changed_detail"
 msgid "Sent to a device admin when the user changes their password."
-msgstr ""
-"أرسلت إلى مسئول الجهاز عند قيام المستخدم بتغيير كلمة المرور الخاصة به."
+msgstr "أرسلت إلى مسئول الجهاز عند قيام المستخدم بتغيير كلمة المرور الخاصة به."
 
 msgctxt "act_password_failed"
 msgid "Password failed"
@@ -1178,10 +1228,9 @@ msgstr "فشل كلمة المرور"
 
 msgctxt "act_password_failed_detail"
 msgid ""
-"Sent to a device admin when the user has failed at attempted to enter the "
-"password."
-msgstr ""
-"أرسلت إلى مسئول الجهاز عند فشل المستخدم في تغيير كلمة المرور الخاصة به."
+"Sent to a device admin when the user has failed at attempted to enter the"
+" password."
+msgstr "أرسلت إلى مسئول الجهاز عند فشل المستخدم في تغيير كلمة المرور الخاصة به."
 
 msgctxt "act_password_succeeded"
 msgid "Password succeeded"
@@ -1192,6 +1241,16 @@ msgid ""
 "Sent to a device admin when the user has successfully entered their "
 "password, after failing one or more times."
 msgstr "عند قيام المستخدم بتغيير كلمة المرور الخاصة به، ترسل إلى مسئول الجهاز"
+
+#, fuzzy
+msgctxt "act_password_expiring"
+msgid "Password expiring"
+msgstr "تم تغيير كلمة المرور"
+
+#, fuzzy
+msgctxt "act_password_expiring_detail"
+msgid "Sent to a device admin when the device password is expiring."
+msgstr "أرسلت إلى مسئول الجهاز عند قيام المستخدم بتغيير كلمة المرور الخاصة به."
 
 msgctxt "act_device_admin_disabled"
 msgid "Device Admin Disabled"
@@ -1226,3 +1285,108 @@ msgid ""
 "Accounts have been added, or removed, or an account's credentials are "
 "changed."
 msgstr "تم إضافة أو إزالة الحسابات،أو تم تغيير الحساب."
+
+#, fuzzy
+msgctxt "act_proxy_changed"
+msgid "Proxy changed"
+msgstr "تغيير البطارية"
+
+msgctxt "act_proxy_changed_detail"
+msgid ""
+"Either the system default connection or it's proxy configuration have "
+"changed."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_search_settings_changed"
+msgid "Search settings changed"
+msgstr "تغيرت إعداد الهزاز"
+
+msgctxt "act_search_settings_changed_detail"
+msgid ""
+"The search settings have changed in some way. Either searchables have "
+"been enabled or disabled, or a different web search provider has been "
+"chosen."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_searchables_changed"
+msgid "Searchable components changed"
+msgstr "الحسابات تغيرت"
+
+msgctxt "act_searchables_changed_detail"
+msgid ""
+"The list of components that are searched by the system search function "
+"have changed."
+msgstr ""
+
+msgctxt "act_download_notification_clicked"
+msgid "Download notification clicked"
+msgstr ""
+
+msgctxt "act_download_notification_clicked_detail"
+msgid "Sent by the download manager when the user clicks on a running download."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_download_completed"
+msgid "Download completed"
+msgstr "انتهى بحث بلوتوث"
+
+msgctxt "act_download_completed_detail"
+msgid "Sent by the download manager when a download completes."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_location_providers_changed"
+msgid "Location providers changed"
+msgstr "تغيير موفر المحتوى"
+
+msgctxt "act_location_providers_changed_detail"
+msgid "The configured location providers have changed (e.g. GPS enabled)."
+msgstr ""
+
+msgctxt "act_statistics_report"
+msgid "Collecting Statistics"
+msgstr ""
+
+msgctxt "act_statistics_report_detail"
+msgid ""
+"Applications are asked to add information to a statistics report being "
+"assembled."
+msgstr ""
+
+msgctxt "act_master_clear"
+msgid "Factory reset"
+msgstr ""
+
+msgctxt "act_master_clear_detail"
+msgid "The phone is about to undergo a factory reset."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_sync_connection_setting_changed"
+msgid "Auto-sync changed"
+msgstr "تغير التاريخ"
+
+#, fuzzy
+msgctxt "act_sync_connection_setting_changed_detail"
+msgid "The global Auto-Sync setting has been changed."
+msgstr "المنطقة الزمنية للنظام تغيرت."
+
+msgctxt "act_open_audio_effect_session"
+msgid "Open audio effect control session"
+msgstr ""
+
+msgctxt "act_open_audio_effect_session_detail"
+msgid "An application wants audio effects to be applied to it's output."
+msgstr ""
+
+msgctxt "act_close_audio_effect_session"
+msgid "Close audio effect control session"
+msgstr ""
+
+msgctxt "act_close_audio_effect_session_detail"
+msgid "An application no longer wants audio effects to be applied to it's output."
+msgstr ""
+

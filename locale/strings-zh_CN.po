@@ -1,19 +1,18 @@
-# Russian translations for PROJECT.
+# Chinese (China) translations for .
 # Copyright (C) 2011 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the  project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-# FULL NAME <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
+"autostarts/issues\n"
 "POT-Creation-Date: 2011-04-22 17:32+0200\n"
-"PO-Revision-Date: 2011-03-22 21:59+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"PO-Revision-Date: 2011-04-20 03:32+0000\n"
+"Last-Translator: yecn <yegame@qq.com>\n"
+"Language-Team: Chinese (China) <None>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,96 +20,96 @@ msgstr ""
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
-msgstr "Нет программ в автозагрузке"
+msgstr "无自动启动应用程序."
 
 msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
-msgstr "Нет программв автозагрузке, подходящих вашему критерию отбора."
+msgstr "您当前选择的应用程序无自动启动."
 
 msgctxt "still_loading"
 msgid "Please wait while I am loading the applications installed on your phone..."
-msgstr "Пожалуйста, ждите. Идет поиск программ установленных на телефон..."
+msgstr "正在加载您安装到手机上的应用程序,请稍候..."
 
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
-msgstr "Изменить настройки фильтра."
+msgstr "更改筛选设置."
 
 msgctxt "appliation_info"
 msgid "Application Info"
-msgstr "Информация о программе."
+msgstr "应用程序信息"
 
 msgctxt "find_in_market"
 msgid "Find in Market"
-msgstr "Найти в Маркете."
+msgstr "搜索市場"
 
 #, fuzzy
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
-msgstr "Найти в Маркете."
+msgstr "搜索市場"
 
 msgctxt "disable"
 msgid "Disable"
-msgstr "Запретить"
+msgstr "禁用"
 
 msgctxt "enable"
 msgid "Enable"
-msgstr "Разрешить"
+msgstr "启用"
 
 msgctxt "view_options"
 msgid "View"
-msgstr "Просмотр"
+msgstr "查看"
 
 msgctxt "group_by_package"
 msgid "Group by application"
-msgstr ""
+msgstr "按程序分组"
 
 msgctxt "group_by_action"
 msgid "Group by event"
-msgstr ""
+msgstr "按事件分组"
 
 msgctxt "hide_sys_apps"
 msgid "Hide system apps"
-msgstr "Скрыть системные программы"
+msgstr "隐藏系统程序"
 
 msgctxt "show_changed_only"
 msgid "Show changed only"
-msgstr "Показывать только измененные"
+msgstr "只显示更改"
 
 msgctxt "hide_unknown"
 msgid "Hide unknown events"
-msgstr "Скрыть неизвестные события"
+msgstr "隐藏未知事件"
 
 msgctxt "expand_all"
 msgid "Expand all"
-msgstr "Развернуть все"
+msgstr "全部展开"
 
 msgctxt "collapse_all"
 msgid "Collapse all"
-msgstr "Свернуть все"
+msgstr "全部折叠"
 
 msgctxt "reload"
 msgid "Reload"
-msgstr "Обновить"
+msgstr "重新载入"
 
 msgctxt "help"
 msgid "Help"
-msgstr "Help"
+msgstr "帮助"
 
 msgctxt "please_wait"
 msgid "Please Wait..."
-msgstr "Ожидайте..."
+msgstr "请稍候..."
 
 msgctxt "error"
 msgid "Error"
-msgstr "Ошибка"
+msgstr "错误"
 
 msgctxt "warning"
 msgid "Warning"
-msgstr "Внимание"
+msgstr "警告"
 
 msgctxt "info"
 msgid "Info"
-msgstr "Информация"
+msgstr "信息"
 
 #, c-format
 msgctxt "receiver_info"
@@ -118,6 +117,8 @@ msgid ""
 "Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
 "with priority &lt;b&gt;%3$d&lt;/b&gt;."
 msgstr ""
+"接收  &lt;b&gt;%1$s&lt;/b&gt; 处理操作 &lt;i&gt;%2$s&lt;/i&gt; 优先 "
+"&lt;b&gt;%3$d&lt;/b&gt;."
 
 msgctxt "confirm_sys_disable"
 msgid ""
@@ -126,9 +127,9 @@ msgid ""
 "\n"
 "Do not proceed unless you are willing to deal with the consequences."
 msgstr ""
-"Вы хотите заблокировать системный компонент. Это может привести к "
-"нестабильной работе телефона. Не продолжайте, пока будете точно уверенны "
-"=)"
+"您将禁用系统组件.这可能会使您的手机无法正常工作.\n"
+"\n"
+"除非您可以自行解决可能出现的问题,否则不要继续."
 
 msgctxt "confirm_google_talk"
 msgid ""
@@ -136,9 +137,8 @@ msgid ""
 "hanging Android Market downloads, the starting up Google Talk yourself "
 "whenever necessary can help overcome them. Sure you want to proceed?"
 msgstr ""
-"Если будет заблокирован Google Talk, у вас будут проблемы с загрузкой из "
-"Маркета. Ручная загрузка Google Talk когда это будет необходимо поможет "
-"решить эти проблемы. Действительно продолжить?"
+"如果禁用了 Google Talk 服务, 可能会影响到 Android 电子市场的下载服务, 启动 Google Talk "
+"服务可以解决这一问题.确定要继续吗?"
 
 msgctxt "state_change_failed"
 msgid ""
@@ -146,10 +146,11 @@ msgid ""
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
-"Невозможно изменить состояние выбранного компонента. Вероятнее всего, ваш"
-" телефон не имеет root прав."
+"无法更改所选组件的状态.\n"
+"\n"
+"可能是由于您的设备还未获取ROOT权限."
 
 msgctxt "close_help"
 msgid "Close help and return to app"
-msgstr "Закрыть помощь и вернуться в программу"
+msgstr "关闭帮助并返回程序"
 

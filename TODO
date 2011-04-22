@@ -1,3 +1,12 @@
+Convert the intent information into XML format, it's getting harder and
+harder to manage in the Java file.
+
+Move state toggling into a service. This will allow the user to queue up
+multiple change requests, and it's what is necessary to support some kind
+of "save all user's changes" and "restore after reflash" feature.
+
+See if we can make it more clear which items have been disabled.
+
 Try using the new Loader API:
     http://android-developers.blogspot.com/2011/03/fragments-for-all.html),
 instead of the current AsyncTask-based loading.
@@ -48,6 +57,11 @@ Even for PACKAGE_ADDED et al. it's possible for an application to only
 register for a specific package. This needs to be made clear to the user
 some way, lest he think the app is starting more often than it really is.
 
+Receivers can apparently also restrict themselves by defining a <category>,
+and some intents may specifically be sent to a specific application,
+like the C2DM intents, or the widget intents. Find out what exactly is
+going on and expose the info via the UI.
+
 One of the problems our current way of reading the intents has is that
 we essentially trust the apps, that whatever they declare is correct.
 Specifically, there are some intents like SCREEN_ON or SCREEN_OFF which
@@ -55,6 +69,10 @@ an app cannot register for through the manifest. Possible the right way
 to fix this would be to simply remove those intents from the "known" list.
 Alternatively, we could show a hint indicating that does events will
 not actually be executed; it'll even be helpful for developers to debug.
+
+Do something with the information about protected-broadcasts, see
+"framework/core/res/AndroidManifest.xml". We can either pre-store those,
+or read live from the system.
 
 The dropdown icons of the ExpandableListView are not properly rendered on a
 QVGA 120dpi device (tested in emulator), with anyDensity=true. Since we
@@ -98,6 +116,8 @@ pre-installed applications.
 Some guy here wrote up explanations for a number of broadcasts, some of
 which are still missing from our db:
     http://androidvoid.blogspot.com/2009/04/android-broadcast-intent-message.html
+Add these music-player control events:
+    http://code.google.com/p/needletagger/source/browse/trunk/NeedleTagger/AndroidManifest.xml?r=5
 
 Exporting the changes made to SD card, so they can be re-applied in bulk
 after an OS reinstall (suggested by Jeffrey Lee).
@@ -114,6 +134,9 @@ ensure the user is aware that this different than the standard "
 system application" warning.
 
 Create a tablet version.
+
+A mechanism to send unknown intents to a server so we can add information about
+them to the next release.
 
 
 Far-Future Ideas, might never be implemented

@@ -1,19 +1,18 @@
-# Russian translations for PROJECT.
+# Arabic (Saudi Arabia) translations for .
 # Copyright (C) 2011 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the  project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-# FULL NAME <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
+"autostarts/issues\n"
 "POT-Creation-Date: 2011-04-22 17:32+0200\n"
-"PO-Revision-Date: 2011-03-22 21:59+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"PO-Revision-Date: 2011-04-15 16:04+0000\n"
+"Last-Translator: imksa <malham1@gmail.com>\n"
+"Language-Team: Arabic (Saudi Arabia) <None>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,96 +20,96 @@ msgstr ""
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
-msgstr "Нет программ в автозагрузке"
+msgstr "لا التطبيقات تبدأ تلقائياً."
 
 msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
-msgstr "Нет программв автозагрузке, подходящих вашему критерию отбора."
+msgstr "لا التطبيقات تبدأ تلقائياً ضمن تحديدك الحالي."
 
 msgctxt "still_loading"
 msgid "Please wait while I am loading the applications installed on your phone..."
-msgstr "Пожалуйста, ждите. Идет поиск программ установленных на телефон..."
+msgstr "الرجاء الانتظار بينما يتم تحميل التطبيقات المثبتة على هاتفك..."
 
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
-msgstr "Изменить настройки фильтра."
+msgstr "تغيير إعدادات التصفية."
 
 msgctxt "appliation_info"
 msgid "Application Info"
-msgstr "Информация о программе."
+msgstr " التطبيق معلومات"
 
 msgctxt "find_in_market"
 msgid "Find in Market"
-msgstr "Найти в Маркете."
+msgstr "البحث في السوق"
 
 #, fuzzy
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
-msgstr "Найти в Маркете."
+msgstr "البحث في السوق"
 
 msgctxt "disable"
 msgid "Disable"
-msgstr "Запретить"
+msgstr "تعطيل"
 
 msgctxt "enable"
 msgid "Enable"
-msgstr "Разрешить"
+msgstr "تمكين"
 
 msgctxt "view_options"
 msgid "View"
-msgstr "Просмотр"
+msgstr "عرض"
 
 msgctxt "group_by_package"
 msgid "Group by application"
-msgstr ""
+msgstr "تجميع حسب التطبيق"
 
 msgctxt "group_by_action"
 msgid "Group by event"
-msgstr ""
+msgstr "تجميع حسب الأحداث"
 
 msgctxt "hide_sys_apps"
 msgid "Hide system apps"
-msgstr "Скрыть системные программы"
+msgstr "إخفاء تطبيقات النظام"
 
 msgctxt "show_changed_only"
 msgid "Show changed only"
-msgstr "Показывать только измененные"
+msgstr "عرض التغييرات فقط"
 
 msgctxt "hide_unknown"
 msgid "Hide unknown events"
-msgstr "Скрыть неизвестные события"
+msgstr "إخفاء الأحداث غير المعروف"
 
 msgctxt "expand_all"
 msgid "Expand all"
-msgstr "Развернуть все"
+msgstr "توسيع الكل"
 
 msgctxt "collapse_all"
 msgid "Collapse all"
-msgstr "Свернуть все"
+msgstr "طي الكل"
 
 msgctxt "reload"
 msgid "Reload"
-msgstr "Обновить"
+msgstr "إعادة تحميل"
 
 msgctxt "help"
 msgid "Help"
-msgstr "Help"
+msgstr "مساعدة"
 
 msgctxt "please_wait"
 msgid "Please Wait..."
-msgstr "Ожидайте..."
+msgstr "الرجاء الانتظار..."
 
 msgctxt "error"
 msgid "Error"
-msgstr "Ошибка"
+msgstr "خطأ"
 
 msgctxt "warning"
 msgid "Warning"
-msgstr "Внимание"
+msgstr "تحذير"
 
 msgctxt "info"
 msgid "Info"
-msgstr "Информация"
+msgstr "معلومات"
 
 #, c-format
 msgctxt "receiver_info"
@@ -118,6 +117,8 @@ msgid ""
 "Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
 "with priority &lt;b&gt;%3$d&lt;/b&gt;."
 msgstr ""
+"استقبال &lt;b&gt;%1$s&lt;/b&gt;معالجة الحدث &lt;i&gt;%2$s&lt;/i&gt; "
+"بأولوية &lt;b&gt;%3$d&lt;/b&gt;."
 
 msgctxt "confirm_sys_disable"
 msgid ""
@@ -126,9 +127,9 @@ msgid ""
 "\n"
 "Do not proceed unless you are willing to deal with the consequences."
 msgstr ""
-"Вы хотите заблокировать системный компонент. Это может привести к "
-"нестабильной работе телефона. Не продолжайте, пока будете точно уверенны "
-"=)"
+"أنت على وشك تعطيل أوامر النظام. قد يتسبب هذا في تعطل بعض وظائف الهاتف.\n"
+"\n"
+"لا تواصل إلا إذا كنت على استعداد للتعامل مع العواقب."
 
 msgctxt "confirm_google_talk"
 msgid ""
@@ -136,9 +137,8 @@ msgid ""
 "hanging Android Market downloads, the starting up Google Talk yourself "
 "whenever necessary can help overcome them. Sure you want to proceed?"
 msgstr ""
-"Если будет заблокирован Google Talk, у вас будут проблемы с загрузкой из "
-"Маркета. Ручная загрузка Google Talk когда это будет необходимо поможет "
-"решить эти проблемы. Действительно продолжить?"
+"إذا تم تعطيل GTalk ،فإن هذا قد يعطل خدمات سوق التطبيقات، إذا شغلت Gtalk "
+"بنفسك إذا ا دعت الضرورة يمكن أن يساعد في حل المشكلة هل تريد المتابعة؟"
 
 msgctxt "state_change_failed"
 msgid ""
@@ -146,10 +146,11 @@ msgid ""
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
-"Невозможно изменить состояние выбранного компонента. Вероятнее всего, ваш"
-" телефон не имеет root прав."
+"غير قادر على تغيير حالة التحديد.\n"
+"\n"
+"على الأرجح ، الجهاز لا يملك صلاحية الوصول للجذر، وهو مطلوب."
 
 msgctxt "close_help"
 msgid "Close help and return to app"
-msgstr "Закрыть помощь и вернуться в программу"
+msgstr "إغلاق المساعدة والرجوع إلى التطبيق"
 

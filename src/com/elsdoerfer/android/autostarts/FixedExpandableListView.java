@@ -45,7 +45,7 @@ public class FixedExpandableListView extends ExpandableListView {
 	 * It might also be possible to work around this by implementing
 	 * a SectionIndex, but that is too much work right now.
 	 *
-	 * TODO: Submit patch, note Gerrit ID here.
+	 * https://review.source.android.com/#change,22024
 	 */
 	@Override
 	public int getFlatListPosition(long packedPosition) {

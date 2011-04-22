@@ -7,7 +7,7 @@ from fabric.main import load_settings
 from android.build import AndroidProject, get_platform, ProgramFailedError
 
 
-env.raw_apk = 'bin/Android-Autostarts-Full-%s.apk'
+env.raw_apk = 'bin/Android-Autostarts-%s.apk'
 settings = load_settings('.fabricrc')
 if not settings:
      raise RuntimeError('.fabricrc is needed')

@@ -3,6 +3,7 @@ package com.elsdoerfer.android.autostarts;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import src.com.elsdoerfer.android.autostarts.opt.MarketUtils;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
@@ -322,7 +323,7 @@ public class ListActivity extends ExpandableListActivity {
 								? R.string.disable
 								: R.string.enable),
 						getResources().getString(R.string.appliation_info),
-						getResources().getString(R.string.find_in_market)},
+						getResources().getString(MarketUtils.FIND_IN_MARKET_TEXT)},
 				new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int which) {
@@ -368,13 +369,8 @@ public class ListActivity extends ExpandableListActivity {
 							}
 							break;
 						case 2:
-							try {
-								Intent marketIntent = new Intent(Intent.ACTION_VIEW);
-								marketIntent.setData(Uri.parse("market://search?q=pname:"+
-									mLastSelectedEvent.componentInfo.packageInfo.packageName));
-								startActivity(marketIntent);
-							}
-							catch (ActivityNotFoundException e) {}
+							MarketUtils.findPackageInMarket(ListActivity.this,
+									mLastSelectedEvent.componentInfo.packageInfo.packageName);
 							break;
 						}
 						dialog.dismiss();

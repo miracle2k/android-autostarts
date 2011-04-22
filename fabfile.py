@@ -56,23 +56,10 @@ def make_version():
     local('mv %s %s' % (env.raw_apk, env.target_apk))
 
 
-def make_ini():
-    # Create an .ini section for our site
-    base, ext = path.splitext(env.target_apk)
-    ini = open('%s.ini' % base, 'w')
-    ini.write("[%s]\n" % env.version)
-    ini.write("version=%s\n" % env.version)
-    ini.write("timestamp=%s\n" % int(time.time()))
-    ini.write("size_apk=%s\n" % path.getsize(env.target_apk))
-    ini.close()
-    pass
-
-
 def deploy():
     locales()
     build()
     make_version()
-    make_ini()
 
     local('scp -P 2211 %s %s' % (env.target_apk, env.deploy_target))
 

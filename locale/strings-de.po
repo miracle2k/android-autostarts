@@ -44,10 +44,9 @@ msgctxt "find_in_market"
 msgid "Find in Market"
 msgstr "Im Market finden"
 
-#, fuzzy
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
-msgstr "Im Market finden"
+msgstr "Im Appstore finden"
 
 msgctxt "disable"
 msgid "Disable"

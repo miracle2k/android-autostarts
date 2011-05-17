@@ -227,7 +227,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				if (success)
 					Log.i(ListActivity.TAG, "State successfully changed");
 				else
-					Log.i(ListActivity.TAG, "State changed failed");
+					Log.i(ListActivity.TAG, "State change failed");
 				return success;
 			}
 			finally {

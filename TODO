@@ -7,6 +7,11 @@ of "save all user's changes" and "restore after reflash" feature.
 
 See if we can make it more clear which items have been disabled.
 
+Investigate when, under what circumstances Android starts an app's backup
+service, and whether support for this is something we have to add to 
+Autostarts. There has been at least one report by a user of such an app
+repeatedly starting on boot.
+
 Try using the new Loader API:
     http://android-developers.blogspot.com/2011/03/fragments-for-all.html),
 instead of the current AsyncTask-based loading.

@@ -143,6 +143,11 @@ Create a tablet version.
 A mechanism to send unknown intents to a server so we can add information about
 them to the next release.
 
+Add a way to quickly change certain events; via a desktop shortcut, or maybe 
+by storing "scenes". This would be useful in cases where an infrequently
+used app breaks by disabling events, and you want to quickly enable the events 
+specificially for using the app.
+
 
 Far-Future Ideas, might never be implemented
 ============================================

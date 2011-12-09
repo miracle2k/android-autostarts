@@ -1,3 +1,10 @@
+1.7.5 (2011-12-??)
+    This release only fixes ICS/Android 4.0 issues, and drops support
+    for Android 1.5.
+
+    * On ICS, the Enabled/Disabled option was sometimes incorrectly
+      labeled.
+
 1.7.1 (2011-04-22)
     Only released on Amazon Appstore. Introduces a separate build series
     that contains a "Find in Appstore" option, replacing "Find in Market".

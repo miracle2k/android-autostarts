@@ -4,6 +4,7 @@
 
     * On ICS, the Enabled/Disabled option was sometimes incorrectly
       labeled.
+    * On ICS, state-toggling could sometimes crash Autostarts.
 
 1.7.1 (2011-04-22)
     Only released on Amazon Appstore. Introduces a separate build series

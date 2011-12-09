@@ -169,8 +169,11 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 			try {
 				adbEnabled = (Settings.Secure.getInt(cr, Settings.Secure.ADB_ENABLED) == 1);
 			} catch (SettingNotFoundException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
+				// This started to happen at times on the ICS emulator
+				// (and possibly one user reported it).
+				Log.w(ListActivity.TAG,
+						"Failed to read adb_enabled setting, assuming no", e);
+				adbEnabled = false;
 			}
 
 			// If adb is disabled, try to enable it, temporarily. This will

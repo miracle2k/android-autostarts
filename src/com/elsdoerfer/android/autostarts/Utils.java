@@ -67,8 +67,8 @@ public class Utils {
 	 * write access to /system yet.
 	 */
 	static String[] SU_OPTIONS =  {
-		"/system/bin/su",
 		"/data/bin/su",
+		"/system/bin/su",
 		// This is last because we are afraid a proper su might be in
 		// one of those other locations, while this one is secured.
 		"/system/xbin/su",

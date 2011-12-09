@@ -204,8 +204,20 @@ public class Utils {
 			if (os != null)
 				try { os.close(); }
 				catch (IOException e) { throw new RuntimeException(e); }
-			if (process != null)
-				process.destroy();
+			if (process != null) {
+				try {
+					// Yes, this really is the way to check if the process is
+					// still running.
+					process.exitValue();
+				} catch (IllegalThreadStateException e) {
+					// Only call destroy() if the process is still running;
+					// Calling it for a terminated process will not crash, but
+					// (starting with at least ICS/4.0) spam the log with INFO
+					// messages ala "Failed to destroy process" and "kill
+					// failed: ESRCH (No such process)".
+					process.destroy();
+				}
+			}
 		}
 	}
 

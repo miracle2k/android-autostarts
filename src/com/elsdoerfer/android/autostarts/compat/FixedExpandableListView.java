@@ -1,4 +1,4 @@
-package com.elsdoerfer.android.autostarts;
+package com.elsdoerfer.android.autostarts.compat;
 
 import android.content.Context;
 import android.util.AttributeSet;

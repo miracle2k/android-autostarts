@@ -1,22 +1,17 @@
 package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
-import src.com.elsdoerfer.android.autostarts.opt.MarketUtils;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ExpandableListActivity;
-import android.content.ActivityNotFoundException;
+import android.app.*;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.Html;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -34,9 +29,10 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elsdoerfer.android.autostarts.compat.ExpandableListFragmentActivity;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
-public class ListActivity extends ExpandableListActivity {
+public class ListActivity extends ExpandableListFragmentActivity {
 
 	static final String TAG = "Autostarts";
 	static final Boolean LOGV = false;
@@ -47,10 +43,9 @@ public class ListActivity extends ExpandableListActivity {
 	static final private int MENU_HELP = 4;
 	static final private int MENU_GROUPING = 5;
 
-	static final private int DIALOG_RECEIVER_DETAIL = 1;
-	static final private int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
+	static final protected int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
-	static final private int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
+	static final protected int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
 	static final int DIALOG_STATE_CHANGE_FAILED = 7;
 
 	static final private String PREFS_NAME = "common";
@@ -58,7 +53,6 @@ public class ListActivity extends ExpandableListActivity {
 	static final private String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
 	static final private String PREF_FILTER_UNKNOWN = "filter-unknown-events";
 	static final private String PREF_GROUPING = "grouping";
-
 
 	private MenuItem mExpandCollapseToggleItem;
 	private MenuItem mGroupingModeItem;
@@ -70,7 +64,7 @@ public class ListActivity extends ExpandableListActivity {
 	private DatabaseHelper mDb;
 	private SharedPreferences mPrefs;
 	private Boolean mExpandSuggested = true;
-	private ToggleTask mToggleTask;
+	protected ToggleTask mToggleTask;
 	private LoadTask mLoadTask;
 
 	// Due to Android deficiencies (can't pass data to showDialog()),
@@ -78,8 +72,8 @@ public class ListActivity extends ExpandableListActivity {
 	// TODO: I believe Honeycomb has a solution for this; Fix once
 	// it's feasible for us to require it.
 	private IntentFilterInfo mLastSelectedEvent;
-	private boolean mLastChangeRequestDoEnable;
-	private boolean mUninstallWarningShown;
+	protected boolean mLastChangeRequestDoEnable;
+	protected boolean mUninstallWarningShown;
 
 	@Override
 	public void onCreate(final Bundle saved) {
@@ -112,7 +106,7 @@ public class ListActivity extends ExpandableListActivity {
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
 		// to do a load.
-		Object retained = getLastNonConfigurationInstance();
+		Object retained = getLastCustomNonConfigurationInstance();
 		if (retained != null) {
 			// Be careful not to copy any objects that reference the
 			// activity itself, or we would leak it!
@@ -152,7 +146,7 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	@Override
-	public Object onRetainNonConfigurationInstance() {
+	public Object onRetainCustomNonConfigurationInstance() {
 		// Retain the full activity; it's just simpler as opposed to
 		// copying a bunch of stuff to an array; but we need to be very
 		// careful here not to leak it when we restore.
@@ -311,89 +305,7 @@ public class ListActivity extends ExpandableListActivity {
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		if (id == DIALOG_RECEIVER_DETAIL)
-		{
-			View v = getLayoutInflater().inflate(
-				R.layout.receiver_info_panel, null, false);
-
-			Dialog d = new AlertDialog.Builder(this).setItems(
-				new CharSequence[] {
-						getResources().getString(
-								(mLastSelectedEvent.componentInfo.isCurrentlyEnabled())
-								? R.string.disable
-								: R.string.enable),
-						getResources().getString(R.string.appliation_info),
-						getResources().getString(MarketUtils.FIND_IN_MARKET_TEXT)},
-				new DialogInterface.OnClickListener()
-				{
-					public void onClick(DialogInterface dialog, int which) {
-						mLastChangeRequestDoEnable =
-							!mLastSelectedEvent.componentInfo.isCurrentlyEnabled();
-						switch (which) {
-						case 0:
-							// Depending on what we disable, show a warning specifically
-							// for that component, a general warning or just proceed without
-							// any explicit warning whatsoever.
-							if (!mLastChangeRequestDoEnable &&
-									mLastSelectedEvent.componentInfo.packageInfo.packageName.equals("com.google.android.apps.gtalkservice") &&
-									mLastSelectedEvent.componentInfo.componentName.equals("com.google.android.gtalkservice.ServiceAutoStarter"))
-								showDialog(DIALOG_CONFIRM_GOOGLE_TALK_WARNING);
-							else if (mLastSelectedEvent.componentInfo.packageInfo.isSystem && !mLastChangeRequestDoEnable)
-								showDialog(DIALOG_CONFIRM_SYSAPP_CHANGE);
-							else {
-								mToggleTask = new ToggleTask(ListActivity.this);
-								mToggleTask.execute(
-										mLastSelectedEvent.componentInfo,
-										mLastChangeRequestDoEnable);
-							}
-							break;
-						case 1:
-							String packageName =
-								mLastSelectedEvent.componentInfo.packageInfo.packageName;
-							Intent infoIntent = new Intent();
-							infoIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-							infoIntent.setData(Uri.parse("package:"+packageName));
-							try {
-								startActivity(infoIntent);
-							}
-							catch (ActivityNotFoundException e) {
-								// 2.2 and below.
-								infoIntent = new Intent();
-								infoIntent.setClassName("com.android.settings",
-										"com.android.settings.InstalledAppDetails");
-								infoIntent.putExtra("com.android.settings.ApplicationPkgName",
-										packageName);
-								try {
-									startActivity(infoIntent);
-								} catch (ActivityNotFoundException e2) {}
-							}
-							break;
-						case 2:
-							MarketUtils.findPackageInMarket(ListActivity.this,
-									mLastSelectedEvent.componentInfo.packageInfo.packageName);
-							break;
-						}
-						dialog.dismiss();
-					}
-				})
-				// Setting a dummy title is necessary for the title
-				// control to be activated in the first place,
-				// apparently. We assign the actual title in
-				// onPrepareDialog().
-				.setTitle("dummy").setView(v).create();
-
-			// Due to a bug in Android, onPrepareDialog() is not called
-			// when an existing dialog is restored on orientation change.
-			// We therefore need to make sure ourselves that the dialog
-			// is initialized correctly in this case as well. Note that
-			// our current implementation means that the prepare code
-			// will be run twice when the dialog is created for the first
-			// time under normal circumstances.
-			prepareReceiverDetailDialog(d, v, false);
-			return d;
-		}
-
-		else if (id == DIALOG_CONFIRM_SYSAPP_CHANGE)
+		if (id == DIALOG_CONFIRM_SYSAPP_CHANGE)
 		{
 			return new AlertDialog.Builder(ListActivity.this)
 				.setTitle(R.string.warning)
@@ -494,84 +406,11 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	@Override
-	protected void onPrepareDialog(int id, Dialog dialog) {
-		super.onPrepareDialog(id, dialog);
-		if (id == DIALOG_RECEIVER_DETAIL) {
-			prepareReceiverDetailDialog(dialog, dialog.getWindow().getDecorView(),
-					true);
-		}
-	}
-
-	/**
-	 * We cannot just rename this to "onPrepareDialog()", since the
-	 * dialog isn't fully created while processing "onCreateDialog()".
-	 *
-	 * As a result, the view objects needs to be accessed differently,
-	 * and is thus handled via an argument here.
-	 */
-	private void prepareReceiverDetailDialog(Dialog dialog, View view,
-			boolean rewriteCaption) {
-
-		dialog.setTitle(mLastSelectedEvent.componentInfo.getLabel());
-
-		// This is a terribly terrible hack to change the menu item caption
-		// to match the current state of the selected item. Unfortunately,
-		// there doesn't seem to be a better way to change the list items
-		// during onPrepare(), except possibly using a dedicated list
-		// adapter, which would also be a lot of work.
-		//
-		// To make things worse, this code results in a strange
-		// "requestFeature() must be called before adding content" error
-		// when it is called from onCreate(), i.e. before the dialog was
-		// shown at least once. As a result, we need to use the
-		// "rewriteCaption" caption flag to disable this part in the
-		// onCreate() case. Ergo, the caption is initialized correctly in
-		// onCreate() by itself, leading to some code duplication.
-		//
-		// Note that trying to findById(android.R.id.text1) might also work
-		// (not tried - all list items have that id, but we need only the
-		// first), but seems less stable; The list items having that id is
-		// probably not guaranteed.
-		if (rewriteCaption) {
-			final String searchFor1 = getResources().getString(R.string.disable);
-			final String searchFor2 = getResources().getString(R.string.enable);
-			final Stack<View> toCheck = new Stack<View>();
-			toCheck.add(dialog.getWindow().getDecorView());
-			while (!toCheck.isEmpty()) {
-				View current = toCheck.pop();
-				if (current instanceof TextView && (
-						((TextView)current).getText().equals(searchFor1) ||
-						((TextView)current).getText().equals(searchFor2)))
-				{
-					((TextView)current).setText(
-							(mLastSelectedEvent.componentInfo.isCurrentlyEnabled())
-							? R.string.disable
-							: R.string.enable);
-					break;
-				}
-				// search children
-				else if (current instanceof ViewGroup) {
-					ViewGroup vg = (ViewGroup)current;
-					for (int i=0; i<vg.getChildCount(); i++)
-						toCheck.add(vg.getChildAt(i));
-				}
-			}
-		}
-
-		String formattedString = String.format(
-				getString(R.string.receiver_info),
-				mLastSelectedEvent.componentInfo.componentName,
-				mLastSelectedEvent.action, mLastSelectedEvent.priority);
-		((TextView)view.findViewById(R.id.message)).setText(
-				Html.fromHtml(formattedString));
-	}
-
-	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
 		mLastSelectedEvent =
 			(IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition);
-		showDialog(DIALOG_RECEIVER_DETAIL);
+		showEventDetails();
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
 
@@ -637,6 +476,17 @@ public class ListActivity extends ExpandableListActivity {
 
 	protected void updateEmptyText() {
 		updateEmptyText(false);
+	}
+
+	protected void showEventDetails() {
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		Fragment prev = getSupportFragmentManager().findFragmentByTag("details");
+		if (prev != null)
+			ft.remove(prev);
+		ft.addToBackStack(null);
+
+		DialogFragment newFragment = EventDetailsFragment.newInstance(mLastSelectedEvent);
+		newFragment.show(ft, "details");
 	}
 
 	// TODO: Instead of showing a toast, fade in a custom info bar, then

@@ -1,23 +1,23 @@
-# Ukrainian translations for .
+# Translations template for PROJECT.
 # Copyright (C) 2011 ORGANIZATION
-# This file is distributed under the same license as the  project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-#
+# This file is distributed under the same license as the PROJECT project.
+# 
+# Translators:
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version:  android-autostarts\n"
-"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
-"autostarts/issues\n"
-"POT-Creation-Date: 2011-04-22 17:32+0200\n"
-"PO-Revision-Date: 2011-03-24 14:10+0000\n"
-"Last-Translator: elsdoerfer <michael@elsdoerfer.info>\n"
-"Language-Team: Ukrainian <None>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Project-Id-Version: android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-autostarts/issues\n"
+"POT-Creation-Date: 2011-04-23 22:33+0200\n"
+"PO-Revision-Date: 2011-10-24 14:03+0000\n"
+"Last-Translator: knedlyk <yupadmin@gmail.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.net/projects/p/android-autostarts/team/uk/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
@@ -25,13 +25,14 @@ msgstr "Немає програм для автозапуску."
 
 msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
-msgstr ""
+msgstr "Жодна за програм не стартує автоматично з поточного виділення."
 
 msgctxt "still_loading"
-msgid "Please wait while I am loading the applications installed on your phone..."
+msgid ""
+"Please wait while I am loading the applications installed on your phone..."
 msgstr ""
-"Будь ласка, почекайте, поки завантажуються встановлені на Вашому телефоні"
-" програми..."
+"Будь ласка, почекайте, поки завантажуються встановлені на Вашому телефоні "
+"програми..."
 
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
@@ -45,10 +46,9 @@ msgctxt "find_in_market"
 msgid "Find in Market"
 msgstr "Знайти в Market"
 
-#, fuzzy
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
-msgstr "Знайти в Market"
+msgstr "Знайти в Appstore"
 
 msgctxt "disable"
 msgid "Disable"
@@ -64,11 +64,11 @@ msgstr "Переглянути"
 
 msgctxt "group_by_package"
 msgid "Group by application"
-msgstr ""
+msgstr "Група по програмі"
 
 msgctxt "group_by_action"
 msgid "Group by event"
-msgstr ""
+msgstr "Група по події"
 
 msgctxt "hide_sys_apps"
 msgid "Hide system apps"
@@ -117,17 +117,21 @@ msgstr "Інформація"
 #, c-format
 msgctxt "receiver_info"
 msgid ""
-"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
-"with priority &lt;b&gt;%3$d&lt;/b&gt;."
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
+" priority &lt;b&gt;%3$d&lt;/b&gt;."
 msgstr ""
+"Приймач &lt;b&gt;%1$s&lt;/b&gt; виконує дію &lt;i&gt;%2$s&lt;/i&gt; з "
+"пріоритетом &lt;b&gt;%3$d&lt;/b&gt;."
 
 msgctxt "confirm_sys_disable"
 msgid ""
-"You are about to disable a system component. This could potentially "
-"result in your phone no longer functioning properly.\n"
+"You are about to disable a system component. This could potentially result in your phone no longer functioning properly.\n"
 "\n"
 "Do not proceed unless you are willing to deal with the consequences."
 msgstr ""
+"Ви збираєтесь відключити системну компоненту. Це потенційно може привести до некоректної праці Вашого телефону.\n"
+"\n"
+"Не продовжуйте, якщо Ви не бажаєте мати справу з наслідками."
 
 msgctxt "confirm_google_talk"
 msgid ""
@@ -135,6 +139,9 @@ msgid ""
 "hanging Android Market downloads, the starting up Google Talk yourself "
 "whenever necessary can help overcome them. Sure you want to proceed?"
 msgstr ""
+"Якщо Google Talk відключений, Вам, ймовірно, доведеться зіткнутися з "
+"проблемами завантажень з Android Market, тоді як запуск Google Talk у разі "
+"необхідності може допомогти подолати їх. Ви впевнені, що бажаєте продовжити?"
 
 msgctxt "state_change_failed"
 msgid ""
@@ -142,8 +149,12 @@ msgid ""
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
+"Неможливо змінити стан вибраної компоненти.\n"
+"\n"
+"Можливо, що Ваш пристрій не має доступу від імені суперкористувача, який вимагається."
 
 msgctxt "close_help"
 msgid "Close help and return to app"
 msgstr "Закрити допомогу і повернутися до програми"
+
 

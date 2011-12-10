@@ -169,12 +169,16 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 			try {
 				adbEnabled = (Settings.Secure.getInt(cr, Settings.Secure.ADB_ENABLED) == 1);
 			} catch (SettingNotFoundException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
+				// This started to happen at times on the ICS emulator
+				// (and possibly one user reported it).
+				Log.w(ListActivity.TAG,
+						"Failed to read adb_enabled setting, assuming no", e);
+				adbEnabled = false;
 			}
 
 			// If adb is disabled, try to enable it, temporarily. This will
 			// make our root call go through without hanging.
+            // TODO: It seems this might no longer be required under ICS.
 			if (!adbEnabled) {
 				Log.i(ListActivity.TAG, "Switching ADB on for the root call");
 				if (setADBEnabledState(cr, true)) {
@@ -188,12 +192,17 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 			try {
 				// Run the command; we have different invocations we can try, but
 				// we'll stop at the first one we succeed with.
+				//
+				// On ICS, it became necessary to set a library path (which is
+				// cleared for suid programs, for obvious reasons). It can't hurt
+				// on older versions. See also  https://github.com/ChainsDD/su-binary/issues/6
+				final String libs = "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:/system/lib\" ";
 				boolean success = false;
 				for (String[] set : new String[][] {
-						{ "pm %s '%s/%s'", null },
-						{ "sh /system/bin/pm %s '%s/%s'", null },
-						{ "app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },
-						{ "/system/bin/app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },
+						{ libs+"pm %s '%s/%s'", null },
+						{ libs+"sh /system/bin/pm %s '%s/%s'", null },
+						{ libs+"app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },
+						{ libs+"/system/bin/app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },
 				})
 				{
 					if (Utils.runRootCommand(String.format(set[0],
@@ -227,7 +236,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				if (success)
 					Log.i(ListActivity.TAG, "State successfully changed");
 				else
-					Log.i(ListActivity.TAG, "State changed failed");
+					Log.i(ListActivity.TAG, "State change failed");
 				return success;
 			}
 			finally {

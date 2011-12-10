@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/../gen" />
+        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/../gen" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/../res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../assets" />
+        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/../libs" />
+        <option name="REGENERATE_R_JAVA" value="true" />
+        <option name="REGENERATE_JAVA_BY_AIDL" value="true" />
+        <option name="USE_CUSTOM_APK_RESOURCE_FOLDER" value="false" />
+        <option name="CUSTOM_APK_RESOURCE_FOLDER" value="" />
+        <option name="USE_CUSTOM_COMPILER_MANIFEST" value="false" />
+        <option name="CUSTOM_COMPILER_MANIFEST" value="" />
+        <option name="APK_PATH" value="" />
+        <option name="LIBRARY_PROJECT" value="false" />
+        <option name="RUN_PROCESS_RESOURCES_MAVEN_TASK" value="true" />
+        <option name="GENERATE_UNSIGNED_APK" value="false" />
+        <option name="CUSTOM_DEBUG_KEYSTORE_PATH" value="" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src-opt/default" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/.name" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/android-autostarts.iml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/ant.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/codeStyleSettings.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/compiler.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/copyright" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/encodings.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/inspectionProfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/misc.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/modules.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/projectCodeStyle.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/scopes" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/uiDesigner.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/vcs.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/workspace.xml" />
+      <excludeFolder url="file://$MODULE_DIR$/.settings" />
+    </content>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$ANDROID_SDK_DIR$/extras/android/support/v4/android-support-v4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$ANDROID_SDK_DIR$/extras/android/support/v4/src/froyo" />
+          <root url="file://$ANDROID_SDK_DIR$/extras/android/support/v4/src/ics" />
+          <root url="file://$ANDROID_SDK_DIR$/extras/android/support/v4/src/gingerbread" />
+          <root url="file://$ANDROID_SDK_DIR$/extras/android/support/v4/src/honeycomb" />
+          <root url="file://$ANDROID_SDK_DIR$/extras/android/support/v4/src/honeycomb_mr2" />
+          <root url="file://$ANDROID_SDK_DIR$/extras/android/support/v4/src/java" />
+          <root url="file://$ANDROID_SDK_DIR$/extras/android/support/v4/src/eclair" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="jdk" jdkName="Android 4.0.1 Platform" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+

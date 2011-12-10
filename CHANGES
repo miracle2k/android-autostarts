@@ -4,7 +4,9 @@
 
     * On ICS, the Enabled/Disabled option was sometimes incorrectly
       labeled.
-    * On ICS, state-toggling could sometimes crash Autostarts.
+    * On ICS, state-toggling would generally not work, and show
+      the standard failure message.
+    * On ICS, sometimes state-toggling could crash the app.
 
 1.7.1 (2011-04-22)
     Only released on Amazon Appstore. Introduces a separate build series

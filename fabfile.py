@@ -40,8 +40,9 @@ def build():
          print "Building APK for version '%s'..." % build_name
          try:
              p = AndroidProject('AndroidManifest.xml', 'Android-Autostarts',
-                                sdk_dir=env.sdk_dir, target='10')
+                                sdk_dir=env.sdk_dir)
              p.extra_source_dirs = build_options['extra-paths']
+             p.extra_jars = ['%s/extras/android/support/v4/android-support-v4.jar' % env.sdk_dir]
 
              apk = p.build(env.raw_apk % build_name.capitalize())
 
@@ -59,13 +60,9 @@ def build():
 
 
 def _versionize(filename):
-    if not getattr(env, 'app_version', False):
-        # determine the version number
-        import subprocess, re
-        manifest = subprocess.Popen(
-            ["aapt", "dump", "xmltree", filename, "AndroidManifest.xml"],
-            stdout=subprocess.PIPE).communicate()[0]
-        env.app_version = re.search(r'^\s*A: android:versionName\([^)]+\)="([^"]+)" \(Raw: "[^"]+"\)\s*$', manifest, re.M).groups()[0]
+    if not getattr(env, 'app_version', False):        
+        temp_project = AndroidProject('AndroidManifest.xml', sdk_dir=env.sdk_dir)
+        env.app_version = temp_project.manifest_parsed.attrib['{http://schemas.android.com/apk/res/android}versionName']
 
     # add version number to file name
     base, ext = path.splitext(filename)

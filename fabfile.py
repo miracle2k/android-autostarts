@@ -47,7 +47,7 @@ BUILDS = {
         'deploy': False,
     },
     'default': {
-        'extra-paths': ['src-opt/amazon'],
+        'extra-paths': ['src-opt/default'],
         'template': 'Android-Autostarts-Full-%(version)s.apk',
         'manifest_maker': _make_market_manifest
     }

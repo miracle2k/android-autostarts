@@ -178,6 +178,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 
 			// If adb is disabled, try to enable it, temporarily. This will
 			// make our root call go through without hanging.
+            // TODO: It seems this might no longer be required under ICS.
 			if (!adbEnabled) {
 				Log.i(ListActivity.TAG, "Switching ADB on for the root call");
 				if (setADBEnabledState(cr, true)) {

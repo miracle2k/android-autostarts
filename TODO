@@ -5,6 +5,9 @@ Move state toggling into a service. This will allow the user to queue up
 multiple change requests, and it's what is necessary to support some kind
 of "save all user's changes" and "restore after reflash" feature.
 
+Make it easier to find new apps (sorting by installation date, or simply
+recognizing the new apps since Autostarts was last started.
+
 See if we can make it more clear which items have been disabled.
 
 Investigate when, under what circumstances Android starts an app's backup

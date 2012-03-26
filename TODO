@@ -117,6 +117,9 @@ BOOT_COMPLETED, like a lot of the network state change stuff. Maybe this
 could be made more obvious to the user.
 
 Update our custom colors to be stateful.
+Also, multiple people have no complained about the yellow used to indicate
+system apps not being readable enough. FInd a different color, or a better
+tone of yellow.
 
 Implement the ability to disable a app as a whole; nice to get rid of
 pre-installed applications.

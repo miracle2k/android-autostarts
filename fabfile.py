@@ -21,7 +21,6 @@ def locales():
     local('tx pull -a')
     # Workaround for Android not supporting this language (no ISO-639-2 support?)
     local('rm locale/*-ast.po')
-    local('a2po import')
 
 
 def _make_market_manifest(manifest):
@@ -48,8 +47,10 @@ BUILDS = {
         'deploy': False,
     },
     'vodaphone': {
-        'extra-paths': ['src-opt/default'],
-        'template': 'Android-Autostarts-Vodaphone-%(version)s.apk'
+        'extra-paths': ['src-opt/vodaphone'],
+        'template': 'Android-Autostarts-Vodaphone-%(version)s.apk',
+        # Vodaphone QA complains about incomplete translations
+        'a2po_options': '--require-min-complete 1',
     },
     'default': {
         'extra-paths': ['src-opt/default'],
@@ -59,11 +60,22 @@ BUILDS = {
 }
 
 
-def build(clean=False):
+def build(build_only=None, clean=False):
     apks = []
     for build_name, build_options in BUILDS.items():
-        print "Building APK for version '%s'..." % build_name
+        if build_only and not build_name == build_only:
+            continue
+
+        print
+        header = "Building APK for version '%s'..." % build_name
+        print header
+        print "=" * len(header)
+        print
+
         try:
+            # Import appropriate translations for this build
+            local('a2po import %s' % build_options.get('a2po_options', ''))
+
             # Determine manifest file, build can run a hook
             manifest = 'AndroidManifest.xml'
             if build_options.get('manifest_maker', False):
@@ -80,7 +92,7 @@ def build(clean=False):
             if clean:
                 p.clean()
             version = p.manifest_parsed.attrib[
-            '{http://schemas.android.com/apk/res/android}versionName']
+                '{http://schemas.android.com/apk/res/android}versionName']
             apk = p.build('%s' % build_options['template'] % {
                 'build': build_name.capitalize(),
                 'version': version
@@ -98,19 +110,21 @@ def build(clean=False):
             apk.align()
 
             apks.append((apk, build_options))
+            print
+            print "==> Generated %s" % apk.filename
         except ProgramFailedError, e:
             print e
             print e.stdout
     return apks
 
 
-def deploy():
+def deploy(build_only=None):
     if raw_input('Have you updated the locales? [y/n] ') != 'y':
         print "Then do that first, and commit them...."
         return
 
     # Build all APKs, upload them all the the server
-    for apk, build_options in build(clean=True):
+    for apk, build_options in build(build_only=build_only, clean=True):
         if build_options.get('deploy', True):
             put(apk.filename, env.deploy_dir)
 

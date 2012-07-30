@@ -1,0 +1,145 @@
+# Translations template for PROJECT.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# 
+# Translators:
+#   <typhoon@zoznam.sk>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-autostarts/issues\n"
+"POT-Creation-Date: 2011-04-23 22:33+0200\n"
+"PO-Revision-Date: 2011-12-16 17:46+0000\n"
+"Last-Translator: Typhoon <typhoon@zoznam.sk>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/android-autostarts/language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr "Žiadne aplikácie neštartujú automaticky."
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr "Žiadne aplikácie neštartujú automaticky v tomto výbere"
+
+msgctxt "still_loading"
+msgid ""
+"Please wait while I am loading the applications installed on your phone..."
+msgstr "Prosím čakajte pokiaľ načítam inštalované aplikácie v telefóne..."
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr "Zmeňte nastavenie Filtra"
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr "Informácie o Aplikácii"
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr "Nájsť v Markete"
+
+msgctxt "find_in_appstore"
+msgid "Find in Appstore"
+msgstr "Nájsť na Appstore"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "Zakázať"
+
+msgctxt "enable"
+msgid "Enable"
+msgstr "Povoliť"
+
+msgctxt "view_options"
+msgid "View"
+msgstr "Zobraziť"
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr "Zoskupiť podľa aplikácií"
+
+msgctxt "group_by_action"
+msgid "Group by event"
+msgstr "Zoskupiť podľa udalostí"
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr "Skryť systémové aplikácie"
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr "Zobraziť iba zmenené"
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr "Skryť neznáme udalosti"
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr "Rozbaliť všetko"
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr "Zbaliť všetko"
+
+msgctxt "reload"
+msgid "Reload"
+msgstr "Znova načítať"
+
+msgctxt "help"
+msgid "Help"
+msgstr "Pomoc"
+
+msgctxt "please_wait"
+msgid "Please Wait..."
+msgstr "Prosím čakajte"
+
+msgctxt "error"
+msgid "Error"
+msgstr "Chyba"
+
+msgctxt "warning"
+msgid "Warning"
+msgstr "Upozornenie"
+
+msgctxt "info"
+msgid "Info"
+msgstr "Informácia"
+
+#, c-format
+msgctxt "receiver_info"
+msgid ""
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
+" priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr "Príjmač &lt;b&gt;%1$s&lt;/b&gt; sa zaoberá akciou &lt;i&gt;%2$s&lt;/i&gt; s prioritou &lt;b&gt;%3$d&lt;/b&gt;."
+
+msgctxt "confirm_sys_disable"
+msgid ""
+"You are about to disable a system component. This could potentially result in your phone no longer functioning properly.\n"
+"\n"
+"Do not proceed unless you are willing to deal with the consequences."
+msgstr "Chystáte sa vypnúť systémový komponent. Toto môže spôsobiť, že už systém nebude pracovať správne .\n\nNepokračujte ak sa nebudete vedieť vyrovnať s následkami."
+
+msgctxt "confirm_google_talk"
+msgid ""
+"If Google Talk is disabled, you are likely going to run into issues with "
+"hanging Android Market downloads, the starting up Google Talk yourself "
+"whenever necessary can help overcome them. Sure you want to proceed?"
+msgstr "Ak je Google Talk zakázaný môžu nastať problémy so sťahovaním z Android Marketu.Zapnutie Google talk môže pomôcť prekonať tieto problémy. Ste si istý že chcete pokračovať ?"
+
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of the selected component.\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr "Nedokážem zmeniť stav komponentu.\n\nS najväčšou pravdepodobnosťou  nemáte vyžadované Root oprávnenia."
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr "Zatvoriť pomocníka a vrátiť sa k aplikácii."

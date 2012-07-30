@@ -47,6 +47,10 @@ BUILDS = {
         'sign': False,
         'deploy': False,
     },
+    'vodaphone': {
+        'extra-paths': ['src-opt/default'],
+        'template': 'Android-Autostarts-Vodaphone-%(version)s.apk'
+    },
     'default': {
         'extra-paths': ['src-opt/default'],
         'template': 'Android-Autostarts-Full-%(version)s.apk',

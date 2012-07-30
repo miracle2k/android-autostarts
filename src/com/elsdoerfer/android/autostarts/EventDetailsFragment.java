@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 import src.com.elsdoerfer.android.autostarts.opt.MarketUtils;
 
+import java.util.ArrayList;
+
 
 public class EventDetailsFragment extends DialogFragment {
 
@@ -45,14 +47,16 @@ public class EventDetailsFragment extends DialogFragment {
 		((TextView)v.findViewById(R.id.message)).setText(
 				Html.fromHtml(formattedString));
 
+	    ArrayList<CharSequence> dialogItems = new ArrayList<CharSequence>();
+	    dialogItems.add(getResources().getString(
+			    (event.componentInfo.isCurrentlyEnabled()) ? R.string.disable : R.string.enable));
+	    dialogItems.add(getResources().getString(R.string.appliation_info));
+	    if (MarketUtils.FIND_IN_MARKET_TEXT != 0)
+		    // Pluggable MarketUtils class may specify 0 to disable this item.
+	        dialogItems.add(getResources().getString(MarketUtils.FIND_IN_MARKET_TEXT));
+
         Dialog d = new AlertDialog.Builder(activity).setItems(
-            new CharSequence[] {
-                    getResources().getString(
-                            (event.componentInfo.isCurrentlyEnabled())
-                            ? R.string.disable
-                            : R.string.enable),
-                    getResources().getString(R.string.appliation_info),
-                    getResources().getString(MarketUtils.FIND_IN_MARKET_TEXT)},
+            dialogItems.toArray(new CharSequence[dialogItems.size()]),
             new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which) {

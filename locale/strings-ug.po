@@ -1,0 +1,144 @@
+# Translations template for PROJECT.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: android-autostarts\n"
+"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-autostarts/issues\n"
+"POT-Creation-Date: 2011-04-23 22:33+0200\n"
+"PO-Revision-Date: 2012-02-01 09:34+0000\n"
+"Last-Translator: Abduqadir Abliz <sahran.ug@gmail.com>\n"
+"Language-Team: Uighur (http://www.transifex.com/projects/p/android-autostarts/language/ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr "ئۆزلۈكىدىن قوزغىلىدىغان ئەپ يوق."
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr "سىز نۆۋەتتە تاللىغان ئەپ ئۆزلۈكىدىن قوزغالمايدۇ."
+
+msgctxt "still_loading"
+msgid ""
+"Please wait while I am loading the applications installed on your phone..."
+msgstr "تېلېفونىڭىزغا ئورنىتىلغان ئەپنى يۈكلەۋاتىدۇ، سەل كۈتۈڭ…"
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr "سۈزگۈچ تەڭشىكىنى ئۆزگەرتىدۇ."
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr "ئەپ ئۇچۇرى"
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr "بازاردىن ئىزدە"
+
+msgctxt "find_in_appstore"
+msgid "Find in Appstore"
+msgstr "ئەپ بازىرىدىن ئىزدە"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "چەكلە"
+
+msgctxt "enable"
+msgid "Enable"
+msgstr "قوزغات"
+
+msgctxt "view_options"
+msgid "View"
+msgstr "كۆرۈنۈش"
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr "ئەپ بويىچە گۇرۇپپىلا"
+
+msgctxt "group_by_action"
+msgid "Group by event"
+msgstr "ھادىسە بويىچە گۇرۇپپىلا"
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr "سىستېما ئەپلەرنى يوشۇر"
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr "ئۆزگىرىشنىلا كۆرسەت"
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr "يوچۇن ھادىسەلەرنى يوشۇر"
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr "ھەممىنى ياي"
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr "ھەممىنى قاتلا"
+
+msgctxt "reload"
+msgid "Reload"
+msgstr "قايتا يۈكلە"
+
+msgctxt "help"
+msgid "Help"
+msgstr "ياردەم"
+
+msgctxt "please_wait"
+msgid "Please Wait..."
+msgstr "سەل كۈتۈڭ…"
+
+msgctxt "error"
+msgid "Error"
+msgstr "خاتالىق"
+
+msgctxt "warning"
+msgid "Warning"
+msgstr "ئاگاھلاندۇرۇش"
+
+msgctxt "info"
+msgid "Info"
+msgstr "ئۇچۇر"
+
+#, c-format
+msgctxt "receiver_info"
+msgid ""
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
+" priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr "قوبۇللىغۇچى &lt;b&gt;%1$s&lt;/b&gt; بىر تەرەپ قىلىدىغان مەشغۇلات &lt;i&gt;%2$s&lt;/i&gt; ئالدىنلىق &lt;b&gt;%3$d&lt;/b&gt;."
+
+msgctxt "confirm_sys_disable"
+msgid ""
+"You are about to disable a system component. This could potentially result in your phone no longer functioning properly.\n"
+"\n"
+"Do not proceed unless you are willing to deal with the consequences."
+msgstr "سىز سىستېما بۆلىكىنى چەكلىمەكچى. بۇنىڭ بىلەن تېلېفونىڭىز ئادەتتىكىدەك ئىشلىمەسلىكى مۇمكىن.\n\n\n\nكېلىپ چىقىشى مۇمكىن بولغان مەسىلىنى ئۆزىڭىز ھەل قىلالمىسىڭىز داۋاملاشتۇرماڭ."
+
+msgctxt "confirm_google_talk"
+msgid ""
+"If Google Talk is disabled, you are likely going to run into issues with "
+"hanging Android Market downloads, the starting up Google Talk yourself "
+"whenever necessary can help overcome them. Sure you want to proceed?"
+msgstr "ئەگەر گۇگىل مۇڭداشقۇ (Google Talk) مۇلازىمىتىنى چەكلىسىڭىز، ئاندىرويىد بازىرىنىڭ چۈشۈرۈش مۇلازىمىتىگە تەسىر كۆرسىتىشى مۇمكىن، Google Talk مۇلازىمىتىنى قوزغاتسىڭىز بۇ مەسىلىنى ھەل قىلغىلى بولىدۇ. راستلا داۋاملاشتۇرامسىز؟"
+
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of the selected component.\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr "تاللىغان بۆلەكنىڭ ھالىتىنى ئۆزگەرتەلمەيدۇ.\n\nئۈسكۈنىڭىز root ھوقۇقىغا تېخى ئېرىشمىگەندەك تۇرىدۇ."
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr "ياردەمنى تاقاپ ئەپكە قايت"

@@ -48,6 +48,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/workspace.xml" />
       <excludeFolder url="file://$MODULE_DIR$/.settings" />
     </content>
+    <orderEntry type="jdk" jdkName="Android SDK" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -65,8 +67,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="jdk" jdkName="Android 4.0.1 Platform" jdkType="Android SDK" />
-    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
 

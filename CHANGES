@@ -1,3 +1,7 @@
+1.7.6 (2012-07-30)
+    Only released on Vodaphone AppSelect. Removes the "Find in Market"
+    option.
+
 1.7.5 (2011-12-10)
     This release mostly fixes ICS/Android 4.0 issues, and drops support
     for Android 1.5.

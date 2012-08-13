@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 import src.com.elsdoerfer.android.autostarts.opt.MarketUtils;
+import src.com.elsdoerfer.android.autostarts.opt.RootFeatures;
 
 import java.util.ArrayList;
 
@@ -47,19 +48,27 @@ public class EventDetailsFragment extends DialogFragment {
 		((TextView)v.findViewById(R.id.message)).setText(
 				Html.fromHtml(formattedString));
 
+	    // Build list of dialog items to show. Optional classes like RootFeatures or
+	    // MarketUtils will affect what is shown based on build type.
 	    ArrayList<CharSequence> dialogItems = new ArrayList<CharSequence>();
-	    dialogItems.add(getResources().getString(
-			    (event.componentInfo.isCurrentlyEnabled()) ? R.string.disable : R.string.enable));
+	    if (RootFeatures.Enabled)
+		    dialogItems.add(getResources().getString(
+				    (event.componentInfo.isCurrentlyEnabled()) ? R.string.disable : R.string.enable));
 	    dialogItems.add(getResources().getString(R.string.appliation_info));
 	    if (MarketUtils.FIND_IN_MARKET_TEXT != 0)
-		    // Pluggable MarketUtils class may specify 0 to disable this item.
 	        dialogItems.add(getResources().getString(MarketUtils.FIND_IN_MARKET_TEXT));
 
-        Dialog d = new AlertDialog.Builder(activity).setItems(
+        return new AlertDialog.Builder(activity).setItems(
             dialogItems.toArray(new CharSequence[dialogItems.size()]),
             new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which) {
+	                // If the first menu item (toggle state) has been removed, account
+	                // for this by subtracting one from the index. This is terrible though.
+	                // Find a different way to associate the handler code with each item (TODO).
+	                if (!RootFeatures.Enabled)
+		                which--;
+
                     activity.mLastChangeRequestDoEnable =
                         !event.componentInfo.isCurrentlyEnabled();
                     switch (which) {
@@ -110,8 +119,6 @@ public class EventDetailsFragment extends DialogFragment {
                 }
             })
             .setTitle(event.componentInfo.getLabel()).setView(v).create();
-
-        return d;
     }
 
 }

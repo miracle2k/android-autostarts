@@ -1,7 +1,8 @@
 /bin/*
 /gen/*
 /res/values-*/*.xml
-/BRANCH_TODO
+
+/LOCAL_TODO*
 
 # Eclipse
 /.settings/

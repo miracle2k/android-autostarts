@@ -55,7 +55,7 @@ public class EventDetailsFragment extends DialogFragment {
 		    // Pluggable MarketUtils class may specify 0 to disable this item.
 	        dialogItems.add(getResources().getString(MarketUtils.FIND_IN_MARKET_TEXT));
 
-        Dialog d = new AlertDialog.Builder(activity).setItems(
+        return new AlertDialog.Builder(activity).setItems(
             dialogItems.toArray(new CharSequence[dialogItems.size()]),
             new DialogInterface.OnClickListener()
             {
@@ -110,8 +110,6 @@ public class EventDetailsFragment extends DialogFragment {
                 }
             })
             .setTitle(event.componentInfo.getLabel()).setView(v).create();
-
-        return d;
     }
 
 }

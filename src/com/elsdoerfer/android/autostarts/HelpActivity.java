@@ -41,8 +41,6 @@ public class HelpActivity extends Activity {
         }
         fullText.append("</body></html>");
 
-        Log.d("sdf", fullText.toString());
-
         ((WebView)findViewById(R.id.faq_text)).loadData(
         		fullText.toString(), "text/html", "utf-8");
 

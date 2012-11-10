@@ -1,3 +1,7 @@
+From what I hear from users, the live UI refresh while loading contributes
+significantly to the UI loading time. See if we can optimize loading speed 
+by refreshing lessoften.
+
 Convert the intent information into XML format, it's getting harder and
 harder to manage in the Java file.
 

@@ -30,6 +30,14 @@ import android.os.AsyncTask;
  * TODO: there is a small chance at race conditions here when checking
  * for mWrapped and setting mPostProcessingDone. We should fix those
  * by using a lock.
+ *
+ * TODO: Actually, it turns out we don't need this class. Android guarantees
+ * that things like onPostExecute cannot be called during activity orientation
+ * change, because no messages are processed, supposedly:
+ *   http://commonsware.com/blog/2010/09/10/asynctask-screen-rotation.html
+ *   https://groups.google.com/forum/?fromgroups=#!topic/android-developers/4dW4-KMUKJI
+ * Instead, this should suffice:
+ *   https://github.com/commonsguy/cw-android/blob/master/Rotation/RotationAsync/src/com/commonsware/android/rotation/async/RotationAsync.java
  */
 public abstract class ActivityAsyncTask<Connect, Params, Progress, Result>
 		extends AsyncTask<Params, Progress, Result> {

@@ -92,7 +92,7 @@ class ToggleTool {
 	}
 
 	static protected Boolean toggleState(Context context, ComponentInfo component, boolean doEnable) {
-		Log.i(ListActivity.TAG, "Asking package manger to "+
+		Log.i(Utils.TAG, "Asking package manger to "+
 				"change component state to "+
 				(doEnable ? "enabled": "disabled"));
 
@@ -110,7 +110,7 @@ class ToggleTool {
 		// setComponentEnabledSetting(), we should do so.
 		if (context.checkCallingOrSelfPermission(permission.CHANGE_COMPONENT_ENABLED_STATE)
 				     == PackageManager.PERMISSION_GRANTED) {
-			Log.i(ListActivity.TAG, "Calling setComponentEnabledState() directly");
+			Log.i(Utils.TAG, "Calling setComponentEnabledState() directly");
 			PackageManager pm = context.getPackageManager();
 			ComponentName c = new ComponentName(component.packageInfo.packageName, component.componentName);
 			pm.setComponentEnabledSetting(
@@ -120,7 +120,7 @@ class ToggleTool {
 			return (component.isCurrentlyEnabled() == doEnable);
 		}
 		else {
-			Log.i(ListActivity.TAG, "Changing state by employing root access");
+			Log.i(Utils.TAG, "Changing state by employing root access");
 
 			ContentResolver cr = context.getContentResolver();
 			boolean adbNeedsRedisable = false;
@@ -130,7 +130,7 @@ class ToggleTool {
 			} catch (SettingNotFoundException e) {
 				// This started to happen at times on the ICS emulator
 				// (and possibly one user reported it).
-				Log.w(ListActivity.TAG,
+				Log.w(Utils.TAG,
 						"Failed to read adb_enabled setting, assuming no", e);
 				adbEnabled = false;
 			}
@@ -139,7 +139,7 @@ class ToggleTool {
 			// make our root call go through without hanging.
             // TODO: It seems this might no longer be required under ICS.
 			if (!adbEnabled) {
-				Log.i(ListActivity.TAG, "Switching ADB on for the root call");
+				Log.i(Utils.TAG, "Switching ADB on for the root call");
 				if (setADBEnabledState(context, cr, true)) {
 					adbEnabled = true;
 					adbNeedsRedisable = true;
@@ -193,14 +193,14 @@ class ToggleTool {
 
 				success = component.isCurrentlyEnabled() == doEnable;
 				if (success)
-					Log.i(ListActivity.TAG, "State successfully changed");
+					Log.i(Utils.TAG, "State successfully changed");
 				else
-					Log.i(ListActivity.TAG, "State change failed");
+					Log.i(Utils.TAG, "State change failed");
 				return success;
 			}
 			finally {
 				if (adbNeedsRedisable) {
-					Log.i(ListActivity.TAG, "Switching ADB off again");
+					Log.i(Utils.TAG, "Switching ADB off again");
 					setADBEnabledState(context, cr, false);
 					// Delay releasing the GUI for a while, there seems to
 					// be a mysterious problem of repeating this process multiple
@@ -219,11 +219,11 @@ class ToggleTool {
 	private static boolean setADBEnabledState(Context context, ContentResolver cr, boolean enable) {
 		if (context.checkCallingOrSelfPermission(permission.WRITE_SECURE_SETTINGS)
                 == PackageManager.PERMISSION_GRANTED) {
-			Log.i(ListActivity.TAG, "Using secure settings API to touch ADB setting");
+			Log.i(Utils.TAG, "Using secure settings API to touch ADB setting");
 			return Settings.Secure.putInt(cr, Settings.Secure.ADB_ENABLED, enable ? 1 : 0);
 		}
 		else {
-			Log.i(ListActivity.TAG, "Using setprop call to touch ADB setting");
+			Log.i(Utils.TAG, "Using setprop call to touch ADB setting");
 			return Utils.runRootCommand(
 					String.format("setprop persist.service.adb.enable %s", enable ? 1 : 0),
 					null, null);

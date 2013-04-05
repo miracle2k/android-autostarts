@@ -34,7 +34,6 @@ import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
 public class ListActivity extends ExpandableListFragmentActivity {
 
-	static final String TAG = "Autostarts";
 	static final Boolean LOGV = false;
 
 	static final private int MENU_VIEW = 1;

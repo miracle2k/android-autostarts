@@ -81,7 +81,7 @@ public class ToggleService extends Service {
 		if (mStates.put(component,  newState) == null);
 		mQueue.offer(component);
 
-		Log.d(ListActivity.TAG, "Added "+component+" to service queue, now size: "+mStates.size());
+		Log.d(Utils.TAG, "Added "+component+" to service queue, now size: "+mStates.size());
 		onQueueModified(component, false);
 
 		// Make sure the queue is running (this should do nothing if it already is).
@@ -107,7 +107,7 @@ public class ToggleService extends Service {
 		final ComponentInfo component = mQueue.poll();
 		if (component == null) {
 			onActivityChange(null);
-			Log.d(ListActivity.TAG, "ToggleService mQueue empty, shutting down");
+			Log.d(Utils.TAG, "ToggleService mQueue empty, shutting down");
 			stopSelf();
 			return;
 		}
@@ -115,7 +115,7 @@ public class ToggleService extends Service {
 		// See whether we should enable or disable
 		final boolean desiredState = mStates.remove(component);
 
-		Log.d(ListActivity.TAG, "Processing "+component+", remaining items in queue: "+mStates.size());
+		Log.d(Utils.TAG, "Processing "+component+", remaining items in queue: "+mStates.size());
 		onActivityChange(component);
 
 		new Thread(new Runnable() {
@@ -147,7 +147,7 @@ public class ToggleService extends Service {
 							toast.show();
 						}
 
-						Log.d(ListActivity.TAG, "Processing "+component+" done");
+						Log.d(Utils.TAG, "Processing "+component+" done");
 						onQueueModified(component, false);
 						processNextItem();
 					}

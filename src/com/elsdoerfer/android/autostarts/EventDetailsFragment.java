@@ -83,10 +83,7 @@ public class EventDetailsFragment extends DialogFragment {
                         else if (event.componentInfo.packageInfo.isSystem && !activity.mLastChangeRequestDoEnable)
                             activity.showDialog(ListActivity.DIALOG_CONFIRM_SYSAPP_CHANGE);
                         else {
-                            activity.mToggleTask = new ToggleTask(activity);
-                            activity.mToggleTask.execute(
-                                    event.componentInfo,
-                                    activity.mLastChangeRequestDoEnable);
+	                        activity.addJob(event.componentInfo, activity.mLastChangeRequestDoEnable);
                         }
                         break;
                     case 1:

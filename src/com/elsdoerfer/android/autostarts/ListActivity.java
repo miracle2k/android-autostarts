@@ -3,12 +3,11 @@ package com.elsdoerfer.android.autostarts;
 import java.util.ArrayList;
 
 import android.app.*;
-import android.content.DialogInterface;
+import android.content.*;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -30,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.elsdoerfer.android.autostarts.compat.ExpandableListFragmentActivity;
+import com.elsdoerfer.android.autostarts.db.ComponentInfo;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
 public class ListActivity extends ExpandableListFragmentActivity {
@@ -46,7 +46,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	static final protected int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
 	static final protected int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
-	static final int DIALOG_STATE_CHANGE_FAILED = 7;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -64,8 +63,9 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	private DatabaseHelper mDb;
 	private SharedPreferences mPrefs;
 	private Boolean mExpandSuggested = true;
-	protected ToggleTask mToggleTask;
 	private LoadTask mLoadTask;
+
+	protected ToggleService mToggleService;
 
 	// Due to Android deficiencies (can't pass data to showDialog()),
 	// we need to store that data globally.
@@ -75,13 +75,46 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	protected boolean mLastChangeRequestDoEnable;
 	protected boolean mUninstallWarningShown;
 
+	private ServiceConnection mToggleServiceConnection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			mToggleService = ((ToggleService.LocalBinder)service).getService();
+			mToggleService.setHandler(new ToggleService.ToggleServiceListener() {
+				@Override
+				public void onActivityChange(ComponentInfo component) {
+					if (component == null) {
+						// Restore quiet state, no item being processed.
+						setDefaultTitle();
+						ListActivity.this.setProgressBarIndeterminateVisibility(false);
+					}
+					else {
+						// Display info about item being processed
+						ListActivity.this.setTitle(String.format(
+								getString(R.string.changing_state), component.getLabel()));
+						ListActivity.this.setProgressBarIndeterminateVisibility(true);
+					}
+				}
+
+				@Override
+				public void onQueueModified(ComponentInfo component, boolean wasAdded) {
+					mListAdapter.notifyDataSetInvalidated();
+				}
+			});
+			// Get us an initial UI update.
+			mToggleService.requestUpdate();
+		}
+		public void onServiceDisconnected(ComponentName className) {}
+	};
+
+
 	@Override
 	public void onCreate(final Bundle saved) {
 		super.onCreate(saved);
 
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		requestWindowFeature(Window.FEATURE_PROGRESS);
+		setProgressBarIndeterminateVisibility(false);
 		setContentView(R.layout.list);
+		setDefaultTitle();
 
 		// Set everything up.
 		mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -103,6 +136,9 @@ public class ListActivity extends ExpandableListFragmentActivity {
 				? MyExpandableListAdapter.GROUP_BY_PACKAGE
 				: MyExpandableListAdapter.GROUP_BY_ACTION);
 
+		bindService(new Intent(this, ToggleService.class),
+				mToggleServiceConnection, Context.BIND_AUTO_CREATE);
+
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
 		// to do a load.
@@ -115,7 +151,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			mLastChangeRequestDoEnable = oldActivity.mLastChangeRequestDoEnable;
 			mEvents = oldActivity.mEvents;
 			mUninstallWarningShown = oldActivity.mUninstallWarningShown;
-			mToggleTask = oldActivity.mToggleTask;
 			mLoadTask = oldActivity.mLoadTask;
 			// Display what we have immediately.
 			if (mEvents != null)
@@ -123,8 +158,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			// Continue loading in case we're not done yet.
 			if (mLoadTask != null)
 				mLoadTask.connectTo(this);
-			if (mToggleTask != null)
-				mToggleTask.connectTo(this);
 		}
 		// Otherwise, we are going to have to init certain data
 		// ourselves, and load some from from instance state, if
@@ -143,6 +176,10 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		// This depends both on preferences on loading status.
 		updateEmptyText();
+	}
+
+	private void setDefaultTitle() {
+		setTitle(R.string.app_name);
 	}
 
 	@Override
@@ -173,7 +210,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		//     by the Activity as a kind of "overlay", as a list of changes
 		//     made by the user. We then would no longer need the
 		//     ComponentInfo/PackageInfo relations to have a shared identity.
-		//   - The ToggleTask, rather than modifing the ComponentInfo
+		//   - The ToggleTool, rather than modifing the ComponentInfo
 		//     object, could have the Activity's callback method deal with
 		//     the state change. If the component is already loaded, it's
 		//     state is changed, otherwise, we can assume it will be loaded
@@ -209,10 +246,12 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		if (mDb != null)
 			mDb.close();
 		// Unattach the activity from a potentially running task.
-		if (mToggleTask != null)
-			mToggleTask.connectTo(null);
 		if (mLoadTask != null)
 			mLoadTask.connectTo(null);
+		if (mToggleService != null) {
+			unbindService(mToggleServiceConnection);
+			mToggleService = null;
+		}
 		super.onDestroy();
 	}
 
@@ -313,10 +352,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						mToggleTask = new ToggleTask(ListActivity.this);
-						mToggleTask.execute(
-							mLastSelectedEvent.componentInfo,
-							mLastChangeRequestDoEnable);
+					addJob(mLastSelectedEvent.componentInfo, mLastChangeRequestDoEnable);
 					}
 				})
 				.setNegativeButton(android.R.string.cancel, null)
@@ -331,23 +367,11 @@ public class ListActivity extends ExpandableListFragmentActivity {
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						mToggleTask = new ToggleTask(ListActivity.this);
-						mToggleTask.execute(
-							mLastSelectedEvent.componentInfo,
-							mLastChangeRequestDoEnable);
+					addJob(mLastSelectedEvent.componentInfo, mLastChangeRequestDoEnable);
 					}
 				})
 				.setNegativeButton(android.R.string.cancel, null)
 				.create();
-		}
-
-		else if (id == DIALOG_STATE_CHANGE_FAILED)
-		{
-			return new AlertDialog.Builder(ListActivity.this)
-				.setMessage(R.string.state_change_failed)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setTitle(R.string.error)
-				.setPositiveButton(android.R.string.ok, null).create();
 		}
 
 		else if (id == DIALOG_VIEW_OPTIONS)
@@ -368,36 +392,34 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			};
 
 			return new AlertDialog.Builder(this)
-				.setMultiChoiceItems(new CharSequence[] {
+				.setMultiChoiceItems(new CharSequence[]{
 						getString(R.string.hide_sys_apps),
 						getString(R.string.show_changed_only),
 						getString(R.string.hide_unknown),
-					},
-					initState,
-					new OnMultiChoiceClickListener() {
-						public void onClick(DialogInterface dialog, int which,
-								boolean isChecked) {
-							if (which == 0) {
-								mListAdapter.setFilterSystemApps(isChecked);
-								mListAdapter.notifyDataSetChanged();
-								updateEmptyText();
-								mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, isChecked).commit();
+				},
+						initState,
+						new OnMultiChoiceClickListener() {
+							public void onClick(DialogInterface dialog, int which,
+							                    boolean isChecked) {
+								if (which == 0) {
+									mListAdapter.setFilterSystemApps(isChecked);
+									mListAdapter.notifyDataSetChanged();
+									updateEmptyText();
+									mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, isChecked).commit();
+								} else if (which == 1) {
+									mListAdapter.setShowChangedOnly(isChecked);
+									mListAdapter.notifyDataSetChanged();
+									updateEmptyText();
+									mPrefs.edit().putBoolean(PREF_FILTER_SHOW_CHANGED, isChecked).commit();
+								} else if (which == 2) {
+									mListAdapter.setFilterUnknown(isChecked);
+									mListAdapter.notifyDataSetChanged();
+									updateEmptyText();
+									mPrefs.edit().putBoolean(PREF_FILTER_UNKNOWN, isChecked).commit();
+								}
 							}
-							else if (which == 1) {
-								mListAdapter.setShowChangedOnly(isChecked);
-								mListAdapter.notifyDataSetChanged();
-								updateEmptyText();
-								mPrefs.edit().putBoolean(PREF_FILTER_SHOW_CHANGED, isChecked).commit();
-							}
-							else if (which == 2) {
-								mListAdapter.setFilterUnknown(isChecked);
-								mListAdapter.notifyDataSetChanged();
-								updateEmptyText();
-								mPrefs.edit().putBoolean(PREF_FILTER_UNKNOWN, isChecked).commit();
-							}
-						}
 
-					})
+						})
 				.setPositiveButton(android.R.string.ok, null).create();
 		}
 
@@ -487,6 +509,13 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		DialogFragment newFragment = EventDetailsFragment.newInstance(mLastSelectedEvent);
 		newFragment.show(ft, "details");
+	}
+
+	protected void addJob(ComponentInfo component, boolean newState) {
+		Intent intent = new Intent(this, ToggleService.class);
+		intent.putExtra("component", component);
+		intent.putExtra("state", newState);
+		startService(intent);
 	}
 
 	// TODO: Instead of showing a toast, fade in a custom info bar, then

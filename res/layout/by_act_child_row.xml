@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- paddingRight chosen so that the he spinners align with INFO icon from parent category row -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
 	android:paddingTop="2dip"
 	android:paddingBottom="2dip"
-	android:paddingRight="5dip"
+	android:paddingRight="8dip"
     android:paddingLeft="25dip"
     android:tag="act-child">
 
@@ -23,6 +24,14 @@
         android:singleLine="true"
         android:ellipsize="end"
         android:textStyle="normal"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"/>               \
+
+    <ProgressBar
+        android:id="@+id/spinner"
+        android:layout_alignParentRight="true"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:indeterminate="true"
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -14,6 +14,7 @@
         </activity>
         <activity android:name=".HelpActivity"
         	      android:theme="@android:style/Theme.Light" />
+        <service android:name=".ToggleService" android:label="Autostarts Service"/>
     </application>
     <!-- We generally won't get those permissions. WRITE_SECURE_SETTINGS is
          protectionLevel "signatureOrSystem", and changing other component's

@@ -27,13 +27,26 @@
 	     potential scrollbar. Doesn't look to good if it's too close. -->
     <ImageView
         android:id="@+id/show_info"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="6dp"
-        android:paddingRight="7dp"
+        android:layout_width="28dp"
         android:layout_height="28dp"
-        android:adjustViewBounds="false"
+        android:adjustViewBounds="true"
         android:src="@drawable/ic_dialog_info_btn"
-        />
+        android:layout_gravity="center_vertical" android:layout_marginRight="7dp"
+        android:layout_marginLeft="6dp"/>
+
+    <!--
+        TODO: I would prefer to use a single control for both the icon and activity spinner, but
+        am unable to reset the ProgressBar drawable to the default once changed, see:
+          http://stackoverflow.com/questions/10432203/obtain-default-attribute-values-from-an-android-theme-at-runtime/15839354#15839354
+          http://stackoverflow.com/questions/9398610/how-to-get-the-attr-reference-in-code
+    -->
+    <ProgressBar
+        android:id="@+id/spinner"
+        android:layout_width="28dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="28dp"
+        android:indeterminate="true"
+        android:visibility="visible" android:layout_marginLeft="6dp"
+        android:layout_marginRight="7dp"/>
 
 </LinearLayout>

@@ -19,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.elsdoerfer.android.autostarts.db.ComponentInfo;
@@ -398,6 +399,13 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			setTextStyle(title, comp.packageInfo, comp);
 			setComponentText(title, comp, comp.getLabel());
 
+			// Hide the spinner by default
+			ProgressBar spinner = (ProgressBar)v.findViewById(R.id.spinner);
+			if (mParent.mActivity.mToggleService.has(comp))
+				spinner.setVisibility(View.VISIBLE);
+			else
+				spinner.setVisibility(View.GONE);
+
 			return v;
 		}
 
@@ -534,6 +542,18 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			setTextStyle(text, null, info.componentInfo);
 			setComponentText(text, info.componentInfo,
 					mParent.mActivity.getIntentName(info.action));
+
+			ImageView infoIcon = ((ImageView)v.findViewById(R.id.show_info));
+			ProgressBar spinner = ((ProgressBar)v.findViewById(R.id.spinner));
+
+			if (mParent.mActivity.mToggleService.has(info.componentInfo)) {
+				spinner.setVisibility(View.VISIBLE);
+				infoIcon.setVisibility(View.GONE);
+			}
+			else {
+				spinner.setVisibility(View.GONE);
+				infoIcon.setVisibility(View.VISIBLE);
+			}
 
 			return v;
 		}

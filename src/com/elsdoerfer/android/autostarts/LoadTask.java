@@ -23,7 +23,6 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object,
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		mWrapped.setProgressBarIndeterminateVisibility(true);
 		// Note that we have the current progress remembered (there is
 		// no getProgress() apparently), and we need it so that when a
 		// new Activity connects after an orientation change, we can
@@ -53,7 +52,6 @@ class LoadTask extends ActivityAsyncTask<ListActivity, Object, Object,
 		mWrapped.mEvents = result;
 		mWrapped.apply();
 
-		mWrapped.setProgressBarIndeterminateVisibility(false);
 		mWrapped.setProgressBarVisibility(false);
 		if (mWrapped.mReloadItem != null)
 			mWrapped.mReloadItem.setEnabled(true);

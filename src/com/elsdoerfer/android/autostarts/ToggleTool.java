@@ -1,12 +1,10 @@
 package com.elsdoerfer.android.autostarts;
 
 import android.Manifest.permission;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;

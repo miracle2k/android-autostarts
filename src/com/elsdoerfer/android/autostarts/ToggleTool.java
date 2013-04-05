@@ -94,16 +94,6 @@ class ToggleTool {
 				"change component state to "+
 				(doEnable ? "enabled": "disabled"));
 
-		long endTime = System.currentTimeMillis() + 19*1000;
-		while (System.currentTimeMillis() < endTime) {
-			synchronized (context) {
-				try {
-					context.wait(endTime - System.currentTimeMillis());
-				} catch (Exception e) {
-				}
-			}
-		}
-
 		// As described above, in the rare case we are allowed to use
 		// setComponentEnabledSetting(), we should do so.
 		if (context.checkCallingOrSelfPermission(permission.CHANGE_COMPONENT_ENABLED_STATE)

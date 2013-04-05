@@ -60,6 +60,7 @@ public class ToggleService extends Service {
 	private Handler mHandler;
 
 	private ComponentInfo mItemBeingProcessed = null;
+	private boolean mItemBeingProcessedDesiredState;
 
 	@Override
 	public void onCreate() {
@@ -99,7 +100,7 @@ public class ToggleService extends Service {
 	 */
 	synchronized void processNextItem() {
 		// Allow only one item to be processed at a time.
-		// TODO: Might it not be sensible/benefitial to do multiple changes at a time?
+		// TODO: Might it not be sensible/beneficial to do multiple changes at a time?
 		if (mItemBeingProcessed != null)
 			return;
 
@@ -121,6 +122,7 @@ public class ToggleService extends Service {
 		new Thread(new Runnable() {
 			public void run() {
 				mItemBeingProcessed = component;
+				mItemBeingProcessedDesiredState = desiredState;
 				final boolean success =
 						ToggleTool.toggleState(ToggleService.this, component, desiredState);
 
@@ -167,6 +169,23 @@ public class ToggleService extends Service {
 	 */
 	public boolean has(ComponentInfo component) {
 		return (component.equals(mItemBeingProcessed) || mStates.containsKey(component));
+	}
+
+	/**
+	 * If the given component is in the queue, returns the state (True for enabled,
+	 * False for disabled) that the component should be switched to.
+	 *
+	 * Returns the default value if the component is not in the queue.
+	 */
+	public boolean getQueuedState(ComponentInfo component, boolean defaultValue) {
+		if (component.equals(mItemBeingProcessed))
+			return mItemBeingProcessedDesiredState;
+
+		Boolean desiredState = mStates.get(component);
+		if (desiredState == null)
+			return defaultValue;
+
+		return desiredState;
 	}
 
 	/**

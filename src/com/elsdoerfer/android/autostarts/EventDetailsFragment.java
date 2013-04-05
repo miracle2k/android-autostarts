@@ -48,12 +48,15 @@ public class EventDetailsFragment extends DialogFragment {
 		((TextView)v.findViewById(R.id.message)).setText(
 				Html.fromHtml(formattedString));
 
+	    final boolean componentIsEnabled = activity.mToggleService.getQueuedState(
+			    event.componentInfo, event.componentInfo.isCurrentlyEnabled());
+
 	    // Build list of dialog items to show. Optional classes like RootFeatures or
 	    // MarketUtils will affect what is shown based on build type.
 	    ArrayList<CharSequence> dialogItems = new ArrayList<CharSequence>();
 	    if (RootFeatures.Enabled)
 		    dialogItems.add(getResources().getString(
-				    (event.componentInfo.isCurrentlyEnabled()) ? R.string.disable : R.string.enable));
+				    (componentIsEnabled) ? R.string.disable : R.string.enable));
 	    dialogItems.add(getResources().getString(R.string.appliation_info));
 	    if (MarketUtils.FIND_IN_MARKET_TEXT != 0)
 	        dialogItems.add(getResources().getString(MarketUtils.FIND_IN_MARKET_TEXT));
@@ -69,8 +72,7 @@ public class EventDetailsFragment extends DialogFragment {
 	                if (!RootFeatures.Enabled)
 		                which--;
 
-                    activity.mLastChangeRequestDoEnable =
-                        !event.componentInfo.isCurrentlyEnabled();
+                    activity.mLastChangeRequestDoEnable = !componentIsEnabled;
                     switch (which) {
                     case 0:
                         // Depending on what we disable, show a warning specifically

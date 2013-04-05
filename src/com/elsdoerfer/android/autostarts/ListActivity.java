@@ -72,7 +72,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	// it's feasible for us to require it.
 	private IntentFilterInfo mLastSelectedEvent;
 	protected boolean mLastChangeRequestDoEnable;
-	protected boolean mUninstallWarningShown;
 
 	private ServiceConnection mToggleServiceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -149,7 +148,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			mLastSelectedEvent = oldActivity.mLastSelectedEvent;
 			mLastChangeRequestDoEnable = oldActivity.mLastChangeRequestDoEnable;
 			mEvents = oldActivity.mEvents;
-			mUninstallWarningShown = oldActivity.mUninstallWarningShown;
 			mLoadTask = oldActivity.mLoadTask;
 			// Display what we have immediately.
 			if (mEvents != null)
@@ -165,7 +163,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			if (saved != null) {
 				mLastSelectedEvent = saved.getParcelable("selected-event");
 				mLastChangeRequestDoEnable = saved.getBoolean("change-do-enable");
-				mUninstallWarningShown = saved.getBoolean("uninstall-warning-shown");
 			}
 			else { /* here's the place to load some prefs, if necessary */ }
 

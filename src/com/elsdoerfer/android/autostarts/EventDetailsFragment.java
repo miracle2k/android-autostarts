@@ -48,6 +48,11 @@ public class EventDetailsFragment extends DialogFragment {
 		((TextView)v.findViewById(R.id.message)).setText(
 				Html.fromHtml(formattedString));
 
+	    // I prefer this warning to be *inside* the Disable menu options. However, for this,
+	    // we would have to, apparently, customize the dialog creation.
+	    v.findViewById(R.id.sys_warning).setVisibility(
+			    event.componentInfo.packageInfo.isSystem ? View.VISIBLE : View.GONE);
+
 	    final boolean componentIsEnabled = activity.mToggleService.getQueuedState(
 			    event.componentInfo, event.componentInfo.isCurrentlyEnabled());
 
@@ -72,22 +77,12 @@ public class EventDetailsFragment extends DialogFragment {
 	                if (!RootFeatures.Enabled)
 		                which--;
 
-                    activity.mLastChangeRequestDoEnable = !componentIsEnabled;
+                    boolean doEnable = !componentIsEnabled;
                     switch (which) {
                     case 0:
-                        // Depending on what we disable, show a warning specifically
-                        // for that component, a general warning or just proceed without
-                        // any explicit warning whatsoever.
-                        if (!activity.mLastChangeRequestDoEnable &&
-                                event.componentInfo.packageInfo.packageName.equals("com.google.android.apps.gtalkservice") &&
-                                event.componentInfo.componentName.equals("com.google.android.gtalkservice.ServiceAutoStarter"))
-                            activity.showDialog(ListActivity.DIALOG_CONFIRM_GOOGLE_TALK_WARNING);
-                        else if (event.componentInfo.packageInfo.isSystem && !activity.mLastChangeRequestDoEnable)
-                            activity.showDialog(ListActivity.DIALOG_CONFIRM_SYSAPP_CHANGE);
-                        else {
-	                        activity.addJob(event.componentInfo, activity.mLastChangeRequestDoEnable);
-                        }
+	                    activity.addJob(event.componentInfo, doEnable);
                         break;
+
                     case 1:
                         String packageName =
                             event.componentInfo.packageInfo.packageName;

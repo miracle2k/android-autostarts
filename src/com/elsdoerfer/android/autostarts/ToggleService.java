@@ -74,7 +74,7 @@ public class ToggleService extends Service {
 	 * Clients should start this service with an intent to submit jobs.
 	 */
 	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
+	synchronized public int onStartCommand(Intent intent, int flags, int startId) {
 		// Add the new job to the queue, or change the desired state
 		// of the job currently in the queue.
 		ComponentInfo component = intent.getParcelableExtra("component");

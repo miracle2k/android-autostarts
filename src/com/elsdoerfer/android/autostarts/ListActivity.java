@@ -44,7 +44,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 	static final protected int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
-	static final protected int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
 
 	static final private String PREFS_NAME = "common";
 	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -65,13 +64,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	private LoadTask mLoadTask;
 
 	protected ToggleService mToggleService;
-
-	// Due to Android deficiencies (can't pass data to showDialog()),
-	// we need to store that data globally.
-	// TODO: I believe Honeycomb has a solution for this; Fix once
-	// it's feasible for us to require it.
-	private IntentFilterInfo mLastSelectedEvent;
-	protected boolean mLastChangeRequestDoEnable;
 
 	private ServiceConnection mToggleServiceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -145,8 +137,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			// Be careful not to copy any objects that reference the
 			// activity itself, or we would leak it!
 			ListActivity oldActivity = (ListActivity) retained;
-			mLastSelectedEvent = oldActivity.mLastSelectedEvent;
-			mLastChangeRequestDoEnable = oldActivity.mLastChangeRequestDoEnable;
 			mEvents = oldActivity.mEvents;
 			mLoadTask = oldActivity.mLoadTask;
 			// Display what we have immediately.
@@ -161,8 +151,8 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		// available.
 		else {
 			if (saved != null) {
-				mLastSelectedEvent = saved.getParcelable("selected-event");
-				mLastChangeRequestDoEnable = saved.getBoolean("change-do-enable");
+				/* here's the place to load values from onSaveInstanceState. We
+				 * currently no longer do so, but I'd like to keep the logic structure. */
 			}
 			else { /* here's the place to load some prefs, if necessary */ }
 
@@ -213,8 +203,10 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		//     correctly (we can assume? would there be race conditions)?
 		//   - We could simply store the list of events globally, bypassing
 		//     all these problems.
-		outState.putBoolean("change-do-enable", mLastChangeRequestDoEnable);
-		outState.putParcelable("selected-event", mLastSelectedEvent);
+		// Actually, now with the service, where we do parcel the Component
+		// anyway, and update via a callback, this might be a moot problem.
+		// We can and should get rid of this TODO.
+
 		// TODO: Note that we do not store the event list. In cases where
 		// onRetainNonConfigurationInstance() is not available, we will
 		// need to reload all events. It would not be *that* hard to store
@@ -340,37 +332,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		if (id == DIALOG_CONFIRM_SYSAPP_CHANGE)
-		{
-			return new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.warning)
-				.setMessage(R.string.confirm_sys_disable)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					addJob(mLastSelectedEvent.componentInfo, mLastChangeRequestDoEnable);
-					}
-				})
-				.setNegativeButton(android.R.string.cancel, null)
-				.create();
-		}
-
-		else if (id == DIALOG_CONFIRM_GOOGLE_TALK_WARNING)
-		{
-			return new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.warning)
-				.setMessage(R.string.confirm_google_talk)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					addJob(mLastSelectedEvent.componentInfo, mLastChangeRequestDoEnable);
-					}
-				})
-				.setNegativeButton(android.R.string.cancel, null)
-				.create();
-		}
-
-		else if (id == DIALOG_VIEW_OPTIONS)
+		if (id == DIALOG_VIEW_OPTIONS)
 		{
 			// We are just hoping that the state of these vars can
 			// never change without going through this dialog;
@@ -426,9 +388,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		mLastSelectedEvent =
-			(IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition);
-		showEventDetails();
+		showEventDetails((IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition));
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
 
@@ -496,14 +456,14 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		updateEmptyText(false);
 	}
 
-	protected void showEventDetails() {
+	protected void showEventDetails(IntentFilterInfo event) {
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		Fragment prev = getSupportFragmentManager().findFragmentByTag("details");
 		if (prev != null)
 			ft.remove(prev);
 		ft.addToBackStack(null);
 
-		DialogFragment newFragment = EventDetailsFragment.newInstance(mLastSelectedEvent);
+		DialogFragment newFragment = EventDetailsFragment.newInstance(event);
 		newFragment.show(ft, "details");
 	}
 

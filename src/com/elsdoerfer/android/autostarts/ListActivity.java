@@ -2,9 +2,7 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
-import android.app.*;
 import android.content.*;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -45,11 +43,11 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	static final protected int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
 
-	static final private String PREFS_NAME = "common";
-	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
-	static final private String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
-	static final private String PREF_FILTER_UNKNOWN = "filter-unknown-events";
-	static final private String PREF_GROUPING = "grouping";
+	static final String PREFS_NAME = "common";
+	static final String PREF_FILTER_SYS_APPS = "filter-sys-apps";
+	static final String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
+	static final String PREF_FILTER_UNKNOWN = "filter-unknown-events";
+	static final String PREF_GROUPING = "grouping";
 
 	private MenuItem mExpandCollapseToggleItem;
 	private MenuItem mGroupingModeItem;
@@ -59,7 +57,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	MyExpandableListAdapter mListAdapter;
 	ArrayList<IntentFilterInfo> mEvents;
 	private DatabaseHelper mDb;
-	private SharedPreferences mPrefs;
+	SharedPreferences mPrefs;
 	private Boolean mExpandSuggested = true;
 	private LoadTask mLoadTask;
 
@@ -304,8 +302,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			return true;
 
 		case MENU_VIEW:
-			showDialog(DIALOG_VIEW_OPTIONS);
-			mListAdapter.notifyDataSetChanged();
+			showViewOptions();
 			return true;
 
 		case MENU_EXPAND_COLLAPSE:
@@ -328,61 +325,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		default:
 			return super.onContextItemSelected(item);
 		}
-	}
-
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		if (id == DIALOG_VIEW_OPTIONS)
-		{
-			// We are just hoping that the state of these vars can
-			// never change without going through this dialog;
-			// otherwise, we'd need to find a solution to ensure
-			// that when the instance is reused for a showing at a
-			// later point, that the state is still up-to-date, i.e.
-			// setting the current state in onPrepareDialog. It's not
-			// clear if making the state array a class member and
-			// updating it would be enough, or if we actually have to
-			// find the correct views and switch them...
-			boolean[] initState = new boolean[] {
-				mListAdapter.getFilterSystemApps(),
-				mListAdapter.getShowChangedOnly(),
-				mListAdapter.getFilterUnknown(),
-			};
-
-			return new AlertDialog.Builder(this)
-				.setMultiChoiceItems(new CharSequence[]{
-						getString(R.string.hide_sys_apps),
-						getString(R.string.show_changed_only),
-						getString(R.string.hide_unknown),
-				},
-						initState,
-						new OnMultiChoiceClickListener() {
-							public void onClick(DialogInterface dialog, int which,
-							                    boolean isChecked) {
-								if (which == 0) {
-									mListAdapter.setFilterSystemApps(isChecked);
-									mListAdapter.notifyDataSetChanged();
-									updateEmptyText();
-									mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, isChecked).commit();
-								} else if (which == 1) {
-									mListAdapter.setShowChangedOnly(isChecked);
-									mListAdapter.notifyDataSetChanged();
-									updateEmptyText();
-									mPrefs.edit().putBoolean(PREF_FILTER_SHOW_CHANGED, isChecked).commit();
-								} else if (which == 2) {
-									mListAdapter.setFilterUnknown(isChecked);
-									mListAdapter.notifyDataSetChanged();
-									updateEmptyText();
-									mPrefs.edit().putBoolean(PREF_FILTER_UNKNOWN, isChecked).commit();
-								}
-							}
-
-						})
-				.setPositiveButton(android.R.string.ok, null).create();
-		}
-
-		else
-			return super.onCreateDialog(id);
 	}
 
 	@Override
@@ -436,7 +378,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			);
 			full.setSpan(new InternalURLSpan(new OnClickListener() {
 					public void onClick(View v) {
-						showDialog(DIALOG_VIEW_OPTIONS);
+						showViewOptions();
 					}
 				}), base.length(), full.length(),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -465,6 +407,18 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		DialogFragment newFragment = EventDetailsFragment.newInstance(event);
 		newFragment.show(ft, "details");
+	}
+
+	protected void showViewOptions() {
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		Fragment prev = getSupportFragmentManager().findFragmentByTag("options");
+		if (prev != null)
+			ft.remove(prev);
+		ft.addToBackStack(null);
+
+		DialogFragment newFragment = new ViewOptionsFragment();
+		newFragment.show(ft, "options");
+
 	}
 
 	protected void addJob(ComponentInfo component, boolean newState) {

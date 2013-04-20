@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="act_airplane_mode_changed">Режим самолёта изменён</string>
+    <string name="act_airplane_mode_changed">Автономный режим изменён</string>
     <string name="act_airplane_mode_changed_detail">Режим самолёта был переключён в вкл/выкл.</string>
     <string name="act_battery_changed">Аккумулятор заменён</string>
     <string name="act_battery_changed_detail">Состояние зарядки/уровень заряда батареи изменено.</string>
@@ -224,7 +224,7 @@
     <string name="act_bt_headset_connection_state_changed_detail">Оповещения изменений в соединении гарнитуры и устройства.</string>
     <string name="act_bt_headset_vendor_event">Перечислитель событий BT-гарнитуры</string>
     <string name="act_bt_headset_vendor_event_detail">Нажатия кнопки гарнитуры для определённых событий.</string>
-    <string name="act_background_data_setting_changed">Второстипенные данные изменились</string>
+    <string name="act_background_data_setting_changed">Второстепенные данные изменились</string>
     <string name="act_background_data_setting_changed_detail">Регулировка для использования второстепенных данных изменила приоритет.</string>
     <string name="act_appwidget_enabled">Виджет активен</string>
     <string name="act_appwidget_enabled_detail">Первая копия виджета добавлена.</string>

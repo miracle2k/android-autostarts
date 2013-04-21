@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="act_airplane_mode_changed">Автономный режим изменён</string>
-    <string name="act_airplane_mode_changed_detail">Режим самолёта был переключён в вкл/выкл.</string>
+    <string name="act_airplane_mode_changed_detail">Автономный режим был переключён</string>
     <string name="act_battery_changed">Аккумулятор заменён</string>
     <string name="act_battery_changed_detail">Состояние зарядки/уровень заряда батареи изменено.</string>
     <string name="act_battery_low">Батарея разряжена</string>

@@ -1,5 +1,6 @@
 /bin/*
 /gen/*
+/classes/*
 /res/values-*/*.xml
 
 /LOCAL_TODO*

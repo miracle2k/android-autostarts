@@ -60,7 +60,8 @@ final class Actions {
 		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added, R.string.act_package_added_detail },
 		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed, R.string.act_package_changed_detail },
 		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared, R.string.act_package_data_cleared_detail  },
-		{ Intent.ACTION_PACKAGE_INSTALL, R.string.act_package_install, R.string.act_package_install_detail },
+		// Now deprecated, supposedly was never used:
+		{ "android.content.Intent.ACTION_PACKAGE_INSTALL", R.string.act_package_install, R.string.act_package_install_detail },
 		{ Intent.ACTION_PACKAGE_REMOVED, R.string.act_package_removed, R.string.act_package_removed_detail },
 		{ Intent.ACTION_PACKAGE_REPLACED, R.string.act_package_replaced, R.string.act_package_replaced_detail },
 		{ Intent.ACTION_PACKAGE_RESTARTED, R.string.act_package_restarted, R.string.act_package_restarted_detail },
@@ -72,10 +73,13 @@ final class Actions {
 		{ Intent.ACTION_TIME_CHANGED, R.string.act_time_changed, R.string.act_time_changed_detail },
 		{ Intent.ACTION_TIME_TICK, R.string.act_time_tick, R.string.act_time_tick_detail },           // not through manifest components?
 		{ Intent.ACTION_UID_REMOVED, R.string.act_uid_removed, R.string.act_uid_removed_detail },
-		{ Intent.ACTION_UMS_CONNECTED, R.string.act_ums_connected, R.string.act_ums_connected_detail },
-		{ Intent.ACTION_UMS_DISCONNECTED, R.string.act_ums_disconnected, R.string.act_ums_disconnected_detail },
+		// Deprecated as of level 14 (but maybe still sent):
+		{ "android.content.Intent.ACTION_UMS_CONNECTED", R.string.act_ums_connected, R.string.act_ums_connected_detail },
+		// Deprecated as of level 14 (but maybe still sent):
+		{ "android.content.Intent.ACTION_UMS_DISCONNECTED", R.string.act_ums_disconnected, R.string.act_ums_disconnected_detail },
 		{ Intent.ACTION_USER_PRESENT, R.string.act_user_present, R.string.act_user_present_detail },
-		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
+		// Deprecated as of level 16 (but maybe still sent?):
+		{ "android.content.Intent.ACTION_WALLPAPER_CHANGED", R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
 		{ Intent.ACTION_POWER_CONNECTED, R.string.act_power_connected, R.string.act_power_connected_detail },
 		{ Intent.ACTION_POWER_DISCONNECTED, R.string.act_power_disconnected, R.string.act_power_disconnected_detail },
 		{ Intent.ACTION_SHUTDOWN, R.string.act_shutdown, R.string.act_shutdown_detail },
@@ -118,7 +122,8 @@ final class Actions {
 		{ "com.android.camera.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail },
 
 		// TelephonyManager
-		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
+		// Now longer sent as of level 16.
+		{ "android.net.ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED", R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
 		{ TelephonyManager.ACTION_PHONE_STATE_CHANGED, R.string.act_phone_state_changed, R.string.act_phone_state_changed_detail },
 
 		// telephony/TelephonyIntents.java
@@ -150,7 +155,8 @@ final class Actions {
 
 		// android.media.*
 		{ AudioManager.RINGER_MODE_CHANGED_ACTION, R.string.act_ringer_mode_changed, R.string.act_ringer_mode_changed_detail },
-		{ AudioManager.VIBRATE_SETTING_CHANGED_ACTION, R.string.act_vibrate_setting_changed, R.string.act_vibrate_setting_changed_detail },
+		// Deprecated with level 16 (but maybe still sent?)
+		{ "android.media.AudioManager.VIBRATE_SETTING_CHANGED_ACTION", R.string.act_vibrate_setting_changed, R.string.act_vibrate_setting_changed_detail },
 		{ AudioManager.ACTION_AUDIO_BECOMING_NOISY, R.string.act_audio_becoming_noisy, R.string.act_audio_becoming_noisy_detail },  // POTENTIALLY NOT IN "broadcast_actions.txt"!
 
 		// android.speech.tts.* (new in 1.6)

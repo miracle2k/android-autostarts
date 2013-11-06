@@ -78,7 +78,17 @@ public class ListActivity extends ExpandableListFragmentActivity {
 						// Display info about item being processed
 						ListActivity.this.setTitle(String.format(
 								getString(R.string.changing_state), component.getLabel()));
-						ListActivity.this.setProgressBarIndeterminateVisibility(true);
+						// Note; We are using indeterminate progress mode here, though a
+						// proper bar makes sense as well if the user queues multiple changes.
+						// It especially makes sense when restoring a backup state.
+						// We have to consider a running 'refresh list' process though.
+						ListActivity.this.setProgressBarVisibility(false);
+						// It seems impossible to show just one progressbar (determinate
+						// or indeterminate). The previous line shows the determinate one
+						// as well, and setProgressBarVisibility hides the indeterminate one.
+						// Setting the progress to 0 sort of works, but on the new flat-blue
+						// Android theme anyway you do see the - subtle - empty progressbar.
+						ListActivity.this.setProgress(0);
 					}
 				}
 

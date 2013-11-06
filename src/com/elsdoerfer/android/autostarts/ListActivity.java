@@ -142,7 +142,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 				apply();
 			// Continue loading in case we're not done yet.
 			if (mLoadTask != null)
-				mLoadTask.connectTo(this);
+				mLoadTask.attach(this);
 		}
 		// Otherwise, we are going to have to init certain data
 		// ourselves, and load some from from instance state, if
@@ -233,7 +233,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			mDb.close();
 		// Unattach the activity from a potentially running task.
 		if (mLoadTask != null)
-			mLoadTask.connectTo(null);
+			mLoadTask.attach(null);
 		if (mToggleService != null) {
 			unbindService(mToggleServiceConnection);
 			mToggleService = null;

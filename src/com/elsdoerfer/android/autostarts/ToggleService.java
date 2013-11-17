@@ -70,11 +70,26 @@ public class ToggleService extends Service {
 		mHandler = new Handler();
 	}
 
+	// To support API Levels <= 4 (pre 2.0).
+	@Override
+	public void onStart(Intent intent, int startId) {
+		handleStart(intent, startId);
+	}
+
 	/**
 	 * Clients should start this service with an intent to submit jobs.
 	 */
 	@Override
 	synchronized public int onStartCommand(Intent intent, int flags, int startId) {
+		handleStart(intent, startId);
+
+		// TODO: While we would want the service to be sticky, this makes no sense so
+		//   long we don't actually persist our change queue somewhere. So we should
+		//   do that, and then change the mode here.
+		return START_REDELIVER_INTENT;
+	}
+
+	void handleStart(Intent intent, int startId) {
 		// Add the new job to the queue, or change the desired state
 		// of the job currently in the queue.
 		ComponentInfo component = intent.getParcelableExtra("component");
@@ -87,10 +102,6 @@ public class ToggleService extends Service {
 
 		// Make sure the queue is running (this should do nothing if it already is).
 		processNextItem();
-
-		// TODO: While we would want the service to be sticky, this makes no sense so
-		//   long we don't actually persist our change queue somewhere.
-		return START_REDELIVER_INTENT;
 	}
 
 	/**

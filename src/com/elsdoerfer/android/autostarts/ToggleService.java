@@ -149,14 +149,14 @@ public class ToggleService extends Service {
 							// integration with an activity that might be in the foreground.
 							Resources res = getResources();
 							Toast toast = Toast.makeText(
-									ToggleService.this,
-									String.format(res.getString(R.string.state_change_failed),
-										// TODO: Instead of the component name, it would be
-										// better to refer to the event the user wanted to
-										// to remove the component from. Unfortunately, we do
-										// not even carry this information along.
-										component.getLabel(), component.componentName),
-									5000);
+								ToggleService.this,
+								String.format(res.getString(R.string.state_change_failed),
+									// TODO: Instead of the component name, it would be
+									// better to refer to the event the user wanted to
+									// to remove the component from. Unfortunately, we do
+									// not even carry this information along.
+									component.getLabel(), component.componentName),
+								5000);
 							toast.show();
 						}
 

@@ -94,6 +94,26 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 				@Override
 				public void onQueueModified(ComponentInfo component, boolean wasAdded) {
+					if (!wasAdded) {
+						// The component was removed from the queue, presumably
+						// successfully processed. We now need to copy the new
+						// state from "component" to our local dataset. This is
+						// because the "component" instance the service has is a
+						// copy of the one used here in the activity, due to it
+						// being serialized in a parcel when given to it via an
+						// Intent.
+						//
+						// It's a bit hacky, but the best alternative I can think
+						// of would be moving the complete IntentFilterInfo
+						// database into a global scope so the service can work
+						// directly with it.
+						for (IntentFilterInfo info : mEvents) {
+							if (info.componentInfo.equals(component))
+								info.componentInfo.currentEnabledState =
+										component.currentEnabledState;
+						}
+					}
+
 					mListAdapter.notifyDataSetInvalidated();
 				}
 			});

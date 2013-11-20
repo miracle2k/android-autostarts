@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version:  android-autostarts\n"
 "Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
 "autostarts/issues\n"
-"POT-Creation-Date: 2012-08-14 00:42+0200\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
 "PO-Revision-Date: 2011-08-12 07:14+0000\n"
 "Last-Translator: YOti <boss@bk.ru>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/android-"
@@ -390,6 +390,16 @@ msgctxt "act_package_removed_detail"
 msgid "An application package has been removed from the device."
 msgstr "Программа удалена с телефона."
 
+#, fuzzy
+msgctxt "act_package_fully_removed"
+msgid "Application fully removed"
+msgstr "Программа удалена"
+
+#, fuzzy
+msgctxt "act_package_fully_removed_detail"
+msgid "An application as well as its data has been removed from the device."
+msgstr "Программа удалена с телефона."
+
 msgctxt "act_package_replaced"
 msgid "Application replaced"
 msgstr "Программа заменена"
@@ -536,6 +546,17 @@ msgctxt "act_sms_received_detail"
 msgid "A new text based SMS message has been received."
 msgstr "Новой текстовое SMS полученно."
 
+msgctxt "act_sms_deliver"
+msgid "SMS received (default app)"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_sms_deliver_detail"
+msgid ""
+"A new text based SMS message has been received. Only the default SMS app "
+"is notified."
+msgstr "Новой текстовое SMS полученно."
+
 msgctxt "act_data_sms_received"
 msgid "Data SMS received"
 msgstr "SMS с данными полученно"
@@ -559,6 +580,16 @@ msgstr "WAP PUSH получен"
 msgctxt "act_wap_push_received_detail"
 msgid "A new WAP PUSH message has been received."
 msgstr "Новое WAP PUSH сообщение получено."
+
+msgctxt "act_wap_push_deliver"
+msgid "WAP PUSH received (default app)"
+msgstr ""
+
+msgctxt "act_wap_push_deliver_detail"
+msgid ""
+"A new WAP PUSH message has been received. Only the default SMS app is "
+"notified."
+msgstr ""
 
 msgctxt "act_network_ids_changed"
 msgid "Wi-Fi network IDs changed"
@@ -940,6 +971,16 @@ msgctxt "act_bt_launch_detail"
 msgid "(Bluetooth event)"
 msgstr "Bluetooth событие"
 
+#, fuzzy
+msgctxt "act_bt_uuid"
+msgid "BT launch"
+msgstr "BT запущен"
+
+#, fuzzy
+msgctxt "act_bt_uuid_detail"
+msgid "(Bluetooth event)"
+msgstr "Bluetooth событие"
+
 msgctxt "act_bt_a2dp_connection_state_changed"
 msgid "BT A2DP connection state changed"
 msgstr "Состояние Bluetooth A2DP-соединения изменилось"
@@ -991,6 +1032,25 @@ msgstr ""
 msgctxt "act_bt_headset_vendor_event_detail"
 msgid "The headset has posted a vendor-specific event."
 msgstr ""
+
+#, fuzzy
+msgctxt "act_bt_input_connection_state_changed"
+msgid "BT Input connection state changed"
+msgstr "Состояние соединения Bluetooth изменилось"
+
+msgctxt "act_bt_input_connection_state_changed_detail"
+msgid "Reports a change in connection state of the Input profile."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_bt_pan_connection_state_changed"
+msgid "BT Pan connection state changed"
+msgstr "Состояние соединения Bluetooth изменилось"
+
+#, fuzzy
+msgctxt "act_bt_pan_connection_state_changed_detail"
+msgid "Reports a change in connection state of the Pan profile."
+msgstr "Состояние подключения профиля A2DP было изменено."
 
 msgctxt "act_background_data_setting_changed"
 msgid "Background data setting changed"
@@ -1077,6 +1137,19 @@ msgctxt "act_new_picture_detail"
 msgid ""
 "A new photo was added to the gallery, usually by the Camera application "
 "after the user made a new photo."
+msgstr ""
+"Новое фото добавлено в Галлерею. Обычно приложением Камера, после снимка "
+"новой фотографии."
+
+msgctxt "act_new_video"
+msgid "New Video"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_new_video_detail"
+msgid ""
+"A new video was added to the gallery, usually by the Camera application "
+"after the user recorded a video."
 msgstr ""
 "Новое фото добавлено в Галлерею. Обычно приложением Камера, после снимка "
 "новой фотографии."
@@ -1409,5 +1482,210 @@ msgstr ""
 
 msgctxt "act_close_audio_effect_session_detail"
 msgid "An application no longer wants audio effects to be applied to it's output."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_dreaming_started"
+msgid "Dreaming started"
+msgstr "Во время загрузки"
+
+#, fuzzy
+msgctxt "act_dreaming_started_detail"
+msgid "The screensaver has started."
+msgstr "Медиа сканер запущен"
+
+msgctxt "act_dreaming_stopped"
+msgid "Dreaming stopped"
+msgstr ""
+
+msgctxt "act_dreaming_stopped_detail"
+msgid "The screensaver has stopped."
+msgstr ""
+
+msgctxt "act_package_needs_verification"
+msgid "Package needs verification"
+msgstr ""
+
+msgctxt "act_package_needs_verification_detail"
+msgid "System wants a package to be verified; applications may be verifiers."
+msgstr ""
+
+msgctxt "act_package_verified"
+msgid "Package verified"
+msgstr ""
+
+msgctxt "act_package_verified_detail"
+msgid ""
+"The verification of a package has been completed; this is only sent to "
+"verifiers."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_content_changed"
+msgid "Contents changed"
+msgstr "Аккаунты изменены"
+
+msgctxt "act_content_changed_detail"
+msgid ""
+"Contents of an URI have changed, and applications showing this content "
+"should update."
+msgstr ""
+
+msgctxt "act_new_voicemail"
+msgid "New Voicemail"
+msgstr ""
+
+msgctxt "act_new_voicemail_detail"
+msgid "The system has become aware of a new voicemail."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_fetch_voicemail"
+msgid "Voicemail content requested"
+msgstr "Запрос управления пакетом"
+
+msgctxt "act_fetch_voicemail_detail"
+msgid ""
+"The system wants to retrieve the contents of a voicemail. Voicemail "
+"sources handle this broadcast."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_my_package_replaced"
+msgid "Application updated"
+msgstr "Программа заменена"
+
+msgctxt "act_my_package_replaced_detail"
+msgid ""
+"A new version of an application has been installed. Only the application "
+"that was upgraded is notified."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_package_first_launch"
+msgid "Application launched first time"
+msgstr "Программа заменена"
+
+msgctxt "act_package_first_launch_detail"
+msgid ""
+"An application has been launched to the first time; this is only sent to "
+"the installer of the application in question (i.e. the Play Store)."
+msgstr ""
+
+msgctxt "act_sms_cb_received"
+msgid "SMS Cell Broadcast"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_sms_cb_received_detail"
+msgid "A new Cell Broadcast message has been received by the device."
+msgstr "Новое SMS с данными полученно"
+
+msgctxt "act_sms_emergency_cb_received"
+msgid "SMS Emergency Broadcast"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_sms_emergency_cb_received_detail"
+msgid "A new Emergency Broadcast message has been received by the device."
+msgstr "Новой текстовое SMS полученно."
+
+#, fuzzy
+msgctxt "act_sms_service_category_pdr"
+msgid "CDMA SMS received"
+msgstr "SMS с данными полученно"
+
+msgctxt "act_sms_service_category_pdr_detail"
+msgid ""
+"A new CDMA SMS has been received containing Service Category Program Data"
+" (updates the list of enabled broadcast channels)."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_nfc_adapter_state_changed"
+msgid "NFC state changed"
+msgstr "BT состояние изменилось"
+
+msgctxt "act_nfc_adapter_state_changed_detail"
+msgid ""
+"The state of the local NFC adapter has been changed (e.g. turned on or "
+"off)."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_discovery_state_change"
+msgid "Wi-Fi P2P discovery changed"
+msgstr "Состояние Wi-Fi изменилось"
+
+msgctxt "act_wifi_p2p_discovery_state_change_detail"
+msgid "The Wifi peer discovery has either started or stopped."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_connection_state_change"
+msgid "Wi-Fi P2P connection changed"
+msgstr "Соединение Wi-fi изменено"
+
+#, fuzzy
+msgctxt "act_wifi_p2p_connection_state_change_detail"
+msgid "The state of Wi-Fi P2P connectivity has changed."
+msgstr "Состояние соединения Wi-Fi изменено"
+
+#, fuzzy
+msgctxt "act_wifi_p2p_peers_changed"
+msgid "Wi-Fi P2P peers changed"
+msgstr "ID сети Wi-Fi изменено"
+
+msgctxt "act_wifi_p2p_peers_changed_detail"
+msgid ""
+"The available peer list has changed. This can be sent as a result of "
+"peers being found, lost or updated."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_state_changed"
+msgid "Wi-Fi P2P state changed"
+msgstr "Состояние Wi-Fi изменилось"
+
+msgctxt "act_wifi_p2p_state_changed_detail"
+msgid "Wi-Fi P2P has either been enabled or disabled."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_this_device_changed"
+msgid "Wi-Fi P2P device details changed"
+msgstr "Провайдер изменил состояние"
+
+#, fuzzy
+msgctxt "act_wifi_p2p_this_device_changed_detail"
+msgid "The details of this device have changed."
+msgstr "Состояние соединения Wi-Fi изменено"
+
+#, fuzzy
+msgctxt "act_sco_audio_state_changed"
+msgid "SCO audio state changed"
+msgstr "BT аудио, состояние изменено"
+
+msgctxt "act_sco_audio_state_changed_detail"
+msgid "The bluetoooth SCO audio connection state has been updated."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_nsd_state_changed"
+msgid "NSC changed"
+msgstr "Метод ввода изменен."
+
+msgctxt "act_nsd_state_changed_detail"
+msgid "Network Service Discovery has been enabled or disabled."
+msgstr ""
+
+msgctxt "act_query_keyboard_layouts"
+msgid "(Query keyboard layouts)"
+msgstr ""
+
+msgctxt "act_query_keyboard_layouts_detail"
+msgid ""
+"By registering for this event, the application defines a keyboard layout."
+" No application is started by this event."
 msgstr ""
 

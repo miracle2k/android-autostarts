@@ -3,6 +3,8 @@ package com.elsdoerfer.android.autostarts;
 import java.util.ArrayList;
 
 import android.os.AsyncTask;
+import android.os.SystemClock;
+import android.util.Log;
 import com.elsdoerfer.android.autostarts.ReceiverReader.OnLoadProgressListener;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
@@ -16,6 +18,7 @@ class LoadTask extends AsyncTask<Object, Object, ArrayList<IntentFilterInfo>> {
 
 	ListActivity mListActivity = null;
 	Integer mCurrentProgress = 0;
+	long timeStarted, lastUIUpdate;
 
 	public LoadTask(ListActivity initialConnect) {
 		attach(initialConnect);
@@ -39,6 +42,7 @@ class LoadTask extends AsyncTask<Object, Object, ArrayList<IntentFilterInfo>> {
 		if (mListActivity.mReloadItem != null)
 			mListActivity.mReloadItem.setEnabled(false);
 		mListActivity.updateEmptyText();
+		timeStarted = lastUIUpdate = SystemClock.elapsedRealtime();
 	}
 
 	@Override
@@ -61,6 +65,7 @@ class LoadTask extends AsyncTask<Object, Object, ArrayList<IntentFilterInfo>> {
 		if (mListActivity.mReloadItem != null)
 			mListActivity.mReloadItem.setEnabled(true);
 		mListActivity.updateEmptyText(true);
+		Log.d(Utils.TAG, "Loading receivers took " +(SystemClock.elapsedRealtime() - timeStarted));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -68,8 +73,14 @@ class LoadTask extends AsyncTask<Object, Object, ArrayList<IntentFilterInfo>> {
 	protected void onProgressUpdate(Object... values) {
 		super.onProgressUpdate(values);
 		if (mListActivity != null) {
-			mListActivity.mEvents = (ArrayList<IntentFilterInfo>)values[0];
-			mListActivity.apply();
+			// Updating the UI takes a long time and hugely slows down the UI
+			// (to the tune of 30s vs 2s). If loading takes too long, we still
+			// want to update once in a while though.
+			if (SystemClock.elapsedRealtime() - lastUIUpdate > 2000) {
+				mListActivity.mEvents = (ArrayList<IntentFilterInfo>)values[0];
+				mListActivity.apply();
+				lastUIUpdate = SystemClock.elapsedRealtime();
+			}
 			mCurrentProgress = (int)(((Float)values[1])*10000);
 			mListActivity.setProgress(mCurrentProgress);
 		}

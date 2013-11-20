@@ -1,3 +1,11 @@
+1.8.0 (2013-11-21)
+    * Updated to support 4.4/KitKat.
+    * Vastly improve loading speed.
+    * Do not block UI during state change, process in background.
+
+    I am aware of the issues with Xperia devices. These will be fixed
+    in a follow up release shortly.
+
 1.7.7 (2012-08-14)
     Only released on Vodaphone AppSelect. Removes root functionality.
 

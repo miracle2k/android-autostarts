@@ -3,113 +3,114 @@
 # This file is distributed under the same license as the PROJECT project.
 # 
 # Translators:
-# Abduqadir Abliz <sahran.ug@gmail.com>, 2012-2013
+# Anilikos <mhtsosv@gmail.com>, 2013
+# Teo <anapospastos@hotmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-08-14 00:42+0200\n"
 "PO-Revision-Date: 2013-11-20 12:05+0000\n"
-"Last-Translator: Abduqadir Abliz <sahran.ug@gmail.com>\n"
-"Language-Team: Uighur (http://www.transifex.com/projects/p/android-autostarts/language/ug/)\n"
+"Last-Translator: Anilikos <mhtsosv@gmail.com>\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/android-autostarts/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
-"Language: ug\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "act_airplane_mode_changed"
 msgid "Airplane mode changed"
-msgstr "ئايروپىلان ھالىتى ئۆزگەردى"
+msgstr "Αλλαγή λειτουργίας πτήσης"
 
 msgctxt "act_airplane_mode_changed_detail"
 msgid "Airplane mode was switched on or off."
-msgstr "ئايروپىلان ھالىتىنىڭ ئوچۇق ياكى تاقاقلىقىنى ئالماشتۇرىدۇ."
+msgstr "Λειτουργία πτήσης απ/ενεργοποιήθηκε."
 
 msgctxt "act_battery_changed"
 msgid "Battery changed"
-msgstr "توكدان ئۆزگەردى"
+msgstr "Η μπαταρία άλλαξε"
 
 msgctxt "act_battery_changed_detail"
 msgid "The charging state, or the charge level of the battery has changed."
-msgstr "توكلاش ھالىتى ياكى توكداننىڭ توكلىنىش دەرىجىسى ئۆزگەردى."
+msgstr "Το κατάσταση φόρτισης, ή το επίπεδο φόρτισης της μπαταρίας άλλαξε."
 
 msgctxt "act_battery_low"
 msgid "Battery low"
-msgstr "توكدان توكى ئاز"
+msgstr "Χαμηλή μπαταρία"
 
 msgctxt "act_battery_low_detail"
 msgid "The device entered a low battery state."
-msgstr "ئۈسكۈنە توك ئاز ھالەتكە كىردى."
+msgstr "Η συσκευή μπήκε σε χαμηλή κατάσταση μπαταρίας."
 
 msgctxt "act_battery_okay"
 msgid "Battery okay"
-msgstr "توكدان لىق"
+msgstr "Η μπαταρία είναι εντάξει"
 
 msgctxt "act_battery_okay_detail"
 msgid "The device left the low battery state."
-msgstr "ئۈسكۈنە توك ئاز ھالەتتىن ئايرىلدى."
+msgstr "Η συσκευή έφυγε από τη χαμηλή κατάσταση μπαταρίας."
 
 msgctxt "act_pre_boot_completed"
 msgid "During Startup"
-msgstr "قوزغىلىۋاتقاندا"
+msgstr "Κατά την Εκκίνηση"
 
 msgctxt "act_pre_boot_completed_detail"
 msgid "The device is booting up, the user cannot interact yet."
-msgstr "ئۈسكۈنە قوزغىلىۋاتقاندا ئىشلەتكۈچى بىلەن تەسىرلىشەلمەيدۇ."
+msgstr "Η συσκευή εκκινεί, ο χρήστης δεν μπορεί να παρέμβει ακόμη."
 
 msgctxt "act_boot_completed"
 msgid "After Startup"
-msgstr "قوزغالغاندىن كېيىن"
+msgstr "Μετά την Εκκίνηση"
 
 msgctxt "act_boot_completed_detail"
 msgid "The device just completed booting up, the user can now interact."
-msgstr "ئۈسكۈنە قوزغىتىلدى، ھازىر ئىشلەتكۈچى تەسىرلىشەلەيدۇ."
+msgstr "Η συσκευή μόλις τελείωσε την εκκινηση, ο χρήστης τώρα μπορεί να παρέμβει."
 
 msgctxt "act_power_connected"
 msgid "Power connected"
-msgstr "توك چېتىلدى"
+msgstr "Ο φορτιστής συνδέθηκε"
 
 msgctxt "act_power_connected_detail"
 msgid "External power has been connected to the device."
-msgstr "ئۈسكۈنىگە سىرتقى توك مەنبەسى چېتىلدى."
+msgstr "Συνδέθηκε εξωτερική πηγή ενέργειας."
 
 msgctxt "act_power_disconnected"
 msgid "Power disconnected"
-msgstr "توك مەنبەسى ئۈزۈلدى"
+msgstr "Ο φορτιστής αποσυνδέθηκε"
 
 msgctxt "act_power_disconnected_detail"
 msgid "External power has been removed from the device."
-msgstr "ئۈسكۈنىدىن سىرتقى توك مەنبەسى ئۈزۈلدى."
+msgstr "Ο φορτιστής αποσυνδέθηκε από τη συσκευή."
 
 msgctxt "act_shutdown"
 msgid "Shutdown"
-msgstr "تاقا"
+msgstr "Απενεργοποίηση"
 
 msgctxt "act_shutdown_detail"
 msgid "The device is shutting down."
-msgstr "ئۈسكۈنە تاقىلىۋاتىدۇ."
+msgstr "Η συσκευή απενεργοποιείται."
 
 msgctxt "act_dock_event"
 msgid "Docking changed"
-msgstr "لەڭگەر ھالىتى ئۆزگەردى"
+msgstr ""
 
 msgctxt "act_dock_event_detail"
 msgid "The device was docked or undocked."
-msgstr "ئۈسكۈنە لەڭگەرلەندى ياكى لەڭگەردىن ئاجرىتىلدى."
+msgstr ""
 
 msgctxt "act_camera_button"
 msgid "Camera button pressed"
-msgstr "كامېرا كۇنۇپكىسى بېسىلدى"
+msgstr "Το κουμπί της Κάμερας πατήθηκε"
 
 msgctxt "act_camera_button_detail"
 msgid "The Camera button was pressed."
-msgstr "كامېرا كۇنۇپكىسى بېسىلغان."
+msgstr "Το κουμπί της Κάμερας πατήθηκε."
 
 msgctxt "act_close_system_dialogs"
 msgid "On System dialogs close"
-msgstr "سىستېما سۆزلەشكۈدە يېپىلدى"
+msgstr ""
 
 msgctxt "act_close_system_dialogs_detail"
 msgid ""
@@ -119,81 +120,81 @@ msgstr ""
 
 msgctxt "act_configuration_changed"
 msgid "Configuration changed"
-msgstr ""
+msgstr "Αλλαγή ρυθμίσεων."
 
 msgctxt "act_configuration_changed_detail"
 msgid ""
 "The device configuration changed. This includes things like locale settings,"
 " but also the device orientation."
-msgstr ""
+msgstr "Οι ρυθμίσεις συσκευής άλλαξαν. Μπορεί να περιλαμβάνει ρυθμίσεις γλώσσας, αλλά και τον προσανατολισμό της συσκευής."
 
 msgctxt "act_locale_changed"
 msgid "Locale changed"
-msgstr ""
+msgstr "Η γλώσσα άλλαξε"
 
 msgctxt "act_locale_changed_detail"
 msgid ""
 "The device's locale setting has changed. This is a subset of \"Configuration"
 " changed\"."
-msgstr ""
+msgstr "Η γλώσσα της συσκευής άλλαξε. Υποκατηγορία της \"Αλλαγής Ρυθμίσεων\"."
 
 msgctxt "act_date_changed"
 msgid "Date changed"
-msgstr ""
+msgstr "Η ημερομηνία άλλαξε"
 
 msgctxt "act_date_changed_detail"
 msgid "The system date has changed."
-msgstr ""
+msgstr "Η ημερομηνία συστήματος άλλαξε."
 
 msgctxt "act_device_storage_low"
 msgid "Storage low"
-msgstr ""
+msgstr "Λίγος χώρος αποθήκευσης"
 
 msgctxt "act_device_storage_low_detail"
 msgid "The device storage space has passed below a certain threshold."
-msgstr ""
+msgstr "Ο χώρος αποθήκευσης της συσκευής πέρασε κάτω από ένα συγκεκριμένο όριο."
 
 msgctxt "act_device_storage_ok"
 msgid "Storage ok"
-msgstr ""
+msgstr "Ο χώρος αποθήκευσης είναι εντάξει"
 
 msgctxt "act_device_storage_ok_detail"
 msgid ""
 "The device storage space has increased beyond the critical threshold, and "
 "the low memory condition no longer exists."
-msgstr ""
+msgstr "Ο αποθηκευτικός χώρος της συσκευής αυξήθηκε εκτός κριτικών ορίων, και πλέον δεν υφίσταται η κατάσταση χαμηλής μνήμης."
 
 msgctxt "act_gtalk_service_connected"
 msgid "GTalk connected"
-msgstr ""
+msgstr "Το GTalk συνδέθηκε"
 
 msgctxt "act_gtalk_service_connected_detail"
 msgid "A GTalk connection was established."
-msgstr ""
+msgstr "Πραγματοποιήθηκε σύνδεση Gtalk."
 
 msgctxt "act_gtalk_service_disconnected"
 msgid "GTalk disconnected"
-msgstr ""
+msgstr "Το GTalk αποσυνδέθηκε"
 
 msgctxt "act_gtalk_service_disconnected_detail"
 msgid "A GTalk connection was disconnected."
-msgstr ""
+msgstr "Πραγματοποιήθηκε αποσύνδεση Gtalk."
 
 msgctxt "act_headset_plug"
 msgid "Headset plugged or unplugged"
-msgstr ""
+msgstr "Ακουστικά συνδέθηκαν ή αποσυνδέθηκαν"
 
 msgctxt "act_headset_plug_detail"
 msgid "A wired headset was either plugged in or unplugged."
-msgstr ""
+msgstr "Ενσύρματα ακουστικά συνδέθηκαν ή αποσυνδέθηκαν."
 
 msgctxt "act_input_method_changed"
 msgid "IME changed"
-msgstr ""
+msgstr "Ο τρόπος εισαγωγής άλλαξε"
 
 msgctxt "act_input_method_changed_detail"
 msgid "The input method engine changed, i.e. the virtual keyboard in use."
-msgstr ""
+msgstr "Ο τρόπος εισαγωγής άλλαξε, π.χ. το εικονικό πληκτρολόγιο είναι σε χρήση."
 
 msgctxt "act_manage_package_storage"
 msgid "Package management requested"
@@ -211,7 +212,7 @@ msgstr ""
 
 msgctxt "act_media_bad_removal_detail"
 msgid "External media was removed, but not correctly unmounted."
-msgstr ""
+msgstr "Αφαιρέθηκε εξωτερική μονάδα, αλλά δεν αφαιρέθηκε σωστά."
 
 msgctxt "act_media_button"
 msgid "Media button pressed"
@@ -225,7 +226,7 @@ msgstr ""
 
 msgctxt "act_media_checking"
 msgid "Checking media"
-msgstr ""
+msgstr "Έλεγχος πολυμέσων"
 
 msgctxt "act_media_checking_detail"
 msgid "External media is present and is currently being disk-checked."
@@ -334,15 +335,15 @@ msgstr ""
 
 msgctxt "act_package_added"
 msgid "Application installed"
-msgstr ""
+msgstr "Η εφαρμογή εγκαταστάθηκε"
 
 msgctxt "act_package_added_detail"
 msgid "A new application package has been installed on the device."
-msgstr ""
+msgstr "Ένα νέο πακέτο εφαρμογής εγκαταστάθκε στη συσκευή."
 
 msgctxt "act_package_changed"
 msgid "Application changed"
-msgstr ""
+msgstr "Η εφαρμογή άλλαξε"
 
 msgctxt "act_package_changed_detail"
 msgid ""
@@ -352,7 +353,7 @@ msgstr ""
 
 msgctxt "act_package_data_cleared"
 msgid "Application data cleared"
-msgstr ""
+msgstr "Τα δεδομένα της εφαρμογής σβήστηκαν"
 
 msgctxt "act_package_data_cleared_detail"
 msgid "The user data associated with an application package was cleared."
@@ -360,7 +361,7 @@ msgstr ""
 
 msgctxt "act_package_install"
 msgid "Installing application"
-msgstr ""
+msgstr "Εγκατάσταση της εφαρμογής"
 
 msgctxt "act_package_install_detail"
 msgid "An application is about to be downloaded and installed."
@@ -368,7 +369,7 @@ msgstr ""
 
 msgctxt "act_package_removed"
 msgid "Application removed"
-msgstr ""
+msgstr "Η εφαρμογή αφαιρέθηκε"
 
 msgctxt "act_package_removed_detail"
 msgid "An application package has been removed from the device."
@@ -376,7 +377,7 @@ msgstr ""
 
 msgctxt "act_package_replaced"
 msgid "Application replaced"
-msgstr ""
+msgstr "Η εφαρμογή αντικαταστάθηκε"
 
 msgctxt "act_package_replaced_detail"
 msgid "An application package has been replaced by a new version."
@@ -384,7 +385,7 @@ msgstr ""
 
 msgctxt "act_package_restarted"
 msgid "Application restarted"
-msgstr ""
+msgstr "Η εφαρμογή επανεκκινήθηκε"
 
 msgctxt "act_package_restarted_detail"
 msgid ""
@@ -394,7 +395,7 @@ msgstr ""
 
 msgctxt "act_provider_changed"
 msgid "Content provider changed"
-msgstr ""
+msgstr "Ο πάροχος περιεχομένου άλλαξε"
 
 msgctxt "act_provider_changed_detail"
 msgid ""
@@ -405,7 +406,7 @@ msgstr ""
 
 msgctxt "act_reboot"
 msgid "Reboot"
-msgstr ""
+msgstr "Επανεκκίνηση"
 
 msgctxt "act_reboot_detail"
 msgid "The system is about to reboot."
@@ -417,7 +418,7 @@ msgstr ""
 
 msgctxt "act_screen_off_detail"
 msgid "The screen just turned off."
-msgstr ""
+msgstr "Η οθόνη μόλις έσβησε."
 
 msgctxt "act_screen_on"
 msgid "Screen on"
@@ -429,7 +430,7 @@ msgstr ""
 
 msgctxt "act_timezone_changed"
 msgid "Timezone changed"
-msgstr ""
+msgstr "Η ζώνη ώρας άλλαξε."
 
 msgctxt "act_timezone_changed_detail"
 msgid "The system timezone setting has changed."
@@ -437,7 +438,7 @@ msgstr ""
 
 msgctxt "act_time_changed"
 msgid "Time changed"
-msgstr ""
+msgstr "Η ώρα άλλαξε"
 
 msgctxt "act_time_changed_detail"
 msgid "The system time has changed."
@@ -453,7 +454,7 @@ msgstr ""
 
 msgctxt "act_uid_removed"
 msgid "User removed"
-msgstr ""
+msgstr "Ο χρήστης αφαρέθηκε"
 
 msgctxt "act_uid_removed_detail"
 msgid ""
@@ -463,7 +464,7 @@ msgstr ""
 
 msgctxt "act_ums_connected"
 msgid "USB connected"
-msgstr ""
+msgstr "Το USB συνδέθηκε"
 
 msgctxt "act_ums_connected_detail"
 msgid "The device has entered USB Mass Storage mode."
@@ -471,7 +472,7 @@ msgstr ""
 
 msgctxt "act_ums_disconnected"
 msgid "USB disconnected"
-msgstr ""
+msgstr "Το USB αποσυνδέθηκε"
 
 msgctxt "act_ums_disconnected_detail"
 msgid "The device has exited USB Mass Storage mode."
@@ -479,7 +480,7 @@ msgstr ""
 
 msgctxt "act_user_present"
 msgid "User present"
-msgstr ""
+msgstr "Τρέχων χρήστης"
 
 msgctxt "act_user_present_detail"
 msgid ""
@@ -489,7 +490,7 @@ msgstr ""
 
 msgctxt "act_wallpaper_changed"
 msgid "Wallpaper changed"
-msgstr ""
+msgstr "Το φόντο άλαξε"
 
 msgctxt "act_wallpaper_changed_detail"
 msgid ""
@@ -499,15 +500,15 @@ msgstr ""
 
 msgctxt "act_sim_full"
 msgid "SIM is full"
-msgstr ""
+msgstr "Η κάρτα SIM είναι γεμάτη"
 
 msgctxt "act_sim_full_detail"
 msgid "The SIM storage for SMS messages is full."
-msgstr ""
+msgstr "Δεν υπάρχει άλλος χώρος στη SIM για μηνύματα SMS."
 
 msgctxt "act_sms_received"
 msgid "SMS received"
-msgstr ""
+msgstr "Λήψη SMS"
 
 msgctxt "act_sms_received_detail"
 msgid "A new text based SMS message has been received."
@@ -523,7 +524,7 @@ msgstr ""
 
 msgctxt "act_sms_rejected"
 msgid "SMS rejected"
-msgstr ""
+msgstr "Απόρριψη SMS"
 
 msgctxt "act_sms_rejected_detail"
 msgid "A text based SMS message has been rejected."
@@ -531,7 +532,7 @@ msgstr ""
 
 msgctxt "act_wap_push_received"
 msgid "WAP PUSH received"
-msgstr ""
+msgstr "Μήνυμα WAP PUSH λήφθηκε"
 
 msgctxt "act_wap_push_received_detail"
 msgid "A new WAP PUSH message has been received."
@@ -547,7 +548,7 @@ msgstr ""
 
 msgctxt "act_rssi_changed"
 msgid "RSSI changed"
-msgstr ""
+msgstr "Το RSSI άλλαξε"
 
 msgctxt "act_rssi_changed_detail"
 msgid "The Wi-Fi signal strength (RSSI) has changed."
@@ -555,7 +556,7 @@ msgstr ""
 
 msgctxt "act_scan_results_available"
 msgid "Wi-Fi scan completed"
-msgstr ""
+msgstr "Η αναζήτηση Wi-Fi τελείωσε"
 
 msgctxt "act_scan_results_available_detail"
 msgid "An access point scan has completed, and results are available."
@@ -598,11 +599,11 @@ msgstr ""
 
 msgctxt "act_vibrate_setting_changed"
 msgid "Vibrate setting changed"
-msgstr ""
+msgstr "Η ρύθμιση δόνησης άλλαξε"
 
 msgctxt "act_vibrate_setting_changed_detail"
 msgid "The vibrate setting has changed (on, off, etc)."
-msgstr ""
+msgstr "Η ρύθμιση δόνησης άλλαξε (ναι, όχι, κτλ)."
 
 msgctxt "act_audio_becoming_noisy"
 msgid "Audio becoming noisy"
@@ -626,7 +627,7 @@ msgstr ""
 
 msgctxt "act_tts_data_installed"
 msgid "TTS data installed"
-msgstr ""
+msgstr "Τα δεδομένα TTS εγκαταστάθηκαν"
 
 msgctxt "act_tts_data_installed_detail"
 msgid ""
@@ -696,7 +697,7 @@ msgstr ""
 
 msgctxt "act_headset_state_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_mode_changed"
 msgid "BT mode changed"
@@ -704,31 +705,31 @@ msgstr ""
 
 msgctxt "act_mode_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_name_changed"
 msgid "BT name changed"
-msgstr ""
+msgstr "Το όνομα BT άλλαξε"
 
 msgctxt "act_name_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_pairing_cancel"
 msgid "BT pairing canceled"
-msgstr ""
+msgstr "Η σύζευξη BT ακυρώθηκε"
 
 msgctxt "act_pairing_cancel_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_pairing_request"
 msgid "BT pairing requested"
-msgstr ""
+msgstr "Λήφθηκε αίτημα σύζευξης BT"
 
 msgctxt "act_pairing_request_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_alias_changed"
 msgid "BT alias changed"
@@ -736,7 +737,7 @@ msgstr ""
 
 msgctxt "act_remote_alias_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_alias_cleared"
 msgid "BT alias cleared"
@@ -744,31 +745,31 @@ msgstr ""
 
 msgctxt "act_remote_alias_cleared_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_device_connected"
 msgid "BT device connected"
-msgstr ""
+msgstr "Η συσκευή BT συνδέθηκε"
 
 msgctxt "act_remote_device_connected_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_device_disappeared"
 msgid "BT device disappeared"
-msgstr ""
+msgstr "Η συσκευή BT δεν είναι ορατή πια"
 
 msgctxt "act_remote_device_disappeared_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_device_disconnected"
 msgid "BT device disconnected"
-msgstr ""
+msgstr "Η συσκευή BT αποσυνδέθηκε"
 
 msgctxt "act_remote_device_disconnected_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_device_disconnect_requested"
 msgid "BT disconnect requested"
@@ -776,7 +777,7 @@ msgstr ""
 
 msgctxt "act_remote_device_disconnect_requested_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_device_found"
 msgid "BT device found"
@@ -784,39 +785,39 @@ msgstr ""
 
 msgctxt "act_remote_device_found_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_name_failed"
 msgid "BT name failed"
-msgstr ""
+msgstr "Το όνομα BT απέτυχε"
 
 msgctxt "act_remote_name_failed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_remote_name_updated"
 msgid "BT name updated"
-msgstr ""
+msgstr "Το όνομα BT ενημερώθηκε"
 
 msgctxt "act_remote_name_updated_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_state_changed"
 msgid "BT state changed"
-msgstr ""
+msgstr "Η κατάσταση BT άλλαξε"
 
 msgctxt "act_bt_state_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_name_changed"
 msgid "BT name changed"
-msgstr ""
+msgstr "Το όνομα BT άλλαξε"
 
 msgctxt "act_bt_name_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_bond_state_changed"
 msgid "BT bond state changed"
@@ -824,7 +825,7 @@ msgstr ""
 
 msgctxt "act_bt_bond_state_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_audio_state_changed"
 msgid "BT audio state changed"
@@ -832,15 +833,15 @@ msgstr ""
 
 msgctxt "act_bt_audio_state_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_local_name_changed"
 msgid "BT local name changed"
-msgstr ""
+msgstr "Το τοπικό όνομα BT άλλαξε"
 
 msgctxt "act_bt_local_name_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_scan_mode_changed"
 msgid "BT scan mode changed"
@@ -848,31 +849,31 @@ msgstr ""
 
 msgctxt "act_bt_scan_mode_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_discovery_finished"
 msgid "BT discovery finished"
-msgstr ""
+msgstr "Η αναζήτηση BT τελείωσε"
 
 msgctxt "act_bt_discovery_finished_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_acl_connected"
 msgid "BT ACL connected"
-msgstr ""
+msgstr "Το BT ACL συνδέθηκε"
 
 msgctxt "act_bt_acl_connected_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_acl_disconnected"
 msgid "BT ACL disconnected"
-msgstr ""
+msgstr "Το BT ACL αποσυνδέθηκε"
 
 msgctxt "act_bt_acl_disconnected_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_acl_disconnect_requested"
 msgid "BT ACL disconnect requested"
@@ -880,7 +881,7 @@ msgstr ""
 
 msgctxt "act_bt_acl_disconnect_requested_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_class_changed"
 msgid "BT class changed"
@@ -888,11 +889,11 @@ msgstr ""
 
 msgctxt "act_bt_class_changed_detail"
 msgid "(Bluetooth event)"
-msgstr ""
+msgstr "(Συμβάν Bluetooth)"
 
 msgctxt "act_bt_found"
 msgid "BT found"
-msgstr ""
+msgstr "Βρέθηκε BT"
 
 msgctxt "act_bt_found_detail"
 msgid "(Bluetooth event)"
@@ -1187,7 +1188,7 @@ msgstr ""
 
 msgctxt "act_password_changed"
 msgid "Password changed"
-msgstr ""
+msgstr "Ο κωδικός άλλαξε"
 
 msgctxt "act_password_changed_detail"
 msgid "Sent to a device admin when the user changes their password."
@@ -1215,7 +1216,7 @@ msgstr ""
 
 msgctxt "act_password_expiring"
 msgid "Password expiring"
-msgstr ""
+msgstr "Ο κωδικός λήγει"
 
 msgctxt "act_password_expiring_detail"
 msgid "Sent to a device admin when the device password is expiring."
@@ -1247,7 +1248,7 @@ msgstr ""
 
 msgctxt "act_login_accounts_changed"
 msgid "Accounts changed"
-msgstr ""
+msgstr "Οι λογαριασμοί αλλάξανε"
 
 msgctxt "act_login_accounts_changed_detail"
 msgid ""
@@ -1257,7 +1258,7 @@ msgstr ""
 
 msgctxt "act_proxy_changed"
 msgid "Proxy changed"
-msgstr ""
+msgstr "Ο κόμβος διαμεσολάβισης άλλαξε"
 
 msgctxt "act_proxy_changed_detail"
 msgid ""
@@ -1296,7 +1297,7 @@ msgstr ""
 
 msgctxt "act_download_completed"
 msgid "Download completed"
-msgstr ""
+msgstr "Η λήψη ολοκληρώθηκε"
 
 msgctxt "act_download_completed_detail"
 msgid "Sent by the download manager when a download completes."

@@ -3,113 +3,112 @@
 # This file is distributed under the same license as the PROJECT project.
 # 
 # Translators:
-# Abduqadir Abliz <sahran.ug@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-08-14 00:42+0200\n"
-"PO-Revision-Date: 2013-11-20 12:05+0000\n"
-"Last-Translator: Abduqadir Abliz <sahran.ug@gmail.com>\n"
-"Language-Team: Uighur (http://www.transifex.com/projects/p/android-autostarts/language/ug/)\n"
+"PO-Revision-Date: 2011-03-22 21:13+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/android-autostarts/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
-"Language: ug\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "act_airplane_mode_changed"
 msgid "Airplane mode changed"
-msgstr "ئايروپىلان ھالىتى ئۆزگەردى"
+msgstr ""
 
 msgctxt "act_airplane_mode_changed_detail"
 msgid "Airplane mode was switched on or off."
-msgstr "ئايروپىلان ھالىتىنىڭ ئوچۇق ياكى تاقاقلىقىنى ئالماشتۇرىدۇ."
+msgstr ""
 
 msgctxt "act_battery_changed"
 msgid "Battery changed"
-msgstr "توكدان ئۆزگەردى"
+msgstr ""
 
 msgctxt "act_battery_changed_detail"
 msgid "The charging state, or the charge level of the battery has changed."
-msgstr "توكلاش ھالىتى ياكى توكداننىڭ توكلىنىش دەرىجىسى ئۆزگەردى."
+msgstr ""
 
 msgctxt "act_battery_low"
 msgid "Battery low"
-msgstr "توكدان توكى ئاز"
+msgstr ""
 
 msgctxt "act_battery_low_detail"
 msgid "The device entered a low battery state."
-msgstr "ئۈسكۈنە توك ئاز ھالەتكە كىردى."
+msgstr ""
 
 msgctxt "act_battery_okay"
 msgid "Battery okay"
-msgstr "توكدان لىق"
+msgstr ""
 
 msgctxt "act_battery_okay_detail"
 msgid "The device left the low battery state."
-msgstr "ئۈسكۈنە توك ئاز ھالەتتىن ئايرىلدى."
+msgstr ""
 
 msgctxt "act_pre_boot_completed"
 msgid "During Startup"
-msgstr "قوزغىلىۋاتقاندا"
+msgstr ""
 
 msgctxt "act_pre_boot_completed_detail"
 msgid "The device is booting up, the user cannot interact yet."
-msgstr "ئۈسكۈنە قوزغىلىۋاتقاندا ئىشلەتكۈچى بىلەن تەسىرلىشەلمەيدۇ."
+msgstr ""
 
 msgctxt "act_boot_completed"
 msgid "After Startup"
-msgstr "قوزغالغاندىن كېيىن"
+msgstr ""
 
 msgctxt "act_boot_completed_detail"
 msgid "The device just completed booting up, the user can now interact."
-msgstr "ئۈسكۈنە قوزغىتىلدى، ھازىر ئىشلەتكۈچى تەسىرلىشەلەيدۇ."
+msgstr ""
 
 msgctxt "act_power_connected"
 msgid "Power connected"
-msgstr "توك چېتىلدى"
+msgstr ""
 
 msgctxt "act_power_connected_detail"
 msgid "External power has been connected to the device."
-msgstr "ئۈسكۈنىگە سىرتقى توك مەنبەسى چېتىلدى."
+msgstr ""
 
 msgctxt "act_power_disconnected"
 msgid "Power disconnected"
-msgstr "توك مەنبەسى ئۈزۈلدى"
+msgstr ""
 
 msgctxt "act_power_disconnected_detail"
 msgid "External power has been removed from the device."
-msgstr "ئۈسكۈنىدىن سىرتقى توك مەنبەسى ئۈزۈلدى."
+msgstr ""
 
 msgctxt "act_shutdown"
 msgid "Shutdown"
-msgstr "تاقا"
+msgstr ""
 
 msgctxt "act_shutdown_detail"
 msgid "The device is shutting down."
-msgstr "ئۈسكۈنە تاقىلىۋاتىدۇ."
+msgstr ""
 
 msgctxt "act_dock_event"
 msgid "Docking changed"
-msgstr "لەڭگەر ھالىتى ئۆزگەردى"
+msgstr ""
 
 msgctxt "act_dock_event_detail"
 msgid "The device was docked or undocked."
-msgstr "ئۈسكۈنە لەڭگەرلەندى ياكى لەڭگەردىن ئاجرىتىلدى."
+msgstr ""
 
 msgctxt "act_camera_button"
 msgid "Camera button pressed"
-msgstr "كامېرا كۇنۇپكىسى بېسىلدى"
+msgstr ""
 
 msgctxt "act_camera_button_detail"
 msgid "The Camera button was pressed."
-msgstr "كامېرا كۇنۇپكىسى بېسىلغان."
+msgstr ""
 
 msgctxt "act_close_system_dialogs"
 msgid "On System dialogs close"
-msgstr "سىستېما سۆزلەشكۈدە يېپىلدى"
+msgstr ""
 
 msgctxt "act_close_system_dialogs_detail"
 msgid ""

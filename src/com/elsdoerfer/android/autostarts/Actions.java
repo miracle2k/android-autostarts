@@ -24,6 +24,7 @@ final class Actions {
 		// Those our users care most about, we'd like to have those in front.
 		{ "android.intent.action.PRE_BOOT_COMPLETED", R.string.act_pre_boot_completed, R.string.act_pre_boot_completed_detail },
 		{ Intent.ACTION_BOOT_COMPLETED, R.string.act_boot_completed, R.string.act_boot_completed_detail },
+		// Added to broadcast_actions in 18 only, but exists since API Level 1
 		{ ConnectivityManager.CONNECTIVITY_ACTION, R.string.act_connectivity, R.string.act_connectivity_detail },
 
 		// android.intent.*
@@ -60,7 +61,8 @@ final class Actions {
 		{ Intent.ACTION_PACKAGE_ADDED, R.string.act_package_added, R.string.act_package_added_detail },
 		{ Intent.ACTION_PACKAGE_CHANGED, R.string.act_package_changed, R.string.act_package_changed_detail },
 		{ Intent.ACTION_PACKAGE_DATA_CLEARED, R.string.act_package_data_cleared, R.string.act_package_data_cleared_detail  },
-		{ Intent.ACTION_PACKAGE_INSTALL, R.string.act_package_install, R.string.act_package_install_detail },
+		// Now deprecated, supposedly was never used:
+		{ "android.content.Intent.ACTION_PACKAGE_INSTALL", R.string.act_package_install, R.string.act_package_install_detail },
 		{ Intent.ACTION_PACKAGE_REMOVED, R.string.act_package_removed, R.string.act_package_removed_detail },
 		{ Intent.ACTION_PACKAGE_REPLACED, R.string.act_package_replaced, R.string.act_package_replaced_detail },
 		{ Intent.ACTION_PACKAGE_RESTARTED, R.string.act_package_restarted, R.string.act_package_restarted_detail },
@@ -72,10 +74,13 @@ final class Actions {
 		{ Intent.ACTION_TIME_CHANGED, R.string.act_time_changed, R.string.act_time_changed_detail },
 		{ Intent.ACTION_TIME_TICK, R.string.act_time_tick, R.string.act_time_tick_detail },           // not through manifest components?
 		{ Intent.ACTION_UID_REMOVED, R.string.act_uid_removed, R.string.act_uid_removed_detail },
-		{ Intent.ACTION_UMS_CONNECTED, R.string.act_ums_connected, R.string.act_ums_connected_detail },
-		{ Intent.ACTION_UMS_DISCONNECTED, R.string.act_ums_disconnected, R.string.act_ums_disconnected_detail },
+		// Deprecated and removed from broadcast_actions as of level 14 (but maybe still sent):
+		{ "android.content.Intent.ACTION_UMS_CONNECTED", R.string.act_ums_connected, R.string.act_ums_connected_detail },
+		// Deprecated and removed from broadcast_actions as of level 14 (but maybe still sent):
+		{ "android.content.Intent.ACTION_UMS_DISCONNECTED", R.string.act_ums_disconnected, R.string.act_ums_disconnected_detail },
 		{ Intent.ACTION_USER_PRESENT, R.string.act_user_present, R.string.act_user_present_detail },
-		{ Intent.ACTION_WALLPAPER_CHANGED, R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
+		// Deprecated as of level 16 (but maybe still sent?):
+		{ "android.content.Intent.ACTION_WALLPAPER_CHANGED", R.string.act_wallpaper_changed, R.string.act_wallpaper_changed_detail },
 		{ Intent.ACTION_POWER_CONNECTED, R.string.act_power_connected, R.string.act_power_connected_detail },
 		{ Intent.ACTION_POWER_DISCONNECTED, R.string.act_power_disconnected, R.string.act_power_disconnected_detail },
 		{ Intent.ACTION_SHUTDOWN, R.string.act_shutdown, R.string.act_shutdown_detail },
@@ -93,8 +98,8 @@ final class Actions {
 		{ "android.search.action.SETTINGS_CHANGED", R.string.act_search_settings_changed, R.string.act_search_settings_changed_detail },
 		{ "android.search.action.SEARCHABLES_CHANGED", R.string.act_searchables_changed, R.string.act_searchables_changed_detail },
 		// Added in API level 9:
-		{ "android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED", R.string.act_download_notification_clicked, R.string.act_download_notification_clicked_detail },
-		{ "android.intent.action.DOWNLOAD_COMPLETED", R.string.act_download_completed, R.string.act_download_completed_detail },
+		{ "android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED", R.string.act_download_notification_clicked, R.string.act_download_notification_clicked_detail },  // added to broadcast_actions in 19
+		{ "android.intent.action.DOWNLOAD_COMPLETE", R.string.act_download_completed, R.string.act_download_completed_detail },   // added to broadcast_actions in 19
 		{ "android.location.PROVIDERS_CHANGED", R.string.act_location_providers_changed, R.string.act_location_providers_changed_detail },
 		{ "android.media.action.OPEN_AUDIO_EFFECT_CONTROL_SESSION", R.string.act_open_audio_effect_session, R.string.act_open_audio_effect_session_detail },
 		{ "android.media.action.CLOSE_AUDIO_EFFECT_CONTROL_SESSION", R.string.act_close_audio_effect_session, R.string.act_close_audio_effect_session_detail },
@@ -109,6 +114,9 @@ final class Actions {
 		{ "android.app.action.DEVICE_ADMIN_ENABLED", R.string.act_device_admin_enabled, R.string.act_device_admin_enabled_detail },
 		// New in API Level 11:
 		{ "android.app.action.ACTION_PASSWORD_EXPIRING", R.string.act_password_expiring, R.string.act_password_expiring_detail },
+		// New in API Level 16:
+		{ "android.hardware.input.action.QUERY_KEYBOARD_LAYOUTS", R.string.act_query_keyboard_layouts, R.string.act_query_keyboard_layouts_detail },
+		{ "android.net.nsd.STATE_CHANGED", R.string.act_nsd_state_changed, R.string.act_nsd_state_changed_detail },
 
 		// com.android.launcher.*
 		{ "com.android.launcher.action.INSTALL_SHORTCUT", R.string.act_install_shortcut, R.string.act_install_shortcut_detail },
@@ -117,8 +125,36 @@ final class Actions {
 		// com.android.camera.*
 		{ "com.android.camera.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail },
 
+		// Added in API Level 17, enabled only in 4.2
+		{ "android.intent.action.DREAMING_STARTED", R.string.act_dreaming_started, R.string.act_dreaming_started_detail },
+		{ "android.intent.action.DREAMING_STOPPED", R.string.act_dreaming_stopped, R.string.act_dreaming_stopped_detail },
+
+		// Added in API Level 17, requires android.Manifest.permission.PACKAGE_VERIFICATION_AGENT to be received.
+		{ "android.intent.action.PACKAGE_VERIFIED", R.string.act_package_verified, R.string.act_package_verified_detail },  // https://android.googlesource.com/platform/frameworks/base/+/d1b5cfc94ae940f42be352e7ed98c21c973471b2%5E!/
+		// Added in broadcast_actions 14
+		{ "android.intent.action.PACKAGE_FULLY_REMOVED", R.string.act_package_fully_removed, R.string.act_package_fully_removed_detail },  // https://android.googlesource.com/platform/frameworks/base/+/e09cd7914c117e84bf78676d0e760c51aa147eb8%5E1..e09cd7914c117e84bf78676d0e760c51aa147eb8/
+		{ "android.intent.action.PACKAGE_NEEDS_VERIFICATION", R.string.act_package_needs_verification, R.string.act_package_needs_verification_detail },  // https://android.googlesource.com/platform/frameworks/base/+/5ab2157bf1f105b02d3e2913cd3a33f9765b74ca%5E!/   // Requires android.Manifest.permission.PACKAGE_VERIFICATION_AGENT  // Ordered Broadcast
+
+		// Added in broadcast_actions 18
+		{ "android.nfc.action.ADAPTER_STATE_CHANGED", R.string.act_nfc_adapter_state_changed, R.string.act_nfc_adapter_state_changed_detail },
+
+		// Added in broadcast_actions 19
+		{ "android.intent.action.CONTENT_CHANGED", R.string.act_content_changed, R.string.act_content_changed_detail },
+
+		// Added in broadcast_actions 14
+		{ "android.intent.action.CONTENT_CHANGED", R.string.act_content_changed, R.string.act_content_changed_detail },
+		{ "android.intent.action.NEW_VOICEMAIL", R.string.act_new_voicemail, R.string.act_new_voicemail_detail },
+		{ "android.intent.action.FETCH_VOICEMAIL", R.string.act_fetch_voicemail, R.string.act_fetch_voicemail_detail },
+		{ "android.hardware.action.NEW_VIDEO", R.string.act_new_video, R.string.act_new_video_detail },
+		{ "android.hardware.action.NEW_PICTURE", R.string.act_new_picture, R.string.act_new_picture_detail },
+
+		// Added in broadcast_actions 12
+		{ "android.intent.action.MY_PACKAGE_REPLACED", R.string.act_my_package_replaced, R.string.act_my_package_replaced_detail },
+		{ "android.intent.action.PACKAGE_FIRST_LAUNCH", R.string.act_package_first_launch, R.string.act_package_first_launch_detail },
+
 		// TelephonyManager
-		{ ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED, R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
+		// Now longer sent as of level 16.
+		{ "android.net.ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED", R.string.act_background_data_setting_changed, R.string.act_background_data_setting_changed_detail },
 		{ TelephonyManager.ACTION_PHONE_STATE_CHANGED, R.string.act_phone_state_changed, R.string.act_phone_state_changed_detail },
 
 		// telephony/TelephonyIntents.java
@@ -131,13 +167,22 @@ final class Actions {
 		{ "android.intent.action.SIM_STATE_CHANGED", R.string.act_sim_state_changed, R.string.act_sim_state_changed_detail },
 
 		// android.provider.Telephony.*
-		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
-		{ "android.provider.Telephony.SMS_RECEIVED", R.string.act_sms_received, R.string.act_sms_received_detail },
-		{ "android.intent.action.DATA_SMS_RECEIVED", R.string.act_data_sms_received, R.string.act_data_sms_received_detail },   // diff namespace, but fits here.
-		{ "android.provider.Telephony.SMS_REJECTED", R.string.act_sms_rejected, R.string.act_sms_rejected_detail },  // new in 2.0
-		{ "android.provider.Telephony.WAP_PUSH_RECEIVED", R.string.act_wap_push_received, R.string.act_wap_push_received_detail },
 		{ "android.provider.Telephony.SECRET_CODE", R.string.act_secret_code, R.string.act_secret_code_detail },   // not part of the public SDK
 		{ "android.provider.Telephony.SPN_STRINGS_UPDATED", R.string.act_spn_strings_updated, R.string.act_spn_strings_updated_detail },  // not part of the public SDK
+		// Added to broadcast_actions in 14, removed in 17, re-added in 19:
+		{ "android.provider.Telephony.SMS_EMERGENCY_CB_RECEIVED", R.string.act_sms_emergency_cb_received, R.string.act_sms_emergency_cb_received_detail },
+		{ "android.provider.Telephony.SMS_CB_RECEIVED", R.string.act_sms_cb_received, R.string.act_sms_cb_received_detail },
+		// Removed in broadcast_actions 17, re-added in 18.
+		{ "android.intent.action.DATA_SMS_RECEIVED", R.string.act_data_sms_received, R.string.act_data_sms_received_detail },   // diff namespace, but fits here
+		{ "android.provider.Telephony.SIM_FULL", R.string.act_sim_full, R.string.act_sim_full_detail },
+		{ "android.provider.Telephony.WAP_PUSH_RECEIVED", R.string.act_wap_push_received, R.string.act_wap_push_received_detail },
+		{ "android.provider.Telephony.SMS_RECEIVED", R.string.act_sms_received, R.string.act_sms_received_detail },
+		{ "android.provider.Telephony.SMS_REJECTED", R.string.act_sms_rejected, R.string.act_sms_rejected_detail },  // new in 2.0
+		// New in broadcast_actions 16, removed in 17, officially added in 19.
+		{ "android.provider.Telephony.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED", R.string.act_sms_service_category_pdr, R.string.act_sms_service_category_pdr_detail },
+		// Added in broadcast_actions 19
+		{ "android.provider.Telephony.SMS_DELIVER", R.string.act_sms_deliver, R.string.act_sms_deliver_detail },  // http://android-developers.blogspot.de/2013/10/getting-your-sms-apps-ready-for-kitkat.html
+		{ "android.provider.Telephony.WAP_PUSH_DELIVER", R.string.act_wap_push_deliver, R.string.act_wap_push_deliver_detail },  // http://android-developers.blogspot.de/2013/10/getting-your-sms-apps-ready-for-kitkat.html
 
 		// android.net.wifi.*
 		{ WifiManager.WIFI_STATE_CHANGED_ACTION, R.string.act_wifi_state_changed, R.string.act_wifi_state_changed_detail },
@@ -147,11 +192,21 @@ final class Actions {
 		{ WifiManager.NETWORK_STATE_CHANGED_ACTION, R.string.act_network_state_changed, R.string.act_network_state_changed_detail },
 		{ WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION, R.string.act_supplicant_connection_change, R.string.act_supplicant_connection_change_detail },
 		{ WifiManager.SUPPLICANT_STATE_CHANGED_ACTION, R.string.act_suplicant_state_changed, R.string.act_suplicant_state_changed_detail },
+		// New in API Level 16.
+		{ "android.net.wifi.p2p.DISCOVERY_STATE_CHANGE", R.string.act_wifi_p2p_discovery_state_change, R.string.act_wifi_p2p_discovery_state_change_detail },
+		// New in API Level 14.
+		{ "android.net.wifi.p2p.CONNECTION_STATE_CHANGE", R.string.act_wifi_p2p_connection_state_change, R.string.act_wifi_p2p_connection_state_change_detail },
+		{ "android.net.wifi.p2p.PEERS_CHANGED", R.string.act_wifi_p2p_peers_changed, R.string.act_wifi_p2p_peers_changed_detail },
+		{ "android.net.wifi.p2p.STATE_CHANGED", R.string.act_wifi_p2p_state_changed, R.string.act_wifi_p2p_state_changed_detail },
+		{ "android.net.wifi.p2p.THIS_DEVICE_CHANGED", R.string.act_wifi_p2p_this_device_changed, R.string.act_wifi_p2p_this_device_changed_detail },
 
 		// android.media.*
 		{ AudioManager.RINGER_MODE_CHANGED_ACTION, R.string.act_ringer_mode_changed, R.string.act_ringer_mode_changed_detail },
-		{ AudioManager.VIBRATE_SETTING_CHANGED_ACTION, R.string.act_vibrate_setting_changed, R.string.act_vibrate_setting_changed_detail },
+		// Deprecated with level 16 (but maybe still sent?)
+		{ "android.media.AudioManager.VIBRATE_SETTING_CHANGED_ACTION", R.string.act_vibrate_setting_changed, R.string.act_vibrate_setting_changed_detail },
 		{ AudioManager.ACTION_AUDIO_BECOMING_NOISY, R.string.act_audio_becoming_noisy, R.string.act_audio_becoming_noisy_detail },  // POTENTIALLY NOT IN "broadcast_actions.txt"!
+		// New in broadcast_actions 14
+		{ "android.media.ACTION_SCO_AUDIO_STATE_UPDATED", R.string.act_sco_audio_state_changed, R.string.act_sco_audio_state_changed_detail },
 
 		// android.speech.tts.* (new in 1.6)
 		{ "android.speech.tts.TTS_QUEUE_PROCESSING_COMPLETED", R.string.act_tts_queue_completed, R.string.act_tts_queue_completed_detail },
@@ -163,7 +218,7 @@ final class Actions {
 		{ "android.bluetooth.adapter.action.LOCAL_NAME_CHANGED", R.string.act_bt_local_name_changed, R.string.act_bt_local_name_changed_detail },
 		{ "android.bluetooth.adapter.action.SCAN_MODE_CHANGED", R.string.act_bt_scan_mode_changed, R.string.act_bt_scan_mode_changed_detail }, // see android.bluetooth.intent.action.SCAN_MODE_CHANGED
 		{ "android.bluetooth.adapter.action.STATE_CHANGED", R.string.act_bt_state_changed, R.string.act_bt_state_changed_detail },  // see android.bluetooth.intent.action.BLUETOOTH_STATE_CHANGED
-		{ "android.bluetooth.device.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },   // see android.bluetooth.intent.action.PAIRING_REQUEST
+		{ "android.bluetooth.device.action.PAIRING_REQUEST", R.string.act_pairing_request, R.string.act_pairing_request_detail },   // see android.bluetooth.intent.action.PAIRING_REQUEST; added to broadcast_actions in 19.
 		{ "android.bluetooth.device.action.PAIRING_CANCEL", R.string.act_pairing_cancel, R.string.act_pairing_cancel },   // see android.bluetooth.intent.action.PAIRING_CANCEL
 		{ "android.bluetooth.device.action.ACL_CONNECTED", R.string.act_bt_acl_connected, R.string.act_bt_acl_connected_detail },
 		{ "android.bluetooth.device.action.ACL_DISCONNECTED", R.string.act_bt_acl_disconnected, R.string.act_bt_acl_disconnected_detail },
@@ -185,6 +240,8 @@ final class Actions {
 		{ "android.bluetooth.headset.profile.action.AUDIO_STATE_CHANGED", R.string.act_bt_headset_audio_state_changed, R.string.act_bt_headset_audio_state_changed_detail },
 		{ "android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED", R.string.act_bt_headset_connection_state_changed, R.string.act_bt_headset_connection_state_changed_detail },
 		{ "android.bluetooth.headset.action.VENDOR_SPECIFIC_HEADSET_EVENT", R.string.act_bt_headset_vendor_event, R.string.act_bt_headset_vendor_event_detail },
+		// Added in API Level 15
+		{ "android.bluetooth.device.action.UUID", R.string.act_bt_uuid, R.string.act_bt_uuid_detail },
 		// Old deprecated 1.5/1.6 events; they are no longer listed in 2.0's broadcast_events.txt,
 		// though I haven't tested whether they are really no longer available as well.
 		{ "android.bluetooth.a2dp.intent.action.SINK_STATE_CHANGED", R.string.act_sink_state_changed, R.string.act_sink_state_changed_detail },
@@ -215,6 +272,12 @@ final class Actions {
 		{ "android.bluetooth.intent.action.MODE_CHANGED", R.string.act_mode_changed, R.string.act_mode_changed_detail },
 		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CHANGED", R.string.act_remote_alias_changed, R.string.act_remote_alias_changed_detail },
 		{ "android.bluetooth.intent.action.REMOTE_ALIAS_CLEARED", R.string.act_remote_alias_cleared, R.string.act_remote_alias_cleared_detail },
+		// Added in broadcast_actions 12
+		{ "android.bluetooth.input.profile.action.CONNECTION_STATE_CHANGED", R.string.act_bt_input_connection_state_changed, R.string.act_bt_input_connection_state_changed_detail },
+		{ "android.bluetooth.pan.profile.action.CONNECTION_STATE_CHANGED", R.string.act_bt_pan_connection_state_changed, R.string.act_bt_pan_connection_state_changed_detail },
+		// Removed in broadcast_actions 12
+		{ "android.bluetooth.inputdevice.action.INPUT_DEVICE_STATE_CHANGED", R.string.act_bt_input_connection_state_changed, R.string.act_bt_input_connection_state_changed_detail },
+		{ "android.bluetooth.pan.action.STATE_CHANGED", R.string.act_bt_pan_connection_state_changed, R.string.act_bt_pan_connection_state_changed_detail },
 
 		// android.appwidget.*
 		// Note that except of UPDATE, the others aren't really sent using a

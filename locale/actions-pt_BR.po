@@ -1,0 +1,1730 @@
+# Portuguese (Brazil) translations for .
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the  project.
+#
+# Translators:
+# hbcneto <hilton.neto@gmail.com>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"PO-Revision-Date: 2013-11-20 12:05+0000\n"
+"Last-Translator: hbcneto <hilton.neto@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p"
+"/android-autostarts/language/pt_BR/)\n"
+"Plural-Forms: nplurals=2; plural=((n >= 0 && n <= 1) ? 0 : 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+
+msgctxt "act_airplane_mode_changed"
+msgid "Airplane mode changed"
+msgstr "Modo avião alterado"
+
+msgctxt "act_airplane_mode_changed_detail"
+msgid "Airplane mode was switched on or off."
+msgstr "Modo avião foi ligado/desligado."
+
+msgctxt "act_battery_changed"
+msgid "Battery changed"
+msgstr "Bateria alterada"
+
+msgctxt "act_battery_changed_detail"
+msgid "The charging state, or the charge level of the battery has changed."
+msgstr "Estado de carregamento, ou nível de carregamento da bateria alterado."
+
+msgctxt "act_battery_low"
+msgid "Battery low"
+msgstr "Bateria baixa"
+
+msgctxt "act_battery_low_detail"
+msgid "The device entered a low battery state."
+msgstr "Dispositivo entrou em estado de bateria fraca"
+
+msgctxt "act_battery_okay"
+msgid "Battery okay"
+msgstr "Bateria ok"
+
+msgctxt "act_battery_okay_detail"
+msgid "The device left the low battery state."
+msgstr "Dispositivo saiu do estado de bateria fraca."
+
+msgctxt "act_pre_boot_completed"
+msgid "During Startup"
+msgstr "Durante inicialização"
+
+msgctxt "act_pre_boot_completed_detail"
+msgid "The device is booting up, the user cannot interact yet."
+msgstr "Dispositivo inicializando. Usuário ainda não pode interagir."
+
+msgctxt "act_boot_completed"
+msgid "After Startup"
+msgstr "Depois de inicializar"
+
+msgctxt "act_boot_completed_detail"
+msgid "The device just completed booting up, the user can now interact."
+msgstr "Dispositivo completou a inicialização. Usuário agora pode interagir."
+
+msgctxt "act_power_connected"
+msgid "Power connected"
+msgstr "Conectado numa fonte de energia"
+
+msgctxt "act_power_connected_detail"
+msgid "External power has been connected to the device."
+msgstr "Fonte de energia externa conectada ao dispositivo."
+
+msgctxt "act_power_disconnected"
+msgid "Power disconnected"
+msgstr "Fonte de energia desconectada"
+
+msgctxt "act_power_disconnected_detail"
+msgid "External power has been removed from the device."
+msgstr "Fonte de energia externa removida do dispositivo."
+
+msgctxt "act_shutdown"
+msgid "Shutdown"
+msgstr "Desligamento"
+
+msgctxt "act_shutdown_detail"
+msgid "The device is shutting down."
+msgstr "Dispositivo desligando."
+
+msgctxt "act_dock_event"
+msgid "Docking changed"
+msgstr "Docking alterado"
+
+msgctxt "act_dock_event_detail"
+msgid "The device was docked or undocked."
+msgstr "Dispositivo inserido/removido do dock."
+
+msgctxt "act_camera_button"
+msgid "Camera button pressed"
+msgstr "Botão da câmera pressionado"
+
+msgctxt "act_camera_button_detail"
+msgid "The Camera button was pressed."
+msgstr "Botão da câmera foi pressionado."
+
+msgctxt "act_close_system_dialogs"
+msgid "On System dialogs close"
+msgstr "Fechar na caixa de diálogo do sistema"
+
+msgctxt "act_close_system_dialogs_detail"
+msgid ""
+"Due to a user action, the system asks a temporary system dialog to be "
+"dismissed."
+msgstr ""
+"Devido a uma ação do usuário, sistema pede a dispensa de uma caixa de "
+"diálogo do sistema."
+
+msgctxt "act_configuration_changed"
+msgid "Configuration changed"
+msgstr "Configuração alterada"
+
+msgctxt "act_configuration_changed_detail"
+msgid ""
+"The device configuration changed. This includes things like locale "
+"settings, but also the device orientation."
+msgstr ""
+"A configuração do dispositivo mudou. Isso inclui coias como configurações"
+" locais, além da orientação do dispositivo."
+
+msgctxt "act_locale_changed"
+msgid "Locale changed"
+msgstr "Local alterado"
+
+msgctxt "act_locale_changed_detail"
+msgid ""
+"The device's locale setting has changed. This is a subset of "
+"\"Configuration changed\"."
+msgstr ""
+"A configuração de local do dispositivo foi alterada. Esse é um sub grupo "
+"de \"Configuração alterada\"."
+
+msgctxt "act_date_changed"
+msgid "Date changed"
+msgstr "Data alterada"
+
+msgctxt "act_date_changed_detail"
+msgid "The system date has changed."
+msgstr "A data do sistema mudou."
+
+msgctxt "act_device_storage_low"
+msgid "Storage low"
+msgstr "Armazenamento com pouco espaço restante"
+
+msgctxt "act_device_storage_low_detail"
+msgid "The device storage space has passed below a certain threshold."
+msgstr "O espaço de armazenamento do dispositivo ultrapassou determinado limite."
+
+msgctxt "act_device_storage_ok"
+msgid "Storage ok"
+msgstr "Armazenamento ok"
+
+msgctxt "act_device_storage_ok_detail"
+msgid ""
+"The device storage space has increased beyond the critical threshold, and"
+" the low memory condition no longer exists."
+msgstr ""
+"O espaço de armazenamento do dispositivo aumentou além do limite crítico,"
+" e a condição de pouca memória não existe mais."
+
+msgctxt "act_gtalk_service_connected"
+msgid "GTalk connected"
+msgstr "GTalk conectado"
+
+msgctxt "act_gtalk_service_connected_detail"
+msgid "A GTalk connection was established."
+msgstr "Uma conexão com o GTalk foi estabelecida."
+
+msgctxt "act_gtalk_service_disconnected"
+msgid "GTalk disconnected"
+msgstr "GTalk desconectado"
+
+msgctxt "act_gtalk_service_disconnected_detail"
+msgid "A GTalk connection was disconnected."
+msgstr "A conexão com o GTalk caiu."
+
+msgctxt "act_headset_plug"
+msgid "Headset plugged or unplugged"
+msgstr "Fone de ouvido conectado ou desconectado"
+
+msgctxt "act_headset_plug_detail"
+msgid "A wired headset was either plugged in or unplugged."
+msgstr "Um fone de ouvido com fio foi conectado ou desconectado."
+
+msgctxt "act_input_method_changed"
+msgid "IME changed"
+msgstr "IME alterado"
+
+msgctxt "act_input_method_changed_detail"
+msgid "The input method engine changed, i.e. the virtual keyboard in use."
+msgstr "O método de entrada foi alterado, i.e. o teclado virtual em uso."
+
+msgctxt "act_manage_package_storage"
+msgid "Package management requested"
+msgstr "Gerenciamento de pacote solicitado"
+
+msgctxt "act_manage_package_storage_detail"
+msgid ""
+"The user acknowledged a \"low memory\" notification, and the package "
+"management is about to be started."
+msgstr ""
+"Usuário tomou ciência da notificação de \"memória baixa\" e o gerenciador"
+" de pacote será iniciado."
+
+msgctxt "act_media_bad_removal"
+msgid "Bad media removal"
+msgstr "Remoção de mídia incorreta"
+
+msgctxt "act_media_bad_removal_detail"
+msgid "External media was removed, but not correctly unmounted."
+msgstr "Memória externa foi removida, sem ser desmontada corretamente."
+
+msgctxt "act_media_button"
+msgid "Media button pressed"
+msgstr "Botão de mídia pressionado"
+
+msgctxt "act_media_button_detail"
+msgid ""
+"The \"Media Button\" was pressed. Usually, this will refer to a button on"
+" your headset/earplugs."
+msgstr ""
+"O botão de mídia foi pressionado. Geralmente isso se refere a um botão do"
+" fone de ouvido."
+
+msgctxt "act_media_checking"
+msgid "Checking media"
+msgstr "Verificando mídia"
+
+msgctxt "act_media_checking_detail"
+msgid "External media is present and is currently being disk-checked."
+msgstr "Mídia externa presente e sendo verificada."
+
+msgctxt "act_media_eject"
+msgid "Media ejecting"
+msgstr "Mídia sendo ejetada"
+
+msgctxt "act_media_eject_detail"
+msgid "External media is about to be ejected, likely due to a user request."
+msgstr ""
+"Mídia externa prestes a ser ejetada, provavelmente por requisição do "
+"usuário."
+
+msgctxt "act_media_mounted"
+msgid "Media mounted"
+msgstr "Mídia montada"
+
+msgctxt "act_media_mounted_detail"
+msgid "External media is present, was mounted and is now available to the device."
+msgstr "Mídia externa presente, montada e disponível para o dispositivo."
+
+msgctxt "act_media_nofs"
+msgid "Media invalid or blank"
+msgstr "Mídia inválida ou vazia"
+
+msgctxt "act_media_nofs_detail"
+msgid ""
+"External media was detected, but is using an incompatible filesystem or "
+"is blank."
+msgstr ""
+"Mídia externa detectada, mas está usando um sistema de arquivos inválido "
+"ou vazio."
+
+msgctxt "act_media_removed"
+msgid "Media removed"
+msgstr "Mídia removida"
+
+msgctxt "act_media_removed_detail"
+msgid ""
+"External media was just removed, and is now no longer available to the "
+"device."
+msgstr ""
+"Mídia externa acabou de ser removida e não está mais disponível para o "
+"dispositivo."
+
+msgctxt "act_media_scanner_finished"
+msgid "Media scanner finished"
+msgstr "Escaneamento de mídia concluído"
+
+msgctxt "act_media_scanner_finished_detail"
+msgid "The media scanner has finished scanning a directory."
+msgstr "O Scanner de mídia acabou o escaneamento de um diretório."
+
+msgctxt "act_media_scanner_scan_file"
+msgid "Media scanner handling file"
+msgstr "Scanner de mídia tratando um arquivo"
+
+msgctxt "act_media_scanner_scan_file_detail"
+msgid ""
+"The media scanner has started to scan a file and add it to the media "
+"database."
+msgstr ""
+"Scanner de mídia iniciou escaneamento de um arquivo e está incluindo-o à "
+"base de dados."
+
+msgctxt "act_media_scanner_started"
+msgid "Media scanner started"
+msgstr "Scanner de mídia iniciado"
+
+msgctxt "act_media_scanner_started_detail"
+msgid "The media scanner has started scanning a directory."
+msgstr "Scanner de mídia iniciou o escaneamento de um diretório."
+
+msgctxt "act_media_shared"
+msgid "Media sharing enabled"
+msgstr "Compartilhamento de mídia habilitado"
+
+msgctxt "act_media_shared_detail"
+msgid ""
+"External media is now being shared via USB mass storage mode, and is at "
+"this time no longer available to the device."
+msgstr ""
+"Mídia externa sendo compartilhada via modo de armazenamento USB e não "
+"está disponível para o dispositivo no momento."
+
+msgctxt "act_media_unmountable"
+msgid "Media unmountable"
+msgstr "Mídia não pode ser desmontada"
+
+msgctxt "act_media_unmountable_detail"
+msgid "External media was detected, but cannot be used, likely due to an error."
+msgstr ""
+"Mídia externa detectada, mas não pode ser usada, provavelmente por "
+"apresentar erros."
+
+msgctxt "act_media_unmounted"
+msgid "Media unmounted"
+msgstr "Mídia desmontada"
+
+msgctxt "act_media_unmounted_detail"
+msgid ""
+"External media is available, but unmounted, and not available to the "
+"device."
+msgstr ""
+"Mídia externa disponível, mas desmontada, e não disponível para o "
+"dispositivo."
+
+msgctxt "act_new_outgoing_call"
+msgid "New outgoing call"
+msgstr "Nova chamada de saída"
+
+msgctxt "act_new_outgoing_call_detail"
+msgid ""
+"A new outgoing call is about to be placed. Applications may preprocess "
+"the call, and for example change or filter the phone number."
+msgstr ""
+"Nova chamada de saída prestes a ser efetuada. Aplicações pode "
+"preprocessar a chamada, e alterar ou filtrar o número do telefone, por "
+"exemplo."
+
+msgctxt "act_package_added"
+msgid "Application installed"
+msgstr "Aplicativo instalado"
+
+msgctxt "act_package_added_detail"
+msgid "A new application package has been installed on the device."
+msgstr "Novo pacote de aplicativo instalado no dispositivo."
+
+msgctxt "act_package_changed"
+msgid "Application changed"
+msgstr "Aplicativo alterado"
+
+msgctxt "act_package_changed_detail"
+msgid ""
+"An application package has been changed; for example, a component may "
+"have been enabled or disabled."
+msgstr ""
+"Um pacote de aplicativo foi alterado; um componente pode ter sido "
+"habilitado ou desabilitado, por exemplo."
+
+msgctxt "act_package_data_cleared"
+msgid "Application data cleared"
+msgstr "Dados do aplicativo apagados"
+
+msgctxt "act_package_data_cleared_detail"
+msgid "The user data associated with an application package was cleared."
+msgstr "Dados do usuário associados com um pacote de aplicativo apagados"
+
+msgctxt "act_package_install"
+msgid "Installing application"
+msgstr "Instalando aplicativo"
+
+msgctxt "act_package_install_detail"
+msgid "An application is about to be downloaded and installed."
+msgstr "Aplicativo prestes a ser baixado e instalado."
+
+msgctxt "act_package_removed"
+msgid "Application removed"
+msgstr "Aplicativo removido"
+
+msgctxt "act_package_removed_detail"
+msgid "An application package has been removed from the device."
+msgstr "Aplicativo removido do dispositivo."
+
+#, fuzzy
+msgctxt "act_package_fully_removed"
+msgid "Application fully removed"
+msgstr "Aplicativo removido"
+
+#, fuzzy
+msgctxt "act_package_fully_removed_detail"
+msgid "An application as well as its data has been removed from the device."
+msgstr "Aplicativo removido do dispositivo."
+
+msgctxt "act_package_replaced"
+msgid "Application replaced"
+msgstr "Aplicativo substituído"
+
+msgctxt "act_package_replaced_detail"
+msgid "An application package has been replaced by a new version."
+msgstr "Pacote de aplicativo substituído por uma versão mais nova."
+
+msgctxt "act_package_restarted"
+msgid "Application restarted"
+msgstr "Aplicativo reiniciado"
+
+msgctxt "act_package_restarted_detail"
+msgid ""
+"An application package was restarted, and all it's processes have been "
+"killed."
+msgstr "Pacote de aplicativo reiniciado a todos os seus processos finalizados."
+
+msgctxt "act_provider_changed"
+msgid "Content provider changed"
+msgstr "Provedor de conteúdo alterado"
+
+msgctxt "act_provider_changed_detail"
+msgid ""
+"A content provider publishes a new event; for example, this is triggered "
+"by the GMail Storage provider when the set of unread email in the inbox "
+"changes."
+msgstr ""
+"Novo evento publicado pelo provedor de conteúdo; Por exemplo, isso pode "
+"ser disparado pelo provedor de armazenamento do GMail quando a quantidade"
+" e-mails não lidos na caixa de entrada muda."
+
+msgctxt "act_reboot"
+msgid "Reboot"
+msgstr "Reiniciar"
+
+msgctxt "act_reboot_detail"
+msgid "The system is about to reboot."
+msgstr "Sistema irá reiniciar."
+
+msgctxt "act_screen_off"
+msgid "Screen off"
+msgstr "Tela desligada"
+
+msgctxt "act_screen_off_detail"
+msgid "The screen just turned off."
+msgstr "Tela acabou de desligar"
+
+msgctxt "act_screen_on"
+msgid "Screen on"
+msgstr "Tela ligada"
+
+msgctxt "act_screen_on_detail"
+msgid "The screen just turned on."
+msgstr "Tela acabou de ligar"
+
+msgctxt "act_timezone_changed"
+msgid "Timezone changed"
+msgstr "Fuso horário alterado"
+
+msgctxt "act_timezone_changed_detail"
+msgid "The system timezone setting has changed."
+msgstr "Configuração de fuso horário alterada"
+
+msgctxt "act_time_changed"
+msgid "Time changed"
+msgstr "Hora alterada"
+
+msgctxt "act_time_changed_detail"
+msgid "The system time has changed."
+msgstr "Hora do sistema alterada."
+
+msgctxt "act_time_tick"
+msgid "Time tick"
+msgstr "Time tick"
+
+msgctxt "act_time_tick_detail"
+msgid "The current time has changed. This is triggered once every minute."
+msgstr "Hora atual alterada. Isso é disparado uma vez por minuto."
+
+msgctxt "act_uid_removed"
+msgid "User removed"
+msgstr "Usuário removido"
+
+msgctxt "act_uid_removed_detail"
+msgid ""
+"A user id was removed from the system. This is usually related to the "
+"removal of an installed application."
+msgstr ""
+"Id do usuário removido do sistema. Isso geralmente está relacionado à "
+"remoção de um aplicativo."
+
+msgctxt "act_ums_connected"
+msgid "USB connected"
+msgstr "USB conectado"
+
+msgctxt "act_ums_connected_detail"
+msgid "The device has entered USB Mass Storage mode."
+msgstr "O dispositivo entrou no modo \"USB Mass Storage\"."
+
+msgctxt "act_ums_disconnected"
+msgid "USB disconnected"
+msgstr "USB disconectado"
+
+msgctxt "act_ums_disconnected_detail"
+msgid "The device has exited USB Mass Storage mode."
+msgstr "Usuário saiu do modo \"USB Mass Storage\""
+
+msgctxt "act_user_present"
+msgid "User present"
+msgstr "Usuário presente"
+
+msgctxt "act_user_present_detail"
+msgid ""
+"The user woke up the device and successfully passed the keyguard (if "
+"enabled)."
+msgstr ""
+"Usuário acordou o dispositivo e informou o keyguard com sucesso (caso "
+"habilitado)."
+
+msgctxt "act_wallpaper_changed"
+msgid "Wallpaper changed"
+msgstr "Papel de parede alterado"
+
+msgctxt "act_wallpaper_changed_detail"
+msgid ""
+"The system wallpaper has changed, either due to a user action, or by an "
+"application."
+msgstr "Papel de parede do sistema alterado pelo usuário ou por um aplicativo."
+
+msgctxt "act_sim_full"
+msgid "SIM is full"
+msgstr "SIM cheio"
+
+msgctxt "act_sim_full_detail"
+msgid "The SIM storage for SMS messages is full."
+msgstr "Armazenamento do SIM para mensagens SMS está cheio."
+
+msgctxt "act_sms_received"
+msgid "SMS received"
+msgstr "SMS recebida"
+
+msgctxt "act_sms_received_detail"
+msgid "A new text based SMS message has been received."
+msgstr "Nova mensagem SMS de texto recebida."
+
+msgctxt "act_sms_deliver"
+msgid "SMS received (default app)"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_sms_deliver_detail"
+msgid ""
+"A new text based SMS message has been received. Only the default SMS app "
+"is notified."
+msgstr "Nova mensagem SMS de texto recebida."
+
+msgctxt "act_data_sms_received"
+msgid "Data SMS received"
+msgstr "SMS de dados rececida"
+
+msgctxt "act_data_sms_received_detail"
+msgid "A new data SMS message has been received."
+msgstr "Nova SMS de dados recebida."
+
+msgctxt "act_sms_rejected"
+msgid "SMS rejected"
+msgstr "SMS rejeitada"
+
+msgctxt "act_sms_rejected_detail"
+msgid "A text based SMS message has been rejected."
+msgstr "Mensagem SMS de texto rejeitada."
+
+msgctxt "act_wap_push_received"
+msgid "WAP PUSH received"
+msgstr "WAP PUSH recebida"
+
+msgctxt "act_wap_push_received_detail"
+msgid "A new WAP PUSH message has been received."
+msgstr "Nova mensagem WAP PUSH recebida. "
+
+msgctxt "act_wap_push_deliver"
+msgid "WAP PUSH received (default app)"
+msgstr ""
+
+msgctxt "act_wap_push_deliver_detail"
+msgid ""
+"A new WAP PUSH message has been received. Only the default SMS app is "
+"notified."
+msgstr ""
+
+msgctxt "act_network_ids_changed"
+msgid "Wi-Fi network IDs changed"
+msgstr "ID da rede Wi-Fi alterado"
+
+msgctxt "act_network_ids_changed_detail"
+msgid "The network IDs of the configured networks may have changed."
+msgstr "ID de rede das redes configuradas podem ter mudado."
+
+msgctxt "act_rssi_changed"
+msgid "RSSI changed"
+msgstr "RSSI alterado"
+
+msgctxt "act_rssi_changed_detail"
+msgid "The Wi-Fi signal strength (RSSI) has changed."
+msgstr "Força do sinal Wi-Fi (RSSI) alterado."
+
+msgctxt "act_scan_results_available"
+msgid "Wi-Fi scan completed"
+msgstr "Escaneamento Wi-Fi completo"
+
+msgctxt "act_scan_results_available_detail"
+msgid "An access point scan has completed, and results are available."
+msgstr ""
+"Escaneamento por pontos de acesso foi completado e os resultados estão "
+"disponíveis."
+
+msgctxt "act_network_state_changed"
+msgid "Wi-Fi state changed"
+msgstr "Estado do Wi-Fi mudou"
+
+msgctxt "act_network_state_changed_detail"
+msgid "The state of Wi-Fi connectivity has changed."
+msgstr "O estado da conectividade Wi-Fi mudou."
+
+msgctxt "act_supplicant_connection_change"
+msgid "Wi-Fi connection changed"
+msgstr "Conexão Wi-Fi mudou"
+
+msgctxt "act_supplicant_connection_change_detail"
+msgid ""
+"The connection to a Wi-Fi access point was either successfully "
+"established, or an existing connection lost."
+msgstr ""
+"Conexão a um ponto de acesso Wi-Fi foi estabelecida com sucesso ou uma "
+"conexão existente foi perdida."
+
+msgctxt "act_suplicant_state_changed"
+msgid "Wi-Fi connecting state changed"
+msgstr "Estado da conexão Wi-Fi mudou"
+
+msgctxt "act_suplicant_state_changed_detail"
+msgid "The state of of establishing a connection to an access point has changed."
+msgstr "O estado de estabelecimento da conexão com o ponto de acesso mudou."
+
+msgctxt "act_ringer_mode_changed"
+msgid "Ringer mode changed"
+msgstr "Modo da campainha alterado"
+
+msgctxt "act_ringer_mode_changed_detail"
+msgid "The ringer mode has changed (silent, vibrate, etc)."
+msgstr "Modo da campainha mudou (silencioso, vibração, etc)."
+
+msgctxt "act_vibrate_setting_changed"
+msgid "Vibrate setting changed"
+msgstr "Configuração de vibração alterada"
+
+msgctxt "act_vibrate_setting_changed_detail"
+msgid "The vibrate setting has changed (on, off, etc)."
+msgstr "Configuração de vibração mudou (ligado, desligado, etc)."
+
+msgctxt "act_audio_becoming_noisy"
+msgid "Audio becoming noisy"
+msgstr "Áudio ficando barulhento."
+
+msgctxt "act_audio_becoming_noisy_detail"
+msgid ""
+"Audio is about to become 'noisy' due to a change in audio outputs, e.g. "
+"when a headset is unplugged."
+msgstr ""
+"Áudio prestes a ficar \"barulhento\" devido à mudança na saída de áudio, "
+"como, por exemplo, quando o fone de ouvido é desconectado."
+
+msgctxt "act_tts_queue_completed"
+msgid "TTS queue completed"
+msgstr "Fila TTS completada"
+
+msgctxt "act_tts_queue_completed_detail"
+msgid ""
+"The TextToSpeech synthesizer has completed processing of all the text in "
+"the speech queue."
+msgstr ""
+"Sintetizador de texto-para-fala completou o processamento de todo o texto"
+" da fila de fala."
+
+msgctxt "act_tts_data_installed"
+msgid "TTS data installed"
+msgstr "Dados TTS instalados"
+
+msgctxt "act_tts_data_installed_detail"
+msgid ""
+"Signals the completion of the installation of the data files used by the "
+"synthesis engine."
+msgstr ""
+"Sinaliza o fim da instalação de arquivos de dados usados pela máquina de "
+"sintetização."
+
+msgctxt "act_sink_state_changed"
+msgid "BT sink state changed"
+msgstr "Estado do BT alterado"
+
+msgctxt "act_sink_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_bonding_created"
+msgid "BT bonding created"
+msgstr "Ligação BT criada"
+
+msgctxt "act_bonding_created_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_bonding_removed"
+msgid "BT bonding removed"
+msgstr "Ligação Bluetooth removida"
+
+msgctxt "act_bonding_removed_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_disabled"
+msgid "Bluetooth disabled"
+msgstr "Bluetooth desabilitado"
+
+msgctxt "act_disabled_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_discovery_completed"
+msgid "BT discovery completed"
+msgstr "Descoberta BT finalizada"
+
+msgctxt "act_discovery_completed_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_discovery_started"
+msgid "BT discovery started"
+msgstr "Descoberta BT iniciada"
+
+msgctxt "act_discovery_started_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_enabled"
+msgid "Bluetooth enabled"
+msgstr "Bluetooth habilitado"
+
+msgctxt "act_enabled_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_headset_state_changed"
+msgid "BT headset state changed"
+msgstr "Estado do fone de ouvido BT alterado"
+
+msgctxt "act_headset_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_mode_changed"
+msgid "BT mode changed"
+msgstr "Modo BT alterado"
+
+msgctxt "act_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_name_changed"
+msgid "BT name changed"
+msgstr "Nome BT alterado"
+
+msgctxt "act_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_pairing_cancel"
+msgid "BT pairing canceled"
+msgstr "Pareamento BT cancelado"
+
+msgctxt "act_pairing_cancel_detail"
+msgid "(Bluetooth event)"
+msgstr "(evento Bluetooth) "
+
+msgctxt "act_pairing_request"
+msgid "BT pairing requested"
+msgstr "Pareamento BT requisitado"
+
+msgctxt "act_pairing_request_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_alias_changed"
+msgid "BT alias changed"
+msgstr "pseudônimo do BT alterado"
+
+msgctxt "act_remote_alias_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_alias_cleared"
+msgid "BT alias cleared"
+msgstr "pseudônimo do BT apagado"
+
+msgctxt "act_remote_alias_cleared_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_device_connected"
+msgid "BT device connected"
+msgstr "dispositivo BT conectado"
+
+msgctxt "act_remote_device_connected_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_device_disappeared"
+msgid "BT device disappeared"
+msgstr "Dispositivo BT desapareceu"
+
+msgctxt "act_remote_device_disappeared_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_device_disconnected"
+msgid "BT device disconnected"
+msgstr "Dispositivo BT desconectado"
+
+msgctxt "act_remote_device_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_device_disconnect_requested"
+msgid "BT disconnect requested"
+msgstr "Desconexão BT solicitada"
+
+msgctxt "act_remote_device_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_device_found"
+msgid "BT device found"
+msgstr "Dispositivo BT encontrado"
+
+msgctxt "act_remote_device_found_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_name_failed"
+msgid "BT name failed"
+msgstr "Nome do BT falhou"
+
+msgctxt "act_remote_name_failed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_remote_name_updated"
+msgid "BT name updated"
+msgstr "Nome do BT atualizado"
+
+msgctxt "act_remote_name_updated_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_state_changed"
+msgid "BT state changed"
+msgstr "Estado do BT alterado"
+
+msgctxt "act_bt_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_name_changed"
+msgid "BT name changed"
+msgstr "Nome do BT alterado"
+
+msgctxt "act_bt_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_bond_state_changed"
+msgid "BT bond state changed"
+msgstr "Estado da ligação BT alterado"
+
+msgctxt "act_bt_bond_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_audio_state_changed"
+msgid "BT audio state changed"
+msgstr "Estado do áudio BT alterado"
+
+msgctxt "act_bt_audio_state_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_local_name_changed"
+msgid "BT local name changed"
+msgstr "Nome local do BT alterado"
+
+msgctxt "act_bt_local_name_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_scan_mode_changed"
+msgid "BT scan mode changed"
+msgstr "Modo de escaneamento do BT alterado"
+
+msgctxt "act_bt_scan_mode_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_discovery_finished"
+msgid "BT discovery finished"
+msgstr "Descoberta do BT finalizada"
+
+msgctxt "act_bt_discovery_finished_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_acl_connected"
+msgid "BT ACL connected"
+msgstr "ACL BT conectado"
+
+msgctxt "act_bt_acl_connected_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_acl_disconnected"
+msgid "BT ACL disconnected"
+msgstr "ACL BT desconectado"
+
+msgctxt "act_bt_acl_disconnected_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_acl_disconnect_requested"
+msgid "BT ACL disconnect requested"
+msgstr "Desconexão ACL BT solicitada"
+
+msgctxt "act_bt_acl_disconnect_requested_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_class_changed"
+msgid "BT class changed"
+msgstr "Classe do BT alterada"
+
+msgctxt "act_bt_class_changed_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_found"
+msgid "BT found"
+msgstr "BT encontrado"
+
+msgctxt "act_bt_found_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_device_selected"
+msgid "BT device selected"
+msgstr "Dispositivo BT selecionado"
+
+msgctxt "act_bt_device_selected_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_launch"
+msgid "BT launch"
+msgstr "BT lançado"
+
+msgctxt "act_bt_launch_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+#, fuzzy
+msgctxt "act_bt_uuid"
+msgid "BT launch"
+msgstr "BT lançado"
+
+#, fuzzy
+msgctxt "act_bt_uuid_detail"
+msgid "(Bluetooth event)"
+msgstr "(Evento Bluetooth)"
+
+msgctxt "act_bt_a2dp_connection_state_changed"
+msgid "BT A2DP connection state changed"
+msgstr "Estado da conexão BT A2DP alterado"
+
+msgctxt "act_bt_a2dp_connection_state_changed_detail"
+msgid "Connection state of the A2DP profile has changed."
+msgstr "Estado do perfil da conexão A2DP alterado."
+
+msgctxt "act_bt_a2dp_playing_state_changed"
+msgid "BT A2DP playing state changed"
+msgstr "Estado do tocador BT A2DP alterado"
+
+msgctxt "act_bt_a2dp_playing_state_changed_detail"
+msgid "Playing state of the A2DP profile has changed."
+msgstr "Estado do perfil do tocador A2DP alterado."
+
+msgctxt "act_bt_connection_state_changed"
+msgid "BT connection state changed"
+msgstr "Estado da conexão BT alterado"
+
+msgctxt "act_bt_connection_state_changed_detail"
+msgid ""
+"The connection state of the local Bluetooth adapter to a profile of the "
+"remote device has changed."
+msgstr ""
+"Estado da conexão do adaptador Bluetooth local à um perfil do dispositivo"
+" remoto alterado."
+
+msgctxt "act_bt_headset_audio_state_changed"
+msgid "BT A2DP audio state changed"
+msgstr "Estado do áudio BT A2DP alterado"
+
+msgctxt "act_bt_headset_audio_state_changed_detail"
+msgid "The Audio Connection state of the A2DP profile has changed."
+msgstr "Estado do perfil da conexão de áudio do perfil A2DP alterado."
+
+msgctxt "act_bt_headset_connection_state_changed"
+msgid "BT Headset connection state changed"
+msgstr "Estado da conexão do fone de ouvido BT alterado"
+
+msgctxt "act_bt_headset_connection_state_changed_detail"
+msgid "Reports a change in connection state of the Headset profile."
+msgstr "Informa mudança no estado da conexão do perfil do fone de ouvido."
+
+msgctxt "act_bt_headset_vendor_event"
+msgid "BT Headset vendor event"
+msgstr "Evento do fornecedor do fone de ouvido BT"
+
+msgctxt "act_bt_headset_vendor_event_detail"
+msgid "The headset has posted a vendor-specific event."
+msgstr "Fone de ouvido submeteu um evento específico do fornecedor."
+
+#, fuzzy
+msgctxt "act_bt_input_connection_state_changed"
+msgid "BT Input connection state changed"
+msgstr "Estado da conexão BT alterado"
+
+#, fuzzy
+msgctxt "act_bt_input_connection_state_changed_detail"
+msgid "Reports a change in connection state of the Input profile."
+msgstr "Informa mudança no estado da conexão do perfil do fone de ouvido."
+
+#, fuzzy
+msgctxt "act_bt_pan_connection_state_changed"
+msgid "BT Pan connection state changed"
+msgstr "Estado da conexão BT alterado"
+
+#, fuzzy
+msgctxt "act_bt_pan_connection_state_changed_detail"
+msgid "Reports a change in connection state of the Pan profile."
+msgstr "Informa mudança no estado da conexão do perfil do fone de ouvido."
+
+msgctxt "act_background_data_setting_changed"
+msgid "Background data setting changed"
+msgstr "Configurações de dados em segundo plano alteradas"
+
+msgctxt "act_background_data_setting_changed_detail"
+msgid "The setting for background data usage has changed values."
+msgstr "Valores alterados para as configurações de uso de dados em segundo plano."
+
+msgctxt "act_appwidget_enabled"
+msgid "Widget enabled"
+msgstr "Widget habilitado"
+
+msgctxt "act_appwidget_enabled_detail"
+msgid "The first copy of a widget was added."
+msgstr "A primeira cópia do widget foi adicionada."
+
+msgctxt "act_appwidget_update"
+msgid "Widget updating"
+msgstr "Atualizando o widget"
+
+msgctxt "act_appwidget_update_detail"
+msgid ""
+"A widget is asked to update itself. How often this is triggered depends "
+"on the widget in question, but never for widgets that are not in use.\n"
+"\n"
+"<b>Note that disabling this event will likely render the widget "
+"defunct.</b>"
+msgstr ""
+"Um widget está pedidno para se atualizar. A frequencia com que isso "
+"acontece depende do widget em questão, mas nunca para widgets que não "
+"estão em uso.\n"
+"\n"
+"<b>Note que desabilitando este evento o widget provavelmente irá ficar "
+"inútil.</b>"
+
+msgctxt "act_appwidget_disabled"
+msgid "Widget disabled"
+msgstr "Widget desabilitado"
+
+msgctxt "act_appwidget_disabled_detail"
+msgid "The last copy of a widget was removed."
+msgstr "A última cópia de um widget foi removida."
+
+msgctxt "act_appwidget_deleted"
+msgid "Widget deleted"
+msgstr "Widget apagado"
+
+msgctxt "act_appwidget_deleted_detail"
+msgid ""
+"A copy of a widget was removed. Note that most widgets support multiple "
+"copies."
+msgstr ""
+"Uma cópia do widget foi removida. Note que a maioria dos widgets suportam"
+" múltiplas cópias."
+
+msgctxt "act_phone_state_changed"
+msgid "Call state changed"
+msgstr "Estado da ligação alterado"
+
+msgctxt "act_phone_state_changed_detail"
+msgid ""
+"The call state of the phone has changed, for example when a new call is "
+"coming in, a call is accepted, or a previously active call ends."
+msgstr ""
+"Estado da ligação do telefone mudou, como por exemplo quando uma nova "
+"ligação é recebida, aceita ou uma ligação ativa é terminada."
+
+msgctxt "act_connectivity"
+msgid "Connectivity changed"
+msgstr "Conectividade alterada"
+
+msgctxt "act_connectivity_detail"
+msgid ""
+"The current network connection has changed, e.g. when switching from Wi-"
+"Fi to GSM. Note that since this is also triggered when a connection is "
+"initially established, it effectively entails the On Startup behavior."
+msgstr ""
+"A conexão atual com a rede mudou. Exemplo, quando se muda de Wi-Fi para "
+"GSM. Note que como isso é disparado também quando a conexão é "
+"estabelecida inicialmente, isso é similar ao comportamento do evento \"On"
+" Startup\"."
+
+msgctxt "act_new_picture"
+msgid "New Picture"
+msgstr "Nova imagem"
+
+msgctxt "act_new_picture_detail"
+msgid ""
+"A new photo was added to the gallery, usually by the Camera application "
+"after the user made a new photo."
+msgstr ""
+"Nova foto adicionada à galeria, geralmente pelo aplicativo de câmera "
+"depois do usuário tirar um nova foto."
+
+msgctxt "act_new_video"
+msgid "New Video"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_new_video_detail"
+msgid ""
+"A new video was added to the gallery, usually by the Camera application "
+"after the user recorded a video."
+msgstr ""
+"Nova foto adicionada à galeria, geralmente pelo aplicativo de câmera "
+"depois do usuário tirar um nova foto."
+
+msgctxt "act_secret_code"
+msgid "Secret Code entered"
+msgstr "Código secreto informado"
+
+msgctxt "act_secret_code_detail"
+msgid "A secret code was entered in the dialer. They are in the form of *#*##*#*."
+msgstr "Código secreto informado no discador no formato *#*##*#*."
+
+msgctxt "act_spn_strings_updated"
+msgid "Service provider data changed"
+msgstr "Provedor de serviço de dados alterado"
+
+msgctxt "act_spn_strings_updated_detail"
+msgid "The name of the network operator or service provider have changed."
+msgstr "Nome da operadora de rede ou provedor de serviço alterado."
+
+msgctxt "act_anr"
+msgid "Application not responding"
+msgstr "Aplicativo não está respondendo"
+
+msgctxt "act_anr_detail"
+msgid ""
+"An application is not responding. This is when you see the infamous "
+"dialog box."
+msgstr ""
+"Aplicativo não está respondendo. É quando você vê a infame caixa de "
+"diálogo."
+
+msgctxt "act_event_reminder"
+msgid "Event reminder"
+msgstr "Lembrete de evento"
+
+msgctxt "act_event_reminder_detail"
+msgid ""
+"A reminder for a scheduled event should now be shown. This is used by the"
+" Calendar application."
+msgstr ""
+"Lembrete para um evento agendado deve ser exibido agora. Isso é usado "
+"pelo aplicativo de Calendário."
+
+msgctxt "act_install_shortcut"
+msgid "Install Shortcut"
+msgstr "Instalar atalho"
+
+msgctxt "act_install_shortcut_detail"
+msgid ""
+"An application wants to put a shortcut on your home screen. Home screen "
+"application will usually register for this."
+msgstr ""
+"Aplicação quer adicionar um atalho à sua área de trabalho. Aplicação de "
+"área de trabalho geralmente irá registrar isso."
+
+msgctxt "act_uninstall_shortcut"
+msgid "Uninstall Shortcut"
+msgstr "Desinstalar atalho"
+
+msgctxt "act_uninstall_shortcut_detail"
+msgid ""
+"An application wants to remove a shortcut from your home screen. Home "
+"screen application will usually register for this."
+msgstr ""
+"Aplicação quer remover um atalho da sua área de trabalho. Aplicação de "
+"área de trabalho geralmente irá registrar isso."
+
+msgctxt "act_any_data_state"
+msgid "Data state changed"
+msgstr "Estado dos dados alterado"
+
+msgctxt "act_any_data_state_detail"
+msgid ""
+"The state of a data connection (for example MMS, GPS) has changed, for "
+"example when you connect to a new APN."
+msgstr ""
+"Estado da conexão de dados (por exemplo MMS, GPS) alterado. Isso acontece"
+" quando se conecta a um novo APN, por exemplo."
+
+msgctxt "act_service_state"
+msgid "Service state changed"
+msgstr "Estado do serviço alterado"
+
+msgctxt "act_service_state_detail"
+msgid ""
+"The phone's service state has changed, for example when you start "
+"roaming, or connect to a different mobile network."
+msgstr ""
+"Estado do serviço do telefone alterado. Acontece quando entra em roaming "
+"ou se conecta a uma rede móvel diferente, por exemplo."
+
+msgctxt "act_data_connection_failed"
+msgid "Data connection failed"
+msgstr "Conexão de dados falhou"
+
+msgctxt "act_data_connection_failed_detail"
+msgid "An attempt to establish a data connection has failed."
+msgstr "Tentativa de estabelecer uma conexão de dados falhou."
+
+msgctxt "act_sim_state_changed"
+msgid "SIM state changed"
+msgstr "Estado do SIM alterado"
+
+msgctxt "act_sim_state_changed_detail"
+msgid ""
+"The sim card state has changed, for example when it is initially loaded, "
+"or when it becomes locked due to incorrect PIN entry."
+msgstr ""
+"Estado do cartão SIM alterado. Acontece quando é carregado na "
+"inicialização ou quando o PIN errado é informado, por exemplo."
+
+msgctxt "act_signal_strength"
+msgid "Signal strength changed"
+msgstr "Força do sinal alterada"
+
+msgctxt "act_signal_strength_detail"
+msgid "The phone's signal strength has changed."
+msgstr "Força do sinal do telefone mudou."
+
+msgctxt "act_network_set_time"
+msgid "Network Time Change"
+msgstr "Mudança do horário da rede"
+
+msgctxt "act_network_set_time_detail"
+msgid "The phone's time was set by the carrier."
+msgstr "Hora do telefone definida pela operadora."
+
+msgctxt "act_network_set_timezone"
+msgid "Network Timezone Change"
+msgstr "Alteração do fuso-horário da rede"
+
+msgctxt "act_network_set_timezone_detail"
+msgid "The phone's timezone was set by the carrier."
+msgstr "Fuso-horário do telefone definido pela operadora."
+
+msgctxt "act_wifi_state_changed"
+msgid "Wi-Fi state changed"
+msgstr "Estado do Wi-Fi alterado"
+
+msgctxt "act_wifi_state_changed_detail"
+msgid ""
+"The state of the Wi-Fi chip has changed, for example when it is enabled "
+"or disabled."
+msgstr ""
+"Estado do chip Wi-Fi alterado. Acontece quando ele é habilitado ou "
+"desabilitado."
+
+msgctxt "act_external_apps_available"
+msgid "Externals apps available"
+msgstr "Aplicativos externos disponíveis"
+
+msgctxt "act_external_apps_available_detail"
+msgid "Externals apps (e.g. stored on SD card) have become available."
+msgstr ""
+"Aplicativos externos (armazenados no cartão SD, por exemplo) estão "
+"disponíveis."
+
+msgctxt "act_external_apps_unavailable"
+msgid "Externals apps unavailable"
+msgstr "Aplicativos externos indisponíveis"
+
+msgctxt "act_external_apps_unavailable_detail"
+msgid "Externals apps (e.g. stored on SD card) are no longer available."
+msgstr ""
+"Aplicativos externos (armazenados no cartão SD, por exemplo) não estão "
+"mais disponíveis."
+
+msgctxt "act_password_changed"
+msgid "Password changed"
+msgstr "Senha alterada"
+
+msgctxt "act_password_changed_detail"
+msgid "Sent to a device admin when the user changes their password."
+msgstr "Enviado para um admin do dispositivo quando o usuário altera sua senha."
+
+msgctxt "act_password_failed"
+msgid "Password failed"
+msgstr "senha falhou"
+
+msgctxt "act_password_failed_detail"
+msgid ""
+"Sent to a device admin when the user has failed at attempted to enter the"
+" password."
+msgstr ""
+"Enviado para administrador do dispositivo depois do usuário falhar na "
+"tentativa de informar a senha."
+
+msgctxt "act_password_succeeded"
+msgid "Password succeeded"
+msgstr "Senha correta"
+
+msgctxt "act_password_succeeded_detail"
+msgid ""
+"Sent to a device admin when the user has successfully entered their "
+"password, after failing one or more times."
+msgstr ""
+"Enviado para administrador do dispositivo depois do usuário informar "
+"corretamente sua senha, depois de falhar um ou mais vezes."
+
+msgctxt "act_password_expiring"
+msgid "Password expiring"
+msgstr "Senha expirando"
+
+msgctxt "act_password_expiring_detail"
+msgid "Sent to a device admin when the device password is expiring."
+msgstr "Enviado para administrador do dispositivo quando a senha está expirando."
+
+msgctxt "act_device_admin_disabled"
+msgid "Device Admin Disabled"
+msgstr "Administrador do dispositivo desabilitado"
+
+msgctxt "act_device_admin_disabled_detail"
+msgid "Sent to a device admin when it has been disabled."
+msgstr "Enviado para administrador do dispositivo depois de desabilitado."
+
+msgctxt "act_device_admin_disable_req"
+msgid "Device Admin Disable Request"
+msgstr "Solicitação de desabilitação do administrador do dispositivo"
+
+msgctxt "act_device_admin_disable_req_detail"
+msgid "Sent to a device admin when it is about to be disabled."
+msgstr ""
+"Enviado para administrador do dispositivo quando está prestes a ser "
+"desabilitado."
+
+msgctxt "act_device_admin_enabled"
+msgid "Device Admin Enabled"
+msgstr "Administrador do dispositivo habilitado"
+
+msgctxt "act_device_admin_enabled_detail"
+msgid "Sent to a device admin when it has been enabled."
+msgstr "Enviado para administrador do dispositivo depois de ser habilitado."
+
+msgctxt "act_login_accounts_changed"
+msgid "Accounts changed"
+msgstr "Contas alteradas"
+
+msgctxt "act_login_accounts_changed_detail"
+msgid ""
+"Accounts have been added, or removed, or an account's credentials are "
+"changed."
+msgstr "Contas foram adicionadas, removidas ou suas credenciais alteradas."
+
+msgctxt "act_proxy_changed"
+msgid "Proxy changed"
+msgstr "Proxy alterado"
+
+msgctxt "act_proxy_changed_detail"
+msgid ""
+"Either the system default connection or it's proxy configuration have "
+"changed."
+msgstr "Conexão padrão ou configuração do proxy foi alterada."
+
+msgctxt "act_search_settings_changed"
+msgid "Search settings changed"
+msgstr "Configurações de pesquisa alterada"
+
+msgctxt "act_search_settings_changed_detail"
+msgid ""
+"The search settings have changed in some way. Either searchables have "
+"been enabled or disabled, or a different web search provider has been "
+"chosen."
+msgstr ""
+"Configurações de pesquisa alteradas de alguma forma. Itens pesquisáveis "
+"foram alterados ou um provedor de pesquisa web diferente foi escolhido."
+
+msgctxt "act_searchables_changed"
+msgid "Searchable components changed"
+msgstr "Componentes pesquisáveis alterados"
+
+msgctxt "act_searchables_changed_detail"
+msgid ""
+"The list of components that are searched by the system search function "
+"have changed."
+msgstr "Lista de componentes pesquisáveis pelo sistema foi alterada."
+
+msgctxt "act_download_notification_clicked"
+msgid "Download notification clicked"
+msgstr "Notificação de download clicada"
+
+msgctxt "act_download_notification_clicked_detail"
+msgid "Sent by the download manager when the user clicks on a running download."
+msgstr ""
+"Enviado pelo gerenciador de download quando usuário clica num download em"
+" andamento."
+
+msgctxt "act_download_completed"
+msgid "Download completed"
+msgstr "Download completo"
+
+msgctxt "act_download_completed_detail"
+msgid "Sent by the download manager when a download completes."
+msgstr "Enviado pelo gerenciador de download quando o download termina."
+
+msgctxt "act_location_providers_changed"
+msgid "Location providers changed"
+msgstr "Provedor de localização alterado"
+
+msgctxt "act_location_providers_changed_detail"
+msgid "The configured location providers have changed (e.g. GPS enabled)."
+msgstr "Provedor de localização configurado alterado (ex: GPS foi habilitado)."
+
+msgctxt "act_statistics_report"
+msgid "Collecting Statistics"
+msgstr "Coletando estatísticas"
+
+msgctxt "act_statistics_report_detail"
+msgid ""
+"Applications are asked to add information to a statistics report being "
+"assembled."
+msgstr ""
+"Solicitando que aplicativos adicionem estatísticas ao relatório sendo "
+"gerado."
+
+msgctxt "act_master_clear"
+msgid "Factory reset"
+msgstr "Reset de fábrica"
+
+msgctxt "act_master_clear_detail"
+msgid "The phone is about to undergo a factory reset."
+msgstr "Telefone prestes a passar por reset de fábrica"
+
+msgctxt "act_sync_connection_setting_changed"
+msgid "Auto-sync changed"
+msgstr "Auto-sincronização alterada"
+
+msgctxt "act_sync_connection_setting_changed_detail"
+msgid "The global Auto-Sync setting has been changed."
+msgstr "Configuração global de auto-sincronização foi alterada."
+
+msgctxt "act_open_audio_effect_session"
+msgid "Open audio effect control session"
+msgstr "Abrir sessão de controle de efeito de som"
+
+msgctxt "act_open_audio_effect_session_detail"
+msgid "An application wants audio effects to be applied to it's output."
+msgstr "Aplicativo quer que efeitos de som sejam aplicados à sua saída."
+
+msgctxt "act_close_audio_effect_session"
+msgid "Close audio effect control session"
+msgstr "Fechar sessão de controle de efeito de som"
+
+msgctxt "act_close_audio_effect_session_detail"
+msgid "An application no longer wants audio effects to be applied to it's output."
+msgstr "Aplicativo não deseja mais que efeitos de som sejam aplicados à sua saída."
+
+#, fuzzy
+msgctxt "act_dreaming_started"
+msgid "Dreaming started"
+msgstr "Durante inicialização"
+
+#, fuzzy
+msgctxt "act_dreaming_started_detail"
+msgid "The screensaver has started."
+msgstr "Scanner de mídia iniciado"
+
+msgctxt "act_dreaming_stopped"
+msgid "Dreaming stopped"
+msgstr ""
+
+msgctxt "act_dreaming_stopped_detail"
+msgid "The screensaver has stopped."
+msgstr ""
+
+msgctxt "act_package_needs_verification"
+msgid "Package needs verification"
+msgstr ""
+
+msgctxt "act_package_needs_verification_detail"
+msgid "System wants a package to be verified; applications may be verifiers."
+msgstr ""
+
+msgctxt "act_package_verified"
+msgid "Package verified"
+msgstr ""
+
+msgctxt "act_package_verified_detail"
+msgid ""
+"The verification of a package has been completed; this is only sent to "
+"verifiers."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_content_changed"
+msgid "Contents changed"
+msgstr "Contas alteradas"
+
+msgctxt "act_content_changed_detail"
+msgid ""
+"Contents of an URI have changed, and applications showing this content "
+"should update."
+msgstr ""
+
+msgctxt "act_new_voicemail"
+msgid "New Voicemail"
+msgstr ""
+
+msgctxt "act_new_voicemail_detail"
+msgid "The system has become aware of a new voicemail."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_fetch_voicemail"
+msgid "Voicemail content requested"
+msgstr "Gerenciamento de pacote solicitado"
+
+msgctxt "act_fetch_voicemail_detail"
+msgid ""
+"The system wants to retrieve the contents of a voicemail. Voicemail "
+"sources handle this broadcast."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_my_package_replaced"
+msgid "Application updated"
+msgstr "Aplicativo substituído"
+
+msgctxt "act_my_package_replaced_detail"
+msgid ""
+"A new version of an application has been installed. Only the application "
+"that was upgraded is notified."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_package_first_launch"
+msgid "Application launched first time"
+msgstr "Aplicativo substituído"
+
+msgctxt "act_package_first_launch_detail"
+msgid ""
+"An application has been launched to the first time; this is only sent to "
+"the installer of the application in question (i.e. the Play Store)."
+msgstr ""
+
+msgctxt "act_sms_cb_received"
+msgid "SMS Cell Broadcast"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_sms_cb_received_detail"
+msgid "A new Cell Broadcast message has been received by the device."
+msgstr "Nova SMS de dados recebida."
+
+msgctxt "act_sms_emergency_cb_received"
+msgid "SMS Emergency Broadcast"
+msgstr ""
+
+#, fuzzy
+msgctxt "act_sms_emergency_cb_received_detail"
+msgid "A new Emergency Broadcast message has been received by the device."
+msgstr "Nova mensagem SMS de texto recebida."
+
+#, fuzzy
+msgctxt "act_sms_service_category_pdr"
+msgid "CDMA SMS received"
+msgstr "SMS de dados rececida"
+
+msgctxt "act_sms_service_category_pdr_detail"
+msgid ""
+"A new CDMA SMS has been received containing Service Category Program Data"
+" (updates the list of enabled broadcast channels)."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_nfc_adapter_state_changed"
+msgid "NFC state changed"
+msgstr "Estado do BT alterado"
+
+msgctxt "act_nfc_adapter_state_changed_detail"
+msgid ""
+"The state of the local NFC adapter has been changed (e.g. turned on or "
+"off)."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_discovery_state_change"
+msgid "Wi-Fi P2P discovery changed"
+msgstr "Estado do Wi-Fi alterado"
+
+msgctxt "act_wifi_p2p_discovery_state_change_detail"
+msgid "The Wifi peer discovery has either started or stopped."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_connection_state_change"
+msgid "Wi-Fi P2P connection changed"
+msgstr "Conexão Wi-Fi mudou"
+
+#, fuzzy
+msgctxt "act_wifi_p2p_connection_state_change_detail"
+msgid "The state of Wi-Fi P2P connectivity has changed."
+msgstr "O estado da conectividade Wi-Fi mudou."
+
+#, fuzzy
+msgctxt "act_wifi_p2p_peers_changed"
+msgid "Wi-Fi P2P peers changed"
+msgstr "ID da rede Wi-Fi alterado"
+
+msgctxt "act_wifi_p2p_peers_changed_detail"
+msgid ""
+"The available peer list has changed. This can be sent as a result of "
+"peers being found, lost or updated."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_state_changed"
+msgid "Wi-Fi P2P state changed"
+msgstr "Estado do Wi-Fi alterado"
+
+msgctxt "act_wifi_p2p_state_changed_detail"
+msgid "Wi-Fi P2P has either been enabled or disabled."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_wifi_p2p_this_device_changed"
+msgid "Wi-Fi P2P device details changed"
+msgstr "Estado do serviço alterado"
+
+#, fuzzy
+msgctxt "act_wifi_p2p_this_device_changed_detail"
+msgid "The details of this device have changed."
+msgstr "O estado da conectividade Wi-Fi mudou."
+
+#, fuzzy
+msgctxt "act_sco_audio_state_changed"
+msgid "SCO audio state changed"
+msgstr "Estado do áudio BT alterado"
+
+msgctxt "act_sco_audio_state_changed_detail"
+msgid "The bluetoooth SCO audio connection state has been updated."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_nsd_state_changed"
+msgid "NSC changed"
+msgstr "IME alterado"
+
+msgctxt "act_nsd_state_changed_detail"
+msgid "Network Service Discovery has been enabled or disabled."
+msgstr ""
+
+msgctxt "act_query_keyboard_layouts"
+msgid "(Query keyboard layouts)"
+msgstr ""
+
+msgctxt "act_query_keyboard_layouts_detail"
+msgid ""
+"By registering for this event, the application defines a keyboard layout."
+" No application is started by this event."
+msgstr ""
+

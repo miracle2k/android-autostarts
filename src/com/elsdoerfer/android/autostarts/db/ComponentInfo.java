@@ -36,6 +36,13 @@ public class ComponentInfo implements Parcelable {
 		return this.packageInfo.hashCode() ^ this.componentName.hashCode();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == null)
+			return false;
+		return this.componentName.equals(((ComponentInfo)o).componentName);
+	}
+
 	/**
 	 * Return a label identifying the component.
 	 */

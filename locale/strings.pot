@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2011 ORGANIZATION
+# Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-04-23 22:33+0200\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,10 +93,6 @@ msgctxt "help"
 msgid "Help"
 msgstr ""
 
-msgctxt "please_wait"
-msgid "Please Wait..."
-msgstr ""
-
 msgctxt "error"
 msgid "Error"
 msgstr ""
@@ -116,24 +112,22 @@ msgid ""
 "with priority &lt;b&gt;%3$d&lt;/b&gt;."
 msgstr ""
 
-msgctxt "confirm_sys_disable"
+msgctxt "sys_disable"
 msgid ""
-"You are about to disable a system component. This could potentially "
-"result in your phone no longer functioning properly.\n"
-"\n"
-"Do not proceed unless you are willing to deal with the consequences."
+"This is a system component. Do not make changes unless you know what you "
+"are doing."
 msgstr ""
 
-msgctxt "confirm_google_talk"
-msgid ""
-"If Google Talk is disabled, you are likely going to run into issues with "
-"hanging Android Market downloads, the starting up Google Talk yourself "
-"whenever necessary can help overcome them. Sure you want to proceed?"
+#. The verb (changing) should be at the front of the string
+#, c-format
+msgctxt "changing_state"
+msgid "Changing %1$s..."
 msgstr ""
 
+#, c-format
 msgctxt "state_change_failed"
 msgid ""
-"Unable to change the state of the selected component.\n"
+"Unable to change the state of %1$s (%2$s).\n"
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""

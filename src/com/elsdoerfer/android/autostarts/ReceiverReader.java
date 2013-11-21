@@ -57,7 +57,7 @@ import android.util.Log;
 public class ReceiverReader {
 
 	private static final boolean LOGV = ListActivity.LOGV;
-	private static final String TAG = ListActivity.TAG;
+	private static final String TAG = Utils.TAG;
 
 	// From com.android.sdklib.SdkConstants.NS_RESOURCES.
 	private final static String SDK_NS_RESOURCES =

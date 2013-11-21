@@ -15,6 +15,8 @@ import java.util.Set;
 import android.util.Log;
 
 public class Utils {
+	static final String TAG = "Autostarts";
+
 	/**
 	 * It's unbelievable how difficult it is in Java to read a stupid
 	 * stream into a string.
@@ -77,14 +79,14 @@ public class Utils {
 		for (String p : SU_OPTIONS) {
 			File su = new File(p);
 			if (su.exists()) {
-				Log.d(ListActivity.TAG, "su found at: "+p);
+				Log.d(TAG, "su found at: "+p);
 				return p;
 			}
 			else
 				if (ListActivity.LOGV)
-					Log.v(ListActivity.TAG, "No su in: "+p);
+					Log.v(TAG, "No su in: "+p);
 		}
-		Log.d(ListActivity.TAG, "No su found in a well-known location, "+
+		Log.d(TAG, "No su found in a well-known location, "+
 				"will just use \"su\".");
 		return "su";
 	}
@@ -125,7 +127,7 @@ public class Utils {
 		Process process = null;
 		DataOutputStream os = null;
 		try {
-			Log.d(ListActivity.TAG, String.format(
+			Log.d(TAG, String.format(
 					"Running '%s' as root, timeout=%s", command, timeout));
 
 			process = runWithEnv(getSuPath(), env);
@@ -167,7 +169,7 @@ public class Utils {
 						// here, or indicate the timeout in some other way,
 						// and let the caller ignore those values on their
 						// own volition.
-						Log.w(ListActivity.TAG, "Process doesn't seem "+
+						Log.w(TAG, "Process doesn't seem "+
 								"to stop on it's own, assuming it's hanging");
 						// Note: 'finally' will call destroy(), but you
 						// might still see zombies.
@@ -178,8 +180,8 @@ public class Utils {
 			else
 			  process.waitFor();
 
-			Log.d(ListActivity.TAG, "Process returned with "+process.exitValue());
-			Log.d(ListActivity.TAG, "Process stdout was: "+
+			Log.d(TAG, "Process returned with "+process.exitValue());
+			Log.d(TAG, "Process stdout was: "+
 				Utils.readStream(process.getInputStream())+
 				"; stderr: "+Utils.readStream(process.getErrorStream()));
 
@@ -191,13 +193,13 @@ public class Utils {
 			return true;
 
 		} catch (FileNotFoundException e) {
-			Log.e(ListActivity.TAG, "Failed to run command", e);
+			Log.e(TAG, "Failed to run command", e);
 			return false;
 		} catch (IOException e) {
-			Log.e(ListActivity.TAG, "Failed to run command", e);
+			Log.e(TAG, "Failed to run command", e);
 			return false;
 		} catch (InterruptedException e) {
-			Log.e(ListActivity.TAG, "Failed to run command", e);
+			Log.e(TAG, "Failed to run command", e);
 			return false;
 		}
 		finally {

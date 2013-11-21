@@ -9,39 +9,61 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
+import src.com.elsdoerfer.android.autostarts.opt.RootFeatures;
+
 
 public class HelpActivity extends Activity {
+
+	private static int[] DefaultFaq = {
+		R.array.faq1,
+		R.array.faq2,
+		R.array.faq3,
+		R.array.faq4,
+		R.array.faq5,
+		R.array.faq6,
+	};
+
+	// Does not include questions about root features
+	private static int[] NoRootFaq = {
+		R.array.faq1,
+		R.array.faq3,
+		R.array.faq4
+	};
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help);
 
         // Build the FAQ text.
-        // TODO: The string-array items use HTML formatting, which
-        // is lost here. There doesn't seem to be a way to read the
-        // string-array resource as a Spannable?
-        CharSequence[] faq = getResources().getTextArray(R.array.faq);
+	    int[] faqConfig = RootFeatures.Enabled ? DefaultFaq : NoRootFaq;
+
         StringBuilder fullText = new StringBuilder("<html><body>");
         boolean isQuestion = false;
-        for (int i=0; i<faq.length; i++) {
-        	// The array contains alternating questions and answers
-        	isQuestion = !isQuestion;
+        for (int i=0; i<faqConfig.length; i++) {
+	        // TODO: The string-array items use HTML formatting, which
+	        // is lost here. There doesn't seem to be a way to read the
+	        // string-array resource as a Spannable?
+	        CharSequence[] question = getResources().getTextArray(faqConfig[i]);
 
-        	String entry;
-        	if (faq[i] instanceof Spanned)
-        		entry = Html.toHtml((Spanned)faq[i]);
-        	else {
-	        	if (isQuestion)
-	        		entry = "<p><b>" + faq[i].toString() + "</b></p>";
-	        	else {
-	        		entry = "<p>" + faq[i].toString() + "</p>";
-	        	}
-        	}
-        	fullText.append(entry);
+	        for (int j=0; j<=1; j++) {
+	            // The array contains alternating questions and answers
+	            isQuestion = !isQuestion;
+
+	            String entry;
+	            if (question[j] instanceof Spanned)
+	                entry = Html.toHtml((Spanned)question[j]);
+	            else {
+		            if (isQuestion)
+		                entry = "<p><b>" + question[j].toString() + "</b></p>";
+		            else {
+		                entry = "<p>" + question[j].toString() + "</p>";
+		            }
+	            }
+	            fullText.append(entry);
+	        }
         }
         fullText.append("</body></html>");
-
-        Log.d("sdf", fullText.toString());
 
         ((WebView)findViewById(R.id.faq_text)).loadData(
         		fullText.toString(), "text/html", "utf-8");

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.elsdoerfer.android.autostarts"
       android:installLocation="auto"
-      android:versionCode="23"
-      android:versionName="1.7.6">
+      android:versionCode="25"
+      android:versionName="1.8.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".ListActivity"
                   android:label="@string/app_name">
@@ -14,6 +14,7 @@
         </activity>
         <activity android:name=".HelpActivity"
         	      android:theme="@android:style/Theme.Light" />
+        <service android:name=".ToggleService" android:label="Autostarts Service"/>
     </application>
     <!-- We generally won't get those permissions. WRITE_SECURE_SETTINGS is
          protectionLevel "signatureOrSystem", and changing other component's
@@ -27,12 +28,13 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
     <uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <supports-screens
     	android:largeScreens="true"
     	android:normalScreens="true"
     	android:smallScreens="true"
     	android:anyDensity="true" />
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14" />
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="19" />
     <uses-configuration />
     <uses-feature />
 </manifest>

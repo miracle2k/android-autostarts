@@ -2,13 +2,10 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
-import android.app.*;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnMultiChoiceClickListener;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -30,11 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.elsdoerfer.android.autostarts.compat.ExpandableListFragmentActivity;
+import com.elsdoerfer.android.autostarts.db.ComponentInfo;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
 public class ListActivity extends ExpandableListFragmentActivity {
 
-	static final String TAG = "Autostarts";
 	static final Boolean LOGV = false;
 
 	static final private int MENU_VIEW = 1;
@@ -45,14 +42,12 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 	static final protected int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
 	static final private int DIALOG_VIEW_OPTIONS = 4;
-	static final protected int DIALOG_CONFIRM_GOOGLE_TALK_WARNING = 6;
-	static final int DIALOG_STATE_CHANGE_FAILED = 7;
 
-	static final private String PREFS_NAME = "common";
-	static final private String PREF_FILTER_SYS_APPS = "filter-sys-apps";
-	static final private String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
-	static final private String PREF_FILTER_UNKNOWN = "filter-unknown-events";
-	static final private String PREF_GROUPING = "grouping";
+	static final String PREFS_NAME = "common";
+	static final String PREF_FILTER_SYS_APPS = "filter-sys-apps";
+	static final String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
+	static final String PREF_FILTER_UNKNOWN = "filter-unknown-events";
+	static final String PREF_GROUPING = "grouping";
 
 	private MenuItem mExpandCollapseToggleItem;
 	private MenuItem mGroupingModeItem;
@@ -62,18 +57,82 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	MyExpandableListAdapter mListAdapter;
 	ArrayList<IntentFilterInfo> mEvents;
 	private DatabaseHelper mDb;
-	private SharedPreferences mPrefs;
+	SharedPreferences mPrefs;
 	private Boolean mExpandSuggested = true;
-	protected ToggleTask mToggleTask;
 	private LoadTask mLoadTask;
 
-	// Due to Android deficiencies (can't pass data to showDialog()),
-	// we need to store that data globally.
-	// TODO: I believe Honeycomb has a solution for this; Fix once
-	// it's feasible for us to require it.
-	private IntentFilterInfo mLastSelectedEvent;
-	protected boolean mLastChangeRequestDoEnable;
-	protected boolean mUninstallWarningShown;
+	protected ToggleService mToggleService;
+
+	private ServiceConnection mToggleServiceConnection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			mToggleService = ((ToggleService.LocalBinder)service).getService();
+			mToggleService.setHandler(new ToggleService.ToggleServiceListener() {
+				@Override
+				public void onActivityChange(ComponentInfo component) {
+					if (component == null) {
+						// Restore quiet state, no item being processed.
+						setDefaultTitle();
+						ListActivity.this.setProgressBarIndeterminateVisibility(false);
+					}
+					else {
+						// Display info about item being processed
+						ListActivity.this.setTitle(String.format(
+								getString(R.string.changing_state), component.getLabel()));
+						// Note; We are using indeterminate progress mode here, though a
+						// proper bar makes sense as well if the user queues multiple changes.
+						// It especially makes sense when restoring a backup state.
+						// We have to consider a running 'refresh list' process though.
+						ListActivity.this.setProgressBarVisibility(false);
+						// It seems impossible to show just one progressbar (determinate
+						// or indeterminate). The previous line shows the determinate one
+						// as well, and setProgressBarVisibility hides the indeterminate one.
+						// Setting the progress to 0 sort of works, but on the new flat-blue
+						// Android theme anyway you do see the - subtle - empty progressbar.
+						ListActivity.this.setProgress(0);
+					}
+				}
+
+				@Override
+				public void onQueueModified(ComponentInfo component, boolean wasAdded) {
+					if (!wasAdded) {
+						// The component was removed from the queue, presumably
+						// successfully processed. We now need to copy the new
+						// state from "component" to our local dataset. This is
+						// because the "component" instance the service has is a
+						// copy of the one used here in the activity, due to it
+						// being serialized in a parcel when given to it via an
+						// Intent.
+						//
+						// It's a bit hacky, but the best alternative I can think
+						// of would be moving the complete IntentFilterInfo
+						// database into a global scope so the service can work
+						// directly with it.
+						for (IntentFilterInfo info : mEvents) {
+							if (info.componentInfo.equals(component))
+								info.componentInfo.currentEnabledState =
+										component.currentEnabledState;
+						}
+					}
+
+					mListAdapter.notifyDataSetInvalidated();
+				}
+			});
+
+			// The list adapter require access to the ToggleService to show
+			// current processing, but we can't delay initialing the list
+			// adapter right away in onCreate, or the list view will lose
+			// open/collapsed state. I'm not aware that we can make the
+			// service binding block. My solution therefore is making
+			// access to mToggleService optional in our list adapter impl,
+			// and refresh the list once, when the service is finally connected.
+			mListAdapter.notifyDataSetChanged();
+
+			// Get us an initial UI update.
+			mToggleService.requestUpdate();
+		}
+		public void onServiceDisconnected(ComponentName className) {}
+	};
+
 
 	@Override
 	public void onCreate(final Bundle saved) {
@@ -81,7 +140,9 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		requestWindowFeature(Window.FEATURE_PROGRESS);
+		setProgressBarIndeterminateVisibility(false);
 		setContentView(R.layout.list);
+		setDefaultTitle();
 
 		// Set everything up.
 		mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -103,6 +164,9 @@ public class ListActivity extends ExpandableListFragmentActivity {
 				? MyExpandableListAdapter.GROUP_BY_PACKAGE
 				: MyExpandableListAdapter.GROUP_BY_ACTION);
 
+		bindService(new Intent(this, ToggleService.class),
+				mToggleServiceConnection, Context.BIND_AUTO_CREATE);
+
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
 		// to do a load.
@@ -111,29 +175,22 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			// Be careful not to copy any objects that reference the
 			// activity itself, or we would leak it!
 			ListActivity oldActivity = (ListActivity) retained;
-			mLastSelectedEvent = oldActivity.mLastSelectedEvent;
-			mLastChangeRequestDoEnable = oldActivity.mLastChangeRequestDoEnable;
 			mEvents = oldActivity.mEvents;
-			mUninstallWarningShown = oldActivity.mUninstallWarningShown;
-			mToggleTask = oldActivity.mToggleTask;
 			mLoadTask = oldActivity.mLoadTask;
 			// Display what we have immediately.
 			if (mEvents != null)
 				apply();
 			// Continue loading in case we're not done yet.
 			if (mLoadTask != null)
-				mLoadTask.connectTo(this);
-			if (mToggleTask != null)
-				mToggleTask.connectTo(this);
+				mLoadTask.attach(this);
 		}
 		// Otherwise, we are going to have to init certain data
 		// ourselves, and load some from from instance state, if
 		// available.
 		else {
 			if (saved != null) {
-				mLastSelectedEvent = saved.getParcelable("selected-event");
-				mLastChangeRequestDoEnable = saved.getBoolean("change-do-enable");
-				mUninstallWarningShown = saved.getBoolean("uninstall-warning-shown");
+				/* here's the place to load values from onSaveInstanceState. We
+				 * currently no longer do so, but I'd like to keep the logic structure. */
 			}
 			else { /* here's the place to load some prefs, if necessary */ }
 
@@ -143,6 +200,10 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		// This depends both on preferences on loading status.
 		updateEmptyText();
+	}
+
+	private void setDefaultTitle() {
+		setTitle(R.string.app_name);
 	}
 
 	@Override
@@ -173,15 +234,17 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		//     by the Activity as a kind of "overlay", as a list of changes
 		//     made by the user. We then would no longer need the
 		//     ComponentInfo/PackageInfo relations to have a shared identity.
-		//   - The ToggleTask, rather than modifing the ComponentInfo
+		//   - The ToggleTool, rather than modifing the ComponentInfo
 		//     object, could have the Activity's callback method deal with
 		//     the state change. If the component is already loaded, it's
 		//     state is changed, otherwise, we can assume it will be loaded
 		//     correctly (we can assume? would there be race conditions)?
 		//   - We could simply store the list of events globally, bypassing
 		//     all these problems.
-		outState.putBoolean("change-do-enable", mLastChangeRequestDoEnable);
-		outState.putParcelable("selected-event", mLastSelectedEvent);
+		// Actually, now with the service, where we do parcel the Component
+		// anyway, and update via a callback, this might be a moot problem.
+		// We can and should get rid of this TODO.
+
 		// TODO: Note that we do not store the event list. In cases where
 		// onRetainNonConfigurationInstance() is not available, we will
 		// need to reload all events. It would not be *that* hard to store
@@ -209,10 +272,12 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		if (mDb != null)
 			mDb.close();
 		// Unattach the activity from a potentially running task.
-		if (mToggleTask != null)
-			mToggleTask.connectTo(null);
 		if (mLoadTask != null)
-			mLoadTask.connectTo(null);
+			mLoadTask.attach(null);
+		if (mToggleService != null) {
+			unbindService(mToggleServiceConnection);
+			mToggleService = null;
+		}
 		super.onDestroy();
 	}
 
@@ -277,8 +342,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			return true;
 
 		case MENU_VIEW:
-			showDialog(DIALOG_VIEW_OPTIONS);
-			mListAdapter.notifyDataSetChanged();
+			showViewOptions();
 			return true;
 
 		case MENU_EXPAND_COLLAPSE:
@@ -304,113 +368,9 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	@Override
-	protected Dialog onCreateDialog(int id) {
-		if (id == DIALOG_CONFIRM_SYSAPP_CHANGE)
-		{
-			return new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.warning)
-				.setMessage(R.string.confirm_sys_disable)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						mToggleTask = new ToggleTask(ListActivity.this);
-						mToggleTask.execute(
-							mLastSelectedEvent.componentInfo,
-							mLastChangeRequestDoEnable);
-					}
-				})
-				.setNegativeButton(android.R.string.cancel, null)
-				.create();
-		}
-
-		else if (id == DIALOG_CONFIRM_GOOGLE_TALK_WARNING)
-		{
-			return new AlertDialog.Builder(ListActivity.this)
-				.setTitle(R.string.warning)
-				.setMessage(R.string.confirm_google_talk)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						mToggleTask = new ToggleTask(ListActivity.this);
-						mToggleTask.execute(
-							mLastSelectedEvent.componentInfo,
-							mLastChangeRequestDoEnable);
-					}
-				})
-				.setNegativeButton(android.R.string.cancel, null)
-				.create();
-		}
-
-		else if (id == DIALOG_STATE_CHANGE_FAILED)
-		{
-			return new AlertDialog.Builder(ListActivity.this)
-				.setMessage(R.string.state_change_failed)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setTitle(R.string.error)
-				.setPositiveButton(android.R.string.ok, null).create();
-		}
-
-		else if (id == DIALOG_VIEW_OPTIONS)
-		{
-			// We are just hoping that the state of these vars can
-			// never change without going through this dialog;
-			// otherwise, we'd need to find a solution to ensure
-			// that when the instance is reused for a showing at a
-			// later point, that the state is still up-to-date, i.e.
-			// setting the current state in onPrepareDialog. It's not
-			// clear if making the state array a class member and
-			// updating it would be enough, or if we actually have to
-			// find the correct views and switch them...
-			boolean[] initState = new boolean[] {
-				mListAdapter.getFilterSystemApps(),
-				mListAdapter.getShowChangedOnly(),
-				mListAdapter.getFilterUnknown(),
-			};
-
-			return new AlertDialog.Builder(this)
-				.setMultiChoiceItems(new CharSequence[] {
-						getString(R.string.hide_sys_apps),
-						getString(R.string.show_changed_only),
-						getString(R.string.hide_unknown),
-					},
-					initState,
-					new OnMultiChoiceClickListener() {
-						public void onClick(DialogInterface dialog, int which,
-								boolean isChecked) {
-							if (which == 0) {
-								mListAdapter.setFilterSystemApps(isChecked);
-								mListAdapter.notifyDataSetChanged();
-								updateEmptyText();
-								mPrefs.edit().putBoolean(PREF_FILTER_SYS_APPS, isChecked).commit();
-							}
-							else if (which == 1) {
-								mListAdapter.setShowChangedOnly(isChecked);
-								mListAdapter.notifyDataSetChanged();
-								updateEmptyText();
-								mPrefs.edit().putBoolean(PREF_FILTER_SHOW_CHANGED, isChecked).commit();
-							}
-							else if (which == 2) {
-								mListAdapter.setFilterUnknown(isChecked);
-								mListAdapter.notifyDataSetChanged();
-								updateEmptyText();
-								mPrefs.edit().putBoolean(PREF_FILTER_UNKNOWN, isChecked).commit();
-							}
-						}
-
-					})
-				.setPositiveButton(android.R.string.ok, null).create();
-		}
-
-		else
-			return super.onCreateDialog(id);
-	}
-
-	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		mLastSelectedEvent =
-			(IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition);
-		showEventDetails();
+		showEventDetails((IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition));
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
 	}
 
@@ -458,7 +418,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			);
 			full.setSpan(new InternalURLSpan(new OnClickListener() {
 					public void onClick(View v) {
-						showDialog(DIALOG_VIEW_OPTIONS);
+						showViewOptions();
 					}
 				}), base.length(), full.length(),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -478,15 +438,34 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		updateEmptyText(false);
 	}
 
-	protected void showEventDetails() {
+	protected void showEventDetails(IntentFilterInfo event) {
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		Fragment prev = getSupportFragmentManager().findFragmentByTag("details");
 		if (prev != null)
 			ft.remove(prev);
 		ft.addToBackStack(null);
 
-		DialogFragment newFragment = EventDetailsFragment.newInstance(mLastSelectedEvent);
+		DialogFragment newFragment = EventDetailsFragment.newInstance(event);
 		newFragment.show(ft, "details");
+	}
+
+	protected void showViewOptions() {
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		Fragment prev = getSupportFragmentManager().findFragmentByTag("options");
+		if (prev != null)
+			ft.remove(prev);
+		ft.addToBackStack(null);
+
+		DialogFragment newFragment = new ViewOptionsFragment();
+		newFragment.show(ft, "options");
+
+	}
+
+	protected void addJob(ComponentInfo component, boolean newState) {
+		Intent intent = new Intent(this, ToggleService.class);
+		intent.putExtra("component", component);
+		intent.putExtra("state", newState);
+		startService(intent);
 	}
 
 	// TODO: Instead of showing a toast, fade in a custom info bar, then

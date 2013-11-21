@@ -1,0 +1,171 @@
+# Armenian translations for .
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the  project.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"PO-Revision-Date: 2010-11-30 05:59+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Armenian (http://www.transifex.com/projects/p/android-"
+"autostarts/language/hy/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr ""
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr ""
+
+msgctxt "still_loading"
+msgid "Please wait while I am loading the applications installed on your phone..."
+msgstr ""
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr ""
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr ""
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr ""
+
+msgctxt "find_in_appstore"
+msgid "Find in Appstore"
+msgstr ""
+
+msgctxt "disable"
+msgid "Disable"
+msgstr ""
+
+msgctxt "enable"
+msgid "Enable"
+msgstr ""
+
+msgctxt "view_options"
+msgid "View"
+msgstr ""
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr ""
+
+msgctxt "group_by_action"
+msgid "Group by event"
+msgstr ""
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr ""
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr ""
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr ""
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr ""
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr ""
+
+msgctxt "reload"
+msgid "Reload"
+msgstr ""
+
+msgctxt "help"
+msgid "Help"
+msgstr ""
+
+msgctxt "error"
+msgid "Error"
+msgstr ""
+
+msgctxt "warning"
+msgid "Warning"
+msgstr ""
+
+msgctxt "info"
+msgid "Info"
+msgstr ""
+
+#, c-format
+msgctxt "receiver_info"
+msgid ""
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
+"with priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr ""
+
+msgctxt "sys_disable"
+msgid ""
+"This is a system component. Do not make changes unless you know what you "
+"are doing."
+msgstr ""
+
+#. The verb (changing) should be at the front of the string
+#, c-format
+msgctxt "changing_state"
+msgid "Changing %1$s..."
+msgstr ""
+
+#, c-format
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of %1$s (%2$s).\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr ""
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr ""
+
+#~ msgctxt "please_wait"
+#~ msgid "Please Wait..."
+#~ msgstr ""
+
+#~ msgctxt "confirm_sys_disable"
+#~ msgid ""
+#~ "You are about to disable a system"
+#~ " component. This could potentially result"
+#~ " in your phone no longer functioning"
+#~ " properly.\n"
+#~ "\n"
+#~ "Do not proceed unless you are willing to deal with the consequences."
+#~ msgstr ""
+
+#~ msgctxt "confirm_google_talk"
+#~ msgid ""
+#~ "If Google Talk is disabled, you "
+#~ "are likely going to run into "
+#~ "issues with hanging Android Market "
+#~ "downloads, the starting up Google Talk"
+#~ " yourself whenever necessary can help "
+#~ "overcome them. Sure you want to "
+#~ "proceed?"
+#~ msgstr ""
+
+#~ msgctxt "state_change_failed"
+#~ msgid ""
+#~ "Unable to change the state of the selected component.\n"
+#~ "\n"
+#~ "Most likely, your device does not have root access, which is required."
+#~ msgstr ""
+

@@ -1,0 +1,181 @@
+# Portuguese (Brazil) translations for .
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the  project.
+#
+# Translators:
+# hbcneto <hilton.neto@gmail.com>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"PO-Revision-Date: 2013-11-20 09:33+0000\n"
+"Last-Translator: hbcneto <hilton.neto@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p"
+"/android-autostarts/language/pt_BR/)\n"
+"Plural-Forms: nplurals=2; plural=((n >= 0 && n <= 1) ? 0 : 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr "Nenhum aplicativo iniciando automaticamente."
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr "Nenhuma dos aplicativos selecionados iniciando automaticamente."
+
+msgctxt "still_loading"
+msgid "Please wait while I am loading the applications installed on your phone..."
+msgstr "Favor aguardar enquanto os aplicativos do telefone são carregadas..."
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr "Alterar configurações do filtro."
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr "Informações do aplicativo"
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr "Procurar no Play Store"
+
+msgctxt "find_in_appstore"
+msgid "Find in Appstore"
+msgstr "Procurar no Google Play"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "Desabilitar"
+
+msgctxt "enable"
+msgid "Enable"
+msgstr "Habilitar"
+
+msgctxt "view_options"
+msgid "View"
+msgstr "Visualizar"
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr "Agrupar por aplicativo"
+
+msgctxt "group_by_action"
+msgid "Group by event"
+msgstr "Agrupar por evento"
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr "Esconder aplicativos de sistema"
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr "Exibir apenas os modificados"
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr "Esconder eventos desconhecidos"
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr "Expandir todos"
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr "Suprimir todos"
+
+msgctxt "reload"
+msgid "Reload"
+msgstr "Recarregar"
+
+msgctxt "help"
+msgid "Help"
+msgstr "Ajuda"
+
+msgctxt "error"
+msgid "Error"
+msgstr "Erro"
+
+msgctxt "warning"
+msgid "Warning"
+msgstr "Alerta"
+
+msgctxt "info"
+msgid "Info"
+msgstr "Informação"
+
+#, c-format
+msgctxt "receiver_info"
+msgid ""
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
+"with priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr ""
+"Recebedor &lt;b&gt;%1$s&lt;/b&gt; lida com ações &lt;i&gt;%2$s&lt;/i&gt; "
+"com prioridade &lt;b&gt;%3$d&lt;/b&gt;."
+
+msgctxt "sys_disable"
+msgid ""
+"This is a system component. Do not make changes unless you know what you "
+"are doing."
+msgstr ""
+
+#. The verb (changing) should be at the front of the string
+#, c-format
+msgctxt "changing_state"
+msgid "Changing %1$s..."
+msgstr ""
+
+#, fuzzy, c-format
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of %1$s (%2$s).\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr ""
+"Não foi possível alterar o estado do componente selecionado. "
+"Provavelmente seu dispositivo não possui o acesso de root necessário."
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr "Fechar a ajuda e voltar para o aplicativo"
+
+#~ msgctxt "please_wait"
+#~ msgid "Please Wait..."
+#~ msgstr "Favor aguardar..."
+
+#~ msgctxt "confirm_sys_disable"
+#~ msgid ""
+#~ "You are about to disable a system"
+#~ " component. This could potentially result"
+#~ " in your phone no longer functioning"
+#~ " properly.\n"
+#~ "\n"
+#~ "Do not proceed unless you are willing to deal with the consequences."
+#~ msgstr ""
+#~ "Você está prestes a desabilitar um "
+#~ "componente do sistema. Isso pode "
+#~ "potencialmente resultar no mal funcionamento"
+#~ " do telefone. Não continue a não "
+#~ "ser que esteja disposto a lidar "
+#~ "com as consequências."
+
+#~ msgctxt "confirm_google_talk"
+#~ msgid ""
+#~ "If Google Talk is disabled, you "
+#~ "are likely going to run into "
+#~ "issues with hanging Android Market "
+#~ "downloads, the starting up Google Talk"
+#~ " yourself whenever necessary can help "
+#~ "overcome them. Sure you want to "
+#~ "proceed?"
+#~ msgstr ""
+#~ "Se o Google Talk for desabilitado, "
+#~ "você encontrará problemas com downloads "
+#~ "do Play Store, que podem ser "
+#~ "resolvidos iniciando o Google Talk "
+#~ "manualmente. Tem certeza de que deseja"
+#~ " continuar?"
+

@@ -1,9 +1,9 @@
 package com.elsdoerfer.android.autostarts;
 
 import android.Manifest.permission;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -83,87 +83,34 @@ Debugging enabled. There are however a few things we can do to help:
  * Takes care of toggling a component's state. This may take a
  * couple of seconds, so we use a thread.
  */
-class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean> {
+class ToggleTool {
 
-	private ProgressDialog mPg;
-	private Boolean mDoEnable;
-	private ComponentInfo mComponent;
-
-	public ToggleTask(ListActivity wrapActivity) {
-		super(wrapActivity);
+	static interface ToggleToolListener {
+		void onComplete(boolean success);
 	}
 
-	public void connectTo(ListActivity wrappedObject) {
-		super.connectTo(wrappedObject);
-
-		// We are being unconnected from the current activity. Make sure
-		// we reset any current progress dialog, so we don't think later
-		// on that we have to cancel it; we don't need to bother canceling
-		// it here either, because as the old activity is destroyed, so
-		// is the progress dialog.
-		if (wrappedObject == null) {
-			mPg = null;
-		}
-	}
-
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		mPg = new ProgressDialog(mWrapped);
-		mPg.setIndeterminate(true);
-		mPg.setMessage(mWrapped.getResources().getString(R.string.please_wait));
-		mPg.setCancelable(false);
-		mPg.show();
-	}
-
-	protected void processPostExecute(Boolean result) {
-		if (mPg != null)
-			mPg.cancel();
-
-		if (!result)
-			mWrapped.showDialog(ListActivity.DIALOG_STATE_CHANGE_FAILED);
-		else {
-			// We can reasonably expect that the component state
-			// changed, so refresh the list.
-			mWrapped.mListAdapter.notifyDataSetInvalidated();
-		}
-	}
-
-	@Override
-	protected Boolean doInBackground(Object... params) {
-		// Cache the object locally, since the member might be reset
-		// when the Activity disconnects.
-		final ListActivity activity = mWrapped;
-
-		mComponent = (ComponentInfo)params[0];
-		// We could also read this right now, but we want to ensure
-		// we always do the state change that we announced to the user
-		// through the menu item caption (it's unlikely but possible
-		// that the component state changed in the background while
-		// the user decided what to do).
-		mDoEnable = (Boolean)params[1];
-
-		Log.i(ListActivity.TAG, "Asking package manger to "+
+	static protected Boolean toggleState(Context context, ComponentInfo component, boolean doEnable) {
+		Log.i(Utils.TAG, "Asking package manger to "+
 				"change component state to "+
-				(mDoEnable ? "enabled": "disabled"));
+				(doEnable ? "enabled": "disabled"));
 
 		// As described above, in the rare case we are allowed to use
 		// setComponentEnabledSetting(), we should do so.
-		if (mWrapped.checkCallingOrSelfPermission(permission.CHANGE_COMPONENT_ENABLED_STATE)
+		if (context.checkCallingOrSelfPermission(permission.CHANGE_COMPONENT_ENABLED_STATE)
 				     == PackageManager.PERMISSION_GRANTED) {
-			Log.i(ListActivity.TAG, "Calling setComponentEnabledState() directly");
-			PackageManager pm = activity.getPackageManager();
-			ComponentName c = new ComponentName(mComponent.packageInfo.packageName, mComponent.componentName);
+			Log.i(Utils.TAG, "Calling setComponentEnabledState() directly");
+			PackageManager pm = context.getPackageManager();
+			ComponentName c = new ComponentName(component.packageInfo.packageName, component.componentName);
 			pm.setComponentEnabledSetting(
-					c, mDoEnable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+					c, doEnable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
 						: PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
-			mComponent.currentEnabledState = pm.getComponentEnabledSetting(c);
-			return (mComponent.isCurrentlyEnabled() == mDoEnable);
+			component.currentEnabledState = pm.getComponentEnabledSetting(c);
+			return (component.isCurrentlyEnabled() == doEnable);
 		}
 		else {
-			Log.i(ListActivity.TAG, "Changing state by employing root access");
+			Log.i(Utils.TAG, "Changing state by employing root access");
 
-			ContentResolver cr = mWrapped.getContentResolver();
+			ContentResolver cr = context.getContentResolver();
 			boolean adbNeedsRedisable = false;
 			boolean adbEnabled;
 			try {
@@ -171,7 +118,7 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 			} catch (SettingNotFoundException e) {
 				// This started to happen at times on the ICS emulator
 				// (and possibly one user reported it).
-				Log.w(ListActivity.TAG,
+				Log.w(Utils.TAG,
 						"Failed to read adb_enabled setting, assuming no", e);
 				adbEnabled = false;
 			}
@@ -180,8 +127,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 			// make our root call go through without hanging.
             // TODO: It seems this might no longer be required under ICS.
 			if (!adbEnabled) {
-				Log.i(ListActivity.TAG, "Switching ADB on for the root call");
-				if (setADBEnabledState(cr, true)) {
+				Log.i(Utils.TAG, "Switching ADB on for the root call");
+				if (setADBEnabledState(context, cr, true)) {
 					adbEnabled = true;
 					adbNeedsRedisable = true;
 					// Let's be extra sure we don't run into any timing-related hiccups.
@@ -206,8 +153,8 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				})
 				{
 					if (Utils.runRootCommand(String.format(set[0],
-							(mDoEnable ? "enable": "disable"),
-							mComponent.packageInfo.packageName, mComponent.componentName),
+							(doEnable ? "enable": "disable"),
+							component.packageInfo.packageName, component.componentName),
 							(set[1] != null) ? new String[] { set[1] } : null,
 							// The timeout shouldn't really be needed ever, since
 							// we now automatically enable ADB, which should work
@@ -227,22 +174,22 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 				// ...and the state should now actually be what we expect.
 				// TODO: It would be more stable if we would reload
 				// getComponentEnabledSetting() regardless of the return code.
-				final PackageManager pm = activity.getPackageManager();
+				final PackageManager pm = context.getPackageManager();
 				ComponentName c = new ComponentName(
-						mComponent.packageInfo.packageName, mComponent.componentName);
-				mComponent.currentEnabledState = pm.getComponentEnabledSetting(c);
+						component.packageInfo.packageName, component.componentName);
+				component.currentEnabledState = pm.getComponentEnabledSetting(c);
 
-				success = mComponent.isCurrentlyEnabled() == mDoEnable;
+				success = component.isCurrentlyEnabled() == doEnable;
 				if (success)
-					Log.i(ListActivity.TAG, "State successfully changed");
+					Log.i(Utils.TAG, "State successfully changed");
 				else
-					Log.i(ListActivity.TAG, "State change failed");
+					Log.i(Utils.TAG, "State change failed");
 				return success;
 			}
 			finally {
 				if (adbNeedsRedisable) {
-					Log.i(ListActivity.TAG, "Switching ADB off again");
-					setADBEnabledState(cr, false);
+					Log.i(Utils.TAG, "Switching ADB off again");
+					setADBEnabledState(context, cr, false);
 					// Delay releasing the GUI for a while, there seems to
 					// be a mysterious problem of repeating this process multiple
 					// times causing it to somehow lock up, no longer work.
@@ -257,14 +204,14 @@ class ToggleTask extends ActivityAsyncTask<ListActivity, Object, Object, Boolean
 	 * Enable/Disable the "ADB Debugging" setting. We do this either by employing
 	 * the WRITE_SECURE_SETTINGS permission, if we have it, or by using a root call.
 	 */
-	private boolean setADBEnabledState(ContentResolver cr, boolean enable) {
-		if (mWrapped.checkCallingOrSelfPermission(permission.WRITE_SECURE_SETTINGS)
+	private static boolean setADBEnabledState(Context context, ContentResolver cr, boolean enable) {
+		if (context.checkCallingOrSelfPermission(permission.WRITE_SECURE_SETTINGS)
                 == PackageManager.PERMISSION_GRANTED) {
-			Log.i(ListActivity.TAG, "Using secure settings API to touch ADB setting");
+			Log.i(Utils.TAG, "Using secure settings API to touch ADB setting");
 			return Settings.Secure.putInt(cr, Settings.Secure.ADB_ENABLED, enable ? 1 : 0);
 		}
 		else {
-			Log.i(ListActivity.TAG, "Using setprop call to touch ADB setting");
+			Log.i(Utils.TAG, "Using setprop call to touch ADB setting");
 			return Utils.runRootCommand(
 					String.format("setprop persist.service.adb.enable %s", enable ? 1 : 0),
 					null, null);

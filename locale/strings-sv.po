@@ -1,0 +1,184 @@
+# Swedish translations for .
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the  project.
+#
+# Translators:
+# Dan West <acc@dnw.st>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"PO-Revision-Date: 2013-11-20 09:33+0000\n"
+"Last-Translator: Dan West <acc@dnw.st>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/android-"
+"autostarts/language/sv/)\n"
+"Plural-Forms: nplurals=2; plural=((n == 1) ? 0 : 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr "Inga applikationer startas automatiskt."
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr "Inga applikationer startas automatiskt inom ditt nuvarande val."
+
+msgctxt "still_loading"
+msgid "Please wait while I am loading the applications installed on your phone..."
+msgstr ""
+"Var vänlig  vänta medan jag laddar applikationerna som är installerade på"
+" din telefon..."
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr "Ändra filter inställningar."
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr "Applikations Info"
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr "Hitta i Marknad"
+
+msgctxt "find_in_appstore"
+msgid "Find in Appstore"
+msgstr "Hitta i Appstore"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "Inaktivera"
+
+msgctxt "enable"
+msgid "Enable"
+msgstr "Aktivera"
+
+msgctxt "view_options"
+msgid "View"
+msgstr "Visa"
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr "Gruppera efter applikation"
+
+msgctxt "group_by_action"
+msgid "Group by event"
+msgstr "Gruppera efter händelse"
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr "Göm system appar"
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr "Visa endast förändrade"
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr "Göm okända händelser"
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr "Expandera alla"
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr "Kollapsa alla"
+
+msgctxt "reload"
+msgid "Reload"
+msgstr "Ladda om"
+
+msgctxt "help"
+msgid "Help"
+msgstr "Hjälp"
+
+msgctxt "error"
+msgid "Error"
+msgstr "Error"
+
+msgctxt "warning"
+msgid "Warning"
+msgstr "Varning"
+
+msgctxt "info"
+msgid "Info"
+msgstr "Info"
+
+#, c-format
+msgctxt "receiver_info"
+msgid ""
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
+"with priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr ""
+"Mottagare &lt;b&gt;%1$s&lt;/b&gt; hanterar händelse "
+"&lt;i&gt;%2$s&lt;/i&gt; med prioritet &lt;b&gt;%3$d&lt;/b&gt;."
+
+msgctxt "sys_disable"
+msgid ""
+"This is a system component. Do not make changes unless you know what you "
+"are doing."
+msgstr ""
+
+#. The verb (changing) should be at the front of the string
+#, c-format
+msgctxt "changing_state"
+msgid "Changing %1$s..."
+msgstr ""
+
+#, fuzzy, c-format
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of %1$s (%2$s).\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr ""
+"Kan ej förändra läget för den valda komponenten.\n"
+"\n"
+"Mest troligt har inte din enhet root tillgång, vilket behövs."
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr "Stäng hjälp och återvänd till app"
+
+#~ msgctxt "please_wait"
+#~ msgid "Please Wait..."
+#~ msgstr "Var vänlig vänta..."
+
+#~ msgctxt "confirm_sys_disable"
+#~ msgid ""
+#~ "You are about to disable a system"
+#~ " component. This could potentially result"
+#~ " in your phone no longer functioning"
+#~ " properly.\n"
+#~ "\n"
+#~ "Do not proceed unless you are willing to deal with the consequences."
+#~ msgstr ""
+#~ "Du är påväg att inaktivera en "
+#~ "system komponent. Detta kan resultera i"
+#~ " att din telefon inte fungerar "
+#~ "riktigt.\n"
+#~ "\n"
+#~ "Gå inte vidare om inte du är villig att ta konsekvenserna."
+
+#~ msgctxt "confirm_google_talk"
+#~ msgid ""
+#~ "If Google Talk is disabled, you "
+#~ "are likely going to run into "
+#~ "issues with hanging Android Market "
+#~ "downloads, the starting up Google Talk"
+#~ " yourself whenever necessary can help "
+#~ "overcome them. Sure you want to "
+#~ "proceed?"
+#~ msgstr ""
+#~ "Om Google Talk är inaktiverat är "
+#~ "det troligt att du får problem med"
+#~ " Android Marknet nedladdningar. Att starta"
+#~ " upp Google Talk själv när det "
+#~ "behövs kan lösa problemet. Säkert att"
+#~ " du vill fortsätta?"
+

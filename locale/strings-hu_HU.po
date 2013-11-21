@@ -1,0 +1,176 @@
+# Hungarian (Hungary) translations for .
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the  project.
+#
+# Translators:
+# Péter Nagy <rootrulez007@gmail.com>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version:  android-autostarts\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"PO-Revision-Date: 2013-11-20 09:33+0000\n"
+"Last-Translator: Péter Nagy <rootrulez007@gmail.com>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p"
+"/android-autostarts/language/hu_HU/)\n"
+"Plural-Forms: nplurals=1; plural=(0)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.0dev\n"
+
+msgctxt "no_receivers"
+msgid "No applications are autostarting."
+msgstr "Nincs automatikusan induló alkalmazás"
+
+msgctxt "no_receivers_filtered"
+msgid "No applications are autostarting within your current selection."
+msgstr "A jelenlegi szekcióban nincs automatikusan induló alkalmazás"
+
+msgctxt "still_loading"
+msgid "Please wait while I am loading the applications installed on your phone..."
+msgstr "Várjon, amíg a telepített alkalmazások betöltődnek"
+
+msgctxt "change_filter_settings"
+msgid "Change filter settings."
+msgstr "Szűrő beállítások módosítása"
+
+msgctxt "appliation_info"
+msgid "Application Info"
+msgstr "Alkalmazás információ"
+
+msgctxt "find_in_market"
+msgid "Find in Market"
+msgstr "Keresés a Marketen"
+
+msgctxt "find_in_appstore"
+msgid "Find in Appstore"
+msgstr "Keresés az alkalmazásboltban"
+
+msgctxt "disable"
+msgid "Disable"
+msgstr "Letilt"
+
+msgctxt "enable"
+msgid "Enable"
+msgstr "Engedélyez"
+
+msgctxt "view_options"
+msgid "View"
+msgstr "Megnéz"
+
+msgctxt "group_by_package"
+msgid "Group by application"
+msgstr "Csoportosítás alkalmazás alapján"
+
+msgctxt "group_by_action"
+msgid "Group by event"
+msgstr "Csoportosítás esemény alapján"
+
+msgctxt "hide_sys_apps"
+msgid "Hide system apps"
+msgstr "Rendszeralkalmazások elrejtése"
+
+msgctxt "show_changed_only"
+msgid "Show changed only"
+msgstr "Csak a módosítottakat mutassa"
+
+msgctxt "hide_unknown"
+msgid "Hide unknown events"
+msgstr "Ismeretlen események elrejtése"
+
+msgctxt "expand_all"
+msgid "Expand all"
+msgstr "Összes kinyitása"
+
+msgctxt "collapse_all"
+msgid "Collapse all"
+msgstr "Összes összecsukása"
+
+msgctxt "reload"
+msgid "Reload"
+msgstr "Újratölt"
+
+msgctxt "help"
+msgid "Help"
+msgstr "Segítség"
+
+msgctxt "error"
+msgid "Error"
+msgstr "Hiba"
+
+msgctxt "warning"
+msgid "Warning"
+msgstr "Figyelem"
+
+msgctxt "info"
+msgid "Info"
+msgstr "Infó"
+
+#, c-format
+msgctxt "receiver_info"
+msgid ""
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
+"with priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr ""
+
+msgctxt "sys_disable"
+msgid ""
+"This is a system component. Do not make changes unless you know what you "
+"are doing."
+msgstr ""
+
+#. The verb (changing) should be at the front of the string
+#, c-format
+msgctxt "changing_state"
+msgid "Changing %1$s..."
+msgstr ""
+
+#, fuzzy, c-format
+msgctxt "state_change_failed"
+msgid ""
+"Unable to change the state of %1$s (%2$s).\n"
+"\n"
+"Most likely, your device does not have root access, which is required."
+msgstr ""
+"Nem lehet megváltoztatni a kiválasztott elemek állapotát. Lehet a "
+"készülék nem rendelkezik root jogosultságokkal"
+
+msgctxt "close_help"
+msgid "Close help and return to app"
+msgstr "Segítség bezártása és vissza az alkalmazásba"
+
+#~ msgctxt "please_wait"
+#~ msgid "Please Wait..."
+#~ msgstr "Kérem, várjon..."
+
+#~ msgctxt "confirm_sys_disable"
+#~ msgid ""
+#~ "You are about to disable a system"
+#~ " component. This could potentially result"
+#~ " in your phone no longer functioning"
+#~ " properly.\n"
+#~ "\n"
+#~ "Do not proceed unless you are willing to deal with the consequences."
+#~ msgstr ""
+#~ "Arra készül, hogy letiltson egy "
+#~ "rendszerösszetevőt. Emiatt a telefon lehet "
+#~ "nem fog megfelelően működni. ⏎ ⏎ "
+#~ "Ne folytassa, ha nem biztos a "
+#~ "dolgában"
+
+#~ msgctxt "confirm_google_talk"
+#~ msgid ""
+#~ "If Google Talk is disabled, you "
+#~ "are likely going to run into "
+#~ "issues with hanging Android Market "
+#~ "downloads, the starting up Google Talk"
+#~ " yourself whenever necessary can help "
+#~ "overcome them. Sure you want to "
+#~ "proceed?"
+#~ msgstr ""
+#~ "Ha a Google Talk-ot letiltja, "
+#~ "valószínűleg gondjai fognak adódni a "
+#~ "Markről való letöltésekkel. Biztos, hogy "
+#~ "folytatja?"
+

@@ -21,13 +21,13 @@
     <string name="collapse_all">Collapse all</string>
     <string name="reload">Reload</string>
     <string name="help">Help</string>
-    <string name="please_wait">Please Wait...</string>
     <string name="error">Error</string>
     <string name="warning">Warning</string>
     <string name="info">Info</string>
     <string name="receiver_info">Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with priority &lt;b&gt;%3$d&lt;/b&gt;.</string>
-    <string name="confirm_sys_disable">You are about to disable a system component. This could potentially result in your phone no longer functioning properly.\n\nDo not proceed unless you are willing to deal with the consequences.</string>
-    <string name="confirm_google_talk">If Google Talk is disabled, you are likely going to run into issues with hanging Android Market downloads, the starting up Google Talk yourself whenever necessary can help overcome them. Sure you want to proceed?</string>
-    <string name="state_change_failed">Unable to change the state of the selected component.\n\nMost likely, your device does not have root access, which is required.</string>
+    <string name="sys_disable">This is a system component. Do not make changes unless you know what you are doing.</string>
+    <!-- The verb (changing) should be at the front of the string -->
+    <string name="changing_state">Changing %1$s...</string>
+    <string name="state_change_failed">Unable to change the state of %1$s (%2$s).\n\nMost likely, your device does not have root access, which is required.</string>
     <string name="close_help">Close help and return to app</string>
 </resources>

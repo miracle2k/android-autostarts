@@ -14,5 +14,5 @@ source_file = locale/strings.pot
 source_lang = en
 
 [main]
-host = http://www.transifex.net
+host = https://www.transifex.com
 

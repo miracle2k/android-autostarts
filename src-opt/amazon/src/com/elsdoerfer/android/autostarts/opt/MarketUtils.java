@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 /**
- * Market-specific functionality.
+ * Amazon-specific functionality.
  */
 public class MarketUtils {
 

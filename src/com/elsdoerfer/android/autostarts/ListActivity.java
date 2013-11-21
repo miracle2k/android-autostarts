@@ -117,6 +117,16 @@ public class ListActivity extends ExpandableListFragmentActivity {
 					mListAdapter.notifyDataSetInvalidated();
 				}
 			});
+
+			// The list adapter require access to the ToggleService to show
+			// current processing, but we can't delay initialing the list
+			// adapter right away in onCreate, or the list view will lose
+			// open/collapsed state. I'm not aware that we can make the
+			// service binding block. My solution therefore is making
+			// access to mToggleService optional in our list adapter impl,
+			// and refresh the list once, when the service is finally connected.
+			mListAdapter.notifyDataSetChanged();
+
 			// Get us an initial UI update.
 			mToggleService.requestUpdate();
 		}

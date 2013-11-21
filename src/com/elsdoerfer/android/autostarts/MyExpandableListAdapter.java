@@ -401,7 +401,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 			// Hide the spinner by default
 			ProgressBar spinner = (ProgressBar)v.findViewById(R.id.spinner);
-			if (mParent.mActivity.mToggleService.has(comp))
+			ToggleService toggleService = mParent.mActivity.mToggleService;
+			if (toggleService != null && toggleService.has(comp))
 				spinner.setVisibility(View.VISIBLE);
 			else
 				spinner.setVisibility(View.GONE);
@@ -546,7 +547,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			ImageView infoIcon = ((ImageView)v.findViewById(R.id.show_info));
 			ProgressBar spinner = ((ProgressBar)v.findViewById(R.id.spinner));
 
-			if (mParent.mActivity.mToggleService.has(info.componentInfo)) {
+			ToggleService toggleService = mParent.mActivity.mToggleService;
+			if (toggleService != null && toggleService.has(info.componentInfo)) {
 				spinner.setVisibility(View.VISIBLE);
 				infoIcon.setVisibility(View.GONE);
 			}

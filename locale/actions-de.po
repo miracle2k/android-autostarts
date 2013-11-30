@@ -1,22 +1,26 @@
-# German translations for PROJECT.
-# Copyright (C) 2010 ORGANIZATION
+# Translations template for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-# Michael Elsdörfer <michael@elsdoerfer.com>, 2010, 2011.
-#
+# 
+# Translators:
+# elsdoerfer <michael@elsdoerfer.info>, 2011
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010
+# elsdoerfer <michael@elsdoerfer.info>, 2013
+# Michael Elsdörfer <michael@elsdoerfer.com>, 2010-2011
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2011-03-22 21:58+0100\n"
-"Last-Translator: Michael Elsdörfer <michael@elsdoerfer.com>\n"
-"Language-Team: German <michael@elsdoerfer.com>\n"
-"Plural-Forms: nplurals=2; plural=((n == 1) ? 0 : 1)\n"
+"PO-Revision-Date: 2013-11-21 12:20+0000\n"
+"Last-Translator: elsdoerfer <michael@elsdoerfer.info>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/android-autostarts/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "act_airplane_mode_changed"
 msgid "Airplane mode changed"
@@ -52,13 +56,11 @@ msgstr ""
 
 msgctxt "act_pre_boot_completed"
 msgid "During Startup"
-msgstr "Während dem Start"
+msgstr "Während des Starts"
 
 msgctxt "act_pre_boot_completed_detail"
 msgid "The device is booting up, the user cannot interact yet."
-msgstr ""
-"Das Gerät wird gerade gestartet, der Benutzer kann noch nicht "
-"interagieren."
+msgstr "Das Gerät wird gerade gestartet, der Benutzer kann noch nicht interagieren."
 
 msgctxt "act_boot_completed"
 msgid "After Startup"
@@ -124,8 +126,8 @@ msgstr ""
 
 msgctxt "act_configuration_changed_detail"
 msgid ""
-"The device configuration changed. This includes things like locale "
-"settings, but also the device orientation."
+"The device configuration changed. This includes things like locale settings,"
+" but also the device orientation."
 msgstr ""
 
 msgctxt "act_locale_changed"
@@ -134,8 +136,8 @@ msgstr ""
 
 msgctxt "act_locale_changed_detail"
 msgid ""
-"The device's locale setting has changed. This is a subset of "
-"\"Configuration changed\"."
+"The device's locale setting has changed. This is a subset of \"Configuration"
+" changed\"."
 msgstr ""
 
 msgctxt "act_date_changed"
@@ -160,8 +162,8 @@ msgstr ""
 
 msgctxt "act_device_storage_ok_detail"
 msgid ""
-"The device storage space has increased beyond the critical threshold, and"
-" the low memory condition no longer exists."
+"The device storage space has increased beyond the critical threshold, and "
+"the low memory condition no longer exists."
 msgstr ""
 
 msgctxt "act_gtalk_service_connected"
@@ -220,8 +222,8 @@ msgstr ""
 
 msgctxt "act_media_button_detail"
 msgid ""
-"The \"Media Button\" was pressed. Usually, this will refer to a button on"
-" your headset/earplugs."
+"The \"Media Button\" was pressed. Usually, this will refer to a button on "
+"your headset/earplugs."
 msgstr ""
 
 msgctxt "act_media_checking"
@@ -245,7 +247,8 @@ msgid "Media mounted"
 msgstr ""
 
 msgctxt "act_media_mounted_detail"
-msgid "External media is present, was mounted and is now available to the device."
+msgid ""
+"External media is present, was mounted and is now available to the device."
 msgstr ""
 
 msgctxt "act_media_nofs"
@@ -254,8 +257,8 @@ msgstr ""
 
 msgctxt "act_media_nofs_detail"
 msgid ""
-"External media was detected, but is using an incompatible filesystem or "
-"is blank."
+"External media was detected, but is using an incompatible filesystem or is "
+"blank."
 msgstr ""
 
 msgctxt "act_media_removed"
@@ -300,8 +303,8 @@ msgstr ""
 
 msgctxt "act_media_shared_detail"
 msgid ""
-"External media is now being shared via USB mass storage mode, and is at "
-"this time no longer available to the device."
+"External media is now being shared via USB mass storage mode, and is at this"
+" time no longer available to the device."
 msgstr ""
 
 msgctxt "act_media_unmountable"
@@ -309,7 +312,8 @@ msgid "Media unmountable"
 msgstr ""
 
 msgctxt "act_media_unmountable_detail"
-msgid "External media was detected, but cannot be used, likely due to an error."
+msgid ""
+"External media was detected, but cannot be used, likely due to an error."
 msgstr ""
 
 msgctxt "act_media_unmounted"
@@ -318,8 +322,7 @@ msgstr ""
 
 msgctxt "act_media_unmounted_detail"
 msgid ""
-"External media is available, but unmounted, and not available to the "
-"device."
+"External media is available, but unmounted, and not available to the device."
 msgstr ""
 
 msgctxt "act_new_outgoing_call"
@@ -328,8 +331,8 @@ msgstr ""
 
 msgctxt "act_new_outgoing_call_detail"
 msgid ""
-"A new outgoing call is about to be placed. Applications may preprocess "
-"the call, and for example change or filter the phone number."
+"A new outgoing call is about to be placed. Applications may preprocess the "
+"call, and for example change or filter the phone number."
 msgstr ""
 
 msgctxt "act_package_added"
@@ -346,8 +349,8 @@ msgstr ""
 
 msgctxt "act_package_changed_detail"
 msgid ""
-"An application package has been changed; for example, a component may "
-"have been enabled or disabled."
+"An application package has been changed; for example, a component may have "
+"been enabled or disabled."
 msgstr ""
 
 msgctxt "act_package_data_cleared"
@@ -406,8 +409,8 @@ msgstr ""
 
 msgctxt "act_provider_changed_detail"
 msgid ""
-"A content provider publishes a new event; for example, this is triggered "
-"by the GMail Storage provider when the set of unread email in the inbox "
+"A content provider publishes a new event; for example, this is triggered by "
+"the GMail Storage provider when the set of unread email in the inbox "
 "changes."
 msgstr ""
 
@@ -527,8 +530,8 @@ msgstr ""
 
 msgctxt "act_sms_deliver_detail"
 msgid ""
-"A new text based SMS message has been received. Only the default SMS app "
-"is notified."
+"A new text based SMS message has been received. Only the default SMS app is "
+"notified."
 msgstr ""
 
 msgctxt "act_data_sms_received"
@@ -603,8 +606,8 @@ msgstr ""
 
 msgctxt "act_supplicant_connection_change_detail"
 msgid ""
-"The connection to a Wi-Fi access point was either successfully "
-"established, or an existing connection lost."
+"The connection to a Wi-Fi access point was either successfully established, "
+"or an existing connection lost."
 msgstr ""
 
 msgctxt "act_suplicant_state_changed"
@@ -612,7 +615,8 @@ msgid "Wi-Fi connecting state changed"
 msgstr ""
 
 msgctxt "act_suplicant_state_changed_detail"
-msgid "The state of of establishing a connection to an access point has changed."
+msgid ""
+"The state of of establishing a connection to an access point has changed."
 msgstr ""
 
 msgctxt "act_ringer_mode_changed"
@@ -637,8 +641,8 @@ msgstr ""
 
 msgctxt "act_audio_becoming_noisy_detail"
 msgid ""
-"Audio is about to become 'noisy' due to a change in audio outputs, e.g. "
-"when a headset is unplugged."
+"Audio is about to become 'noisy' due to a change in audio outputs, e.g. when"
+" a headset is unplugged."
 msgstr ""
 
 msgctxt "act_tts_queue_completed"
@@ -647,8 +651,8 @@ msgstr ""
 
 msgctxt "act_tts_queue_completed_detail"
 msgid ""
-"The TextToSpeech synthesizer has completed processing of all the text in "
-"the speech queue."
+"The TextToSpeech synthesizer has completed processing of all the text in the"
+" speech queue."
 msgstr ""
 
 msgctxt "act_tts_data_installed"
@@ -1037,11 +1041,9 @@ msgstr ""
 
 msgctxt "act_appwidget_update_detail"
 msgid ""
-"A widget is asked to update itself. How often this is triggered depends "
-"on the widget in question, but never for widgets that are not in use.\n"
+"A widget is asked to update itself. How often this is triggered depends on the widget in question, but never for widgets that are not in use.\n"
 "\n"
-"<b>Note that disabling this event will likely render the widget "
-"defunct.</b>"
+"<b>Note that disabling this event will likely render the widget defunct.</b>"
 msgstr ""
 
 msgctxt "act_appwidget_disabled"
@@ -1078,8 +1080,8 @@ msgstr ""
 
 msgctxt "act_connectivity_detail"
 msgid ""
-"The current network connection has changed, e.g. when switching from Wi-"
-"Fi to GSM. Note that since this is also triggered when a connection is "
+"The current network connection has changed, e.g. when switching from Wi-Fi "
+"to GSM. Note that since this is also triggered when a connection is "
 "initially established, it effectively entails the On Startup behavior."
 msgstr ""
 
@@ -1108,7 +1110,8 @@ msgid "Secret Code entered"
 msgstr ""
 
 msgctxt "act_secret_code_detail"
-msgid "A secret code was entered in the dialer. They are in the form of *#*##*#*."
+msgid ""
+"A secret code was entered in the dialer. They are in the form of *#*##*#*."
 msgstr ""
 
 msgctxt "act_spn_strings_updated"
@@ -1125,8 +1128,8 @@ msgstr ""
 
 msgctxt "act_anr_detail"
 msgid ""
-"An application is not responding. This is when you see the infamous "
-"dialog box."
+"An application is not responding. This is when you see the infamous dialog "
+"box."
 msgstr ""
 
 msgctxt "act_event_reminder"
@@ -1135,8 +1138,8 @@ msgstr ""
 
 msgctxt "act_event_reminder_detail"
 msgid ""
-"A reminder for a scheduled event should now be shown. This is used by the"
-" Calendar application."
+"A reminder for a scheduled event should now be shown. This is used by the "
+"Calendar application."
 msgstr ""
 
 msgctxt "act_install_shortcut"
@@ -1155,8 +1158,8 @@ msgstr ""
 
 msgctxt "act_uninstall_shortcut_detail"
 msgid ""
-"An application wants to remove a shortcut from your home screen. Home "
-"screen application will usually register for this."
+"An application wants to remove a shortcut from your home screen. Home screen"
+" application will usually register for this."
 msgstr ""
 
 msgctxt "act_any_data_state"
@@ -1175,8 +1178,8 @@ msgstr ""
 
 msgctxt "act_service_state_detail"
 msgid ""
-"The phone's service state has changed, for example when you start "
-"roaming, or connect to a different mobile network."
+"The phone's service state has changed, for example when you start roaming, "
+"or connect to a different mobile network."
 msgstr ""
 
 msgctxt "act_data_connection_failed"
@@ -1193,8 +1196,8 @@ msgstr ""
 
 msgctxt "act_sim_state_changed_detail"
 msgid ""
-"The sim card state has changed, for example when it is initially loaded, "
-"or when it becomes locked due to incorrect PIN entry."
+"The sim card state has changed, for example when it is initially loaded, or "
+"when it becomes locked due to incorrect PIN entry."
 msgstr ""
 
 msgctxt "act_signal_strength"
@@ -1227,8 +1230,8 @@ msgstr ""
 
 msgctxt "act_wifi_state_changed_detail"
 msgid ""
-"The state of the Wi-Fi chip has changed, for example when it is enabled "
-"or disabled."
+"The state of the Wi-Fi chip has changed, for example when it is enabled or "
+"disabled."
 msgstr ""
 
 msgctxt "act_external_apps_available"
@@ -1261,8 +1264,8 @@ msgstr ""
 
 msgctxt "act_password_failed_detail"
 msgid ""
-"Sent to a device admin when the user has failed at attempted to enter the"
-" password."
+"Sent to a device admin when the user has failed at attempted to enter the "
+"password."
 msgstr ""
 
 msgctxt "act_password_succeeded"
@@ -1333,9 +1336,8 @@ msgstr ""
 
 msgctxt "act_search_settings_changed_detail"
 msgid ""
-"The search settings have changed in some way. Either searchables have "
-"been enabled or disabled, or a different web search provider has been "
-"chosen."
+"The search settings have changed in some way. Either searchables have been "
+"enabled or disabled, or a different web search provider has been chosen."
 msgstr ""
 
 msgctxt "act_searchables_changed"
@@ -1344,8 +1346,8 @@ msgstr ""
 
 msgctxt "act_searchables_changed_detail"
 msgid ""
-"The list of components that are searched by the system search function "
-"have changed."
+"The list of components that are searched by the system search function have "
+"changed."
 msgstr ""
 
 msgctxt "act_download_notification_clicked"
@@ -1353,7 +1355,8 @@ msgid "Download notification clicked"
 msgstr ""
 
 msgctxt "act_download_notification_clicked_detail"
-msgid "Sent by the download manager when the user clicks on a running download."
+msgid ""
+"Sent by the download manager when the user clicks on a running download."
 msgstr ""
 
 msgctxt "act_download_completed"
@@ -1411,13 +1414,13 @@ msgid "Close audio effect control session"
 msgstr ""
 
 msgctxt "act_close_audio_effect_session_detail"
-msgid "An application no longer wants audio effects to be applied to it's output."
+msgid ""
+"An application no longer wants audio effects to be applied to it's output."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_dreaming_started"
 msgid "Dreaming started"
-msgstr "Während dem Start"
+msgstr ""
 
 msgctxt "act_dreaming_started_detail"
 msgid "The screensaver has started."
@@ -1473,8 +1476,8 @@ msgstr ""
 
 msgctxt "act_fetch_voicemail_detail"
 msgid ""
-"The system wants to retrieve the contents of a voicemail. Voicemail "
-"sources handle this broadcast."
+"The system wants to retrieve the contents of a voicemail. Voicemail sources "
+"handle this broadcast."
 msgstr ""
 
 msgctxt "act_my_package_replaced"
@@ -1493,8 +1496,8 @@ msgstr ""
 
 msgctxt "act_package_first_launch_detail"
 msgid ""
-"An application has been launched to the first time; this is only sent to "
-"the installer of the application in question (i.e. the Play Store)."
+"An application has been launched to the first time; this is only sent to the"
+" installer of the application in question (i.e. the Play Store)."
 msgstr ""
 
 msgctxt "act_sms_cb_received"
@@ -1519,8 +1522,8 @@ msgstr ""
 
 msgctxt "act_sms_service_category_pdr_detail"
 msgid ""
-"A new CDMA SMS has been received containing Service Category Program Data"
-" (updates the list of enabled broadcast channels)."
+"A new CDMA SMS has been received containing Service Category Program Data "
+"(updates the list of enabled broadcast channels)."
 msgstr ""
 
 msgctxt "act_nfc_adapter_state_changed"
@@ -1529,8 +1532,7 @@ msgstr ""
 
 msgctxt "act_nfc_adapter_state_changed_detail"
 msgid ""
-"The state of the local NFC adapter has been changed (e.g. turned on or "
-"off)."
+"The state of the local NFC adapter has been changed (e.g. turned on or off)."
 msgstr ""
 
 msgctxt "act_wifi_p2p_discovery_state_change"
@@ -1555,8 +1557,8 @@ msgstr ""
 
 msgctxt "act_wifi_p2p_peers_changed_detail"
 msgid ""
-"The available peer list has changed. This can be sent as a result of "
-"peers being found, lost or updated."
+"The available peer list has changed. This can be sent as a result of peers "
+"being found, lost or updated."
 msgstr ""
 
 msgctxt "act_wifi_p2p_state_changed"
@@ -1597,7 +1599,6 @@ msgstr ""
 
 msgctxt "act_query_keyboard_layouts_detail"
 msgid ""
-"By registering for this event, the application defines a keyboard layout."
-" No application is started by this event."
+"By registering for this event, the application defines a keyboard layout. No"
+" application is started by this event."
 msgstr ""
-

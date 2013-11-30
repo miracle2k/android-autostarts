@@ -1,0 +1,31 @@
+Merging translations:
+---------------------
+
+Get latest updates from Transifex:
+
+  $ tx pull
+  $ a2po import
+
+Export latest local changes (let local gettext do the merge instead of Transifex):
+
+  $ a2po export
+  
+Push new template to transifex:
+
+  $ tx push -st --skip
+
+
+Releasing a new version
+-----------------------
+
+   $ git flow release start X
+   - Update changelog
+   - Update version number in AndroidManifest.xml
+   $ fab build
+   - Test the result on a device
+   $ git flow release finish X
+   $ git checkout X
+   $ fab deploy
+   - Manually publish & save all builds.
+   $ git checkout master
+   $ git push --all --tags

@@ -1,6 +1,7 @@
 package com.elsdoerfer.android.autostarts;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,8 +140,9 @@ public class ReceiverReader {
 		XmlResourceParser xml = null;
 		Resources resources = null;
 		try {
-			AssetManager assets = mContext.createPackageContext(p.packageName, 0).getAssets();
-			xml = assets.openXmlResourceParser("AndroidManifest.xml");
+			Context scannedAppContext = mContext.createPackageContext(p.packageName, 0);
+			AssetManager assets = scannedAppContext.getAssets();
+			xml = openManifest(scannedAppContext, assets);
 			resources = new Resources(assets, mContext.getResources().getDisplayMetrics(), null);
 		} catch (IOException e) {
 			Log.e(TAG, "Unable to open manifest or resources for "+p.packageName, e);
@@ -217,6 +219,42 @@ public class ReceiverReader {
 			mCurrentXML = null;
 			mCurrentResources = null;
 		}
+	}
+
+	/**
+	 * Open AndroidManifest.xml file stored in apk,
+	 * working around skin manifest bug on some Xperia devices
+	 */
+	private XmlResourceParser openManifest(Context scannedAppContext, AssetManager assets) throws IOException {
+		try {
+			// Use reflection to avoid VerifyError on old devices, this is equivalent to:
+			//String packageResourcePath = scannedAppContext.getPackageResourcePath();
+			String packageResourcePath = (String) Context.class.getMethod("getPackageResourcePath")
+					.invoke(scannedAppContext);
+
+			// getCookieName is @hide method, it returns name of apk file for given asset cookie
+			Method getCookieName = AssetManager.class.getMethod("getCookieName", int.class);
+
+			// "android" package has no resource path, use hardcoded path,
+			// If we won't find it, we'll open manifest in non-workaround way
+			if (packageResourcePath == null && scannedAppContext.getPackageName().equals("android")) {
+				packageResourcePath = "/system/framework/framework-res.apk";
+			}
+
+			// This loop shouldn't reach 20,
+			// getCookieName will throw IndexOutOfBoundsException when passed illegal cookie,
+			// but we expect to find right apk and return earlier.
+			for (int i = 1; i < 20; i++) {
+				if (packageResourcePath.equals(getCookieName.invoke(assets, i))) {
+					return assets.openXmlResourceParser(i, "AndroidManifest.xml");
+				}
+			}
+		} catch (Exception ignored) {
+			// Something went wrong with workaround, ignore and use normal method
+		}
+
+		// Normal way of opening manifest, used if workaround above fails
+		return assets.openXmlResourceParser("AndroidManifest.xml");
 	}
 
 	void startManifest() {

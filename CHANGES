@@ -1,3 +1,6 @@
+1.8.1 (2013-11-30)
+    * Fix empty list issue on Xperia devices (thanks to Michał Bednarski).
+
 1.8.0 (2013-11-21)
     * Updated to support 4.4/KitKat.
     * Vastly improve loading speed.

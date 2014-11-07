@@ -8,7 +8,19 @@
     <item android:id="@+id/view"
           android:icon="@drawable/ic_action_image_remove_red_eye"
           android:title="@string/view_options"
-          android:showAsAction="ifRoom" />
+          android:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/view_hide_sys_apps"
+                  android:title="@string/hide_sys_apps"
+                  android:checkable="true"/>
+            <item android:id="@+id/view_changed_only"
+                  android:title="@string/show_changed_only"
+                  android:checkable="true"/>
+            <item android:id="@+id/view_hide_unknown"
+                  android:title="@string/hide_unknown"
+                  android:checkable="true"/>
+        </menu>
+    </item>
 
     <item android:id="@+id/expand"
           android:icon="@drawable/ic_action_navigation_expand_more"

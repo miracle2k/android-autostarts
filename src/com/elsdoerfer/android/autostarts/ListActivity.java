@@ -34,6 +34,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	static final String PREF_FILTER_UNKNOWN = "filter-unknown-events";
 	static final String PREF_GROUPING = "grouping";
 
+	private Menu mActionBarMenu;
 	private MenuItem mExpandCollapseToggleItem;
 	private MenuItem mGroupingModeItem;
 	MenuItem mReloadItem;
@@ -270,6 +271,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.actionbar, menu);
+		mActionBarMenu = menu;
 
 		mExpandCollapseToggleItem = menu.findItem(R.id.expand);
 		mGroupingModeItem = menu.findItem(R.id.grouping);
@@ -312,6 +314,11 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		// Reload button disabled while reloading
 		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
 
+		// View/Filter Submenu
+		menu.findItem(R.id.view_changed_only).setChecked(mListAdapter.getShowChangedOnly());
+		menu.findItem(R.id.view_hide_sys_apps).setChecked(mListAdapter.getFilterSystemApps());
+		menu.findItem(R.id.view_hide_unknown).setChecked(mListAdapter.getFilterUnknown());
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -332,8 +339,28 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			invalidateOptionsMenu();
 			return true;
 
-		case R.id.view:
-			showViewOptions();
+		case R.id.view_hide_sys_apps:
+			item.setChecked(!item.isChecked());
+			mListAdapter.setFilterSystemApps(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SYS_APPS, item.isChecked()).commit();
+			return true;
+
+		case R.id.view_changed_only:
+			item.setChecked(!item.isChecked());
+			mListAdapter.setShowChangedOnly(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SHOW_CHANGED, item.isChecked()).commit();
+			return true;
+
+		case R.id.view_hide_unknown:
+			item.setChecked(!item.isChecked());
+			mListAdapter.setFilterUnknown(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_UNKNOWN, item.isChecked()).commit();
 			return true;
 
 		case R.id.expand:
@@ -411,7 +438,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			);
 			full.setSpan(new InternalURLSpan(new OnClickListener() {
 					public void onClick(View v) {
-						showViewOptions();
+						mActionBarMenu.performIdentifierAction(R.id.view, 0);
 					}
 				}), base.length(), full.length(),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -440,18 +467,6 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		DialogFragment newFragment = EventDetailsFragment.newInstance(event);
 		newFragment.show(ft, "details");
-	}
-
-	protected void showViewOptions() {
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
-		Fragment prev = getFragmentManager().findFragmentByTag("options");
-		if (prev != null)
-			ft.remove(prev);
-		ft.addToBackStack(null);
-
-		DialogFragment newFragment = new ViewOptionsFragment();
-		newFragment.show(ft, "options");
-
 	}
 
 	protected void addJob(ComponentInfo component, boolean newState) {

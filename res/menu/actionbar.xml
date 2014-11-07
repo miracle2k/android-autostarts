@@ -1,25 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item android:id="@+id/grouping"
-          android:icon="@drawable/ic_menu_windows"
+          android:icon="@drawable/ic_action_action_view_column"
           android:title="@string/group_by_action"
           android:showAsAction="ifRoom|withText" />
 
     <item android:id="@+id/view"
-          android:icon="@drawable/ic_menu_view"
+          android:icon="@drawable/ic_action_image_remove_red_eye"
           android:title="@string/view_options"
           android:showAsAction="ifRoom" />
 
     <item android:id="@+id/expand"
-          android:icon="@drawable/ic_collapse_expand"
+          android:icon="@drawable/ic_action_navigation_expand_more"
           android:title="@string/expand_all"
           android:showAsAction="ifRoom" />
 
     <item android:id="@+id/reload"
-          android:icon="@drawable/ic_menu_refresh"
+          android:icon="@drawable/ic_action_navigation_refresh"
           android:title="@string/reload" />
 
     <item android:id="@+id/help"
-          android:icon="@drawable/ic_menu_help"
+          android:icon="@drawable/ic_action_action_help"
           android:title="@string/help" />
 </menu>

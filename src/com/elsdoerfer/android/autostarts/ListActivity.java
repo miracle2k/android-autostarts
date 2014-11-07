@@ -281,10 +281,13 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// Proper title for the grouping mode toggle item.
-		if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION)
+		if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION) {
 			mGroupingModeItem.setTitle(R.string.group_by_package);
-		else
+			mGroupingModeItem.setIcon(R.drawable.ic_action_action_view_list);
+		} else {
 			mGroupingModeItem.setTitle(R.string.group_by_action);
+			mGroupingModeItem.setIcon(R.drawable.ic_action_action_view_column);
+		}
 
 		// Decide whether we want to offer the option to collapse, or
 		// expand, depending on the current group expansion count.
@@ -297,10 +300,12 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		}
 		if (expandCount / (float)numGroups >= 0.5) {
 			mExpandCollapseToggleItem.setTitle(R.string.collapse_all);
+			mExpandCollapseToggleItem.setIcon(R.drawable.ic_action_navigation_expand_less);
 			mExpandSuggested = false;
 		}
 		else {
 			mExpandCollapseToggleItem.setTitle(R.string.expand_all);
+			mExpandCollapseToggleItem.setIcon(R.drawable.ic_action_navigation_expand_more);
 			mExpandSuggested = true;
 		}
 

@@ -2,13 +2,13 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.*;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -155,7 +155,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
 		// to do a load.
-		Object retained = getLastCustomNonConfigurationInstance();
+		Object retained = getLastNonConfigurationInstance();
 		if (retained != null) {
 			// Be careful not to copy any objects that reference the
 			// activity itself, or we would leak it!
@@ -192,7 +192,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	@Override
-	public Object onRetainCustomNonConfigurationInstance() {
+	public Object onRetainNonConfigurationInstance() {
 		// Retain the full activity; it's just simpler as opposed to
 		// copying a bunch of stuff to an array; but we need to be very
 		// careful here not to leak it when we restore.
@@ -427,8 +427,8 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	protected void showEventDetails(IntentFilterInfo event) {
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		Fragment prev = getSupportFragmentManager().findFragmentByTag("details");
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		Fragment prev = getFragmentManager().findFragmentByTag("details");
 		if (prev != null)
 			ft.remove(prev);
 		ft.addToBackStack(null);
@@ -438,8 +438,8 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	protected void showViewOptions() {
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		Fragment prev = getSupportFragmentManager().findFragmentByTag("options");
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		Fragment prev = getFragmentManager().findFragmentByTag("options");
 		if (prev != null)
 			ft.remove(prev);
 		ft.addToBackStack(null);

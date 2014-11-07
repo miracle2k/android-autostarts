@@ -35,11 +35,11 @@ package com.elsdoerfer.android.autostarts.compat;
  */
 
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import java.util.List;
 
-import android.support.v4.app.FragmentActivity;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -48,7 +48,6 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.SimpleExpandableListAdapter;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import java.util.Map;
 
@@ -173,7 +172,7 @@ import java.util.Map;
  * @see #setListAdapter
  * @see android.widget.ExpandableListView
  */
-public class ExpandableListFragmentActivity extends FragmentActivity implements
+public class ExpandableListFragmentActivity extends Activity implements
         OnCreateContextMenuListener,
         ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupCollapseListener,
         ExpandableListView.OnGroupExpandListener {

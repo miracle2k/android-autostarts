@@ -46,12 +46,6 @@ BUILDS = {
         'sign': False,
         'deploy': False,
     },
-    'vodaphone': {
-        'extra-paths': ['src-opt/vodaphone'],
-        'template': 'Android-Autostarts-Vodaphone-%(version)s.apk',
-        # Vodaphone QA complains about incomplete translations
-        'a2po_options': '--require-min-complete 1',
-    },
     'default': {
         'extra-paths': ['src-opt/default'],
         'template': 'Android-Autostarts-Full-%(version)s.apk',

@@ -25,7 +25,14 @@
         />
 
 	<!-- Note the right padding is slightly larger to account for a
-	     potential scrollbar. Doesn't look to good if it's too close. -->
+	     potential scrollbar. Doesn't look to good if it's too close.
+
+	     Note 2014-11: In recent Android versions there seem to be two
+	     scrollbar styles. A tiny one if there is little scrolling, and
+	     if there are a lot of items, one that is inset QUITE A BIT.
+
+	     We need to move the icon quite far from the right to accommodate.
+	-->
     <ImageView
         android:id="@+id/show_info"
         android:layout_width="wrap_content"
@@ -34,7 +41,7 @@
         android:paddingLeft="6dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
-        android:paddingRight="7dp"
+        android:paddingRight="20dp"
         android:adjustViewBounds="false"
         android:src="@drawable/ic_dialog_info_btn"
         />

@@ -14,14 +14,8 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,15 +27,6 @@ import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 public class ListActivity extends ExpandableListFragmentActivity {
 
 	static final Boolean LOGV = false;
-
-	static final private int MENU_VIEW = 1;
-	static final private int MENU_EXPAND_COLLAPSE = 2;
-	static final private int MENU_RELOAD = 3;
-	static final private int MENU_HELP = 4;
-	static final private int MENU_GROUPING = 5;
-
-	static final protected int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
-	static final private int DIALOG_VIEW_OPTIONS = 4;
 
 	static final String PREFS_NAME = "common";
 	static final String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -282,20 +267,15 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		mGroupingModeItem =
-			menu.add(0, MENU_GROUPING, 0, R.string.group_by_action).
-			    setIcon(R.drawable.ic_menu_windows);
-		menu.add(0, MENU_VIEW, 0, R.string.view_options).
-			setIcon(R.drawable.ic_menu_view);
-		mExpandCollapseToggleItem =
-			menu.add(0, MENU_EXPAND_COLLAPSE, 0, R.string.expand_all).
-				setIcon(R.drawable.ic_collapse_expand);
-		mReloadItem = menu.add(0, MENU_RELOAD, 0, R.string.reload).
-			setIcon(R.drawable.ic_menu_refresh);
-		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
-		menu.add(0, MENU_HELP, 0, R.string.help).
-			setIcon(R.drawable.ic_menu_help);
-		return true;
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.actionbar, menu);
+
+		mExpandCollapseToggleItem = menu.findItem(R.id.expand);
+		mGroupingModeItem = menu.findItem(R.id.grouping);
+		mReloadItem = menu.findItem(R.id.reload);
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -305,6 +285,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			mGroupingModeItem.setTitle(R.string.group_by_package);
 		else
 			mGroupingModeItem.setTitle(R.string.group_by_action);
+
 		// Decide whether we want to offer the option to collapse, or
 		// expand, depending on the current group expansion count.
 		ExpandableListView lv = getExpandableListView();
@@ -322,12 +303,16 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			mExpandCollapseToggleItem.setTitle(R.string.expand_all);
 			mExpandSuggested = true;
 		}
+
+		// Reload button disabled while reloading
+		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MENU_GROUPING:
+		case R.id.grouping:
 			String groupingPref = "";
 			if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION) {
 				mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_PACKAGE);
@@ -339,26 +324,28 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			}
 			mListAdapter.notifyDataSetChanged();
 			mPrefs.edit().putString(PREF_GROUPING, groupingPref).commit();
+			invalidateOptionsMenu();
 			return true;
 
-		case MENU_VIEW:
+		case R.id.view:
 			showViewOptions();
 			return true;
 
-		case MENU_EXPAND_COLLAPSE:
+		case R.id.expand:
 			ExpandableListView lv = getExpandableListView();
 			for (int i=mListAdapter.getGroupCount()-1; i>=0; i--)
 				if (mExpandSuggested)
 					lv.expandGroup(i);
 				else
 					lv.collapseGroup(i);
+			invalidateOptionsMenu();
 			return true;
 
-		case MENU_RELOAD:
+		case R.id.reload:
 			loadAndApply();
 			return true;
 
-		case MENU_HELP:
+		case R.id.help:
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
 
@@ -386,6 +373,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		mLoadTask = new LoadTask(this);
 		mLoadTask.execute();
+		invalidateOptionsMenu();
 	}
 
 	/**

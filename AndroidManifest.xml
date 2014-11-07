@@ -34,7 +34,8 @@
     	android:normalScreens="true"
     	android:smallScreens="true"
     	android:anyDensity="true" />
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="19" />
+    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="21" />
     <uses-configuration />
     <uses-feature />
+
 </manifest>

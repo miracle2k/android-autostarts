@@ -4,10 +4,10 @@
 
     <string name="no_receivers">No applications are autostarting.</string>
     <string name="no_receivers_filtered">No applications are autostarting within your current selection.</string>
-    <string name="still_loading">Please wait while I am loading the applications installed on your phone...</string>
     <string name="change_filter_settings">Change filter settings.</string>
+    <string name="no_search_match">No applications match your search query.</string>
     <string name="appliation_info">Application Info</string>
-    <string name="find_in_market">Find in Market</string>
+    <string name="find_in_market">Find on Google Play</string>
     <string name="find_in_appstore">Find in Appstore</string>
     <string name="disable">Disable</string>
     <string name="enable">Enable</string>
@@ -20,6 +20,7 @@
     <string name="expand_all">Expand all</string>
     <string name="collapse_all">Collapse all</string>
     <string name="reload">Reload</string>
+    <string name="search">Search</string>
     <string name="help">Help</string>
     <string name="error">Error</string>
     <string name="warning">Warning</string>

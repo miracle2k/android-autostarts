@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
 "PO-Revision-Date: 2013-11-20 12:05+0000\n"
 "Last-Translator: Anilikos <mhtsosv@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/android-"
@@ -1620,4 +1620,72 @@ msgid ""
 "By registering for this event, the application defines a keyboard layout."
 " No application is started by this event."
 msgstr ""
+
+#, fuzzy
+msgctxt "act_power_save_mode_changed"
+msgid "Power Save Mode changed"
+msgstr "Αλλαγή λειτουργίας πτήσης"
+
+msgctxt "act_power_save_mode_changed_detail"
+msgid "When the device goes into, or exits power save mode."
+msgstr ""
+
+msgctxt "act_task_locked"
+msgid "Task locked"
+msgstr ""
+
+msgctxt "act_task_unlocked"
+msgid "Task unlocked"
+msgstr ""
+
+msgctxt "act_task_unlocked_detail"
+msgid ""
+"When the device leaves kiosk mode and the previously locked task is "
+"unlocked."
+msgstr ""
+
+msgctxt "R.string.act_task_locked_detail"
+msgid "When the device is locked to a single application in kiosk mode."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_next_alarm_changed"
+msgid "Next Alarm changed"
+msgstr "Το φόντο άλαξε"
+
+msgctxt "act_next_alarm_changed_detail"
+msgid ""
+"The alarm clock next to be raised has changed. A previous alarm has "
+"triggered, or was canceled."
+msgstr ""
+
+msgctxt "act_provisioning_complete"
+msgid "Profile provisioning complete"
+msgstr ""
+
+msgctxt "act_provisioning_complete_detail"
+msgid ""
+"Indicates that provisioning of a managed profile or managed device has "
+"completed successfully."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed"
+msgid "Application restrictions changed"
+msgstr "Η εφαρμογή άλλαξε"
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed_detail"
+msgid "Application restrictions have changed."
+msgstr "Η εφαρμογή άλλαξε"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged"
+msgid "HDMI cable plugged/unplugged"
+msgstr "Ακουστικά συνδέθηκαν ή αποσυνδέθηκαν"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged_detail"
+msgid "An HMDI cable was plugged or unplugged"
+msgstr "Ακουστικά συνδέθηκαν ή αποσυνδέθηκαν"
 

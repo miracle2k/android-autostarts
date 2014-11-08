@@ -2,46 +2,32 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
+import android.app.DialogFragment;
+import android.app.ExpandableListActivity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.*;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.elsdoerfer.android.autostarts.compat.ExpandableListFragmentActivity;
 import com.elsdoerfer.android.autostarts.db.ComponentInfo;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
-public class ListActivity extends ExpandableListFragmentActivity {
+public class ListActivity extends ExpandableListActivity {
 
 	static final Boolean LOGV = false;
-
-	static final private int MENU_VIEW = 1;
-	static final private int MENU_EXPAND_COLLAPSE = 2;
-	static final private int MENU_RELOAD = 3;
-	static final private int MENU_HELP = 4;
-	static final private int MENU_GROUPING = 5;
-
-	static final protected int DIALOG_CONFIRM_SYSAPP_CHANGE = 2;
-	static final private int DIALOG_VIEW_OPTIONS = 4;
 
 	static final String PREFS_NAME = "common";
 	static final String PREF_FILTER_SYS_APPS = "filter-sys-apps";
@@ -49,6 +35,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	static final String PREF_FILTER_UNKNOWN = "filter-unknown-events";
 	static final String PREF_GROUPING = "grouping";
 
+	private Menu mActionBarMenu;
 	private MenuItem mExpandCollapseToggleItem;
 	private MenuItem mGroupingModeItem;
 	MenuItem mReloadItem;
@@ -170,7 +157,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		// Init/restore retained and instance data. If we have data
 		// retained, we can speed things up significantly by not having
 		// to do a load.
-		Object retained = getLastCustomNonConfigurationInstance();
+		Object retained = getLastNonConfigurationInstance();
 		if (retained != null) {
 			// Be careful not to copy any objects that reference the
 			// activity itself, or we would leak it!
@@ -207,7 +194,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	@Override
-	public Object onRetainCustomNonConfigurationInstance() {
+	public Object onRetainNonConfigurationInstance() {
 		// Retain the full activity; it's just simpler as opposed to
 		// copying a bunch of stuff to an array; but we need to be very
 		// careful here not to leak it when we restore.
@@ -282,29 +269,45 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-		mGroupingModeItem =
-			menu.add(0, MENU_GROUPING, 0, R.string.group_by_action).
-			    setIcon(R.drawable.ic_menu_windows);
-		menu.add(0, MENU_VIEW, 0, R.string.view_options).
-			setIcon(R.drawable.ic_menu_view);
-		mExpandCollapseToggleItem =
-			menu.add(0, MENU_EXPAND_COLLAPSE, 0, R.string.expand_all).
-				setIcon(R.drawable.ic_collapse_expand);
-		mReloadItem = menu.add(0, MENU_RELOAD, 0, R.string.reload).
-			setIcon(R.drawable.ic_menu_refresh);
-		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
-		menu.add(0, MENU_HELP, 0, R.string.help).
-			setIcon(R.drawable.ic_menu_help);
-		return true;
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.actionbar, menu);
+		mActionBarMenu = menu;
+
+		mExpandCollapseToggleItem = menu.findItem(R.id.expand);
+		mGroupingModeItem = menu.findItem(R.id.grouping);
+		mReloadItem = menu.findItem(R.id.reload);
+
+		SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+		search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				return false;
+			}
+			@Override
+			public boolean onQueryTextChange(String query) {
+				mListAdapter.setTextFilter(query);
+				updateEmptyText();
+				mListAdapter.notifyDataSetChanged();
+				return true;
+
+			}
+		});
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// Proper title for the grouping mode toggle item.
-		if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION)
+		if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION) {
 			mGroupingModeItem.setTitle(R.string.group_by_package);
-		else
+			mGroupingModeItem.setIcon(R.drawable.ic_action_action_view_list);
+		} else {
 			mGroupingModeItem.setTitle(R.string.group_by_action);
+			mGroupingModeItem.setIcon(R.drawable.ic_action_action_view_column);
+		}
+
 		// Decide whether we want to offer the option to collapse, or
 		// expand, depending on the current group expansion count.
 		ExpandableListView lv = getExpandableListView();
@@ -316,18 +319,29 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		}
 		if (expandCount / (float)numGroups >= 0.5) {
 			mExpandCollapseToggleItem.setTitle(R.string.collapse_all);
+			mExpandCollapseToggleItem.setIcon(R.drawable.ic_action_navigation_expand_less);
 			mExpandSuggested = false;
 		}
 		else {
 			mExpandCollapseToggleItem.setTitle(R.string.expand_all);
+			mExpandCollapseToggleItem.setIcon(R.drawable.ic_action_navigation_expand_more);
 			mExpandSuggested = true;
 		}
+
+		// Reload button disabled while reloading
+		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
+
+		// View/Filter Submenu
+		menu.findItem(R.id.view_changed_only).setChecked(mListAdapter.getShowChangedOnly());
+		menu.findItem(R.id.view_hide_sys_apps).setChecked(mListAdapter.getFilterSystemApps());
+		menu.findItem(R.id.view_hide_unknown).setChecked(mListAdapter.getFilterUnknown());
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MENU_GROUPING:
+		case R.id.grouping:
 			String groupingPref = "";
 			if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION) {
 				mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_PACKAGE);
@@ -339,26 +353,48 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			}
 			mListAdapter.notifyDataSetChanged();
 			mPrefs.edit().putString(PREF_GROUPING, groupingPref).commit();
+			invalidateOptionsMenu();
 			return true;
 
-		case MENU_VIEW:
-			showViewOptions();
+		case R.id.view_hide_sys_apps:
+			item.setChecked(!item.isChecked());
+			mListAdapter.setFilterSystemApps(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SYS_APPS, item.isChecked()).commit();
 			return true;
 
-		case MENU_EXPAND_COLLAPSE:
+		case R.id.view_changed_only:
+			item.setChecked(!item.isChecked());
+			mListAdapter.setShowChangedOnly(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SHOW_CHANGED, item.isChecked()).commit();
+			return true;
+
+		case R.id.view_hide_unknown:
+			item.setChecked(!item.isChecked());
+			mListAdapter.setFilterUnknown(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_UNKNOWN, item.isChecked()).commit();
+			return true;
+
+		case R.id.expand:
 			ExpandableListView lv = getExpandableListView();
 			for (int i=mListAdapter.getGroupCount()-1; i>=0; i--)
 				if (mExpandSuggested)
 					lv.expandGroup(i);
 				else
 					lv.collapseGroup(i);
+			invalidateOptionsMenu();
 			return true;
 
-		case MENU_RELOAD:
+		case R.id.reload:
 			loadAndApply();
 			return true;
 
-		case MENU_HELP:
+		case R.id.help:
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
 
@@ -386,6 +422,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 
 		mLoadTask = new LoadTask(this);
 		mLoadTask.execute();
+		invalidateOptionsMenu();
 	}
 
 	/**
@@ -394,11 +431,20 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	 * has not yet been switched to FINISHED (it's still RUNNING).
 	 */
 	protected void updateEmptyText(boolean loadIsFinished) {
-		TextView emptyText = (TextView) findViewById(android.R.id.empty);
-		if (mLoadTask != null && mLoadTask.getStatus() == AsyncTask.Status.RUNNING && !loadIsFinished)
-			emptyText.setText(R.string.still_loading);
-		else if (!mListAdapter.isFiltered())
+		// Once loading is done, the empty view switches from a progress bar to a text.
+		TextView emptyText = (TextView) findViewById(R.id.empty_text);
+		if (mLoadTask != null && mLoadTask.getStatus() == AsyncTask.Status.RUNNING && !loadIsFinished) {
+			getExpandableListView().setEmptyView(findViewById((android.R.id.empty)));
+		}
+		else {
+			getExpandableListView().setEmptyView(emptyText);
+		}
+
+		if (!mListAdapter.isFiltered())
 			emptyText.setText(R.string.no_receivers);
+		else if (!mListAdapter.getTextFilter().equals("")) {
+			emptyText.setText(R.string.no_search_match);
+		}
 		else {
 			// Unfortunately, we cannot link directly from the resource
 			// string, and neither can we use {@see Linkify}. In both
@@ -418,7 +464,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			);
 			full.setSpan(new InternalURLSpan(new OnClickListener() {
 					public void onClick(View v) {
-						showViewOptions();
+						mActionBarMenu.performIdentifierAction(R.id.view, 0);
 					}
 				}), base.length(), full.length(),
 				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -439,26 +485,14 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	}
 
 	protected void showEventDetails(IntentFilterInfo event) {
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		Fragment prev = getSupportFragmentManager().findFragmentByTag("details");
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		Fragment prev = getFragmentManager().findFragmentByTag("details");
 		if (prev != null)
 			ft.remove(prev);
 		ft.addToBackStack(null);
 
 		DialogFragment newFragment = EventDetailsFragment.newInstance(event);
 		newFragment.show(ft, "details");
-	}
-
-	protected void showViewOptions() {
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		Fragment prev = getSupportFragmentManager().findFragmentByTag("options");
-		if (prev != null)
-			ft.remove(prev);
-		ft.addToBackStack(null);
-
-		DialogFragment newFragment = new ViewOptionsFragment();
-		newFragment.show(ft, "options");
-
 	}
 
 	protected void addJob(ComponentInfo component, boolean newState) {
@@ -472,6 +506,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	// fade out. This would be an improvement because we could control
 	// it better: Show it longer, but have it disappear when the user
 	// clicks on it (toasts don't receive clicks).
+	// Consider: https://github.com/johnkil/Android-AppMsg
 	public void showInfoToast(String action) {
 		Object[] data = Actions.MAP.get(action);
 		if (mInfoToast == null) {

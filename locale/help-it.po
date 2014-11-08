@@ -1,19 +1,19 @@
 # Italian translations for .
-# Copyright (C) 2011 ORGANIZATION
+# Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the  project.
 #
 # Translators:
-# elsdoerfer <michael@elsdoerfer.info>, 2011.
+# Dimitri Varnalis <mhtsosv@gmail.com>, 2014
+# elsdoerfer <michael@elsdoerfer.info>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version:  android-autostarts\n"
-"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
-"autostarts/issues\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2012-08-14 00:46+0100\n"
-"Last-Translator: \n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/android-"
-"autostarts/team/it/)\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
+"PO-Revision-Date: 2014-03-13 10:24+0000\n"
+"Last-Translator: Dimitri Varnalis <mhtsosv@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/android-"
+"autostarts/language/it/)\n"
 "Plural-Forms: nplurals=2; plural=((n == 1) ? 0 : 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -37,14 +37,14 @@ msgid ""
 "what goes on behind your back. </p>"
 msgstr ""
 "<p> Android permette alle applicazioni di registrarsi per una serie di "
-"eventi sostenuti dal sistema, per essere avviati ogni volta che un evento"
-" del genere si verifica. \n"
+"eventi supportati dal sistema, per essere avviati ogni volta che un "
+"evento del genere si verifica. \n"
 "\n"
 "Questo permette alle applicazioni di lavorare in background, ma talvolta "
 "può anche rallentare il sistema. \n"
 "\n"
 "Autostarts ti aiuta a mantenere il controllo sul tuo cellulare, "
-"consentendo di sapere cosa succede dietro. </p>"
+"consentendo di sapere cosa succede nel background. </p>"
 
 msgctxt "faq2:0"
 msgid "Can I remove an application from a particular event?"

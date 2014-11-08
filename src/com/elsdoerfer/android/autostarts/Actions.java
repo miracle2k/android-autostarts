@@ -17,6 +17,10 @@ import android.telephony.TelephonyManager;
  * with additional information like version added etc. When running an
  * application using new events on an old version of Android, we could
  * hide those events, or mark them as not active.
+ *
+ * I am using these key words in a fourth column:
+ *   - registered (dynamically registered receivers only: "only registered receiver" in docs,
+ *     FLAG_RECEIVER_REGISTERED_ONLY, e.g. ACTION_SCREEN_ON, https://groups.google.com/forum/#!topic/android-platform/gQI-RN1fODw)
  */
 final class Actions {
 
@@ -117,6 +121,18 @@ final class Actions {
 		// New in API Level 16:
 		{ "android.hardware.input.action.QUERY_KEYBOARD_LAYOUTS", R.string.act_query_keyboard_layouts, R.string.act_query_keyboard_layouts_detail },
 		{ "android.net.nsd.STATE_CHANGED", R.string.act_nsd_state_changed, R.string.act_nsd_state_changed_detail },
+		// New in API Level 21:
+		{ "android.os.action.POWER_SAVE_MODE_CHANGED", R.string.act_power_save_mode_changed, R.string.act_power_save_mode_changed_detail, "registered" },
+		{ "android.app.action.LOCK_TASK_ENTERING", R.string.act_task_locked, R.string.R_string_act_task_locked_detail, "targeted" },
+		{ "android.app.action.LOCK_TASK_EXITING", R.string.act_task_unlocked, R.string.act_task_unlocked_detail, "targeted" },
+		{ "android.app.action.NEXT_ALARM_CLOCK_CHANGED", R.string.act_next_alarm_changed, R.string.act_next_alarm_changed_detail, "registered" },
+		{ "android.app.action.PROFILE_PROVISIONING_COMPLETE", R.string.act_provisioning_complete, R.string.act_provisioning_complete_detail },
+		{ "android.intent.action.APPLICATION_RESTRICTIONS_CHANGED", R.string.act_app_restrictions_changed, R.string.act_app_restrictions_changed_detail },
+		{ "android.media.action.HDMI_AUDIO_PLUG", R.string.act_hdmi_plugged, R.string.act_hdmi_plugged_detail },
+		// sent to a specific user? { "android.hardware.hdmi.action.OSD_MESSAGE", "", "" },
+		// ?? android.net.scoring.SCORER_CHANGED
+		// ?? android.net.scoring.SCORE_NETWORKS
+
 
 		// com.android.launcher.*
 		{ "com.android.launcher.action.INSTALL_SHORTCUT", R.string.act_install_shortcut, R.string.act_install_shortcut_detail },

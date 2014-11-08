@@ -1,19 +1,19 @@
 # Polish translations for .
-# Copyright (C) 2011 ORGANIZATION
+# Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the  project.
 #
 # Translators:
-# Adam  <adamkope@o2.pl>, 2011.
+# Adam <adamkope@o2.pl>, 2014
+# Adam <adamkope@o2.pl>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version:  android-autostarts\n"
-"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
-"autostarts/issues\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2011-06-27 13:20+0000\n"
-"Last-Translator: Adammo <adamkope@o2.pl>\n"
-"Language-Team: Polish (http://www.transifex.net/projects/p/android-"
-"autostarts/team/pl/)\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
+"PO-Revision-Date: 2014-03-13 19:00+0000\n"
+"Last-Translator: Adam <adamkope@o2.pl>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/android-"
+"autostarts/language/pl/)\n"
 "Plural-Forms: nplurals=3; plural=((n == 1) ? 0 : ((((n % 10) >= 2 && (n %"
 " 10) <= 4) && (!((n % 100) >= 12 && (n % 100) <= 14))) && (!((n % 100) >="
 " 22 && (n % 100) <= 24))) ? 1 : 2)\n"
@@ -30,21 +30,21 @@ msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
 msgstr "W twoim zaznaczeniu brak aplikacji uruchamianych automatycznie."
 
-msgctxt "still_loading"
-msgid "Please wait while I am loading the applications installed on your phone..."
-msgstr "Proszę czekać. Ładuje aplikacje zainstalowane na twoim telefonie..."
-
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
 msgstr "Zmień ustawienia filtrów."
+
+msgctxt "no_search_match"
+msgid "No applications match your search query."
+msgstr ""
 
 msgctxt "appliation_info"
 msgid "Application Info"
 msgstr "Info o aplikacji"
 
 msgctxt "find_in_market"
-msgid "Find in Market"
-msgstr "Szukaj w Markecie"
+msgid "Find on Google Play"
+msgstr ""
 
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
@@ -76,7 +76,7 @@ msgstr "Ukryj aplikacje systemowe"
 
 msgctxt "show_changed_only"
 msgid "Show changed only"
-msgstr "Pokaż tylko zmiany"
+msgstr "Pokaż tylko zmienione"
 
 msgctxt "hide_unknown"
 msgid "Hide unknown events"
@@ -94,6 +94,10 @@ msgctxt "reload"
 msgid "Reload"
 msgstr "Przeładuj"
 
+msgctxt "search"
+msgid "Search"
+msgstr ""
+
 msgctxt "help"
 msgid "Help"
 msgstr "Pomoc"
@@ -108,7 +112,7 @@ msgstr "Ostrzeżenie"
 
 msgctxt "info"
 msgid "Info"
-msgstr "Informacje"
+msgstr "Informacja"
 
 #, c-format
 msgctxt "receiver_info"
@@ -116,29 +120,31 @@ msgid ""
 "Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
 "with priority &lt;b&gt;%3$d&lt;/b&gt;."
 msgstr ""
-"Odbiorca <b>%1$s</b> powiązany z akcją <i>%2$s</i> z priorytetem "
-"<b>%3$d</b>."
+"Odbiorca  &lt;b&gt;%1$s&lt;/b&gt; powiązany z akcją "
+"&lt;i&gt;%2$s&lt;/i&gt;  z priorytetem &lt;b&gt;%3$d&lt;/b&gt;.."
 
 msgctxt "sys_disable"
 msgid ""
 "This is a system component. Do not make changes unless you know what you "
 "are doing."
 msgstr ""
+"To jest komponent systemowy. Nie wprowadzaj żadnych zmian jeśli nie wiesz"
+" co robisz."
 
 #. The verb (changing) should be at the front of the string
 #, c-format
 msgctxt "changing_state"
 msgid "Changing %1$s..."
-msgstr ""
+msgstr "Zmienianie %1$s"
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "state_change_failed"
 msgid ""
 "Unable to change the state of %1$s (%2$s).\n"
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
-"Nie można zmienić stanu danego komponentu.\n"
+"Nie można zmienić stanu %1$s (%2$s).\n"
 "\n"
 "Prawdopodobnie, twoje urządzenie nie ma praw roota, wymaganych do tej "
 "akcji."
@@ -147,39 +153,13 @@ msgctxt "close_help"
 msgid "Close help and return to app"
 msgstr "Zamknij pomoc i wróć do aplikacji"
 
-#~ msgctxt "please_wait"
-#~ msgid "Please Wait..."
-#~ msgstr "Proszę czekać"
-
-#~ msgctxt "confirm_sys_disable"
+#~ msgctxt "still_loading"
 #~ msgid ""
-#~ "You are about to disable a system"
-#~ " component. This could potentially result"
-#~ " in your phone no longer functioning"
-#~ " properly.\n"
-#~ "\n"
-#~ "Do not proceed unless you are willing to deal with the consequences."
-#~ msgstr ""
-#~ "Chcesz wyłączyć proces systemowy. Może "
-#~ "to spowodować nieprawidłowe działanie twojego"
-#~ " telefonu.\n"
-#~ "\n"
-#~ "Nie należy kontynuować, jeśli nie jesteś pewien skutków."
+#~ "Please wait while I am loading the"
+#~ " applications installed on your phone..."
+#~ msgstr "Proszę czekać. Ładuje aplikacje zainstalowane na twoim telefonie..."
 
-#~ msgctxt "confirm_google_talk"
-#~ msgid ""
-#~ "If Google Talk is disabled, you "
-#~ "are likely going to run into "
-#~ "issues with hanging Android Market "
-#~ "downloads, the starting up Google Talk"
-#~ " yourself whenever necessary can help "
-#~ "overcome them. Sure you want to "
-#~ "proceed?"
-#~ msgstr ""
-#~ "Jeśli Google Talk jest wyłączony, "
-#~ "występują problemy z ściąganiem aplikacji "
-#~ "z Android Market. Jednak ponowne "
-#~ "uruchomienie Google Talk może rozwiązać "
-#~ "ten problem. Na pewno chcesz "
-#~ "kontynuować?"
+#~ msgctxt "find_in_market"
+#~ msgid "Find in Market"
+#~ msgstr "Szukaj w Markecie"
 

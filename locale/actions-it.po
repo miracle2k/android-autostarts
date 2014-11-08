@@ -1,18 +1,19 @@
 # Italian translations for .
-# Copyright (C) 2011 ORGANIZATION
+# Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the  project.
 #
 # Translators:
-# elsdoerfer <michael@elsdoerfer.info>, 2011.
+# Dimitri Varnalis <mhtsosv@gmail.com>, 2014
+# elsdoerfer <michael@elsdoerfer.info>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version:  android-autostarts\n"
-"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
-"autostarts/issues\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2012-08-14 00:32+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: it <LL@li.org>\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
+"PO-Revision-Date: 2014-03-13 10:37+0000\n"
+"Last-Translator: Dimitri Varnalis <mhtsosv@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/android-"
+"autostarts/language/it/)\n"
 "Plural-Forms: nplurals=2; plural=((n == 1) ? 0 : 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -375,15 +376,13 @@ msgctxt "act_package_removed_detail"
 msgid "An application package has been removed from the device."
 msgstr "Il pacchetto dell'applicazione è stato rimosso dal dispositivo."
 
-#, fuzzy
 msgctxt "act_package_fully_removed"
 msgid "Application fully removed"
-msgstr "Applicazione rimossa"
+msgstr ""
 
-#, fuzzy
 msgctxt "act_package_fully_removed_detail"
 msgid "An application as well as its data has been removed from the device."
-msgstr "Il pacchetto dell'applicazione è stato rimosso dal dispositivo."
+msgstr ""
 
 msgctxt "act_package_replaced"
 msgid "Application replaced"
@@ -528,12 +527,11 @@ msgctxt "act_sms_deliver"
 msgid "SMS received (default app)"
 msgstr ""
 
-#, fuzzy
 msgctxt "act_sms_deliver_detail"
 msgid ""
 "A new text based SMS message has been received. Only the default SMS app "
 "is notified."
-msgstr "Un nuovo messaggio di testo SMS è stato ricevuto."
+msgstr ""
 
 msgctxt "act_data_sms_received"
 msgid "Data SMS received"
@@ -639,13 +637,15 @@ msgstr "L'impostazione di vibrazione è cambiata (acceso, spento, ecc)."
 
 msgctxt "act_audio_becoming_noisy"
 msgid "Audio becoming noisy"
-msgstr ""
+msgstr "L'audio diventa rumoroso"
 
 msgctxt "act_audio_becoming_noisy_detail"
 msgid ""
 "Audio is about to become 'noisy' due to a change in audio outputs, e.g. "
 "when a headset is unplugged."
 msgstr ""
+"L'audio sta per diventare \"rumoroso\" per un cambiamento degli audio "
+"output, e.g. quando le cuffie sono disconnesse "
 
 msgctxt "act_tts_queue_completed"
 msgid "TTS queue completed"
@@ -947,15 +947,13 @@ msgctxt "act_bt_launch_detail"
 msgid "(Bluetooth event)"
 msgstr "(Evento Bluetooth)"
 
-#, fuzzy
 msgctxt "act_bt_uuid"
 msgid "BT launch"
-msgstr "Lancio BT"
+msgstr ""
 
-#, fuzzy
 msgctxt "act_bt_uuid_detail"
 msgid "(Bluetooth event)"
-msgstr "(Evento Bluetooth)"
+msgstr ""
 
 msgctxt "act_bt_a2dp_connection_state_changed"
 msgid "BT A2DP connection state changed"
@@ -1009,25 +1007,21 @@ msgctxt "act_bt_headset_vendor_event_detail"
 msgid "The headset has posted a vendor-specific event."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_bt_input_connection_state_changed"
 msgid "BT Input connection state changed"
-msgstr "Stato connessione BT cambiato"
+msgstr ""
 
-#, fuzzy
 msgctxt "act_bt_input_connection_state_changed_detail"
 msgid "Reports a change in connection state of the Input profile."
-msgstr "Lo stato di connessione audio del profilo A2DP è cambiato."
+msgstr ""
 
-#, fuzzy
 msgctxt "act_bt_pan_connection_state_changed"
 msgid "BT Pan connection state changed"
-msgstr "Stato connessione BT cambiato"
+msgstr ""
 
-#, fuzzy
 msgctxt "act_bt_pan_connection_state_changed_detail"
 msgid "Reports a change in connection state of the Pan profile."
-msgstr "Lo stato di connessione audio del profilo A2DP è cambiato."
+msgstr ""
 
 msgctxt "act_background_data_setting_changed"
 msgid "Background data setting changed"
@@ -1443,10 +1437,9 @@ msgctxt "act_close_audio_effect_session_detail"
 msgid "An application no longer wants audio effects to be applied to it's output."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_dreaming_started"
 msgid "Dreaming started"
-msgstr "Durante l'Avvio"
+msgstr ""
 
 msgctxt "act_dreaming_started_detail"
 msgid "The screensaver has started."
@@ -1478,10 +1471,9 @@ msgid ""
 "verifiers."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_content_changed"
 msgid "Contents changed"
-msgstr "Accounts cambiati"
+msgstr ""
 
 msgctxt "act_content_changed_detail"
 msgid ""
@@ -1497,10 +1489,9 @@ msgctxt "act_new_voicemail_detail"
 msgid "The system has become aware of a new voicemail."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_fetch_voicemail"
 msgid "Voicemail content requested"
-msgstr "Gestione del pacchetto richiesto"
+msgstr ""
 
 msgctxt "act_fetch_voicemail_detail"
 msgid ""
@@ -1508,10 +1499,9 @@ msgid ""
 "sources handle this broadcast."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_my_package_replaced"
 msgid "Application updated"
-msgstr "Applicazione sostituita"
+msgstr ""
 
 msgctxt "act_my_package_replaced_detail"
 msgid ""
@@ -1519,10 +1509,9 @@ msgid ""
 "that was upgraded is notified."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_package_first_launch"
 msgid "Application launched first time"
-msgstr "Applicazione sostituita"
+msgstr ""
 
 msgctxt "act_package_first_launch_detail"
 msgid ""
@@ -1534,24 +1523,21 @@ msgctxt "act_sms_cb_received"
 msgid "SMS Cell Broadcast"
 msgstr ""
 
-#, fuzzy
 msgctxt "act_sms_cb_received_detail"
 msgid "A new Cell Broadcast message has been received by the device."
-msgstr "Un nuovo messaggio di testo SMS è stato ricevuto."
+msgstr ""
 
 msgctxt "act_sms_emergency_cb_received"
 msgid "SMS Emergency Broadcast"
 msgstr ""
 
-#, fuzzy
 msgctxt "act_sms_emergency_cb_received_detail"
 msgid "A new Emergency Broadcast message has been received by the device."
-msgstr "Un nuovo messaggio di testo SMS è stato ricevuto."
+msgstr ""
 
-#, fuzzy
 msgctxt "act_sms_service_category_pdr"
 msgid "CDMA SMS received"
-msgstr "SMS ricevuti"
+msgstr ""
 
 msgctxt "act_sms_service_category_pdr_detail"
 msgid ""
@@ -1559,10 +1545,9 @@ msgid ""
 " (updates the list of enabled broadcast channels)."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_nfc_adapter_state_changed"
 msgid "NFC state changed"
-msgstr "Stato BT cambiato"
+msgstr ""
 
 msgctxt "act_nfc_adapter_state_changed_detail"
 msgid ""
@@ -1570,29 +1555,25 @@ msgid ""
 "off)."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_discovery_state_change"
 msgid "Wi-Fi P2P discovery changed"
-msgstr "Stato Wi-Fi cambiato"
+msgstr ""
 
 msgctxt "act_wifi_p2p_discovery_state_change_detail"
 msgid "The Wifi peer discovery has either started or stopped."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_connection_state_change"
 msgid "Wi-Fi P2P connection changed"
-msgstr "Connessione Wi-Fi cambiata"
+msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_connection_state_change_detail"
 msgid "The state of Wi-Fi P2P connectivity has changed."
-msgstr "Lo stato della connettività Wi-Fi è cambiato."
+msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_peers_changed"
 msgid "Wi-Fi P2P peers changed"
-msgstr "Wi-Fi rete IDs cambiato"
+msgstr ""
 
 msgctxt "act_wifi_p2p_peers_changed_detail"
 msgid ""
@@ -1600,38 +1581,33 @@ msgid ""
 "peers being found, lost or updated."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_state_changed"
 msgid "Wi-Fi P2P state changed"
-msgstr "Stato Wi-Fi cambiato"
+msgstr ""
 
 msgctxt "act_wifi_p2p_state_changed_detail"
 msgid "Wi-Fi P2P has either been enabled or disabled."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_this_device_changed"
 msgid "Wi-Fi P2P device details changed"
-msgstr "Servizio di stato cambiato"
+msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_this_device_changed_detail"
 msgid "The details of this device have changed."
-msgstr "Lo stato della connettività Wi-Fi è cambiato."
+msgstr ""
 
-#, fuzzy
 msgctxt "act_sco_audio_state_changed"
 msgid "SCO audio state changed"
-msgstr "Stato audio BT cambiato"
+msgstr ""
 
 msgctxt "act_sco_audio_state_changed_detail"
 msgid "The bluetoooth SCO audio connection state has been updated."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_nsd_state_changed"
 msgid "NSC changed"
-msgstr "IME cambiato"
+msgstr ""
 
 msgctxt "act_nsd_state_changed_detail"
 msgid "Network Service Discovery has been enabled or disabled."
@@ -1646,4 +1622,72 @@ msgid ""
 "By registering for this event, the application defines a keyboard layout."
 " No application is started by this event."
 msgstr ""
+
+#, fuzzy
+msgctxt "act_power_save_mode_changed"
+msgid "Power Save Mode changed"
+msgstr "Modalità scansione BT cambiata"
+
+msgctxt "act_power_save_mode_changed_detail"
+msgid "When the device goes into, or exits power save mode."
+msgstr ""
+
+msgctxt "act_task_locked"
+msgid "Task locked"
+msgstr ""
+
+msgctxt "act_task_unlocked"
+msgid "Task unlocked"
+msgstr ""
+
+msgctxt "act_task_unlocked_detail"
+msgid ""
+"When the device leaves kiosk mode and the previously locked task is "
+"unlocked."
+msgstr ""
+
+msgctxt "R.string.act_task_locked_detail"
+msgid "When the device is locked to a single application in kiosk mode."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_next_alarm_changed"
+msgid "Next Alarm changed"
+msgstr "Alias BT cambiato"
+
+msgctxt "act_next_alarm_changed_detail"
+msgid ""
+"The alarm clock next to be raised has changed. A previous alarm has "
+"triggered, or was canceled."
+msgstr ""
+
+msgctxt "act_provisioning_complete"
+msgid "Profile provisioning complete"
+msgstr ""
+
+msgctxt "act_provisioning_complete_detail"
+msgid ""
+"Indicates that provisioning of a managed profile or managed device has "
+"completed successfully."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed"
+msgid "Application restrictions changed"
+msgstr "Applicazione cambiata"
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed_detail"
+msgid "Application restrictions have changed."
+msgstr "Applicazione cambiata"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged"
+msgid "HDMI cable plugged/unplugged"
+msgstr "Auricolare inserito o disinserito"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged_detail"
+msgid "An HMDI cable was plugged or unplugged"
+msgstr "Auricolare inserito o disinserito"
 

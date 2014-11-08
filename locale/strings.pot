@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2013 ORGANIZATION
+# Copyright (C) 2014 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,12 +25,12 @@ msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
 msgstr ""
 
-msgctxt "still_loading"
-msgid "Please wait while I am loading the applications installed on your phone..."
-msgstr ""
-
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
+msgstr ""
+
+msgctxt "no_search_match"
+msgid "No applications match your search query."
 msgstr ""
 
 msgctxt "appliation_info"
@@ -38,7 +38,7 @@ msgid "Application Info"
 msgstr ""
 
 msgctxt "find_in_market"
-msgid "Find in Market"
+msgid "Find on Google Play"
 msgstr ""
 
 msgctxt "find_in_appstore"
@@ -87,6 +87,10 @@ msgstr ""
 
 msgctxt "reload"
 msgid "Reload"
+msgstr ""
+
+msgctxt "search"
+msgid "Search"
 msgstr ""
 
 msgctxt "help"

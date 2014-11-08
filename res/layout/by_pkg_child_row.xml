@@ -24,14 +24,22 @@
         android:text="dsf" android:gravity="center_vertical"/>
 
 	<!-- Note the right padding is slightly larger to account for a
-	     potential scrollbar. Doesn't look to good if it's too close. -->
+	     potential scrollbar. Doesn't look to good if it's too close.
+
+	     Note 2014-11: In recent Android versions there seem to be two
+	     scrollbar styles. A tiny one if there is little scrolling, and
+	     if there are a lot of items, one that is inset QUITE A BIT.
+
+	     We need to move the icon quite far from the right to accommodate.
+	     -->
     <ImageView
         android:id="@+id/show_info"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_dialog_info_btn"
-        android:layout_gravity="center_vertical" android:layout_marginRight="7dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="20dp"
         android:layout_marginLeft="6dp"/>
 
     <!--

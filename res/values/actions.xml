@@ -366,4 +366,29 @@
     <string name="act_nsd_state_changed_detail">Network Service Discovery has been enabled or disabled.</string>
     <string name="act_query_keyboard_layouts">(Query keyboard layouts)</string>
     <string name="act_query_keyboard_layouts_detail">By registering for this event, the application defines a keyboard layout. No application is started by this event.</string>
+    <string name="act_power_save_mode_changed">Power Save Mode changed</string>
+    <string name="act_power_save_mode_changed_detail">When the device goes into, or exits power save
+        mode.
+    </string>
+    <string name="act_task_locked">Task locked</string>
+    <string name="act_task_unlocked">Task unlocked</string>
+    <string name="act_task_unlocked_detail">When the device leaves kiosk mode and the previously
+        locked task is unlocked.
+    </string>
+    <string name="R.string.act_task_locked_detail">When the device is locked to a single application
+        in kiosk mode.
+    </string>
+    <string name="act_next_alarm_changed">Next Alarm changed</string>
+    <string name="act_next_alarm_changed_detail">The alarm clock next to be raised has changed. A
+        previous alarm has triggered, or was canceled.
+    </string>
+    <string name="act_provisioning_complete">Profile provisioning complete</string>
+    <string name="act_provisioning_complete_detail">Indicates that provisioning of a managed profile
+        or managed device has completed successfully.
+    </string>
+    <string name="act_app_restrictions_changed">Application restrictions changed</string>
+    <string name="act_app_restrictions_changed_detail">Application restrictions have changed.
+    </string>
+    <string name="act_hdmi_plugged">HDMI cable plugged/unplugged</string>
+    <string name="act_hdmi_plugged_detail">An HMDI cable was plugged or unplugged</string>
 </resources>

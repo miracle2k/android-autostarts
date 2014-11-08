@@ -1,17 +1,21 @@
-# German translations for PROJECT.
-# Copyright (C) 2010 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-# Michael Elsdörfer <michael@elsdoerfer.com>, 2010, 2011.
+# German translations for .
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the  project.
 #
+# Translators:
+# elsdoerfer <michael@elsdoerfer.info>, 2011
+# Ettore Atalan <atalanttore@googlemail.com>, 2014
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010
+# Michael Elsdörfer <michael@elsdoerfer.com>, 2010-2011
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version:  android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2011-03-22 21:58+0100\n"
-"Last-Translator: Michael Elsdörfer <michael@elsdoerfer.com>\n"
-"Language-Team: German <michael@elsdoerfer.com>\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
+"PO-Revision-Date: 2014-04-13 07:37+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/android-"
+"autostarts/language/de/)\n"
 "Plural-Forms: nplurals=2; plural=((n == 1) ? 0 : 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -28,21 +32,21 @@ msgstr ""
 "Keine automatisch startende Anwendungen innerhalb der aktuellen "
 "Filterauswahl."
 
-msgctxt "still_loading"
-msgid "Please wait while I am loading the applications installed on your phone..."
-msgstr "Bitte warten während ich die installierten Anwendungen lade..."
-
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
 msgstr "Filtereinstellungen ändern."
+
+msgctxt "no_search_match"
+msgid "No applications match your search query."
+msgstr ""
 
 msgctxt "appliation_info"
 msgid "Application Info"
 msgstr "Anwendungsinformationen"
 
 msgctxt "find_in_market"
-msgid "Find in Market"
-msgstr "Im Market finden"
+msgid "Find on Google Play"
+msgstr ""
 
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
@@ -92,6 +96,10 @@ msgctxt "reload"
 msgid "Reload"
 msgstr "Neu laden"
 
+msgctxt "search"
+msgid "Search"
+msgstr ""
+
 msgctxt "help"
 msgid "Help"
 msgstr "Hilfe"
@@ -125,58 +133,27 @@ msgstr ""
 #, c-format
 msgctxt "changing_state"
 msgid "Changing %1$s..."
-msgstr ""
+msgstr "Ändere %1$s..."
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "state_change_failed"
 msgid ""
 "Unable to change the state of %1$s (%2$s).\n"
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
-"Der Status der Komponente konnte nicht geändert werden.\n"
-"\n"
-"Der Grund ist in der Regel dass du keinen Root-Zugriff auf deinem Handy "
-"hast."
 
 msgctxt "close_help"
 msgid "Close help and return to app"
 msgstr "Hilfe schließen und zurück"
 
-#~ msgctxt "please_wait"
-#~ msgid "Please Wait..."
-#~ msgstr "Bitte warten..."
-
-#~ msgctxt "confirm_sys_disable"
+#~ msgctxt "still_loading"
 #~ msgid ""
-#~ "You are about to disable a system"
-#~ " component. This could potentially result"
-#~ " in your phone no longer functioning"
-#~ " properly.\n"
-#~ "\n"
-#~ "Do not proceed unless you are willing to deal with the consequences."
-#~ msgstr ""
-#~ "Du bist gerade dabei eine "
-#~ "Systemkomponente zu deaktivieren. Dies kann"
-#~ " potentiell zu Problemen mit deinem "
-#~ "Handy führen.\n"
-#~ "\n"
-#~ "Bitte fahre nur fort wenn du sicher bist was du tust."
+#~ "Please wait while I am loading the"
+#~ " applications installed on your phone..."
+#~ msgstr "Bitte warten während ich die installierten Anwendungen lade..."
 
-#~ msgctxt "confirm_google_talk"
-#~ msgid ""
-#~ "If Google Talk is disabled, you "
-#~ "are likely going to run into "
-#~ "issues with hanging Android Market "
-#~ "downloads, the starting up Google Talk"
-#~ " yourself whenever necessary can help "
-#~ "overcome them. Sure you want to "
-#~ "proceed?"
-#~ msgstr ""
-#~ "Wenn Google Talk nicht aktiviert ist "
-#~ "kann es möglicherweise Probleme mit "
-#~ "Downloads aus dem Android Market geben,"
-#~ " die nicht abgeschlossen werden (Google "
-#~ "Talk manuell zu starten hilft in "
-#~ "der Regel dagegen). Wirklich deaktivieren?"
+#~ msgctxt "find_in_market"
+#~ msgid "Find in Market"
+#~ msgstr "Im Market finden"
 

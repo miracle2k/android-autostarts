@@ -1,7 +1,6 @@
 package com.elsdoerfer.android.autostarts;
 
 import android.app.*;
-import android.support.v4.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;

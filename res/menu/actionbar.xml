@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/search"
+          android:title="@string/search"
+          android:icon="@drawable/ic_action_action_search"
+          android:showAsAction="collapseActionView|ifRoom"
+          android:actionViewClass="android.widget.SearchView" />
+
+    <item android:id="@+id/grouping"
+          android:icon="@drawable/ic_action_action_view_column"
+          android:title="@string/group_by_action"
+          android:showAsAction="ifRoom|withText" />
+
+    <item android:id="@+id/view"
+          android:icon="@drawable/ic_action_image_remove_red_eye"
+          android:title="@string/view_options"
+          android:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/view_hide_sys_apps"
+                  android:title="@string/hide_sys_apps"
+                  android:checkable="true"/>
+            <item android:id="@+id/view_changed_only"
+                  android:title="@string/show_changed_only"
+                  android:checkable="true"/>
+            <item android:id="@+id/view_hide_unknown"
+                  android:title="@string/hide_unknown"
+                  android:checkable="true"/>
+        </menu>
+    </item>
+
+    <item android:id="@+id/expand"
+          android:icon="@drawable/ic_action_navigation_expand_more"
+          android:title="@string/expand_all"
+          android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/reload"
+          android:icon="@drawable/ic_action_navigation_refresh"
+          android:title="@string/reload" />
+
+    <item android:id="@+id/help"
+          android:icon="@drawable/ic_action_action_help"
+          android:title="@string/help" />
+</menu>

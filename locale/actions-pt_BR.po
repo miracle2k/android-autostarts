@@ -1,15 +1,16 @@
 # Portuguese (Brazil) translations for .
-# Copyright (C) 2012 ORGANIZATION
+# Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the  project.
 #
 # Translators:
 # hbcneto <hilton.neto@gmail.com>, 2012
+# hbcneto <hilton.neto@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version:  android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2013-11-20 12:05+0000\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
+"PO-Revision-Date: 2013-12-02 19:35+0000\n"
 "Last-Translator: hbcneto <hilton.neto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p"
 "/android-autostarts/language/pt_BR/)\n"
@@ -404,15 +405,13 @@ msgctxt "act_package_removed_detail"
 msgid "An application package has been removed from the device."
 msgstr "Aplicativo removido do dispositivo."
 
-#, fuzzy
 msgctxt "act_package_fully_removed"
 msgid "Application fully removed"
-msgstr "Aplicativo removido"
+msgstr "Aplicativo totalmente removido"
 
-#, fuzzy
 msgctxt "act_package_fully_removed_detail"
 msgid "An application as well as its data has been removed from the device."
-msgstr "Aplicativo removido do dispositivo."
+msgstr "Um aplicativo, assim como seus dados, foi removido do dispositivo."
 
 msgctxt "act_package_replaced"
 msgid "Application replaced"
@@ -562,14 +561,15 @@ msgstr "Nova mensagem SMS de texto recebida."
 
 msgctxt "act_sms_deliver"
 msgid "SMS received (default app)"
-msgstr ""
+msgstr "SMS recebida (aplicativo padrão)"
 
-#, fuzzy
 msgctxt "act_sms_deliver_detail"
 msgid ""
 "A new text based SMS message has been received. Only the default SMS app "
 "is notified."
-msgstr "Nova mensagem SMS de texto recebida."
+msgstr ""
+"Uma nova mensagem de texto SMS foi recebida. Apenas o aplicativo padrão "
+"foi notificado."
 
 msgctxt "act_data_sms_received"
 msgid "Data SMS received"
@@ -597,13 +597,15 @@ msgstr "Nova mensagem WAP PUSH recebida. "
 
 msgctxt "act_wap_push_deliver"
 msgid "WAP PUSH received (default app)"
-msgstr ""
+msgstr "WAP PUSH recebida (aplicativo padrão)"
 
 msgctxt "act_wap_push_deliver_detail"
 msgid ""
 "A new WAP PUSH message has been received. Only the default SMS app is "
 "notified."
 msgstr ""
+"Uma nova mensagem WAP PUSH foi recebida. Apenas o aplicativo SMS padrão "
+"foi notificado."
 
 msgctxt "act_network_ids_changed"
 msgid "Wi-Fi network IDs changed"
@@ -991,12 +993,10 @@ msgctxt "act_bt_launch_detail"
 msgid "(Bluetooth event)"
 msgstr "(Evento Bluetooth)"
 
-#, fuzzy
 msgctxt "act_bt_uuid"
 msgid "BT launch"
 msgstr "BT lançado"
 
-#, fuzzy
 msgctxt "act_bt_uuid_detail"
 msgid "(Bluetooth event)"
 msgstr "(Evento Bluetooth)"
@@ -1053,25 +1053,21 @@ msgctxt "act_bt_headset_vendor_event_detail"
 msgid "The headset has posted a vendor-specific event."
 msgstr "Fone de ouvido submeteu um evento específico do fornecedor."
 
-#, fuzzy
 msgctxt "act_bt_input_connection_state_changed"
 msgid "BT Input connection state changed"
-msgstr "Estado da conexão BT alterado"
+msgstr "Estado da conexão de entrada BT alterada."
 
-#, fuzzy
 msgctxt "act_bt_input_connection_state_changed_detail"
 msgid "Reports a change in connection state of the Input profile."
-msgstr "Informa mudança no estado da conexão do perfil do fone de ouvido."
+msgstr "Informa mudança no estado da conexão do perfil de entrada."
 
-#, fuzzy
 msgctxt "act_bt_pan_connection_state_changed"
 msgid "BT Pan connection state changed"
 msgstr "Estado da conexão BT alterado"
 
-#, fuzzy
 msgctxt "act_bt_pan_connection_state_changed_detail"
 msgid "Reports a change in connection state of the Pan profile."
-msgstr "Informa mudança no estado da conexão do perfil do fone de ouvido."
+msgstr "Informa uma mudança no estado da conexão do perfil Pan."
 
 msgctxt "act_background_data_setting_changed"
 msgid "Background data setting changed"
@@ -1169,16 +1165,15 @@ msgstr ""
 
 msgctxt "act_new_video"
 msgid "New Video"
-msgstr ""
+msgstr "Novo Vídeo"
 
-#, fuzzy
 msgctxt "act_new_video_detail"
 msgid ""
 "A new video was added to the gallery, usually by the Camera application "
 "after the user recorded a video."
 msgstr ""
-"Nova foto adicionada à galeria, geralmente pelo aplicativo de câmera "
-"depois do usuário tirar um nova foto."
+"Novo vídeo adicionado à galeria, geralmente pelo aplicativo de câmera "
+"depois do usuário gravar um vídeo."
 
 msgctxt "act_secret_code"
 msgid "Secret Code entered"
@@ -1523,157 +1518,157 @@ msgctxt "act_close_audio_effect_session_detail"
 msgid "An application no longer wants audio effects to be applied to it's output."
 msgstr "Aplicativo não deseja mais que efeitos de som sejam aplicados à sua saída."
 
-#, fuzzy
 msgctxt "act_dreaming_started"
 msgid "Dreaming started"
-msgstr "Durante inicialização"
+msgstr "Início do sonho"
 
-#, fuzzy
 msgctxt "act_dreaming_started_detail"
 msgid "The screensaver has started."
-msgstr "Scanner de mídia iniciado"
+msgstr "Protetor de tela iniciado."
 
 msgctxt "act_dreaming_stopped"
 msgid "Dreaming stopped"
-msgstr ""
+msgstr "Fim do estado de sonho"
 
 msgctxt "act_dreaming_stopped_detail"
 msgid "The screensaver has stopped."
-msgstr ""
+msgstr "O protetor de tela parou."
 
 msgctxt "act_package_needs_verification"
 msgid "Package needs verification"
-msgstr ""
+msgstr "Pacote precisa ser verificado."
 
 msgctxt "act_package_needs_verification_detail"
 msgid "System wants a package to be verified; applications may be verifiers."
-msgstr ""
+msgstr "O sistema quer verificar um pacote; aplicativos podem ser verificadores."
 
 msgctxt "act_package_verified"
 msgid "Package verified"
-msgstr ""
+msgstr "Pacote verificado"
 
 msgctxt "act_package_verified_detail"
 msgid ""
 "The verification of a package has been completed; this is only sent to "
 "verifiers."
 msgstr ""
+"A verificação de um pacote foi completada; Isto é mandado apenas para "
+"verificadores."
 
-#, fuzzy
 msgctxt "act_content_changed"
 msgid "Contents changed"
-msgstr "Contas alteradas"
+msgstr "Conteúdos alterados"
 
 msgctxt "act_content_changed_detail"
 msgid ""
 "Contents of an URI have changed, and applications showing this content "
 "should update."
 msgstr ""
+"Conteúdos de uma URI alterados, e aplicativos exibindo esse conteúdo "
+"devem ser atualizados."
 
 msgctxt "act_new_voicemail"
 msgid "New Voicemail"
-msgstr ""
+msgstr "Novo correio de voz."
 
 msgctxt "act_new_voicemail_detail"
 msgid "The system has become aware of a new voicemail."
-msgstr ""
+msgstr "O sistema foi notificado de um novo correio de voz."
 
-#, fuzzy
 msgctxt "act_fetch_voicemail"
 msgid "Voicemail content requested"
-msgstr "Gerenciamento de pacote solicitado"
+msgstr "Conteúdo do correio de voz requisitado"
 
 msgctxt "act_fetch_voicemail_detail"
 msgid ""
 "The system wants to retrieve the contents of a voicemail. Voicemail "
 "sources handle this broadcast."
 msgstr ""
+"O sistema quer recuperar o conteúdo do correio de voz. Origem do correio "
+"de voz lida com esse broadcast."
 
-#, fuzzy
 msgctxt "act_my_package_replaced"
 msgid "Application updated"
-msgstr "Aplicativo substituído"
+msgstr "Aplicativo atualizado"
 
 msgctxt "act_my_package_replaced_detail"
 msgid ""
 "A new version of an application has been installed. Only the application "
 "that was upgraded is notified."
 msgstr ""
+"Uma nova versão do aplicativo foi atualizada. Apenas o aplicativo "
+"atualizado é notificado."
 
-#, fuzzy
 msgctxt "act_package_first_launch"
 msgid "Application launched first time"
-msgstr "Aplicativo substituído"
+msgstr "Aplicativo executado pela primeira vez"
 
 msgctxt "act_package_first_launch_detail"
 msgid ""
 "An application has been launched to the first time; this is only sent to "
 "the installer of the application in question (i.e. the Play Store)."
 msgstr ""
+"Um aplicativo foi executado pela primeira vez; Isto é enviado apenas ao "
+"instalador do aplicativo em questão (por exemplo, a Play Store)."
 
 msgctxt "act_sms_cb_received"
 msgid "SMS Cell Broadcast"
 msgstr ""
 
-#, fuzzy
 msgctxt "act_sms_cb_received_detail"
 msgid "A new Cell Broadcast message has been received by the device."
-msgstr "Nova SMS de dados recebida."
+msgstr "Uma nova mensagem de broadcast foi recebida pelo dispositivo."
 
 msgctxt "act_sms_emergency_cb_received"
 msgid "SMS Emergency Broadcast"
-msgstr ""
+msgstr "Broadcast SMS de Emergência"
 
-#, fuzzy
 msgctxt "act_sms_emergency_cb_received_detail"
 msgid "A new Emergency Broadcast message has been received by the device."
-msgstr "Nova mensagem SMS de texto recebida."
+msgstr ""
+"Uma nova mensagem de broadcast de emergência foi recebida pelo "
+"dispositivo."
 
-#, fuzzy
 msgctxt "act_sms_service_category_pdr"
 msgid "CDMA SMS received"
-msgstr "SMS de dados rececida"
+msgstr "SMS CDMA recebida"
 
 msgctxt "act_sms_service_category_pdr_detail"
 msgid ""
 "A new CDMA SMS has been received containing Service Category Program Data"
 " (updates the list of enabled broadcast channels)."
 msgstr ""
+"Uma nova SMS CDMA foi recebida contendo Dados de Programa de Categoria de"
+" Serviço (atualiza a lista de canais de broadcast habilitados)"
 
-#, fuzzy
 msgctxt "act_nfc_adapter_state_changed"
 msgid "NFC state changed"
-msgstr "Estado do BT alterado"
+msgstr "Estado do NFC alterado"
 
 msgctxt "act_nfc_adapter_state_changed_detail"
 msgid ""
 "The state of the local NFC adapter has been changed (e.g. turned on or "
 "off)."
-msgstr ""
+msgstr "O estado do adaptador NFC local foi alterado (foi ligado ou desligado)."
 
-#, fuzzy
 msgctxt "act_wifi_p2p_discovery_state_change"
 msgid "Wi-Fi P2P discovery changed"
-msgstr "Estado do Wi-Fi alterado"
+msgstr "Descoberta P2P do Wi-Fi alterado"
 
 msgctxt "act_wifi_p2p_discovery_state_change_detail"
 msgid "The Wifi peer discovery has either started or stopped."
-msgstr ""
+msgstr "A descoberta de dispositivos Wi-Fi foi iniciada ou parada."
 
-#, fuzzy
 msgctxt "act_wifi_p2p_connection_state_change"
 msgid "Wi-Fi P2P connection changed"
-msgstr "Conexão Wi-Fi mudou"
+msgstr "Conexão P2P do Wi-Fi alterada"
 
-#, fuzzy
 msgctxt "act_wifi_p2p_connection_state_change_detail"
 msgid "The state of Wi-Fi P2P connectivity has changed."
-msgstr "O estado da conectividade Wi-Fi mudou."
+msgstr "O estado da conexão P2P do Wi-Fi foi alterada."
 
-#, fuzzy
 msgctxt "act_wifi_p2p_peers_changed"
 msgid "Wi-Fi P2P peers changed"
-msgstr "ID da rede Wi-Fi alterado"
+msgstr "Wi-fi P2P alterada"
 
 msgctxt "act_wifi_p2p_peers_changed_detail"
 msgid ""
@@ -1681,38 +1676,33 @@ msgid ""
 "peers being found, lost or updated."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_state_changed"
 msgid "Wi-Fi P2P state changed"
-msgstr "Estado do Wi-Fi alterado"
+msgstr ""
 
 msgctxt "act_wifi_p2p_state_changed_detail"
 msgid "Wi-Fi P2P has either been enabled or disabled."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_this_device_changed"
 msgid "Wi-Fi P2P device details changed"
-msgstr "Estado do serviço alterado"
+msgstr ""
 
-#, fuzzy
 msgctxt "act_wifi_p2p_this_device_changed_detail"
 msgid "The details of this device have changed."
-msgstr "O estado da conectividade Wi-Fi mudou."
+msgstr ""
 
-#, fuzzy
 msgctxt "act_sco_audio_state_changed"
 msgid "SCO audio state changed"
-msgstr "Estado do áudio BT alterado"
+msgstr ""
 
 msgctxt "act_sco_audio_state_changed_detail"
 msgid "The bluetoooth SCO audio connection state has been updated."
 msgstr ""
 
-#, fuzzy
 msgctxt "act_nsd_state_changed"
 msgid "NSC changed"
-msgstr "IME alterado"
+msgstr ""
 
 msgctxt "act_nsd_state_changed_detail"
 msgid "Network Service Discovery has been enabled or disabled."
@@ -1727,4 +1717,72 @@ msgid ""
 "By registering for this event, the application defines a keyboard layout."
 " No application is started by this event."
 msgstr ""
+
+#, fuzzy
+msgctxt "act_power_save_mode_changed"
+msgid "Power Save Mode changed"
+msgstr "Modo de escaneamento do BT alterado"
+
+msgctxt "act_power_save_mode_changed_detail"
+msgid "When the device goes into, or exits power save mode."
+msgstr ""
+
+msgctxt "act_task_locked"
+msgid "Task locked"
+msgstr ""
+
+msgctxt "act_task_unlocked"
+msgid "Task unlocked"
+msgstr ""
+
+msgctxt "act_task_unlocked_detail"
+msgid ""
+"When the device leaves kiosk mode and the previously locked task is "
+"unlocked."
+msgstr ""
+
+msgctxt "R.string.act_task_locked_detail"
+msgid "When the device is locked to a single application in kiosk mode."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_next_alarm_changed"
+msgid "Next Alarm changed"
+msgstr "pseudônimo do BT alterado"
+
+msgctxt "act_next_alarm_changed_detail"
+msgid ""
+"The alarm clock next to be raised has changed. A previous alarm has "
+"triggered, or was canceled."
+msgstr ""
+
+msgctxt "act_provisioning_complete"
+msgid "Profile provisioning complete"
+msgstr ""
+
+msgctxt "act_provisioning_complete_detail"
+msgid ""
+"Indicates that provisioning of a managed profile or managed device has "
+"completed successfully."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed"
+msgid "Application restrictions changed"
+msgstr "Aplicativo alterado"
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed_detail"
+msgid "Application restrictions have changed."
+msgstr "Aplicativo alterado"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged"
+msgid "HDMI cable plugged/unplugged"
+msgstr "Fone de ouvido conectado ou desconectado"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged_detail"
+msgid "An HMDI cable was plugged or unplugged"
+msgstr "Fone de ouvido conectado ou desconectado"
 

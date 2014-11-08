@@ -46,12 +46,6 @@ BUILDS = {
         'sign': False,
         'deploy': False,
     },
-    'vodaphone': {
-        'extra-paths': ['src-opt/vodaphone'],
-        'template': 'Android-Autostarts-Vodaphone-%(version)s.apk',
-        # Vodaphone QA complains about incomplete translations
-        'a2po_options': '--require-min-complete 1',
-    },
     'default': {
         'extra-paths': ['src-opt/default'],
         'template': 'Android-Autostarts-Full-%(version)s.apk',
@@ -86,7 +80,6 @@ def build(build_only=None, clean=False):
                                project_dir='.',
                                sdk_dir=env.sdk_dir)
             p.extra_source_dirs = build_options['extra-paths']
-            p.extra_jars = ['%s/extras/android/support/v4/android-support-v4.jar' % env.sdk_dir]
 
             # Build the project
             if clean:

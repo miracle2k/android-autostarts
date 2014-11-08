@@ -296,7 +296,7 @@ public class ReceiverReader {
 		String componentName = getAttr("name");
 		if (componentName == null) {
 			Log.e(TAG, "A receiver in "+mAndroidPackage.packageName+" has no name.");
-			return;
+			componentName = "(no-name)";
 		}
 		else if (componentName.startsWith("."))
 			componentName = mAndroidPackage.packageName + componentName;

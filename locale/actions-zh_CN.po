@@ -1,28 +1,27 @@
-# Translations template for PROJECT.
+# Chinese (China) translations for .
 # Copyright (C) 2013 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# 
+# This file is distributed under the same license as the  project.
+#
 # Translators:
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011
-# tang <m@tangblog.info>, 2012
 # tang <m@tangblog.info>, 2012
 # vamdra <over2012cn@hotmail.com>, 2013
 # yecn <yegame@qq.com>, 2011
 # Felix2yu <yufei.im@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: android-autostarts\n"
+"Project-Id-Version:  android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"POT-Creation-Date: 2014-11-08 18:01+0100\n"
 "PO-Revision-Date: 2014-01-13 12:45+0000\n"
 "Last-Translator: Felix2yu <yufei.im@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/android-autostarts/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p"
+"/android-autostarts/language/zh_CN/)\n"
+"Plural-Forms: nplurals=1; plural=(0)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
-"Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgctxt "act_airplane_mode_changed"
 msgid "Airplane mode changed"
@@ -128,8 +127,8 @@ msgstr "设置变更"
 
 msgctxt "act_configuration_changed_detail"
 msgid ""
-"The device configuration changed. This includes things like locale settings,"
-" but also the device orientation."
+"The device configuration changed. This includes things like locale "
+"settings, but also the device orientation."
 msgstr "该设备的设置已变更，包括本地设置和屏幕方向设置。"
 
 msgctxt "act_locale_changed"
@@ -138,8 +137,8 @@ msgstr "语言变更"
 
 msgctxt "act_locale_changed_detail"
 msgid ""
-"The device's locale setting has changed. This is a subset of \"Configuration"
-" changed\"."
+"The device's locale setting has changed. This is a subset of "
+"\"Configuration changed\"."
 msgstr "设备的语言设置已变更。属于「设置更改」的子项。"
 
 msgctxt "act_date_changed"
@@ -164,8 +163,8 @@ msgstr "存储空间充足"
 
 msgctxt "act_device_storage_ok_detail"
 msgid ""
-"The device storage space has increased beyond the critical threshold, and "
-"the low memory condition no longer exists."
+"The device storage space has increased beyond the critical threshold, and"
+" the low memory condition no longer exists."
 msgstr "设备存储空间超过临界阈值，不再处于空间不足状态。"
 
 msgctxt "act_gtalk_service_connected"
@@ -224,8 +223,8 @@ msgstr "按下媒体键"
 
 msgctxt "act_media_button_detail"
 msgid ""
-"The \"Media Button\" was pressed. Usually, this will refer to a button on "
-"your headset/earplugs."
+"The \"Media Button\" was pressed. Usually, this will refer to a button on"
+" your headset/earplugs."
 msgstr "按下媒体键，此键通常在耳机或耳塞上。"
 
 msgctxt "act_media_checking"
@@ -249,8 +248,7 @@ msgid "Media mounted"
 msgstr "挂载媒体"
 
 msgctxt "act_media_mounted_detail"
-msgid ""
-"External media is present, was mounted and is now available to the device."
+msgid "External media is present, was mounted and is now available to the device."
 msgstr "外部媒体已挂载并且可被设备使用。"
 
 msgctxt "act_media_nofs"
@@ -259,8 +257,8 @@ msgstr "媒体不正确或空白"
 
 msgctxt "act_media_nofs_detail"
 msgid ""
-"External media was detected, but is using an incompatible filesystem or is "
-"blank."
+"External media was detected, but is using an incompatible filesystem or "
+"is blank."
 msgstr "外部媒体已侦测到，但使用的是不兼容的文件系统或是空白媒体。"
 
 msgctxt "act_media_removed"
@@ -305,8 +303,8 @@ msgstr "启用媒体分享"
 
 msgctxt "act_media_shared_detail"
 msgid ""
-"External media is now being shared via USB mass storage mode, and is at this"
-" time no longer available to the device."
+"External media is now being shared via USB mass storage mode, and is at "
+"this time no longer available to the device."
 msgstr "通过 USB 大容量存储模式分享外部媒体，且此时在设备上不可使用。"
 
 msgctxt "act_media_unmountable"
@@ -314,8 +312,7 @@ msgid "Media unmountable"
 msgstr "媒体无法挂载"
 
 msgctxt "act_media_unmountable_detail"
-msgid ""
-"External media was detected, but cannot be used, likely due to an error."
+msgid "External media was detected, but cannot be used, likely due to an error."
 msgstr "外部媒体已侦测到，但可能由于一个错误而无法使用。"
 
 msgctxt "act_media_unmounted"
@@ -324,7 +321,8 @@ msgstr "媒体未挂载"
 
 msgctxt "act_media_unmounted_detail"
 msgid ""
-"External media is available, but unmounted, and not available to the device."
+"External media is available, but unmounted, and not available to the "
+"device."
 msgstr "外部媒体已被侦测到，但未挂载，且不可在设备上使用。"
 
 msgctxt "act_new_outgoing_call"
@@ -333,8 +331,8 @@ msgstr "新拨出电话"
 
 msgctxt "act_new_outgoing_call_detail"
 msgid ""
-"A new outgoing call is about to be placed. Applications may preprocess the "
-"call, and for example change or filter the phone number."
+"A new outgoing call is about to be placed. Applications may preprocess "
+"the call, and for example change or filter the phone number."
 msgstr "一个新的拨出电话将会被接通。此时程序可以进行预处理此拨号，例如更改或过滤电话号码。"
 
 msgctxt "act_package_added"
@@ -351,8 +349,8 @@ msgstr "应用程序变更"
 
 msgctxt "act_package_changed_detail"
 msgid ""
-"An application package has been changed; for example, a component may have "
-"been enabled or disabled."
+"An application package has been changed; for example, a component may "
+"have been enabled or disabled."
 msgstr "一个程序包已变更，例如一个组件可能被启用或禁用。"
 
 msgctxt "act_package_data_cleared"
@@ -411,8 +409,8 @@ msgstr "内容提供组件变更"
 
 msgctxt "act_provider_changed_detail"
 msgid ""
-"A content provider publishes a new event; for example, this is triggered by "
-"the GMail Storage provider when the set of unread email in the inbox "
+"A content provider publishes a new event; for example, this is triggered "
+"by the GMail Storage provider when the set of unread email in the inbox "
 "changes."
 msgstr "内容提供组件发布了一个新的事件，例如：这是由 Gmail 储存空间提供商在收件箱中的更改未读邮件设置时发布的。"
 
@@ -532,8 +530,8 @@ msgstr "短信接收（默认的应用程序）"
 
 msgctxt "act_sms_deliver_detail"
 msgid ""
-"A new text based SMS message has been received. Only the default SMS app is "
-"notified."
+"A new text based SMS message has been received. Only the default SMS app "
+"is notified."
 msgstr "一条新的文本短信已收到。只有默认的 SMS 应用程序通知。"
 
 msgctxt "act_data_sms_received"
@@ -608,8 +606,8 @@ msgstr "Wi-Fi 连接变更"
 
 msgctxt "act_supplicant_connection_change_detail"
 msgid ""
-"The connection to a Wi-Fi access point was either successfully established, "
-"or an existing connection lost."
+"The connection to a Wi-Fi access point was either successfully "
+"established, or an existing connection lost."
 msgstr "Wi-Fi 接入点的连接已成功建立，或既有连线丢失。"
 
 msgctxt "act_suplicant_state_changed"
@@ -617,8 +615,7 @@ msgid "Wi-Fi connecting state changed"
 msgstr "Wi-Fi 连线状态变更"
 
 msgctxt "act_suplicant_state_changed_detail"
-msgid ""
-"The state of of establishing a connection to an access point has changed."
+msgid "The state of of establishing a connection to an access point has changed."
 msgstr "连线的无线热点已变更。"
 
 msgctxt "act_ringer_mode_changed"
@@ -643,8 +640,8 @@ msgstr "音频变得嘈杂"
 
 msgctxt "act_audio_becoming_noisy_detail"
 msgid ""
-"Audio is about to become 'noisy' due to a change in audio outputs, e.g. when"
-" a headset is unplugged."
+"Audio is about to become 'noisy' due to a change in audio outputs, e.g. "
+"when a headset is unplugged."
 msgstr "音频变得「嘈杂」是由于音频输出的改变，例如：当耳机被拔掉。"
 
 msgctxt "act_tts_queue_completed"
@@ -653,8 +650,8 @@ msgstr "TTS 队列完成"
 
 msgctxt "act_tts_queue_completed_detail"
 msgid ""
-"The TextToSpeech synthesizer has completed processing of all the text in the"
-" speech queue."
+"The TextToSpeech synthesizer has completed processing of all the text in "
+"the speech queue."
 msgstr "文本转语言合成引擎已经完成对所有文本的语音队列处理。"
 
 msgctxt "act_tts_data_installed"
@@ -1043,10 +1040,15 @@ msgstr "正在桌面小部件更新"
 
 msgctxt "act_appwidget_update_detail"
 msgid ""
-"A widget is asked to update itself. How often this is triggered depends on the widget in question, but never for widgets that are not in use.\n"
+"A widget is asked to update itself. How often this is triggered depends "
+"on the widget in question, but never for widgets that are not in use.\n"
 "\n"
-"<b>Note that disabling this event will likely render the widget defunct.</b>"
-msgstr "一个桌面小部件要求自更新。多久触发一次是个问题，但设为「从不」会使桌面小部件无效。\n\n<b>请注意，禁用此事件很可能会呈现小部件失效。</b>"
+"<b>Note that disabling this event will likely render the widget "
+"defunct.</b>"
+msgstr ""
+"一个桌面小部件要求自更新。多久触发一次是个问题，但设为「从不」会使桌面小部件无效。\n"
+"\n"
+"<b>请注意，禁用此事件很可能会呈现小部件失效。</b>"
 
 msgctxt "act_appwidget_disabled"
 msgid "Widget disabled"
@@ -1082,8 +1084,8 @@ msgstr "连通性变更"
 
 msgctxt "act_connectivity_detail"
 msgid ""
-"The current network connection has changed, e.g. when switching from Wi-Fi "
-"to GSM. Note that since this is also triggered when a connection is "
+"The current network connection has changed, e.g. when switching from Wi-"
+"Fi to GSM. Note that since this is also triggered when a connection is "
 "initially established, it effectively entails the On Startup behavior."
 msgstr "当前的网络连接发生了变更，例如从 Wi-Fi 切换到 GSM 的时候。请注意，在连接初步建立时即触发，为了在启动时有效地继承行为。"
 
@@ -1112,8 +1114,7 @@ msgid "Secret Code entered"
 msgstr "输入暗码"
 
 msgctxt "act_secret_code_detail"
-msgid ""
-"A secret code was entered in the dialer. They are in the form of *#*##*#*."
+msgid "A secret code was entered in the dialer. They are in the form of *#*##*#*."
 msgstr "在拨号器中输入暗码（由*#*##*#*组成）。"
 
 msgctxt "act_spn_strings_updated"
@@ -1130,8 +1131,8 @@ msgstr "程序未响应"
 
 msgctxt "act_anr_detail"
 msgid ""
-"An application is not responding. This is when you see the infamous dialog "
-"box."
+"An application is not responding. This is when you see the infamous "
+"dialog box."
 msgstr "程序没有响应（当你看到那个臭名昭著的对话框）。"
 
 msgctxt "act_event_reminder"
@@ -1140,8 +1141,8 @@ msgstr "事件提醒"
 
 msgctxt "act_event_reminder_detail"
 msgid ""
-"A reminder for a scheduled event should now be shown. This is used by the "
-"Calendar application."
+"A reminder for a scheduled event should now be shown. This is used by the"
+" Calendar application."
 msgstr "现在应显示一个预定的事件的提示。使用了日历应用程序。"
 
 msgctxt "act_install_shortcut"
@@ -1160,8 +1161,8 @@ msgstr "删除桌面快捷方式"
 
 msgctxt "act_uninstall_shortcut_detail"
 msgid ""
-"An application wants to remove a shortcut from your home screen. Home screen"
-" application will usually register for this."
+"An application wants to remove a shortcut from your home screen. Home "
+"screen application will usually register for this."
 msgstr "应用程序想要从您的主屏幕删除快捷方式。主屏幕上的应用程序通常会注册这个。"
 
 msgctxt "act_any_data_state"
@@ -1180,8 +1181,8 @@ msgstr "服务状态变更"
 
 msgctxt "act_service_state_detail"
 msgid ""
-"The phone's service state has changed, for example when you start roaming, "
-"or connect to a different mobile network."
+"The phone's service state has changed, for example when you start "
+"roaming, or connect to a different mobile network."
 msgstr "本设备的服务状态发生了变更，例如，当你开始漫游或连接到不同的移动网络。"
 
 msgctxt "act_data_connection_failed"
@@ -1198,8 +1199,8 @@ msgstr "SIM 状态变更"
 
 msgctxt "act_sim_state_changed_detail"
 msgid ""
-"The sim card state has changed, for example when it is initially loaded, or "
-"when it becomes locked due to incorrect PIN entry."
+"The sim card state has changed, for example when it is initially loaded, "
+"or when it becomes locked due to incorrect PIN entry."
 msgstr "SIM 卡状态发生了变更，例如当它最初被加载，或由于不正确的 PIN 码导致锁定。"
 
 msgctxt "act_signal_strength"
@@ -1232,8 +1233,8 @@ msgstr "Wi-Fi 状态变更"
 
 msgctxt "act_wifi_state_changed_detail"
 msgid ""
-"The state of the Wi-Fi chip has changed, for example when it is enabled or "
-"disabled."
+"The state of the Wi-Fi chip has changed, for example when it is enabled "
+"or disabled."
 msgstr "Wi-Fi 状态发生变更，例如被启用或禁用。"
 
 msgctxt "act_external_apps_available"
@@ -1266,8 +1267,8 @@ msgstr "密码错误"
 
 msgctxt "act_password_failed_detail"
 msgid ""
-"Sent to a device admin when the user has failed at attempted to enter the "
-"password."
+"Sent to a device admin when the user has failed at attempted to enter the"
+" password."
 msgstr "当用户尝试输入密码时错误时，发送给设备管理器。"
 
 msgctxt "act_password_succeeded"
@@ -1338,8 +1339,9 @@ msgstr "搜索设置更改"
 
 msgctxt "act_search_settings_changed_detail"
 msgid ""
-"The search settings have changed in some way. Either searchables have been "
-"enabled or disabled, or a different web search provider has been chosen."
+"The search settings have changed in some way. Either searchables have "
+"been enabled or disabled, or a different web search provider has been "
+"chosen."
 msgstr "搜索设置在某些方面变更，包括启用或禁用可搜索项，以及选择不同的网络搜索提供方。"
 
 msgctxt "act_searchables_changed"
@@ -1348,8 +1350,8 @@ msgstr "可搜索项更改"
 
 msgctxt "act_searchables_changed_detail"
 msgid ""
-"The list of components that are searched by the system search function have "
-"changed."
+"The list of components that are searched by the system search function "
+"have changed."
 msgstr "系统搜索功能的可搜索项更改。"
 
 msgctxt "act_download_notification_clicked"
@@ -1357,8 +1359,7 @@ msgid "Download notification clicked"
 msgstr "点击下载通知"
 
 msgctxt "act_download_notification_clicked_detail"
-msgid ""
-"Sent by the download manager when the user clicks on a running download."
+msgid "Sent by the download manager when the user clicks on a running download."
 msgstr "用户点击正在下载的通知时由下载管理器发送的信号。"
 
 msgctxt "act_download_completed"
@@ -1416,8 +1417,7 @@ msgid "Close audio effect control session"
 msgstr "关闭音效控制会话"
 
 msgctxt "act_close_audio_effect_session_detail"
-msgid ""
-"An application no longer wants audio effects to be applied to it's output."
+msgid "An application no longer wants audio effects to be applied to it's output."
 msgstr "一个应用程序不再将的音频效果应用到它的输出。"
 
 msgctxt "act_dreaming_started"
@@ -1478,8 +1478,8 @@ msgstr "语音邮件内容请求"
 
 msgctxt "act_fetch_voicemail_detail"
 msgid ""
-"The system wants to retrieve the contents of a voicemail. Voicemail sources "
-"handle this broadcast."
+"The system wants to retrieve the contents of a voicemail. Voicemail "
+"sources handle this broadcast."
 msgstr "系统要检索语音邮件的内容。语音信箱源处理这个广播。"
 
 msgctxt "act_my_package_replaced"
@@ -1498,8 +1498,8 @@ msgstr "应用程序首次运行"
 
 msgctxt "act_package_first_launch_detail"
 msgid ""
-"An application has been launched to the first time; this is only sent to the"
-" installer of the application in question (i.e. the Play Store)."
+"An application has been launched to the first time; this is only sent to "
+"the installer of the application in question (i.e. the Play Store)."
 msgstr "应用程序已首次启动，它只能发送安装到验证应用程序（Google Play）。"
 
 msgctxt "act_sms_cb_received"
@@ -1524,8 +1524,8 @@ msgstr "CDMA 短信广播"
 
 msgctxt "act_sms_service_category_pdr_detail"
 msgid ""
-"A new CDMA SMS has been received containing Service Category Program Data "
-"(updates the list of enabled broadcast channels)."
+"A new CDMA SMS has been received containing Service Category Program Data"
+" (updates the list of enabled broadcast channels)."
 msgstr "已收到一条新的 CDMA 短信包含服务类别程序数据（更新广播频道列表）。"
 
 msgctxt "act_nfc_adapter_state_changed"
@@ -1534,7 +1534,8 @@ msgstr "NFC 状态变更"
 
 msgctxt "act_nfc_adapter_state_changed_detail"
 msgid ""
-"The state of the local NFC adapter has been changed (e.g. turned on or off)."
+"The state of the local NFC adapter has been changed (e.g. turned on or "
+"off)."
 msgstr "本地 NFC 适配器状态已变更（例如打开或关闭）。"
 
 msgctxt "act_wifi_p2p_discovery_state_change"
@@ -1559,8 +1560,8 @@ msgstr "Wi-Fi 点对点者变更"
 
 msgctxt "act_wifi_p2p_peers_changed_detail"
 msgid ""
-"The available peer list has changed. This can be sent as a result of peers "
-"being found, lost or updated."
+"The available peer list has changed. This can be sent as a result of "
+"peers being found, lost or updated."
 msgstr "可用的点列表已变更。作为发现点的结果可被发送，丢失或更新。"
 
 msgctxt "act_wifi_p2p_state_changed"
@@ -1601,6 +1602,75 @@ msgstr "（询问键盘布局）"
 
 msgctxt "act_query_keyboard_layouts_detail"
 msgid ""
-"By registering for this event, the application defines a keyboard layout. No"
-" application is started by this event."
+"By registering for this event, the application defines a keyboard layout."
+" No application is started by this event."
 msgstr "通过注册此事件，该应用程序定义键盘布局。没有应用程序通过本次活动启动。"
+
+#, fuzzy
+msgctxt "act_power_save_mode_changed"
+msgid "Power Save Mode changed"
+msgstr "蓝牙扫描模式更改"
+
+msgctxt "act_power_save_mode_changed_detail"
+msgid "When the device goes into, or exits power save mode."
+msgstr ""
+
+msgctxt "act_task_locked"
+msgid "Task locked"
+msgstr ""
+
+msgctxt "act_task_unlocked"
+msgid "Task unlocked"
+msgstr ""
+
+msgctxt "act_task_unlocked_detail"
+msgid ""
+"When the device leaves kiosk mode and the previously locked task is "
+"unlocked."
+msgstr ""
+
+msgctxt "R.string.act_task_locked_detail"
+msgid "When the device is locked to a single application in kiosk mode."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_next_alarm_changed"
+msgid "Next Alarm changed"
+msgstr "蓝牙配对名变更"
+
+msgctxt "act_next_alarm_changed_detail"
+msgid ""
+"The alarm clock next to be raised has changed. A previous alarm has "
+"triggered, or was canceled."
+msgstr ""
+
+msgctxt "act_provisioning_complete"
+msgid "Profile provisioning complete"
+msgstr ""
+
+msgctxt "act_provisioning_complete_detail"
+msgid ""
+"Indicates that provisioning of a managed profile or managed device has "
+"completed successfully."
+msgstr ""
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed"
+msgid "Application restrictions changed"
+msgstr "应用程序变更"
+
+#, fuzzy
+msgctxt "act_app_restrictions_changed_detail"
+msgid "Application restrictions have changed."
+msgstr "应用程序变更"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged"
+msgid "HDMI cable plugged/unplugged"
+msgstr "耳机已连接或拔出"
+
+#, fuzzy
+msgctxt "act_hdmi_plugged_detail"
+msgid "An HMDI cable was plugged or unplugged"
+msgstr "耳机已连接或拔出"
+

@@ -431,10 +431,16 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	 * has not yet been switched to FINISHED (it's still RUNNING).
 	 */
 	protected void updateEmptyText(boolean loadIsFinished) {
-		TextView emptyText = (TextView) findViewById(android.R.id.empty);
-		if (mLoadTask != null && mLoadTask.getStatus() == AsyncTask.Status.RUNNING && !loadIsFinished)
-			emptyText.setText(R.string.still_loading);
-		else if (!mListAdapter.isFiltered())
+		// Once loading is done, the empty view switches from a progress bar to a text.
+		TextView emptyText = (TextView) findViewById(R.id.empty_text);
+		if (mLoadTask != null && mLoadTask.getStatus() == AsyncTask.Status.RUNNING && !loadIsFinished) {
+			getExpandableListView().setEmptyView(findViewById((android.R.id.empty)));
+		}
+		else {
+			getExpandableListView().setEmptyView(emptyText);
+		}
+
+		if (!mListAdapter.isFiltered())
 			emptyText.setText(R.string.no_receivers);
 		else if (!mListAdapter.getTextFilter().equals("")) {
 			emptyText.setText(R.string.no_search_match);

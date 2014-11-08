@@ -1,3 +1,9 @@
+1.9.0 (2014-11-08)
+    * Updated to support Android 5.
+    * Improve UI: New, high-res icons, toolbar buttons.
+    * New search feature.
+    * More complete translations.
+
 1.8.1 (2013-11-30)
     * Fix empty list issue on Xperia devices (thanks to Michał Bednarski).
 

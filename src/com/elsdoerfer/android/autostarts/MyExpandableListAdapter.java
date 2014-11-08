@@ -26,6 +26,7 @@ import com.elsdoerfer.android.autostarts.db.ComponentInfo;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 import com.elsdoerfer.android.autostarts.db.PackageInfo;
 
+import static com.elsdoerfer.android.autostarts.Utils.containsIgnoreCase;
 
 
 /**
@@ -45,6 +46,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	private boolean mHideSystemApps = false;
 	private boolean mHideUnknownEvents = false;
 	private boolean mShowChangedOnly = false;
+	private String mTextFilter = "";
 
 	private LayoutInflater mInflater;
 
@@ -73,6 +75,21 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private boolean checkAgainstFilters(IntentFilterInfo info) {
 		ComponentInfo comp = info.componentInfo;
+
+		// If a text filter is active, all other filters are ignored
+		if (!mTextFilter.equals("")) {
+			if (containsIgnoreCase(comp.componentLabel, mTextFilter))
+				return true;
+			if (containsIgnoreCase(comp.componentName, mTextFilter))
+				return true;
+			if (containsIgnoreCase(comp.packageInfo.packageLabel, mTextFilter))
+				return true;
+			if (containsIgnoreCase(comp.packageInfo.packageName, mTextFilter))
+			return true;
+			// Search comp.intentFilters too?
+			return false;
+		}
+
 		if (mHideSystemApps && comp.packageInfo.isSystem)
 			return false;
 		if (mShowChangedOnly && comp.isCurrentlyEnabled() ==
@@ -150,7 +167,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	 * Return true if any filters are active.
 	 */
 	public boolean isFiltered() {
-		return mHideSystemApps || mShowChangedOnly || mHideUnknownEvents;
+
+		return mHideSystemApps || mShowChangedOnly || mHideUnknownEvents || !mTextFilter.equals("");
 	}
 
 	/**
@@ -204,6 +222,18 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	public boolean getFilterUnknown() {
 		return mHideUnknownEvents;
 	}
+
+	public void setTextFilter(String query) {
+		if (query != mTextFilter) {
+			mTextFilter = query;
+			rebuildGroupDisplay();
+		}
+	}
+
+	public String getTextFilter() {
+		return mTextFilter;
+	}
+
 
 	@SuppressWarnings("serial")
 	static class MapOfIntents<K> extends HashMap<K, ArrayList<IntentFilterInfo>> {

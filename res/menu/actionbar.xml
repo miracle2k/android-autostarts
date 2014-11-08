@@ -1,4 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/search"
+          android:title="@string/search"
+          android:icon="@drawable/ic_action_action_search"
+          android:showAsAction="collapseActionView|ifRoom"
+          android:actionViewClass="android.widget.SearchView" />
 
     <item android:id="@+id/grouping"
           android:icon="@drawable/ic_action_action_view_column"

@@ -17,6 +17,7 @@ import android.text.style.ClickableSpan;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -277,6 +278,22 @@ public class ListActivity extends ExpandableListFragmentActivity {
 		mGroupingModeItem = menu.findItem(R.id.grouping);
 		mReloadItem = menu.findItem(R.id.reload);
 
+		SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+		search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				return false;
+			}
+			@Override
+			public boolean onQueryTextChange(String query) {
+				mListAdapter.setTextFilter(query);
+				updateEmptyText();
+				mListAdapter.notifyDataSetChanged();
+				return true;
+
+			}
+		});
+
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -419,6 +436,9 @@ public class ListActivity extends ExpandableListFragmentActivity {
 			emptyText.setText(R.string.still_loading);
 		else if (!mListAdapter.isFiltered())
 			emptyText.setText(R.string.no_receivers);
+		else if (!mListAdapter.getTextFilter().equals("")) {
+			emptyText.setText(R.string.no_search_match);
+		}
 		else {
 			// Unfortunately, we cannot link directly from the resource
 			// string, and neither can we use {@see Linkify}. In both

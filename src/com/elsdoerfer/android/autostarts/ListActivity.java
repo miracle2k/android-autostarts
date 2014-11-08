@@ -500,6 +500,7 @@ public class ListActivity extends ExpandableListFragmentActivity {
 	// fade out. This would be an improvement because we could control
 	// it better: Show it longer, but have it disappear when the user
 	// clicks on it (toasts don't receive clicks).
+	// Consider: https://github.com/johnkil/Android-AppMsg
 	public void showInfoToast(String action) {
 		Object[] data = Actions.MAP.get(action);
 		if (mInfoToast == null) {

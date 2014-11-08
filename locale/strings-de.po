@@ -1,22 +1,26 @@
-# German translations for PROJECT.
-# Copyright (C) 2010 ORGANIZATION
+# Translations template for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-# Michael Elsdörfer <michael@elsdoerfer.com>, 2010, 2011.
-#
+# 
+# Translators:
+# elsdoerfer <michael@elsdoerfer.info>, 2011
+# Ettore Atalan <atalanttore@googlemail.com>, 2014
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010
+# Michael Elsdörfer <michael@elsdoerfer.com>, 2010-2011
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2011-03-22 21:58+0100\n"
-"Last-Translator: Michael Elsdörfer <michael@elsdoerfer.com>\n"
-"Language-Team: German <michael@elsdoerfer.com>\n"
-"Plural-Forms: nplurals=2; plural=((n == 1) ? 0 : 1)\n"
+"PO-Revision-Date: 2014-04-13 07:37+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/android-autostarts/language/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
@@ -24,12 +28,11 @@ msgstr "Es gibt keine automatisch startende Anwendungen."
 
 msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
-msgstr ""
-"Keine automatisch startende Anwendungen innerhalb der aktuellen "
-"Filterauswahl."
+msgstr "Keine automatisch startende Anwendungen innerhalb der aktuellen Filterauswahl."
 
 msgctxt "still_loading"
-msgid "Please wait while I am loading the applications installed on your phone..."
+msgid ""
+"Please wait while I am loading the applications installed on your phone..."
 msgstr "Bitte warten während ich die installierten Anwendungen lade..."
 
 msgctxt "change_filter_settings"
@@ -111,72 +114,30 @@ msgstr "Info"
 #, c-format
 msgctxt "receiver_info"
 msgid ""
-"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
-"with priority &lt;b&gt;%3$d&lt;/b&gt;."
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
+" priority &lt;b&gt;%3$d&lt;/b&gt;."
 msgstr ""
 
 msgctxt "sys_disable"
 msgid ""
-"This is a system component. Do not make changes unless you know what you "
-"are doing."
+"This is a system component. Do not make changes unless you know what you are"
+" doing."
 msgstr ""
 
 #. The verb (changing) should be at the front of the string
 #, c-format
 msgctxt "changing_state"
 msgid "Changing %1$s..."
-msgstr ""
+msgstr "Ändere %1$s..."
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "state_change_failed"
 msgid ""
 "Unable to change the state of %1$s (%2$s).\n"
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
-"Der Status der Komponente konnte nicht geändert werden.\n"
-"\n"
-"Der Grund ist in der Regel dass du keinen Root-Zugriff auf deinem Handy "
-"hast."
 
 msgctxt "close_help"
 msgid "Close help and return to app"
 msgstr "Hilfe schließen und zurück"
-
-#~ msgctxt "please_wait"
-#~ msgid "Please Wait..."
-#~ msgstr "Bitte warten..."
-
-#~ msgctxt "confirm_sys_disable"
-#~ msgid ""
-#~ "You are about to disable a system"
-#~ " component. This could potentially result"
-#~ " in your phone no longer functioning"
-#~ " properly.\n"
-#~ "\n"
-#~ "Do not proceed unless you are willing to deal with the consequences."
-#~ msgstr ""
-#~ "Du bist gerade dabei eine "
-#~ "Systemkomponente zu deaktivieren. Dies kann"
-#~ " potentiell zu Problemen mit deinem "
-#~ "Handy führen.\n"
-#~ "\n"
-#~ "Bitte fahre nur fort wenn du sicher bist was du tust."
-
-#~ msgctxt "confirm_google_talk"
-#~ msgid ""
-#~ "If Google Talk is disabled, you "
-#~ "are likely going to run into "
-#~ "issues with hanging Android Market "
-#~ "downloads, the starting up Google Talk"
-#~ " yourself whenever necessary can help "
-#~ "overcome them. Sure you want to "
-#~ "proceed?"
-#~ msgstr ""
-#~ "Wenn Google Talk nicht aktiviert ist "
-#~ "kann es möglicherweise Probleme mit "
-#~ "Downloads aus dem Android Market geben,"
-#~ " die nicht abgeschlossen werden (Google "
-#~ "Talk manuell zu starten hilft in "
-#~ "der Regel dagegen). Wirklich deaktivieren?"
-

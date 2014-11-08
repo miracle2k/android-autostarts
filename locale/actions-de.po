@@ -4,6 +4,7 @@
 # 
 # Translators:
 # elsdoerfer <michael@elsdoerfer.info>, 2011
+# Ettore Atalan <atalanttore@googlemail.com>, 2014
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010
 # elsdoerfer <michael@elsdoerfer.info>, 2013
 # Michael Elsdörfer <michael@elsdoerfer.com>, 2010-2011
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2013-11-21 12:20+0000\n"
-"Last-Translator: elsdoerfer <michael@elsdoerfer.info>\n"
+"PO-Revision-Date: 2014-05-30 21:22+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/android-autostarts/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr ""
 
 msgctxt "act_airplane_mode_changed"
 msgid "Airplane mode changed"
-msgstr ""
+msgstr "Flugzeugmodus geändert"
 
 msgctxt "act_airplane_mode_changed_detail"
 msgid "Airplane mode was switched on or off."
@@ -32,7 +33,7 @@ msgstr ""
 
 msgctxt "act_battery_changed"
 msgid "Battery changed"
-msgstr ""
+msgstr "Batterie gewechselt"
 
 msgctxt "act_battery_changed_detail"
 msgid "The charging state, or the charge level of the battery has changed."
@@ -40,7 +41,7 @@ msgstr ""
 
 msgctxt "act_battery_low"
 msgid "Battery low"
-msgstr ""
+msgstr "Batterie niedrig"
 
 msgctxt "act_battery_low_detail"
 msgid "The device entered a low battery state."
@@ -72,7 +73,7 @@ msgstr "Das Gerät wurde gerade gestartet, der Benutzer kann nun interagieren."
 
 msgctxt "act_power_connected"
 msgid "Power connected"
-msgstr ""
+msgstr "Stromversorgung angeschlossen"
 
 msgctxt "act_power_connected_detail"
 msgid "External power has been connected to the device."
@@ -80,7 +81,7 @@ msgstr ""
 
 msgctxt "act_power_disconnected"
 msgid "Power disconnected"
-msgstr ""
+msgstr "Stromversorgung getrennt"
 
 msgctxt "act_power_disconnected_detail"
 msgid "External power has been removed from the device."
@@ -88,7 +89,7 @@ msgstr ""
 
 msgctxt "act_shutdown"
 msgid "Shutdown"
-msgstr ""
+msgstr "Herunterfahren"
 
 msgctxt "act_shutdown_detail"
 msgid "The device is shutting down."
@@ -104,11 +105,11 @@ msgstr ""
 
 msgctxt "act_camera_button"
 msgid "Camera button pressed"
-msgstr ""
+msgstr "Kamera-Taste gedrückt"
 
 msgctxt "act_camera_button_detail"
 msgid "The Camera button was pressed."
-msgstr ""
+msgstr "Die Kamera-Taste wurde gedrückt."
 
 msgctxt "act_close_system_dialogs"
 msgid "On System dialogs close"
@@ -122,7 +123,7 @@ msgstr ""
 
 msgctxt "act_configuration_changed"
 msgid "Configuration changed"
-msgstr ""
+msgstr "Konfiguration geändert"
 
 msgctxt "act_configuration_changed_detail"
 msgid ""
@@ -132,7 +133,7 @@ msgstr ""
 
 msgctxt "act_locale_changed"
 msgid "Locale changed"
-msgstr ""
+msgstr "Sprachumgebung geändert"
 
 msgctxt "act_locale_changed_detail"
 msgid ""
@@ -142,7 +143,7 @@ msgstr ""
 
 msgctxt "act_date_changed"
 msgid "Date changed"
-msgstr ""
+msgstr "Datum geändert"
 
 msgctxt "act_date_changed_detail"
 msgid "The system date has changed."
@@ -168,15 +169,15 @@ msgstr ""
 
 msgctxt "act_gtalk_service_connected"
 msgid "GTalk connected"
-msgstr ""
+msgstr "GTalk verbunden"
 
 msgctxt "act_gtalk_service_connected_detail"
 msgid "A GTalk connection was established."
-msgstr ""
+msgstr "Eine GTalk-Verbindung wurde aufgebaut."
 
 msgctxt "act_gtalk_service_disconnected"
 msgid "GTalk disconnected"
-msgstr ""
+msgstr "GTalk getrennt"
 
 msgctxt "act_gtalk_service_disconnected_detail"
 msgid "A GTalk connection was disconnected."
@@ -192,7 +193,7 @@ msgstr ""
 
 msgctxt "act_input_method_changed"
 msgid "IME changed"
-msgstr ""
+msgstr "IME geändert"
 
 msgctxt "act_input_method_changed_detail"
 msgid "The input method engine changed, i.e. the virtual keyboard in use."
@@ -218,7 +219,7 @@ msgstr ""
 
 msgctxt "act_media_button"
 msgid "Media button pressed"
-msgstr ""
+msgstr "Medientaste gedrückt"
 
 msgctxt "act_media_button_detail"
 msgid ""
@@ -337,7 +338,7 @@ msgstr ""
 
 msgctxt "act_package_added"
 msgid "Application installed"
-msgstr ""
+msgstr "Anwendung installiert"
 
 msgctxt "act_package_added_detail"
 msgid "A new application package has been installed on the device."
@@ -345,7 +346,7 @@ msgstr ""
 
 msgctxt "act_package_changed"
 msgid "Application changed"
-msgstr ""
+msgstr "Anwendung geändert"
 
 msgctxt "act_package_changed_detail"
 msgid ""
@@ -355,7 +356,7 @@ msgstr ""
 
 msgctxt "act_package_data_cleared"
 msgid "Application data cleared"
-msgstr ""
+msgstr "Anwendungsdaten gelöscht"
 
 msgctxt "act_package_data_cleared_detail"
 msgid "The user data associated with an application package was cleared."
@@ -363,7 +364,7 @@ msgstr ""
 
 msgctxt "act_package_install"
 msgid "Installing application"
-msgstr ""
+msgstr "Anwendung wird installiert"
 
 msgctxt "act_package_install_detail"
 msgid "An application is about to be downloaded and installed."
@@ -371,7 +372,7 @@ msgstr ""
 
 msgctxt "act_package_removed"
 msgid "Application removed"
-msgstr ""
+msgstr "Anwendung entfernt"
 
 msgctxt "act_package_removed_detail"
 msgid "An application package has been removed from the device."
@@ -387,7 +388,7 @@ msgstr ""
 
 msgctxt "act_package_replaced"
 msgid "Application replaced"
-msgstr ""
+msgstr "Anwendung ersetzt"
 
 msgctxt "act_package_replaced_detail"
 msgid "An application package has been replaced by a new version."
@@ -395,7 +396,7 @@ msgstr ""
 
 msgctxt "act_package_restarted"
 msgid "Application restarted"
-msgstr ""
+msgstr "Anwendung neu gestartet"
 
 msgctxt "act_package_restarted_detail"
 msgid ""
@@ -416,7 +417,7 @@ msgstr ""
 
 msgctxt "act_reboot"
 msgid "Reboot"
-msgstr ""
+msgstr "Neustart"
 
 msgctxt "act_reboot_detail"
 msgid "The system is about to reboot."
@@ -424,7 +425,7 @@ msgstr ""
 
 msgctxt "act_screen_off"
 msgid "Screen off"
-msgstr ""
+msgstr "Bildschirm aus"
 
 msgctxt "act_screen_off_detail"
 msgid "The screen just turned off."
@@ -432,7 +433,7 @@ msgstr ""
 
 msgctxt "act_screen_on"
 msgid "Screen on"
-msgstr ""
+msgstr "Bildschirm ein"
 
 msgctxt "act_screen_on_detail"
 msgid "The screen just turned on."
@@ -440,19 +441,19 @@ msgstr ""
 
 msgctxt "act_timezone_changed"
 msgid "Timezone changed"
-msgstr ""
+msgstr "Zeitzone geändert"
 
 msgctxt "act_timezone_changed_detail"
 msgid "The system timezone setting has changed."
-msgstr ""
+msgstr "Die Systemzeitzoneneinstellung wurde geändert."
 
 msgctxt "act_time_changed"
 msgid "Time changed"
-msgstr ""
+msgstr "Zeit geändert"
 
 msgctxt "act_time_changed_detail"
 msgid "The system time has changed."
-msgstr ""
+msgstr "Die Systemzeit wurde geändert."
 
 msgctxt "act_time_tick"
 msgid "Time tick"
@@ -464,7 +465,7 @@ msgstr ""
 
 msgctxt "act_uid_removed"
 msgid "User removed"
-msgstr ""
+msgstr "Benutzer entfernt"
 
 msgctxt "act_uid_removed_detail"
 msgid ""
@@ -474,7 +475,7 @@ msgstr ""
 
 msgctxt "act_ums_connected"
 msgid "USB connected"
-msgstr ""
+msgstr "USB verbunden"
 
 msgctxt "act_ums_connected_detail"
 msgid "The device has entered USB Mass Storage mode."
@@ -482,7 +483,7 @@ msgstr ""
 
 msgctxt "act_ums_disconnected"
 msgid "USB disconnected"
-msgstr ""
+msgstr "USB getrennt"
 
 msgctxt "act_ums_disconnected_detail"
 msgid "The device has exited USB Mass Storage mode."
@@ -490,7 +491,7 @@ msgstr ""
 
 msgctxt "act_user_present"
 msgid "User present"
-msgstr ""
+msgstr "Benutzer anwesend"
 
 msgctxt "act_user_present_detail"
 msgid ""
@@ -510,7 +511,7 @@ msgstr ""
 
 msgctxt "act_sim_full"
 msgid "SIM is full"
-msgstr ""
+msgstr "SIM ist voll"
 
 msgctxt "act_sim_full_detail"
 msgid "The SIM storage for SMS messages is full."
@@ -518,7 +519,7 @@ msgstr ""
 
 msgctxt "act_sms_received"
 msgid "SMS received"
-msgstr ""
+msgstr "SMS empfangen"
 
 msgctxt "act_sms_received_detail"
 msgid "A new text based SMS message has been received."
@@ -536,7 +537,7 @@ msgstr ""
 
 msgctxt "act_data_sms_received"
 msgid "Data SMS received"
-msgstr ""
+msgstr "Daten-SMS empfangen"
 
 msgctxt "act_data_sms_received_detail"
 msgid "A new data SMS message has been received."
@@ -544,15 +545,15 @@ msgstr ""
 
 msgctxt "act_sms_rejected"
 msgid "SMS rejected"
-msgstr ""
+msgstr "SMS abgelehnt"
 
 msgctxt "act_sms_rejected_detail"
 msgid "A text based SMS message has been rejected."
-msgstr ""
+msgstr "Eine textbasierte SMS-Nachricht wurde abgelehnt."
 
 msgctxt "act_wap_push_received"
 msgid "WAP PUSH received"
-msgstr ""
+msgstr "WAP PUSH empfangen"
 
 msgctxt "act_wap_push_received_detail"
 msgid "A new WAP PUSH message has been received."
@@ -578,7 +579,7 @@ msgstr ""
 
 msgctxt "act_rssi_changed"
 msgid "RSSI changed"
-msgstr ""
+msgstr "RSSI geändert"
 
 msgctxt "act_rssi_changed_detail"
 msgid "The Wi-Fi signal strength (RSSI) has changed."
@@ -629,7 +630,7 @@ msgstr ""
 
 msgctxt "act_vibrate_setting_changed"
 msgid "Vibrate setting changed"
-msgstr ""
+msgstr "Vibrationseinstellung geändert"
 
 msgctxt "act_vibrate_setting_changed_detail"
 msgid "The vibrate setting has changed (on, off, etc)."
@@ -647,7 +648,7 @@ msgstr ""
 
 msgctxt "act_tts_queue_completed"
 msgid "TTS queue completed"
-msgstr ""
+msgstr "TTS-Warteschlange fertiggestellt"
 
 msgctxt "act_tts_queue_completed_detail"
 msgid ""
@@ -657,7 +658,7 @@ msgstr ""
 
 msgctxt "act_tts_data_installed"
 msgid "TTS data installed"
-msgstr ""
+msgstr "TTS-Daten installiert"
 
 msgctxt "act_tts_data_installed_detail"
 msgid ""
@@ -691,7 +692,7 @@ msgstr ""
 
 msgctxt "act_disabled"
 msgid "Bluetooth disabled"
-msgstr ""
+msgstr "Bluetooth deaktiviert"
 
 msgctxt "act_disabled_detail"
 msgid "(Bluetooth event)"
@@ -731,7 +732,7 @@ msgstr ""
 
 msgctxt "act_mode_changed"
 msgid "BT mode changed"
-msgstr ""
+msgstr "BT-Modus geändert"
 
 msgctxt "act_mode_changed_detail"
 msgid "(Bluetooth event)"
@@ -739,7 +740,7 @@ msgstr ""
 
 msgctxt "act_name_changed"
 msgid "BT name changed"
-msgstr ""
+msgstr "BT-Name geändert"
 
 msgctxt "act_name_changed_detail"
 msgid "(Bluetooth event)"
@@ -779,7 +780,7 @@ msgstr ""
 
 msgctxt "act_remote_device_connected"
 msgid "BT device connected"
-msgstr ""
+msgstr "BT-Gerät verbunden"
 
 msgctxt "act_remote_device_connected_detail"
 msgid "(Bluetooth event)"
@@ -787,7 +788,7 @@ msgstr ""
 
 msgctxt "act_remote_device_disappeared"
 msgid "BT device disappeared"
-msgstr ""
+msgstr "BT-Gerät verschwunden"
 
 msgctxt "act_remote_device_disappeared_detail"
 msgid "(Bluetooth event)"
@@ -795,7 +796,7 @@ msgstr ""
 
 msgctxt "act_remote_device_disconnected"
 msgid "BT device disconnected"
-msgstr ""
+msgstr "BT-Gerät getrennt"
 
 msgctxt "act_remote_device_disconnected_detail"
 msgid "(Bluetooth event)"
@@ -811,7 +812,7 @@ msgstr ""
 
 msgctxt "act_remote_device_found"
 msgid "BT device found"
-msgstr ""
+msgstr "BT-Gerät gefunden"
 
 msgctxt "act_remote_device_found_detail"
 msgid "(Bluetooth event)"
@@ -819,7 +820,7 @@ msgstr ""
 
 msgctxt "act_remote_name_failed"
 msgid "BT name failed"
-msgstr ""
+msgstr "BT-Name fehlgeschlagen"
 
 msgctxt "act_remote_name_failed_detail"
 msgid "(Bluetooth event)"
@@ -827,7 +828,7 @@ msgstr ""
 
 msgctxt "act_remote_name_updated"
 msgid "BT name updated"
-msgstr ""
+msgstr "BT-Name aktualisiert"
 
 msgctxt "act_remote_name_updated_detail"
 msgid "(Bluetooth event)"
@@ -835,7 +836,7 @@ msgstr ""
 
 msgctxt "act_bt_state_changed"
 msgid "BT state changed"
-msgstr ""
+msgstr "BT-Status geändert"
 
 msgctxt "act_bt_state_changed_detail"
 msgid "(Bluetooth event)"
@@ -843,7 +844,7 @@ msgstr ""
 
 msgctxt "act_bt_name_changed"
 msgid "BT name changed"
-msgstr ""
+msgstr "BT-Name geändert"
 
 msgctxt "act_bt_name_changed_detail"
 msgid "(Bluetooth event)"
@@ -859,7 +860,7 @@ msgstr ""
 
 msgctxt "act_bt_audio_state_changed"
 msgid "BT audio state changed"
-msgstr ""
+msgstr "BT-Audiostatus geändert"
 
 msgctxt "act_bt_audio_state_changed_detail"
 msgid "(Bluetooth event)"
@@ -891,7 +892,7 @@ msgstr ""
 
 msgctxt "act_bt_acl_connected"
 msgid "BT ACL connected"
-msgstr ""
+msgstr "BT ACL verbunden"
 
 msgctxt "act_bt_acl_connected_detail"
 msgid "(Bluetooth event)"
@@ -899,7 +900,7 @@ msgstr ""
 
 msgctxt "act_bt_acl_disconnected"
 msgid "BT ACL disconnected"
-msgstr ""
+msgstr "BT ACL getrennt"
 
 msgctxt "act_bt_acl_disconnected_detail"
 msgid "(Bluetooth event)"
@@ -915,7 +916,7 @@ msgstr ""
 
 msgctxt "act_bt_class_changed"
 msgid "BT class changed"
-msgstr ""
+msgstr "BT-Klasse geändert"
 
 msgctxt "act_bt_class_changed_detail"
 msgid "(Bluetooth event)"
@@ -923,7 +924,7 @@ msgstr ""
 
 msgctxt "act_bt_found"
 msgid "BT found"
-msgstr ""
+msgstr "BT gefunden"
 
 msgctxt "act_bt_found_detail"
 msgid "(Bluetooth event)"
@@ -931,7 +932,7 @@ msgstr ""
 
 msgctxt "act_bt_device_selected"
 msgid "BT device selected"
-msgstr ""
+msgstr "BT-Gerät ausgewählt"
 
 msgctxt "act_bt_device_selected_detail"
 msgid "(Bluetooth event)"
@@ -1029,7 +1030,7 @@ msgstr ""
 
 msgctxt "act_appwidget_enabled"
 msgid "Widget enabled"
-msgstr ""
+msgstr "Widget aktiviert"
 
 msgctxt "act_appwidget_enabled_detail"
 msgid "The first copy of a widget was added."
@@ -1048,7 +1049,7 @@ msgstr ""
 
 msgctxt "act_appwidget_disabled"
 msgid "Widget disabled"
-msgstr ""
+msgstr "Widget deaktiviert"
 
 msgctxt "act_appwidget_disabled_detail"
 msgid "The last copy of a widget was removed."
@@ -1056,7 +1057,7 @@ msgstr ""
 
 msgctxt "act_appwidget_deleted"
 msgid "Widget deleted"
-msgstr ""
+msgstr "Widget gelöscht"
 
 msgctxt "act_appwidget_deleted_detail"
 msgid ""
@@ -1076,7 +1077,7 @@ msgstr ""
 
 msgctxt "act_connectivity"
 msgid "Connectivity changed"
-msgstr ""
+msgstr "Konnektivität geändert"
 
 msgctxt "act_connectivity_detail"
 msgid ""
@@ -1087,7 +1088,7 @@ msgstr ""
 
 msgctxt "act_new_picture"
 msgid "New Picture"
-msgstr ""
+msgstr "Neues Bild"
 
 msgctxt "act_new_picture_detail"
 msgid ""
@@ -1097,7 +1098,7 @@ msgstr ""
 
 msgctxt "act_new_video"
 msgid "New Video"
-msgstr ""
+msgstr "Neues Video"
 
 msgctxt "act_new_video_detail"
 msgid ""
@@ -1164,7 +1165,7 @@ msgstr ""
 
 msgctxt "act_any_data_state"
 msgid "Data state changed"
-msgstr ""
+msgstr "Datenstatus geändert"
 
 msgctxt "act_any_data_state_detail"
 msgid ""
@@ -1174,7 +1175,7 @@ msgstr ""
 
 msgctxt "act_service_state"
 msgid "Service state changed"
-msgstr ""
+msgstr "Dienststatus geändert"
 
 msgctxt "act_service_state_detail"
 msgid ""
@@ -1184,7 +1185,7 @@ msgstr ""
 
 msgctxt "act_data_connection_failed"
 msgid "Data connection failed"
-msgstr ""
+msgstr "Datenverbindung fehlgeschlagen"
 
 msgctxt "act_data_connection_failed_detail"
 msgid "An attempt to establish a data connection has failed."
@@ -1192,7 +1193,7 @@ msgstr ""
 
 msgctxt "act_sim_state_changed"
 msgid "SIM state changed"
-msgstr ""
+msgstr "SIM-Status geändert"
 
 msgctxt "act_sim_state_changed_detail"
 msgid ""
@@ -1202,7 +1203,7 @@ msgstr ""
 
 msgctxt "act_signal_strength"
 msgid "Signal strength changed"
-msgstr ""
+msgstr "Signalstärke geändert"
 
 msgctxt "act_signal_strength_detail"
 msgid "The phone's signal strength has changed."
@@ -1252,7 +1253,7 @@ msgstr ""
 
 msgctxt "act_password_changed"
 msgid "Password changed"
-msgstr ""
+msgstr "Passwort geändert"
 
 msgctxt "act_password_changed_detail"
 msgid "Sent to a device admin when the user changes their password."
@@ -1260,7 +1261,7 @@ msgstr ""
 
 msgctxt "act_password_failed"
 msgid "Password failed"
-msgstr ""
+msgstr "Passwort falsch"
 
 msgctxt "act_password_failed_detail"
 msgid ""
@@ -1312,7 +1313,7 @@ msgstr ""
 
 msgctxt "act_login_accounts_changed"
 msgid "Accounts changed"
-msgstr ""
+msgstr "Konten geändert"
 
 msgctxt "act_login_accounts_changed_detail"
 msgid ""
@@ -1322,7 +1323,7 @@ msgstr ""
 
 msgctxt "act_proxy_changed"
 msgid "Proxy changed"
-msgstr ""
+msgstr "Proxy geändert"
 
 msgctxt "act_proxy_changed_detail"
 msgid ""
@@ -1332,7 +1333,7 @@ msgstr ""
 
 msgctxt "act_search_settings_changed"
 msgid "Search settings changed"
-msgstr ""
+msgstr "Sucheinstellungen geändert"
 
 msgctxt "act_search_settings_changed_detail"
 msgid ""
@@ -1464,7 +1465,7 @@ msgstr ""
 
 msgctxt "act_new_voicemail"
 msgid "New Voicemail"
-msgstr ""
+msgstr "Neue Sprachnachricht"
 
 msgctxt "act_new_voicemail_detail"
 msgid "The system has become aware of a new voicemail."
@@ -1482,7 +1483,7 @@ msgstr ""
 
 msgctxt "act_my_package_replaced"
 msgid "Application updated"
-msgstr ""
+msgstr "Anwendung aktualisiert"
 
 msgctxt "act_my_package_replaced_detail"
 msgid ""
@@ -1518,7 +1519,7 @@ msgstr ""
 
 msgctxt "act_sms_service_category_pdr"
 msgid "CDMA SMS received"
-msgstr ""
+msgstr "CDMA SMS empfangen"
 
 msgctxt "act_sms_service_category_pdr_detail"
 msgid ""
@@ -1528,7 +1529,7 @@ msgstr ""
 
 msgctxt "act_nfc_adapter_state_changed"
 msgid "NFC state changed"
-msgstr ""
+msgstr "NFC-Status geändert"
 
 msgctxt "act_nfc_adapter_state_changed_detail"
 msgid ""
@@ -1587,7 +1588,7 @@ msgstr ""
 
 msgctxt "act_nsd_state_changed"
 msgid "NSC changed"
-msgstr ""
+msgstr "NSC geändert"
 
 msgctxt "act_nsd_state_changed_detail"
 msgid "Network Service Discovery has been enabled or disabled."

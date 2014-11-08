@@ -80,7 +80,6 @@ def build(build_only=None, clean=False):
                                project_dir='.',
                                sdk_dir=env.sdk_dir)
             p.extra_source_dirs = build_options['extra-paths']
-            p.extra_jars = ['%s/extras/android/support/v4/android-support-v4.jar' % env.sdk_dir]
 
             # Build the project
             if clean:

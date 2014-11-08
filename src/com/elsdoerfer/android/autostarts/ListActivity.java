@@ -3,6 +3,7 @@ package com.elsdoerfer.android.autostarts;
 import java.util.ArrayList;
 
 import android.app.DialogFragment;
+import android.app.ExpandableListActivity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.*;
@@ -21,11 +22,10 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.elsdoerfer.android.autostarts.compat.ExpandableListFragmentActivity;
 import com.elsdoerfer.android.autostarts.db.ComponentInfo;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
 
-public class ListActivity extends ExpandableListFragmentActivity {
+public class ListActivity extends ExpandableListActivity {
 
 	static final Boolean LOGV = false;
 

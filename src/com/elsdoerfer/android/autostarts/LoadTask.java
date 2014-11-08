@@ -82,6 +82,20 @@ class LoadTask extends AsyncTask<Object, Object, ArrayList<IntentFilterInfo>> {
 			// Updating the UI takes a long time and hugely slows down the UI
 			// (to the tune of 30s vs 2s). If loading takes too long, we still
 			// want to update once in a while though.
+			//
+			// Here are my measurements regarding this: (in ms)
+			//
+			// (not updating the list at all)
+			//    6270 2003 1725 1749        (after reinstall)
+			//    2952 1917                  (after restart)
+			//    2978                       (after reinstall)
+			//
+			// (updating after every new receiver found)
+			//    27395 25893 25828
+			//
+			// (updating the list every second)
+			//    2919 1685
+
 			if (SystemClock.elapsedRealtime() - lastUIUpdate > 2000) {
 				mListActivity.mEvents = (ArrayList<IntentFilterInfo>)values[0];
 				mListActivity.apply();

@@ -58,6 +58,12 @@ class LoadTask extends AsyncTask<Object, Object, ArrayList<IntentFilterInfo>> {
 
 	@Override
 	protected void onPostExecute(ArrayList<IntentFilterInfo> result) {
+		// This should not happen, but I have seen it happen.
+		// TODO: Get rid of this activity-bound task entirely, try to find a more
+		// modern approach.
+		if (mListActivity == null)
+			return;
+
 		mListActivity.mEvents = result;
 		mListActivity.apply();
 

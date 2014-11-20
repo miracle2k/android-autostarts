@@ -415,6 +415,36 @@ public class ReceiverReader {
 	 */
 	private String getAttr(String attributeName) {
 		String value = mCurrentXML.getAttributeValue(SDK_NS_RESOURCES, attributeName);
+
+		// In some, rarer cases (example: com.mxtech.videoplayer.MediaButtonReceiver), the
+		// xml attributes seem to be resource encoded such that it is not possibly to query
+		// by name. In fact, getAttributeName(0) returns an empty string. In such cases, the
+		// attribute rather tha a name seems to be a resource id (getAttributeNameResource),
+		// pointing to a resource in the framework.
+		// We have to look at all such attributes, resolve the resource to a name, ad then
+		// we can check *that*.
+		// See:
+		//   https://code.google.com/p/android-apktool/issues/detail?id=512
+		//   https://github.com/iBotPeaches/Apktool/commit/e126a51b4bb8991042b48ec5bf916f396e75f6f0#diff-0e7a43a489bb79777d002aed6191d459R317
+		if (value == null) {
+			for (int i=0; i<mCurrentXML.getAttributeCount(); i++) {
+				if (!mCurrentXML.getAttributeName(i).equals(""))
+					// Normally, both the name and resource return values. Unless the
+					// attribute name is empty we don't need this code and we can trust
+					// the check above to find the attribute.
+					continue;
+
+				int res = mCurrentXML.getAttributeNameResource(i);
+				if (res != 0) {
+					String sName = mCurrentResources.getResourceEntryName(res);
+					if (sName.equals(attributeName)) {
+						value = mCurrentXML.getAttributeValue(i);
+						break;
+					}
+				}
+			}
+		}
+
 		// TODO: It's possible to use getAttributeResourceValue and check for
 		// default value return rather than parsing the @ ourselves. Is it faster?
 		return resolveValue(value, mCurrentResources);

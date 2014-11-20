@@ -1,21 +1,13 @@
 package com.elsdoerfer.android.autostarts;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 import android.util.Log;
 
 public class Utils {
 	static final String TAG = "Autostarts";
+	private static Boolean isSELinuxEnforcing = null;
 
 	/**
 	 * It's unbelievable how difficult it is in Java to read a stupid
@@ -122,15 +114,21 @@ public class Utils {
 	 * We'll still have to see about (4).
 	 */
 	static boolean runRootCommand(String command, String[] env,
-			Integer timeout)
+			Integer timeout, String context)
 	{
 		Process process = null;
 		DataOutputStream os = null;
 		try {
-			Log.d(TAG, String.format(
-					"Running '%s' as root, timeout=%s", command, timeout));
+			String shell = getSuPath();
+			if (context != null && isSELinuxEnforcing()) {
+				shell = String.format(Locale.ENGLISH, "%s --context %s", shell, context);
+			}
 
-			process = runWithEnv(getSuPath(), env);
+			Log.d(TAG, String.format(
+					"Running '%s' as root, timeout=%s, shell=%s", command, timeout, shell));
+
+
+			process = runWithEnv(shell, env);
 			os = new DataOutputStream(process.getOutputStream());
 			os.writeBytes(command+"\n");
 			os.writeBytes("echo \"rc:\" $?\n");
@@ -255,6 +253,48 @@ public class Utils {
 		        envArray[i++] = entry;
 	    Process process = Runtime.getRuntime().exec(command, envArray);
 	    return process;
+	}
+
+	/**
+	 * From https://github.com/Chainfire/libsuperuser/blob/master/libsuperuser/src/eu/chainfire/libsuperuser/Shell.java
+	 * @return
+	 */
+	public static synchronized boolean isSELinuxEnforcing() {
+		if (isSELinuxEnforcing == null) {
+			Boolean enforcing = null;
+
+			// First known firmware with SELinux built-in was a 4.2 (17)
+			// leak
+			if (android.os.Build.VERSION.SDK_INT >= 17) {
+				// Detect enforcing through sysfs, not always present
+				if (enforcing == null) {
+					File f = new File("/sys/fs/selinux/enforce");
+					if (f.exists()) {
+						try {
+							InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
+							try {
+								enforcing = (is.read() == '1');
+							} finally {
+								is.close();
+							}
+						} catch (Exception e) {
+						}
+					}
+				}
+
+				// 4.4+ builds are enforcing by default, take the gamble
+				if (enforcing == null) {
+					enforcing = (android.os.Build.VERSION.SDK_INT >= 19);
+				}
+			}
+
+			if (enforcing == null) {
+				enforcing = false;
+			}
+
+			isSELinuxEnforcing = enforcing;
+		}
+		return isSELinuxEnforcing;
 	}
 
 	/**

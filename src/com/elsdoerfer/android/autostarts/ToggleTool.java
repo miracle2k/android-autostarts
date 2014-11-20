@@ -161,7 +161,7 @@ class ToggleTool {
 							// around any freezing issue. However, in rare, hard
 							// to reproduce cases, it still occurs, and in those
 							// cases the timeout will improve the user experience.
-							25000)) {
+							25000, "u:r:untrusted_app:s0")) {
 						success = true;
 						break;
 					}
@@ -214,7 +214,7 @@ class ToggleTool {
 			Log.i(Utils.TAG, "Using setprop call to touch ADB setting");
 			return Utils.runRootCommand(
 					String.format("setprop persist.service.adb.enable %s", enable ? 1 : 0),
-					null, null);
+					null, null, null);
 		}
 	}
 }

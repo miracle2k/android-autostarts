@@ -1,3 +1,7 @@
+1.9.1 (2014-11-20)
+    * Fix root access on Android 5.
+    * Fix (no-name) receivers.
+
 1.9.0 (2014-11-08)
     * Updated to support Android 5.
     * Improve UI: New, high-res icons, toolbar buttons.

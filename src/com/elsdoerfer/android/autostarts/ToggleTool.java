@@ -10,6 +10,7 @@ import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 
 import com.elsdoerfer.android.autostarts.db.ComponentInfo;
+import com.stericson.RootTools.execution.Shell;
 
 /**
 How we toggle a component's states. Beware: This is a long comment.
@@ -125,7 +126,7 @@ class ToggleTool {
 
 			// If adb is disabled, try to enable it, temporarily. This will
 			// make our root call go through without hanging.
-            // TODO: It seems this might no longer be required under ICS.
+			// TODO: It seems this might no longer be required under ICS.
 			if (!adbEnabled) {
 				Log.i(Utils.TAG, "Switching ADB on for the root call");
 				if (setADBEnabledState(context, cr, true)) {
@@ -152,17 +153,22 @@ class ToggleTool {
 						{ libs+"/system/bin/app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },
 				})
 				{
-					if (Utils.runRootCommand(String.format(set[0],
-							(doEnable ? "enable": "disable"),
-							component.packageInfo.packageName, component.componentName),
-							(set[1] != null) ? new String[] { set[1] } : null,
-							// The timeout shouldn't really be needed ever, since
-							// we now automatically enable ADB, which should work
-							// around any freezing issue. However, in rare, hard
-							// to reproduce cases, it still occurs, and in those
-							// cases the timeout will improve the user experience.
-							25000, "u:r:untrusted_app:s0")) {
-						success = true;
+					try {
+						if (Utils.runRootCommand(String.format(set[0],
+								(doEnable ? "enable": "disable"),
+								component.packageInfo.packageName, component.componentName),
+								(set[1] != null) ? new String[] { set[1] } : null,
+								// The timeout shouldn't really be needed ever, since
+								// we now automatically enable ADB, which should work
+								// around any freezing issue. However, in rare, hard
+								// to reproduce cases, it still occurs, and in those
+								// cases the timeout will improve the user experience.
+								25000, Shell.ShellContext.UNTRUSTED_APP)) {
+							success = true;
+							break;
+						}
+					} catch (Utils.ShellFailedException e) {
+						// The shell failed, no reason to try more commands.
 						break;
 					}
 				}
@@ -212,9 +218,13 @@ class ToggleTool {
 		}
 		else {
 			Log.i(Utils.TAG, "Using setprop call to touch ADB setting");
-			return Utils.runRootCommand(
-					String.format("setprop persist.service.adb.enable %s", enable ? 1 : 0),
-					null, null, null);
+			try {
+				return Utils.runRootCommand(
+						String.format("setprop persist.service.adb.enable %s", enable ? 1 : 0),
+						null, null, null);
+			} catch (Utils.ShellFailedException e) {
+				return false;
+			}
 		}
 	}
 }

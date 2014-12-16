@@ -9,7 +9,9 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 import com.elsdoerfer.android.autostarts.db.ComponentInfo;
+import com.stericson.RootTools.RootTools;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -121,6 +123,12 @@ public class ToggleService extends Service {
 			onActivityChange(null);
 			Log.d(Utils.TAG, "ToggleService mQueue empty, shutting down");
 			stopSelf();
+			Log.d(Utils.TAG, "Closing all root shells");
+			try {
+				RootTools.closeAllShells();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return;
 		}
 

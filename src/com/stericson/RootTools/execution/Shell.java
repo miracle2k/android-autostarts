@@ -729,11 +729,8 @@ public class Shell
                 }
                 catch (RootDeniedException e)
                 {
-                    if (retries++ >= retry)
-                    {
-                        RootTools.log("RootDeniedException, could not start shell");
-                        throw e;
-                    }
+                    RootTools.log("RootDeniedException, could not start shell");
+                    throw e;
                 }
                 catch (TimeoutException e)
                 {

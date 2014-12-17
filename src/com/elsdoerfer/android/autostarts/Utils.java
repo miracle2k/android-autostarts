@@ -62,6 +62,7 @@ public class Utils {
 	static boolean runRootCommand(final String command, String[] env,
 	                              Integer timeout, Shell.ShellContext context) throws ShellFailedException {
 
+		RootTools.debugMode = true;
 
 		// Workaround RootTools sending --context even if the su shell does not support it.
 		// This code is copied from libsuperuser (we are not using it, because the way it does

@@ -62,12 +62,13 @@ public class Utils {
 	static boolean runRootCommand(final String command, String[] env,
 	                              Integer timeout, Shell.ShellContext context) throws ShellFailedException {
 
+		RootTools.debugMode = true;
 
 		// Workaround RootTools sending --context even if the su shell does not support it.
 		// This code is copied from libsuperuser (we are not using it, because the way it does
 		// async is sort of a mess.
 		// https://github.com/Stericson/RootTools/issues/28
-		Shell.ShellContext contextToUse = null;
+		Shell.ShellContext contextToUse = Shell.defaultContext;
 		if ((context != null) && isSELinuxEnforcing()) {
 			String display = version(false);
 			String internal = version(true);

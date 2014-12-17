@@ -1,3 +1,6 @@
+1.9.6 (2014-12-17)
+    * Fix state toggle on <= Android 4.3, broke in last update.
+
 1.9.5 (2014-12-17)
     * Fix root access on CM11.
 

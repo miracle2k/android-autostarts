@@ -67,7 +67,7 @@ public class Utils {
 		// This code is copied from libsuperuser (we are not using it, because the way it does
 		// async is sort of a mess.
 		// https://github.com/Stericson/RootTools/issues/28
-		Shell.ShellContext contextToUse = null;
+		Shell.ShellContext contextToUse = Shell.defaultContext;
 		if ((context != null) && isSELinuxEnforcing()) {
 			String display = version(false);
 			String internal = version(true);

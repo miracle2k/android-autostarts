@@ -1,3 +1,6 @@
+1.9.5 (2014-12-17)
+    * Fix root access on CM11.
+
 1.9.1 (2014-11-20)
     * Fix root access on Android 5.
     * Fix (no-name) receivers.

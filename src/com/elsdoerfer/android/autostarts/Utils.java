@@ -2,8 +2,12 @@ package com.elsdoerfer.android.autostarts;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeoutException;
 
-import android.util.Log;
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.exceptions.RootDeniedException;
+import com.stericson.RootTools.execution.CommandCapture;
+import com.stericson.RootTools.execution.Shell;
 
 public class Utils {
 	static final String TAG = "Autostarts";
@@ -47,217 +51,112 @@ public class Utils {
 		return -1;
 	}
 
-	/**
-	 * Determine the path of the su executable.
-	 *
-	 * The emulator and ADP1 device both have a su binary in
-	 * /system/xbin/su, but it doesn't allow apps to use it (su app_29
-	 * $ su su: uid 10029 not allowed to su).
-	 *
-	 * Cyanogen used to have su in /system/bin/su, in newer versions
-	 * it's a symlink to /system/xbin/su.
-	 *
-	 * The Archos tablet has it in /data/bin/su, since they don't have
-	 * write access to /system yet.
-	 */
-	static String[] SU_OPTIONS =  {
-		"/data/bin/su",
-		"/system/bin/su",
-		// This is last because we are afraid a proper su might be in
-		// one of those other locations, while this one is secured.
-		"/system/xbin/su",
-	};
-	static String getSuPath() {
-		for (String p : SU_OPTIONS) {
-			File su = new File(p);
-			if (su.exists()) {
-				Log.d(TAG, "su found at: "+p);
-				return p;
-			}
-			else
-				if (ListActivity.LOGV)
-					Log.v(TAG, "No su in: "+p);
-		}
-		Log.d(TAG, "No su found in a well-known location, "+
-				"will just use \"su\".");
-		return "su";
-	}
+	public static class ShellFailedException extends Exception {} ;
 
-	/*
-	 * Running an app through root isn't even that straightforward as
-	 * it would seem. Here's some issues we've run into so far, and which
-	 * we try to workaround here:
-	 *
-	 *  1) The Superuser Whitelist application most rooted devices
-	 *     use identifies the command based on arguments. If we
-	 *     were to just call su -c "pm xyz", the user would need
-	 *     to confirm every single call; "Allows allow" would be
-	 *     useless.
-	 *
-	 *  2) Rarely, a devices seems to have a su-executable that uses a
-	 *     different argument syntax (`su -c "command args"` vs.
-	 *     `su -c command args`).
-	 *
-	 *  3) Some ROMs have their "su" in a non-standard location, like
-	 *     Archos in /data/bin, and it's not on the path either (this
-	 *     is because they don't have write-access to /system yet).
-	 *
-	 *  4) Some custom ROMs contain what seems to be a kernel bug,
-	 *     in which su/sh?, when run outside of the system shell,
-	 *     cannot access certain paths. The error is "pm: not found".
-	 *     This happens even though the file does exists, and runs
-	 *     just fine from the shell.
-	 *
-	 * The common approach chosen by most root apps seems to be to
-	 * run "su" and pipe commands into it. This will solve (1) and (2).
-	 * (3) we solve by checking multiple locations for su.
-	 * We'll still have to see about (4).
+	/**
+	 * ShellFailedException indicates that the failure is the shell itself, not the command,
+	 * and the caller thus should not retry alternative commands.
+
+	 * @throws ShellFailedException
 	 */
-	static boolean runRootCommand(String command, String[] env,
-			Integer timeout, String context)
-	{
-		Process process = null;
-		DataOutputStream os = null;
+	static boolean runRootCommand(final String command, String[] env,
+	                              Integer timeout, Shell.ShellContext context) throws ShellFailedException {
+
+
+		// Workaround RootTools sending --context even if the su shell does not support it.
+		// This code is copied from libsuperuser (we are not using it, because the way it does
+		// async is sort of a mess.
+		// https://github.com/Stericson/RootTools/issues/28
+		Shell.ShellContext contextToUse = null;
+		if ((context != null) && isSELinuxEnforcing()) {
+			String display = version(false);
+			String internal = version(true);
+
+			// We only know the format for SuperSU v1.90+ right now
+			if ((display != null) &&
+					(internal != null) &&
+					(display.endsWith("SUPERSU")) &&
+					(Integer.valueOf(internal) >= 190)) {
+				contextToUse = context;
+			}
+		}
+
+		Shell shell;
 		try {
-			String shell = getSuPath();
-			if (context != null && isSELinuxEnforcing()) {
-				shell = String.format(Locale.ENGLISH, "%s --context %s", shell, context);
-			}
-
-			Log.d(TAG, String.format(
-					"Running '%s' as root, timeout=%s, shell=%s", command, timeout, shell));
-
-
-			process = runWithEnv(shell, env);
-			os = new DataOutputStream(process.getOutputStream());
-			os.writeBytes(command+"\n");
-			os.writeBytes("echo \"rc:\" $?\n");
-			os.writeBytes("exit\n");
-			os.flush();
-
-			// Handle a requested timeout, or just use waitFor() otherwise.
-			if (timeout != null) {
-				long finish = System.currentTimeMillis() + timeout;
-				while (true) {
-					Thread.sleep(300);
-					if (!isProcessAlive(process))
-						break;
-					// TODO: We could use a callback to let the caller
-					// check the success-condition (like the state properly
-					// being changed), and then end early, rather than
-					// waiting for the timeout to occur. However, this
-					// is made more complicated by us not really wanting
-					// to kill a process early that would never have hung,
-					// but which might not actually be completely finished yet
-					// when the callback would register success.
-					// Also, now that the timeout is only used as a last-resort
-					// mechanism anyway, with most cases of a hanging process
-					// being avoided by switching on ADB Debugging, improving
-					// the timeout handling isn't that important anymore.
-					if (System.currentTimeMillis() > finish) {
-						// Usually, this can't be considered a success.
-						// However, in terms of the bug we're trying to
-						// work around here (the call hanging if adb
-						// debugging is disabled), the command would
-						// have successfully run, but just doesn't
-						// return. We report success, just in case, and
-						// the caller will have to check whether the
-						// command actually did do it's job.
-						// TODO: It might be core "correct" to return false
-						// here, or indicate the timeout in some other way,
-						// and let the caller ignore those values on their
-						// own volition.
-						Log.w(TAG, "Process doesn't seem "+
-								"to stop on it's own, assuming it's hanging");
-						// Note: 'finally' will call destroy(), but you
-						// might still see zombies.
-						return true;
-					}
-				}
-			}
-			else
-			  process.waitFor();
-
-			Log.d(TAG, "Process returned with "+process.exitValue());
-			Log.d(TAG, "Process stdout was: "+
-				Utils.readStream(process.getInputStream())+
-				"; stderr: "+Utils.readStream(process.getErrorStream()));
-
-			// In order to consider this a success, we require to
-			// things: a) a proper exit value, and ...
-			if (process.exitValue() != 0)
-				return false;
-
-			return true;
-
-		} catch (FileNotFoundException e) {
-			Log.e(TAG, "Failed to run command", e);
-			return false;
+			shell = RootTools.getShell(true, timeout, contextToUse, 0);
 		} catch (IOException e) {
-			Log.e(TAG, "Failed to run command", e);
-			return false;
-		} catch (InterruptedException e) {
-			Log.e(TAG, "Failed to run command", e);
-			return false;
+			e.printStackTrace();
+			throw new ShellFailedException();
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+			throw new ShellFailedException();
+		} catch (RootDeniedException e) {
+			e.printStackTrace();
+			throw new ShellFailedException();
 		}
-		finally {
-			if (os != null)
-				try { os.close(); }
-				catch (IOException e) { throw new RuntimeException(e); }
-			if (process != null) {
-				try {
-					// Yes, this really is the way to check if the process is
-					// still running.
-					process.exitValue();
-				} catch (IllegalThreadStateException e) {
-					// Only call destroy() if the process is still running;
-					// Calling it for a terminated process will not crash, but
-					// (starting with at least ICS/4.0) spam the log with INFO
-					// messages ala "Failed to destroy process" and "kill
-					// failed: ESRCH (No such process)".
-					process.destroy();
-				}
-			}
+
+		CommandCapture cmd = new CommandCapture(0, command);
+		try {
+			shell.add(cmd);
+		} catch (IOException e) {
+			throw new ShellFailedException();
 		}
+
+		// https://github.com/Stericson/RootTools/issues/10
+		while (true) {
+			if (cmd.isFinished())
+				break;
+			sleep(100);
+		}
+
+		return (cmd.getExitCode() == 0);
 	}
 
 	/**
-	 * This code is adapted from java.lang.ProcessBuilder.start().
-	 *
-	 * The problem is that Android doesn't allow us to modify the
-	 * map returned by ProcessBuilder.environment(), even though the
-	 * docstring indicates that it should. This is because it simply
-	 * returns the SystemEnvironment object that System.getenv() gives
-	 * us. The relevant portion in the source code is marked as
-	 * "// android changed", so presumably it's not the case in the
-	 * original version of the Apache Harmony project.
-	 *
-	 * Note that simply passing the environment variables we want
-	 * to Process.exec won't be good enough, since that would override
-	 * the environment we inherited completely.
-	 *
-	 * We needed to be able to set a CLASSPATH environment variable for
-	 * our new process in order to use the "app_process" command directly.
-	 * Note: "app_process" takes arguments passed on to the Dalvik VM as
-	 * well; this might be an alternative way to set the class path.
+	 * Sleep for a while; without dealing with the exception.
 	 */
-	public static Process runWithEnv(String command, String[] customEnv) throws IOException {
-		Map<String, String> environment = System.getenv();
-	    String[] envArray = new String[environment.size()+
-	                                   (customEnv != null ? customEnv.length : 0)];
-	    int i = 0;
-	    for (Map.Entry<String, String> entry : environment.entrySet())
-	        envArray[i++] = entry.getKey() + "=" + entry.getValue();
-	    if (customEnv != null)
-		    for (String entry : customEnv)
-		        envArray[i++] = entry;
-	    Process process = Runtime.getRuntime().exec(command, envArray);
-	    return process;
+	public static void sleep(long time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * From https://github.com/Chainfire/libsuperuser/blob/master/libsuperuser/src/eu/chainfire/libsuperuser/Shell.java
-	 * @return
+	 * http://stackoverflow.com/a/25379180/15677
+	 */
+	public static boolean containsIgnoreCase(String src, String what) {
+		if (src == null)
+			return false;
+
+		final int length = what.length();
+		if (length == 0)
+			return true; // Empty string is contained
+
+		final char firstLo = Character.toLowerCase(what.charAt(0));
+		final char firstUp = Character.toUpperCase(what.charAt(0));
+
+		for (int i = src.length() - length; i >= 0; i--) {
+			// Quick check before calling the more expensive regionMatches() method:
+			final char ch = src.charAt(i);
+			if (ch != firstLo && ch != firstUp)
+				continue;
+
+			if (src.regionMatches(true, i, what, 0, length))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * From libsuperuser.
+	 *
+	 * Detect if SELinux is set to enforcing, caches result
+	 *
+	 * @return true if SELinux set to enforcing, or false in the case of
+	 *         permissive or not present
 	 */
 	public static synchronized boolean isSELinuxEnforcing() {
 		if (isSELinuxEnforcing == null) {
@@ -298,53 +197,92 @@ public class Utils {
 	}
 
 	/**
-	 * Check whether a process is still alive. We use this as a naive
-	 * way to implement timeouts.
+	 * From libsuperuser.
+	 *
+	 * <p>
+	 * Detects the version of the su binary installed (if any), if supported
+	 * by the binary. Most binaries support two different version numbers,
+	 * the public version that is displayed to users, and an internal
+	 * version number that is used for version number comparisons. Returns
+	 * null if su not available or retrieving the version isn't supported.
+	 * </p>
+	 * <p>
+	 * Note that su binary version and GUI (APK) version can be completely
+	 * different.
+	 * </p>
+	 * <p>
+	 * This function caches its result to improve performance on multiple
+	 * calls
+	 * </p>
+	 *
+	 * @param internal Request human-readable version or application
+	 *            internal version
+	 * @return String containing the su version or null
 	 */
-	public static boolean isProcessAlive(Process p) {
-	    try {
-	        p.exitValue();
-	        return false;
-	    } catch (IllegalThreadStateException e) {
-	        return true;
-	    }
-	}
+	private static String[] suVersion = new String[] {
+			null, null
+	};
+	public static synchronized String version(boolean internal) {
+		int idx = internal ? 0 : 1;
+		if (suVersion[idx] == null) {
+			String version = null;
 
-	/**
-	 * Sleep for a while; without dealing with the exception.
-	 */
-	public static void sleep(long time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			// Replace libsuperuser:Shell.run with manual process execution
+			Process process;
+			try {
+				process = Runtime.getRuntime().exec(internal ? "su -V" : "su -v", null);
+				process.waitFor();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+			// From libsuperuser:StreamGobbler
+			List<String> stdout = new ArrayList<String>();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			try {
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					stdout.add(line);
+				}
+			} catch (IOException e) {
+			}
+			// make sure our stream is closed and resources will be freed
+			try {
+				reader.close();
+			} catch (IOException e) {
+			}
+
+			process.destroy();
+
+			List<String> ret = stdout;
+			
+			if (ret != null) {
+				for (String line : ret) {
+					if (!internal) {
+						if (line.contains(".")) {
+							version = line;
+							break;
+						}
+					} else {
+						try {
+							if (Integer.parseInt(line) > 0) {
+								version = line;
+								break;
+							}
+						} catch (NumberFormatException e) {
+						}
+					}
+				}
+			}
+
+			suVersion[idx] = version;
 		}
+		return suVersion[idx];
 	}
 
-	/**
-	 * http://stackoverflow.com/a/25379180/15677
-	 */
-	public static boolean containsIgnoreCase(String src, String what) {
-		if (src == null)
-			return false;
-
-		final int length = what.length();
-		if (length == 0)
-			return true; // Empty string is contained
-
-		final char firstLo = Character.toLowerCase(what.charAt(0));
-		final char firstUp = Character.toUpperCase(what.charAt(0));
-
-		for (int i = src.length() - length; i >= 0; i--) {
-			// Quick check before calling the more expensive regionMatches() method:
-			final char ch = src.charAt(i);
-			if (ch != firstLo && ch != firstUp)
-				continue;
-
-			if (src.regionMatches(true, i, what, 0, length))
-				return true;
-		}
-
-		return false;
-	}
 }

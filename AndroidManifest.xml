@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.elsdoerfer.android.autostarts"
       android:installLocation="auto"
-      android:versionCode="30"
-      android:versionName="1.9.6">
+      android:versionCode="31"
+      android:versionName="1.9.7">
     <application android:icon="@drawable/icon" android:label="@string/app_name"
                  android:theme="@android:style/Theme.Holo">
         <activity android:name=".ListActivity"

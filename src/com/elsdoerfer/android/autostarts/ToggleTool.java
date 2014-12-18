@@ -221,7 +221,7 @@ class ToggleTool {
 			try {
 				return Utils.runRootCommand(
 						String.format("setprop persist.service.adb.enable %s", enable ? 1 : 0),
-						null, null, null);
+						null, 0, null);
 			} catch (Utils.ShellFailedException e) {
 				return false;
 			}

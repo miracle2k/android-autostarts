@@ -60,7 +60,7 @@ public class Utils {
 	 * @throws ShellFailedException
 	 */
 	static boolean runRootCommand(final String command, String[] env,
-	                              Integer timeout, Shell.ShellContext context) throws ShellFailedException {
+	                              int timeout, Shell.ShellContext context) throws ShellFailedException {
 
 		RootTools.debugMode = true;
 

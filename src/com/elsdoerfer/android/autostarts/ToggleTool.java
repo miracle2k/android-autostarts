@@ -147,6 +147,7 @@ class ToggleTool {
 				final String libs = "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:/system/lib\" ";
 				boolean success = false;
 				for (String[] set : new String[][] {
+						{ "pm %s '%s/%s'", null },
 						{ libs+"pm %s '%s/%s'", null },
 						{ libs+"sh /system/bin/pm %s '%s/%s'", null },
 						{ libs+"app_process /system/bin com.android.commands.pm.Pm %s '%s/%s'", "CLASSPATH=/system/framework/pm.jar" },

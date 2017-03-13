@@ -40,12 +40,6 @@ def _make_market_manifest(manifest):
 
 
 BUILDS = {
-    'amazon': {
-        'extra-paths': ['src-opt/amazon'],
-        'template': 'com.elsdoerfer.android.autostarts-%(version)s-AD.apk',
-        'sign': False,
-        'deploy': False,
-    },
     'default': {
         'extra-paths': ['src-opt/default'],
         'template': 'Android-Autostarts-Full-%(version)s.apk',

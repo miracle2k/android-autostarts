@@ -1,3 +1,6 @@
+1.9.8 (2017-03-13)
+    * Fix on 64-bit architectures.
+
 1.9.7 (2014-12-18)
     * Fix state toggle when ADB is disabled.
 

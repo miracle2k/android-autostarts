@@ -22,6 +22,8 @@ Releasing a new version
    - Update changelog
    - Update version number in AndroidManifest.xml
    $ buck build //:app
+   $ buck build //:zipalign
+   - zipalign target output is hidden in .buck-out/gen/zipalign (!)
    - Test the result on a device
    $ git flow release finish X
    $ git checkout X

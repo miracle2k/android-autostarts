@@ -41,3 +41,11 @@ keystore(
   store = 'production.keystore',
   properties = 'production.keystore.properties',
 )
+
+
+apk_genrule(
+  name = 'zipalign',
+  apk = ':app',
+  bash = '$ANDROID_HOME/build-tools/20.0.0/zipalign -f 4 $APK $OUT',
+  out = 'default-final.apk',
+)

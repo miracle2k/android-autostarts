@@ -21,7 +21,7 @@ Releasing a new version
    $ git flow release start X
    - Update changelog
    - Update version number in AndroidManifest.xml
-   $ fab build
+   $ buck build //:app
    - Test the result on a device
    $ git flow release finish X
    $ git checkout X

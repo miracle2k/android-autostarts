@@ -1,6 +1,2 @@
-sdk_dir = /opt/android/sdk
-keystore = ~/.android/debug.keystore
-keyalias = androiddebugkey
-
 deploy_host = user@server/path
 deploy_dir = /var/www/files

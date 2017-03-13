@@ -9,7 +9,7 @@ Get latest updates from Transifex:
 Export latest local changes (let local gettext do the merge instead of Transifex):
 
   $ a2po export
-  
+
 Push new template to transifex:
 
   $ tx push -st --skip

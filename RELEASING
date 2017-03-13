@@ -9,7 +9,7 @@ Get latest updates from Transifex:
 Export latest local changes (let local gettext do the merge instead of Transifex):
 
   $ a2po export
-  
+
 Push new template to transifex:
 
   $ tx push -st --skip
@@ -21,7 +21,7 @@ Releasing a new version
    $ git flow release start X
    - Update changelog
    - Update version number in AndroidManifest.xml
-   $ fab build
+   $ buck build //:app
    - Test the result on a device
    $ git flow release finish X
    $ git checkout X

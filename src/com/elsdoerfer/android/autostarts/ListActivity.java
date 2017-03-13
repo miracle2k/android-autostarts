@@ -340,8 +340,9 @@ public class ListActivity extends ExpandableListActivity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.grouping:
+		int id = item.getItemId();
+
+		if (id == R.id.grouping) {
 			String groupingPref = "";
 			if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_ACTION) {
 				mListAdapter.setGrouping(MyExpandableListAdapter.GROUP_BY_PACKAGE);
@@ -355,32 +356,36 @@ public class ListActivity extends ExpandableListActivity {
 			mPrefs.edit().putString(PREF_GROUPING, groupingPref).commit();
 			invalidateOptionsMenu();
 			return true;
+		}
 
-		case R.id.view_hide_sys_apps:
+		else if (id == R.id.view_hide_sys_apps) {
 			item.setChecked(!item.isChecked());
 			mListAdapter.setFilterSystemApps(item.isChecked());
 			mListAdapter.notifyDataSetChanged();
 			updateEmptyText();
 			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SYS_APPS, item.isChecked()).commit();
 			return true;
+		}
 
-		case R.id.view_changed_only:
+		else if (id == R.id.view_changed_only) {
 			item.setChecked(!item.isChecked());
 			mListAdapter.setShowChangedOnly(item.isChecked());
 			mListAdapter.notifyDataSetChanged();
 			updateEmptyText();
 			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SHOW_CHANGED, item.isChecked()).commit();
 			return true;
+		}
 
-		case R.id.view_hide_unknown:
+		else if (id == R.id.view_hide_unknown) {
 			item.setChecked(!item.isChecked());
 			mListAdapter.setFilterUnknown(item.isChecked());
 			mListAdapter.notifyDataSetChanged();
 			updateEmptyText();
 			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_UNKNOWN, item.isChecked()).commit();
 			return true;
+		}
 
-		case R.id.expand:
+		else if (id == R.id.expand) {
 			ExpandableListView lv = getExpandableListView();
 			for (int i=mListAdapter.getGroupCount()-1; i>=0; i--)
 				if (mExpandSuggested)
@@ -389,16 +394,19 @@ public class ListActivity extends ExpandableListActivity {
 					lv.collapseGroup(i);
 			invalidateOptionsMenu();
 			return true;
+		}
 
-		case R.id.reload:
+		else if (id == R.id.reload) {
 			loadAndApply();
 			return true;
+		}
 
-		case R.id.help:
+		else if (id == R.id.help) {
 			startActivity(new Intent(this, HelpActivity.class));
 			return true;
+		}
 
-		default:
+		else {
 			return super.onContextItemSelected(item);
 		}
 	}

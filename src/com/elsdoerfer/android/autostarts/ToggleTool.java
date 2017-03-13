@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
@@ -144,7 +145,21 @@ class ToggleTool {
 				// On ICS, it became necessary to set a library path (which is
 				// cleared for suid programs, for obvious reasons). It can't hurt
 				// on older versions. See also  https://github.com/ChainsDD/su-binary/issues/6
-				final String libs = "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:/system/lib\" ";
+				
+				String abi = null; //check if the architecture is 32 or 64bits
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+					abi = Build.CPU_ABI;
+				} else {
+					abi = Build.SUPPORTED_ABIS[0];
+				}
+				final String libs;
+				if (abi.equals("arm64-v8a") || abi.equals("x86_64") || abi.equals("mips64")) {
+					libs = "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:/system/lib64\" ";
+				}
+				else {
+					libs = "LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:/system/lib\" ";
+				}
+				
 				boolean success = false;
 				for (String[] set : new String[][] {
 						{ libs+"pm %s '%s/%s'", null },

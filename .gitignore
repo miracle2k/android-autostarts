@@ -17,3 +17,9 @@
 # fabric
 /.fabricrc
 *.pyc
+
+# Buck
+/buck-out/
+/production.keystore
+/production.keystore.properties
+/.buckd/

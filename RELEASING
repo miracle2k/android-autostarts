@@ -21,13 +21,11 @@ Releasing a new version
    $ git flow release start X
    - Update changelog
    - Update version number in AndroidManifest.xml
-   $ buck build //:app
-   $ buck build //:zipalign
-   - zipalign target output is hidden in .buck-out/gen/zipalign (!)
+   $ ./cli/build.sh
    - Test the result on a device
    $ git flow release finish X
    $ git checkout X
-   $ fab deploy
+   $ ./cli/deploy.sh
    - Manually publish & save all builds.
    $ git checkout master
    $ git push --all --tags

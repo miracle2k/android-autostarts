@@ -1,24 +1,24 @@
-# Arabic (Saudi Arabia) translations for .
-# Copyright (C) 2011 ORGANIZATION
-# This file is distributed under the same license as the  project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-#
+# Translations template for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# 
+# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011
+# محمد الحرقان <malham1@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version:  android-autostarts\n"
-"Report-Msgid-Bugs-To: http://github.com/miracle2k/android-"
-"autostarts/issues\n"
-"POT-Creation-Date: 2014-11-08 18:01+0100\n"
-"PO-Revision-Date: 2011-04-22 15:33+0000\n"
+"Project-Id-Version: android-autostarts\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"PO-Revision-Date: 2017-08-03 10:36+0000\n"
 "Last-Translator: elsdoerfer <michael@elsdoerfer.info>\n"
-"Language-Team: Arabic (Saudi Arabia) <None>\n"
-"Plural-Forms: nplurals=6; plural=((n == 0) ? 0 : (n == 1) ? 1 : (n == 2) "
-"? 2 : ((n % 100) >= 3 && (n % 100) <= 10) ? 3 : ((n % 100) >= 11 && (n % "
-"100) <= 99) ? 4 : 5)\n"
+"Language-Team: Arabic (Saudi Arabia) (http://www.transifex.com/elsdoerfer/android-autostarts/language/ar_SA/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
+"Language: ar_SA\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
@@ -28,25 +28,26 @@ msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
 msgstr "لا التطبيقات تبدأ تلقائياً ضمن تحديدك الحالي."
 
+msgctxt "still_loading"
+msgid ""
+"Please wait while I am loading the applications installed on your phone..."
+msgstr "الرجاء الانتظار بينما يتم تحميل التطبيقات المثبتة على هاتفك..."
+
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
 msgstr "تغيير إعدادات التصفية."
-
-msgctxt "no_search_match"
-msgid "No applications match your search query."
-msgstr ""
 
 msgctxt "appliation_info"
 msgid "Application Info"
 msgstr " التطبيق معلومات"
 
 msgctxt "find_in_market"
-msgid "Find on Google Play"
-msgstr ""
+msgid "Find in Market"
+msgstr "البحث في السوق"
 
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
-msgstr ""
+msgstr "البحث في أبستور"
 
 msgctxt "disable"
 msgid "Disable"
@@ -92,10 +93,6 @@ msgctxt "reload"
 msgid "Reload"
 msgstr "إعادة تحميل"
 
-msgctxt "search"
-msgid "Search"
-msgstr ""
-
 msgctxt "help"
 msgid "Help"
 msgstr "مساعدة"
@@ -115,16 +112,14 @@ msgstr "معلومات"
 #, c-format
 msgctxt "receiver_info"
 msgid ""
-"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
-"with priority &lt;b&gt;%3$d&lt;/b&gt;."
-msgstr ""
-"استقبال &lt;b&gt;%1$s&lt;/b&gt;معالجة الحدث &lt;i&gt;%2$s&lt;/i&gt; "
-"بأولوية &lt;b&gt;%3$d&lt;/b&gt;."
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
+" priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr "استقبال &lt;b&gt;%1$s&lt;/b&gt;معالجة الحدث &lt;i&gt;%2$s&lt;/i&gt; بأولوية &lt;b&gt;%3$d&lt;/b&gt;."
 
 msgctxt "sys_disable"
 msgid ""
-"This is a system component. Do not make changes unless you know what you "
-"are doing."
+"This is a system component. Do not make changes unless you know what you are"
+" doing."
 msgstr ""
 
 #. The verb (changing) should be at the front of the string
@@ -133,28 +128,14 @@ msgctxt "changing_state"
 msgid "Changing %1$s..."
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "state_change_failed"
 msgid ""
 "Unable to change the state of %1$s (%2$s).\n"
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
-"غير قادر على تغيير حالة التحديد.\n"
-"\n"
-"على الأرجح ، الجهاز لا يملك صلاحية الوصول للجذر، وهو مطلوب."
 
 msgctxt "close_help"
 msgid "Close help and return to app"
 msgstr "إغلاق المساعدة والرجوع إلى التطبيق"
-
-#~ msgctxt "still_loading"
-#~ msgid ""
-#~ "Please wait while I am loading the"
-#~ " applications installed on your phone..."
-#~ msgstr "الرجاء الانتظار بينما يتم تحميل التطبيقات المثبتة على هاتفك..."
-
-#~ msgctxt "find_in_market"
-#~ msgid "Find in Market"
-#~ msgstr "البحث في السوق"
-

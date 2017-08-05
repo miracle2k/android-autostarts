@@ -3,110 +3,109 @@
 # This file is distributed under the same license as the PROJECT project.
 # 
 # Translators:
-# RootRulez007 <rootrulez007@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-21 00:13+0100\n"
-"PO-Revision-Date: 2017-08-03 10:36+0000\n"
-"Last-Translator: elsdoerfer <michael@elsdoerfer.info>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/elsdoerfer/android-autostarts/language/hu_HU/)\n"
+"PO-Revision-Date: 2010-11-30 05:59+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Dutch (http://www.transifex.com/elsdoerfer/android-autostarts/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
-"Language: hu_HU\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
-msgstr "Nincs automatikusan induló alkalmazás"
+msgstr ""
 
 msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
-msgstr "A jelenlegi szekcióban nincs automatikusan induló alkalmazás"
+msgstr ""
 
 msgctxt "still_loading"
 msgid ""
 "Please wait while I am loading the applications installed on your phone..."
-msgstr "Várjon, amíg a telepített alkalmazások betöltődnek"
+msgstr ""
 
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
-msgstr "Szűrő beállítások módosítása"
+msgstr ""
 
 msgctxt "appliation_info"
 msgid "Application Info"
-msgstr "Alkalmazás információ"
+msgstr ""
 
 msgctxt "find_in_market"
 msgid "Find in Market"
-msgstr "Keresés a Marketen"
+msgstr ""
 
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
-msgstr "Keresés az alkalmazásboltban"
+msgstr ""
 
 msgctxt "disable"
 msgid "Disable"
-msgstr "Letilt"
+msgstr ""
 
 msgctxt "enable"
 msgid "Enable"
-msgstr "Engedélyez"
+msgstr ""
 
 msgctxt "view_options"
 msgid "View"
-msgstr "Megnéz"
+msgstr ""
 
 msgctxt "group_by_package"
 msgid "Group by application"
-msgstr "Csoportosítás alkalmazás alapján"
+msgstr ""
 
 msgctxt "group_by_action"
 msgid "Group by event"
-msgstr "Csoportosítás esemény alapján"
+msgstr ""
 
 msgctxt "hide_sys_apps"
 msgid "Hide system apps"
-msgstr "Rendszeralkalmazások elrejtése"
+msgstr ""
 
 msgctxt "show_changed_only"
 msgid "Show changed only"
-msgstr "Csak a módosítottakat mutassa"
+msgstr ""
 
 msgctxt "hide_unknown"
 msgid "Hide unknown events"
-msgstr "Ismeretlen események elrejtése"
+msgstr ""
 
 msgctxt "expand_all"
 msgid "Expand all"
-msgstr "Összes kinyitása"
+msgstr ""
 
 msgctxt "collapse_all"
 msgid "Collapse all"
-msgstr "Összes összecsukása"
+msgstr ""
 
 msgctxt "reload"
 msgid "Reload"
-msgstr "Újratölt"
+msgstr ""
 
 msgctxt "help"
 msgid "Help"
-msgstr "Segítség"
+msgstr ""
 
 msgctxt "error"
 msgid "Error"
-msgstr "Hiba"
+msgstr ""
 
 msgctxt "warning"
 msgid "Warning"
-msgstr "Figyelem"
+msgstr ""
 
 msgctxt "info"
 msgid "Info"
-msgstr "Infó"
+msgstr ""
 
 #, c-format
 msgctxt "receiver_info"
@@ -137,4 +136,4 @@ msgstr ""
 
 msgctxt "close_help"
 msgid "Close help and return to app"
-msgstr "Segítség bezártása és vissza az alkalmazásba"
+msgstr ""

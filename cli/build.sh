@@ -3,7 +3,8 @@
 tx pull -a
 # Workaround for Android not supporting this language (no ISO-639-2 support?)
 rm locale/*-ast.po
-
+# Previously,  I needed to define on OSX: export LC_CTYPE=en_US.utf-8
+a2po import
 
 buck build //:app
 buck build //:zipalign

@@ -3,129 +3,129 @@
 # This file is distributed under the same license as the PROJECT project.
 # 
 # Translators:
-# RootRulez007 <rootrulez007@gmail.com>, 2012
+# Naofumi <naofum@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-21 00:13+0100\n"
 "PO-Revision-Date: 2017-08-03 10:36+0000\n"
-"Last-Translator: elsdoerfer <michael@elsdoerfer.info>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/elsdoerfer/android-autostarts/language/hu_HU/)\n"
+"Last-Translator: Naofumi <naofum@gmail.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/elsdoerfer/android-autostarts/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
-"Language: hu_HU\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
-msgstr "Nincs automatikusan induló alkalmazás"
+msgstr "アプリケーションは自動起動しません。"
 
 msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
-msgstr "A jelenlegi szekcióban nincs automatikusan induló alkalmazás"
+msgstr "現在の選択範囲に自動起動するアプリケーションはありません。"
 
 msgctxt "still_loading"
 msgid ""
 "Please wait while I am loading the applications installed on your phone..."
-msgstr "Várjon, amíg a telepített alkalmazások betöltődnek"
+msgstr "お使いの携帯電話にインストールされているアプリケーションを読み込む間お待ちください..."
 
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
-msgstr "Szűrő beállítások módosítása"
+msgstr "フィルター設定を変更します。"
 
 msgctxt "appliation_info"
 msgid "Application Info"
-msgstr "Alkalmazás információ"
+msgstr "アプリケーション情報"
 
 msgctxt "find_in_market"
 msgid "Find in Market"
-msgstr "Keresés a Marketen"
+msgstr "マーケットで検索"
 
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
-msgstr "Keresés az alkalmazásboltban"
+msgstr "アプリストアで検索"
 
 msgctxt "disable"
 msgid "Disable"
-msgstr "Letilt"
+msgstr "無効"
 
 msgctxt "enable"
 msgid "Enable"
-msgstr "Engedélyez"
+msgstr "有効"
 
 msgctxt "view_options"
 msgid "View"
-msgstr "Megnéz"
+msgstr "表示"
 
 msgctxt "group_by_package"
 msgid "Group by application"
-msgstr "Csoportosítás alkalmazás alapján"
+msgstr "アプリケーションでグループ化"
 
 msgctxt "group_by_action"
 msgid "Group by event"
-msgstr "Csoportosítás esemény alapján"
+msgstr "イベントでグループ化"
 
 msgctxt "hide_sys_apps"
 msgid "Hide system apps"
-msgstr "Rendszeralkalmazások elrejtése"
+msgstr "システムアプリを非表示"
 
 msgctxt "show_changed_only"
 msgid "Show changed only"
-msgstr "Csak a módosítottakat mutassa"
+msgstr "変更済のみ表示"
 
 msgctxt "hide_unknown"
 msgid "Hide unknown events"
-msgstr "Ismeretlen események elrejtése"
+msgstr "不明なイベントを非表示"
 
 msgctxt "expand_all"
 msgid "Expand all"
-msgstr "Összes kinyitása"
+msgstr "すべて展開"
 
 msgctxt "collapse_all"
 msgid "Collapse all"
-msgstr "Összes összecsukása"
+msgstr "すべて折りたたむ"
 
 msgctxt "reload"
 msgid "Reload"
-msgstr "Újratölt"
+msgstr "再読み込み"
 
 msgctxt "help"
 msgid "Help"
-msgstr "Segítség"
+msgstr "ヘルプ"
 
 msgctxt "error"
 msgid "Error"
-msgstr "Hiba"
+msgstr "エラー"
 
 msgctxt "warning"
 msgid "Warning"
-msgstr "Figyelem"
+msgstr "警告"
 
 msgctxt "info"
 msgid "Info"
-msgstr "Infó"
+msgstr "情報"
 
 #, c-format
 msgctxt "receiver_info"
 msgid ""
 "Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
 " priority &lt;b&gt;%3$d&lt;/b&gt;."
-msgstr ""
+msgstr "レシーバー &lt;b&gt;%1$s&lt;/b&gt; はアクション &lt;i&gt;%2$s&lt;/i&gt; を優先度 &lt;b&gt;%3$d&lt;/b&gt; で処理します。"
 
 msgctxt "sys_disable"
 msgid ""
 "This is a system component. Do not make changes unless you know what you are"
 " doing."
-msgstr ""
+msgstr "これはシステムコンポーネントです。 何を行っているのか分かっている以外は、変更しないでください。"
 
 #. The verb (changing) should be at the front of the string
 #, c-format
 msgctxt "changing_state"
 msgid "Changing %1$s..."
-msgstr ""
+msgstr "%1$s を変更中..."
 
 #, c-format
 msgctxt "state_change_failed"
@@ -133,8 +133,8 @@ msgid ""
 "Unable to change the state of %1$s (%2$s).\n"
 "\n"
 "Most likely, your device does not have root access, which is required."
-msgstr ""
+msgstr "%1$s (%2$s) の状態を変更できません。\n\nお使いのデバイスに root アクセス権がないようです。これは必須です。"
 
 msgctxt "close_help"
 msgid "Close help and return to app"
-msgstr "Segítség bezártása és vissza az alkalmazásba"
+msgstr "ヘルプを閉じて、アプリに戻る"

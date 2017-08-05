@@ -1,24 +1,25 @@
-# French (Canada) translations for .
-# Copyright (C) 2012 ORGANIZATION
-# This file is distributed under the same license as the  project.
-#
+# Translations template for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# 
 # Translators:
+# charleydc5 <charleydc5@gmail.com>, 2012
+# charleydc5 <charleydc5@gmail.com>, 2012
 # charleydc5 <charleydc5@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version:  android-autostarts\n"
+"Project-Id-Version: android-autostarts\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-11-08 18:01+0100\n"
-"PO-Revision-Date: 2013-11-20 09:33+0000\n"
-"Last-Translator: charleydc5 <charleydc5@gmail.com>\n"
-"Language-Team: French (Canada) (http://www.transifex.com/projects/p"
-"/android-autostarts/language/fr_CA/)\n"
-"Plural-Forms: nplurals=2; plural=(((n >= 0 && n <= 2) && (n != 2)) ? 0 : "
-"1)\n"
+"POT-Creation-Date: 2013-11-21 00:13+0100\n"
+"PO-Revision-Date: 2017-08-03 10:36+0000\n"
+"Last-Translator: elsdoerfer <michael@elsdoerfer.info>\n"
+"Language-Team: French (Canada) (http://www.transifex.com/elsdoerfer/android-autostarts/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.0dev\n"
+"Language: fr_CA\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgctxt "no_receivers"
 msgid "No applications are autostarting."
@@ -26,25 +27,24 @@ msgstr "Aucune application est configurée pour le démarrage automatique."
 
 msgctxt "no_receivers_filtered"
 msgid "No applications are autostarting within your current selection."
-msgstr ""
-"Aucune application est configurée pour le démarrage automatique selon "
-"votre sélection."
+msgstr "Aucune application est configurée pour le démarrage automatique selon votre sélection."
+
+msgctxt "still_loading"
+msgid ""
+"Please wait while I am loading the applications installed on your phone..."
+msgstr "Veuillez patienter pendant que je charge les applications installées sur votre téléphone..."
 
 msgctxt "change_filter_settings"
 msgid "Change filter settings."
 msgstr "Changer les paramètres de filtre."
-
-msgctxt "no_search_match"
-msgid "No applications match your search query."
-msgstr ""
 
 msgctxt "appliation_info"
 msgid "Application Info"
 msgstr "Information sur l'application"
 
 msgctxt "find_in_market"
-msgid "Find on Google Play"
-msgstr ""
+msgid "Find in Market"
+msgstr "Chercher dans le Google Play Store"
 
 msgctxt "find_in_appstore"
 msgid "Find in Appstore"
@@ -94,10 +94,6 @@ msgctxt "reload"
 msgid "Reload"
 msgstr "Recharger"
 
-msgctxt "search"
-msgid "Search"
-msgstr ""
-
 msgctxt "help"
 msgid "Help"
 msgstr "Aide"
@@ -117,16 +113,14 @@ msgstr "Information"
 #, c-format
 msgctxt "receiver_info"
 msgid ""
-"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; "
-"with priority &lt;b&gt;%3$d&lt;/b&gt;."
-msgstr ""
-"Le récepteur &lt;b&gt;%1$s&lt;/b&gt; gère l'action "
-"&lt;i&gt;%2$s&lt;/i&gt; selon une priorité &lt;b&gt;%3$d&lt;/b&gt;."
+"Receiver &lt;b&gt;%1$s&lt;/b&gt; handles action &lt;i&gt;%2$s&lt;/i&gt; with"
+" priority &lt;b&gt;%3$d&lt;/b&gt;."
+msgstr "Le récepteur &lt;b&gt;%1$s&lt;/b&gt; gère l'action &lt;i&gt;%2$s&lt;/i&gt; selon une priorité &lt;b&gt;%3$d&lt;/b&gt;."
 
 msgctxt "sys_disable"
 msgid ""
-"This is a system component. Do not make changes unless you know what you "
-"are doing."
+"This is a system component. Do not make changes unless you know what you are"
+" doing."
 msgstr ""
 
 #. The verb (changing) should be at the front of the string
@@ -135,32 +129,14 @@ msgctxt "changing_state"
 msgid "Changing %1$s..."
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "state_change_failed"
 msgid ""
 "Unable to change the state of %1$s (%2$s).\n"
 "\n"
 "Most likely, your device does not have root access, which is required."
 msgstr ""
-"Impossible de change l'état du composant sélectionné.\n"
-"\n"
-"Ceci est généralement dû au fait que votre appareil n'a pas accès "
-"administrateur (root), ce qui est nécessaire pour faire le traitement."
 
 msgctxt "close_help"
 msgid "Close help and return to app"
 msgstr "Fermer l'aider et retourner à l'application"
-
-#~ msgctxt "still_loading"
-#~ msgid ""
-#~ "Please wait while I am loading the"
-#~ " applications installed on your phone..."
-#~ msgstr ""
-#~ "Veuillez patienter pendant que je charge"
-#~ " les applications installées sur votre "
-#~ "téléphone..."
-
-#~ msgctxt "find_in_market"
-#~ msgid "Find in Market"
-#~ msgstr "Chercher dans le Google Play Store"
-

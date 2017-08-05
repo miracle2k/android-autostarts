@@ -1,2 +1,0 @@
-deploy_host = user@server/path
-deploy_dir = /var/www/files

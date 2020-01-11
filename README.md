@@ -6,8 +6,8 @@ Android Autostarts management utility
 Website
     http://elsdoerfer.name/=android-autostarts
 
-Android Market
-    https://market.android.com/details?id=com.elsdoerfer.android.autostarts
+Google Play Store
+    https://play.google.com/store/apps/details?id=com.elsdoerfer.android.autostarts
 
 Translations
     http://www.transifex.net/projects/p/android-autostarts/

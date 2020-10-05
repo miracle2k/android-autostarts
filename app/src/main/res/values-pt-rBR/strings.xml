@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Nenhum aplicativo iniciando automaticamente.</string>
+  <string name="no_receivers_filtered">Nenhuma dos aplicativos selecionados iniciando automaticamente.</string>
+  <string name="change_filter_settings">Alterar configurações do filtro.</string>
+  <string name="appliation_info">Informações do aplicativo</string>
+  <string name="find_in_market">Procurar no Play Store</string>
+  <string name="find_in_appstore">Procurar no Google Play</string>
+  <string name="disable">Desabilitar</string>
+  <string name="enable">Habilitar</string>
+  <string name="view_options">Visualizar</string>
+  <string name="group_by_package">Agrupar por aplicativo</string>
+  <string name="group_by_action">Agrupar por evento</string>
+  <string name="hide_sys_apps">Esconder aplicativos de sistema</string>
+  <string name="show_changed_only">Exibir apenas os modificados</string>
+  <string name="hide_unknown">Esconder eventos desconhecidos</string>
+  <string name="expand_all">Expandir todos</string>
+  <string name="collapse_all">Suprimir todos</string>
+  <string name="reload">Recarregar</string>
+  <string name="help">Ajuda</string>
+  <string name="error">Erro</string>
+  <string name="warning">Alerta</string>
+  <string name="info">Informação</string>
+  <string name="receiver_info">Recebedor &lt;b&gt;%1$s&lt;/b&gt; lida com ações &lt;i&gt;%2$s&lt;/i&gt; com prioridade &lt;b&gt;%3$d&lt;/b&gt;.</string>
+  <string name="sys_disable">Este é um componente de sistema. Não faça alterações a não ser que saiba o que está fazendo.</string>
+  <string name="changing_state">Alterando %1$s...</string>
+  <string name="state_change_failed">Não é possível alterar o estado de %1$s (%2$s).\n\nProvavelmente seu dispositivo não possui o acesso root requerido.</string>
+  <string name="close_help">Fechar a ajuda e voltar para o aplicativo</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="act_airplane_mode_changed">ئايروپىلان ھالىتى ئۆزگەردى</string>
+  <string name="act_airplane_mode_changed_detail">ئايروپىلان ھالىتىنىڭ ئوچۇق ياكى تاقاقلىقىنى ئالماشتۇرىدۇ.</string>
+  <string name="act_battery_changed">توكدان ئۆزگەردى</string>
+  <string name="act_battery_changed_detail">توكلاش ھالىتى ياكى توكداننىڭ توكلىنىش دەرىجىسى ئۆزگەردى.</string>
+  <string name="act_battery_low">توكدان توكى ئاز</string>
+  <string name="act_battery_low_detail">ئۈسكۈنە توك ئاز ھالەتكە كىردى.</string>
+  <string name="act_battery_okay">توكدان لىق</string>
+  <string name="act_battery_okay_detail">ئۈسكۈنە توك ئاز ھالەتتىن ئايرىلدى.</string>
+  <string name="act_pre_boot_completed">قوزغىلىۋاتقاندا</string>
+  <string name="act_pre_boot_completed_detail">ئۈسكۈنە قوزغىلىۋاتقاندا ئىشلەتكۈچى بىلەن تەسىرلىشەلمەيدۇ.</string>
+  <string name="act_boot_completed">قوزغالغاندىن كېيىن</string>
+  <string name="act_boot_completed_detail">ئۈسكۈنە قوزغىتىلدى، ھازىر ئىشلەتكۈچى تەسىرلىشەلەيدۇ.</string>
+  <string name="act_power_connected">توك چېتىلدى</string>
+  <string name="act_power_connected_detail">ئۈسكۈنىگە سىرتقى توك مەنبەسى چېتىلدى.</string>
+  <string name="act_power_disconnected">توك مەنبەسى ئۈزۈلدى</string>
+  <string name="act_power_disconnected_detail">ئۈسكۈنىدىن سىرتقى توك مەنبەسى ئۈزۈلدى.</string>
+  <string name="act_shutdown">تاقا</string>
+  <string name="act_shutdown_detail">ئۈسكۈنە تاقىلىۋاتىدۇ.</string>
+  <string name="act_dock_event">لەڭگەر ھالىتى ئۆزگەردى</string>
+  <string name="act_dock_event_detail">ئۈسكۈنە لەڭگەرلەندى ياكى لەڭگەردىن ئاجرىتىلدى.</string>
+  <string name="act_camera_button">كامېرا كۇنۇپكىسى بېسىلدى</string>
+  <string name="act_camera_button_detail">كامېرا كۇنۇپكىسى بېسىلغان.</string>
+  <string name="act_close_system_dialogs">سىستېما سۆزلەشكۈدە يېپىلدى</string>
+</resources>

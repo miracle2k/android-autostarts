@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string-array name="faq1">
+    <item>Wie funktioniert die Sache?</item>
+    <item>
+      <p>Android erlaubt Anwendungen, sich für verschiedene Ereignisse zu registrieren die das System unterstützt. Die Programme werden automatisch gestartet wenn ein solches Ereignis eintritt.\n\nDies ermöglicht manchmal wichtige Aufgaben die im Hintergrund erledigt werden, kann das System aber auch verlangsamen.\n\nAutostart gibt dir die Kontrolle über dein Handy indem es dich wissen lässt, was hinter deinem Rücken passiert.</p>
+    </item>
+  </string-array>
+  <string-array name="faq2">
+    <item>Kann ich ein Ereignis für eine bestimmte Anwendung deaktivieren?</item>
+    <item>"Ja, aber aufgrund Beschränkungen in der Android API funktioniert dies nur auf Geräten mit Rootzugriff. "<b>Bitte sei vorsichtig wenn du Dinge deaktivierst.</b>" Beachte insbesondere dass andere Funktionen der Anwendung von dem Ereignis abhängen können. In der Folge gibt es möglicherweise unerwartete Nebeneffekte. In der Regel kannst du es allerdings einfach mal ausprobieren, und die Komponente einfach wieder aktivieren falls du Probleme hast."</item>
+  </string-array>
+  <string-array name="faq3">
+    <item>Wenn ich den \"Nur Geänderte\" Filter aktiviere, sehe ich Einträge die ich nie selbst verändert habe.</item>
+    <item>"Ob eine Komponente als geändert gilt (und deshalb in fetter Schrift angezeigt wird) hängt sowohl von ihrem aktuellen als auch ihrem Standard-Status ab. Es ist möglich dass eine Komponente nach der Installation "<i>standardmäßig deaktiviert</i>" ist, und von der Anwendung selbst aktiviert wurde sobald sie gebraucht wurde (z.B. nachdem eine bestimmte Funktion verwendet oder eine Option eingeschaltet wurde)."</item>
+  </string-array>
+  <string-array name="faq4">
+    <item>Ist es möglich zu wissen was eine Anwendungen genau tut bei einem bestimmten Ereignis?</item>
+    <item>"Nein, nicht ohne weiteres. Wenn du allerdings einen Eintrag auswählst, wird dir der Name der "<i>Komponente</i>" angezeigt, die das Ereignis bearbeitet. Manchmal gibt der Name einen Hinweis darauf was passiert. Zum Beispiel würde ein "<i>AlarmInitReceiver</i>" vermutlich Alarme oder Benachrichtigungen installieren die du in der Anwendung aktiviert hast. Sei nicht überrascht wenn diese Alarme nicht mehr funktionieren sobald du diese Komponente deaktivierst."</item>
+  </string-array>
+  <string-array name="faq5">
+    <item>Ich habe eine Komponente deaktiviert, aber nach einer Weile erscheint sie automatisch wieder als aktiv.</item>
+    <item>Anwendungen haben die Möglichkeit, ihre eigenen Komponenten zu Aktivieren oder zu Deaktivieren. Manche tun dies abhängig von Programmeinstellungen die du vornimmst, oder welche Funktionen aktiviert sind. Unglücklicherweise lässt sich dagegen nicht wirklich etwas tun.</item>
+  </string-array>
+  <string-array name="faq6">
+    <item>Downloads im Android Market funktionieren nicht mehr.</item>
+    <item>"Im Normalfall ist das nicht die Schuld von "<i>Autostarts</i>. Es gibt allerdings eine Sache die zur erwähnen ist: Wenn du dachtest du verwendest Google Talk sowieso nicht und das entsprechende \"Beim Starten\" Ereignis deaktiviert hast, kann das eine Ursache für Download-Probleme sein (wird Google Talk mit einem Task Manager beendet, tritt es ebenfalls auf). Anscheinend muss Google Talk aktiv sein damit Market Downloads funktionieren.</item>
+  </string-array>
+</resources>

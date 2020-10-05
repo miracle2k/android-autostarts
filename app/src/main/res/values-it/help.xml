@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string-array name="faq1">
+    <item>Come funziona?</item>
+    <item>
+      <p>" Android permette alle applicazioni di registrarsi per una serie di eventi supportati dal sistema, per essere avviati ogni volta che un evento del genere si verifica. \n\nQuesto permette alle applicazioni di lavorare in background, ma talvolta può anche rallentare il sistema. \n\nAutostarts ti aiuta a mantenere il controllo sul tuo cellulare, consentendo di sapere cosa succede nel background. "</p>
+    </item>
+  </string-array>
+  <string-array name="faq2">
+    <item>Posso rimuovere un\'applicazione da un evento particolare?</item>
+    <item>"Sì, ma a causa di limitazioni delle API Android, funziona solo su dispositivi con root. "<b>Si prega di fare attenzione a disabilitare codesto.</b>" In particolar nota che la componente in questione può essere responsabile di altre parti della funzionalità dell\'applicazione non solo il dato evento. Di conseguenza, potrebbero verificarsi effetti collaterali indesiderati. Per la maggior parte, però si può semplicemente fare delle prove, e attivare dinuovo il componente dell\'applicazione danneggiata."</item>
+  </string-array>
+  <string-array name="faq3">
+    <item>Quando ho attivato il filtro \"mostra solo cambiati\", perchè vedo cose che non ho mai effettivamente modificato?</item>
+    <item>"Se un componente è stato modificato (e quindi è visualizzato in grassetto) è determinato con riferimento al suo stato di default rispetto allo stato attuale. E\' possibile che per un componente venga disabilitato "<i>di default</i>" dopo l\'installazione, ma venga attivato dall\'applicazione stessa una volta necessario (per esempio dopo aver utilizzato una caratteristica specifica o attivato un impostazione dell\'applicazione)."</item>
+  </string-array>
+  <string-array name="faq4">
+    <item>E \'possibile sapere che cosa fa una particolare applicazione su un particolare evento?</item>
+    <item>"No, non di per se, tuttavia se si seleziona una voce, si sarà in grado di vedere il nome del "<i>componente</i>" che gestisce l\'evento. A volte, il nome che si dà è un suggerimento. Per esempio, "<i>AlarmInitReceiver</i>" avrebbe probabilmente iniziato l\'allarme o la notifica che si è attivata nell\' applicazione. Non sorprendetevi quindi se gli allarmi di questa applicazione smettono di funzionare se si disattiva il componente."</item>
+  </string-array>
+  <string-array name="faq5">
+    <item>Ho disattivato un componente, ma sembra avere lo stesso permesso di nuovo dopo un po\'?</item>
+    <item>Si, le applicazioni possono abilitare o disattivare i propri componenti. Alcune fanno questo a seconda delle impostazioni, o quali funzioni sono attivate. Sfortunatamente, non c\'è alcuna soluzione per questo.</item>
+  </string-array>
+  <string-array name="faq6">
+    <item>I miei Market downloads hanno smesso di funzionare.</item>
+    <item>"Questo di solito non è colpa di "<i>Autostarts</i>", non fatevi idee. Tuttavia, c\'è un problema che potrebbe essere avvenuto. Se avete pensato che Google Talk non servisse è avete disattivato l\'evento "<i>Al Boot</i>", questo è probabilmente il problema (che si attiva anche alla chiusura di Google Talk  usando il task manager). A quanto pare, per qualche ragione, se Google Talk non è  avviato, i downloads dal market non funzionano."</item>
+  </string-array>
+</resources>

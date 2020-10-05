@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Немає програм для автозапуску.</string>
+  <string name="no_receivers_filtered">Жодна за програм не стартує автоматично з поточного виділення.</string>
+  <string name="change_filter_settings">Зміна параметрів фільтрування.</string>
+  <string name="appliation_info">Інформація про програму</string>
+  <string name="find_in_market">Знайти в Market</string>
+  <string name="find_in_appstore">Знайти в Appstore</string>
+  <string name="disable">Відключити</string>
+  <string name="enable">Включити</string>
+  <string name="view_options">Переглянути</string>
+  <string name="group_by_package">Група по програмі</string>
+  <string name="group_by_action">Група по події</string>
+  <string name="hide_sys_apps">Приховати системні програми</string>
+  <string name="show_changed_only">Показати тільки змінені</string>
+  <string name="hide_unknown">Приховати невідомі події</string>
+  <string name="expand_all">Розгорнути все</string>
+  <string name="collapse_all">Згорнути все</string>
+  <string name="reload">Перезавантажити</string>
+  <string name="help">Довідка</string>
+  <string name="error">Помилка</string>
+  <string name="warning">Попередження</string>
+  <string name="info">Інформація</string>
+  <string name="receiver_info">Приймач &lt;b&gt;%1$s&lt;/b&gt; виконує дію &lt;i&gt;%2$s&lt;/i&gt; з пріоритетом &lt;b&gt;%3$d&lt;/b&gt;.</string>
+  <string name="sys_disable">Це системний компонент. Не робіть змін, якщо Ви знаєте, що ж Ви робите.</string>
+  <string name="changing_state">Зміна %1$s...</string>
+  <string name="state_change_failed">Неможливо змінити стан %1$s (%2$s).\n\nСкоріш за все Ваш пристрій не має root-доступу, який вимагається для цього.</string>
+  <string name="close_help">Закрити допомогу і повернутися до програми</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string-array name="faq1">
+    <item>Como funciona?</item>
+    <item>
+      <p>" O Android permite que aplicativos se registrem para uma variedade de eventos suportados pelo sistema, para se iniciarem assim que determinado evento acontece. ⏎ ⏎ Isso permite que aplicativos realizem trabalhos importantes em segundo plano, mas podem também deixar o sistema lento em alguns casos. ⏎ ⏎ Autostarts ajuda-o a manter controle do seu telefone permitindo que saiba o que acontece em segundo plano. "</p>
+    </item>
+  </string-array>
+  <string-array name="faq2">
+    <item>Posso remover um aplicativo de um determinado evento?</item>
+    <item>"Sim, mas devido à limitações das API do Android, isso funciona apenas em dispositivos com acesso de root. "<b>" Por favor tenha cuidado ao desabilitar coisas."</b>" Note especialmente se o componente em questão é responsável por outras funcionalidades do aplicativo, além daquela associada ao evento. Como resultado podem ocorrer efeitos colaterais. No entanto, na maioria dos casos, pode-se testar desabilitar os componentes e habilitá-los novamente caso o aplicativo pare de funcionar."</item>
+  </string-array>
+  <string-array name="faq3">
+    <item>Quando ativo o fitro \"Exibir apenas modificados\", por que vejo coisas que não modifiquei?</item>
+    <item>"Para saber se um componente foi alterado (passando a ser exibido em negrito) basta comparar seu estado atual com seu estado padrão. É possível que um componente esteja desabilitado "<i>por padrão</i>" depois da instalação, mas ser habilitado pelo aplicativo em si uma vez necessário (por exemplo, depois de usar um recurso específico ou habilitar uma configuração do aplicativo)."</item>
+  </string-array>
+  <string-array name="faq4">
+    <item>É possível saber o que um aplicativo específico faz quando ocorre um evento?</item>
+    <item>"Não, não em si. No entanto, se selecionar uma entrada, irá ser possível ver o nome do "<i>componente</i>" que trata o evento. Em alguns casos o nome dá uma dica. Por exemplo, um componente chamado "<i>AlarmInitReceiver</i>" provavelmente iniciaria os alarmes ou notificações habilitadas no aplicativo. Não fique surpreso caso o alarme do aplicativo pare de funcionar caso o componente seja desabilitado."</item>
+  </string-array>
+  <string-array name="faq5">
+    <item>Desabilitei um componente, mas parece que ele se habilitou novamente depois de um tempo.</item>
+    <item>Sim, aplicativos podem habilitar e desabilitar seus próprios componentes. Alguns fazem isso de acordo com suas configurações, ou os recursos que estão habilitados. Infelizmente não há como contornar isso.</item>
+  </string-array>
+  <string-array name="faq6">
+    <item>Download da Play Store pararam de funcionar.</item>
+    <item>"Não pense que isso geralmente é o padrão do "<i>Autostarts</i>". No entanto, existe um problema com que pode se deparar. Caso pense que não está usando o Google Talk e resolva desabilitar o evento "<i>On Boot</i>" dele, isso provavelmente será o problema (que também quando ele é finalizado através do gerenciados de tarefas). Aparentemente, por alguma razão, se o Google Talk não estiver rodando, os downloads da Play Store não funcionam."</item>
+  </string-array>
+</resources>

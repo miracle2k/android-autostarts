@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Aucune application ne s\'auto-démarre.</string>
+  <string name="change_filter_settings">Changer les paramètres du filtre.</string>
+  <string name="appliation_info">Info sur l\'application</string>
+  <string name="find_in_market">Trouver sur le store</string>
+  <string name="find_in_appstore">Trouver dans le magasin d\'applications</string>
+  <string name="disable">Désactiver</string>
+  <string name="enable">Activer</string>
+  <string name="view_options">Voir</string>
+  <string name="group_by_package">Regrouper par application</string>
+  <string name="group_by_action">Regrouper par événement</string>
+  <string name="hide_sys_apps">Cacher les apps systèmes</string>
+  <string name="show_changed_only">Montrer seulement les changements</string>
+  <string name="hide_unknown">Cacher les événements inconnus</string>
+  <string name="expand_all">Agrandir tout</string>
+  <string name="collapse_all">Réduire tout</string>
+  <string name="reload">Recharger</string>
+  <string name="help">Aide</string>
+  <string name="error">Erreur</string>
+  <string name="warning">Avertissement</string>
+  <string name="info">Info</string>
+  <string name="changing_state">Chargement %1$s...</string>
+  <string name="close_help">Fermer l\'aide et revenir à l\'app</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string-array name="faq1">
+    <item>How does it work?</item>
+    <item>
+      <p>" Android allows applications to register for a variety of events supported by the system, to be started whenever such an event triggers. \n\nThis allows applications to do important work in the background, but may sometimes also slow down the system. \n\nAutostarts helps you keep control over your phone by letting you know what goes on behind your back. "</p>
+    </item>
+  </string-array>
+  <string-array name="faq2">
+    <item>Can I remove an application from a particular event?</item>
+    <item>"Yes, but due to Android API limitations, it only works on rooted devices. "<b>Please be careful when disabling stuff.</b>" In particular note that the component in question may be responsible for other parts of the application\'s functionality than just the given event. As a result, you may experience unintended side effects. For the most part though, you can just give things a try, and enable the component again should the application break."</item>
+  </string-array>
+  <string-array name="faq3">
+    <item>When I activate the \"show changed only\" filter, why do I see stuff that I never actually modified?</item>
+    <item>"Whether a component has changed (and is thus displayed in bold) is determined by looking at it\'s default state versus it\'s current state. It is possible for a component to be disabled "<i>by default</i>" after installation, but being activated by the application itself once needed (for example after you use a specific feature or enable a setting the application)."</item>
+  </string-array>
+  <string-array name="faq4">
+    <item>Is it possible to know what a particular application does on a particular event?</item>
+    <item>"No, not per se. However, if you select an entry, you will be able to see what the name of the "<i>component</i>" is that handles the event. Sometimes, the name gives you a hint. For example, an "<i>AlarmInitReceiver</i>" would likely initialize the alarms or notification that you have enabled in the application. Don\'t be surprised then if this application\'s alarms stop working if you disable the component."</item>
+  </string-array>
+  <string-array name="faq5">
+    <item>I\'ve disabled a component, but it seems to have it self enabled again after a while?</item>
+    <item>Yes, applications may enable or disable their own components. Some do this depending on settings, or what features are enabled. Unfortunately, there is no workaround for this.</item>
+  </string-array>
+  <string-array name="faq6">
+    <item>My Market downloads stopped working.</item>
+    <item>"This is usually not the fault of "<i>Autostarts</i>", don\'t get ideas. However, there is one issue you might have run into. If you thought you weren\'t using Google Talk anyway and disabled it\'s "<i>On Boot</i>" event, this is likely to be the problem (it also occurs of you shutdown Google Talk using a task manager). Apparently, for some reason, if Google Talk is not running, market downloads do not work."</item>
+  </string-array>
+</resources>

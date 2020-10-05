@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Nincs automatikusan induló alkalmazás</string>
+  <string name="no_receivers_filtered">A jelenlegi szekcióban nincs automatikusan induló alkalmazás</string>
+  <string name="change_filter_settings">Szűrő beállítások módosítása</string>
+  <string name="appliation_info">Alkalmazás információ</string>
+  <string name="find_in_market">Keresés a Marketen</string>
+  <string name="find_in_appstore">Keresés az alkalmazásboltban</string>
+  <string name="disable">Letilt</string>
+  <string name="enable">Engedélyez</string>
+  <string name="view_options">Megnéz</string>
+  <string name="group_by_package">Csoportosítás alkalmazás alapján</string>
+  <string name="group_by_action">Csoportosítás esemény alapján</string>
+  <string name="hide_sys_apps">Rendszeralkalmazások elrejtése</string>
+  <string name="show_changed_only">Csak a módosítottakat mutassa</string>
+  <string name="hide_unknown">Ismeretlen események elrejtése</string>
+  <string name="expand_all">Összes kinyitása</string>
+  <string name="collapse_all">Összes összecsukása</string>
+  <string name="reload">Újratölt</string>
+  <string name="help">Segítség</string>
+  <string name="error">Hiba</string>
+  <string name="warning">Figyelem</string>
+  <string name="info">Infó</string>
+  <string name="close_help">Segítség bezártása és vissza az alkalmazásba</string>
+</resources>

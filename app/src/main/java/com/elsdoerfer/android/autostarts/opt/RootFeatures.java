@@ -1,6 +1,4 @@
-package src.com.elsdoerfer.android.autostarts.opt;
-
-import android.content.Context;
+package com.elsdoerfer.android.autostarts.opt;
 
 /**
  * Market-specific functionality.

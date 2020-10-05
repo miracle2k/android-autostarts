@@ -1,27 +1,20 @@
-*.apk 
-
-/bin/*
-/gen/*
-/classes/*
-/res/values-*/*.xml
-
-/LOCAL_TODO*
-
-# Eclipse
-/.settings/
+.gradle
+.idea
 /local.properties
-
-# IDEA
-/*.iml
-/.idea/
-
-# Fabric
-# fabric
-/.fabricrc
-*.pyc
-
-# Buck
-/buck-out/
-/production.keystore
-/production.keystore.properties
-/.buckd/
+/.idea/workspace.xml
+/.idea/libraries
+*.DS_Store
+/build
+/app/release
+pids
+logs
+run
+dist
+.nyc_output
+.basement
+config.local.js
+basement_dist
+*.apk
+*.iml
+*.jks
+*~

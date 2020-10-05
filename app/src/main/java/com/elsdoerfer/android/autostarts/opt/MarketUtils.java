@@ -1,4 +1,4 @@
-package src.com.elsdoerfer.android.autostarts.opt;
+package com.elsdoerfer.android.autostarts.opt;
 
 import com.elsdoerfer.android.autostarts.R;
 

@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
-import src.com.elsdoerfer.android.autostarts.opt.RootFeatures;
 
+import com.elsdoerfer.android.autostarts.opt.RootFeatures;
 
 public class HelpActivity extends Activity {
 

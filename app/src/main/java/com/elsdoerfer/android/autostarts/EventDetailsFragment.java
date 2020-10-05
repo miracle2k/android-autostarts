@@ -11,8 +11,8 @@ import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 import com.elsdoerfer.android.autostarts.db.IntentFilterInfo;
-import src.com.elsdoerfer.android.autostarts.opt.MarketUtils;
-import src.com.elsdoerfer.android.autostarts.opt.RootFeatures;
+import com.elsdoerfer.android.autostarts.opt.MarketUtils;
+import com.elsdoerfer.android.autostarts.opt.RootFeatures;
 
 import java.util.ArrayList;
 

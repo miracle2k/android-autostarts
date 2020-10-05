@@ -1,8 +1,0 @@
-default
-    This is the default build, linking to the Android Market
-    via the "Find in Market" option.
-
-amazon
-    This is the Amazon-specific build, linking to the Amazon
-    Appstore via the menu option instead, as Amazon won't
-    allow us to link to the Market.

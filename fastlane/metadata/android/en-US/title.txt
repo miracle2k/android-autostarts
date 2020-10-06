@@ -1,0 +1,1 @@
+Autostarts - Block apps from starting automatically

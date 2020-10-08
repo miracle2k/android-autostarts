@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
     defaultConfig {
-        applicationId 'io.github.muntashirakon.autostarts'
+        applicationId 'com.elsdoerfer.android.autostarts'
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 33

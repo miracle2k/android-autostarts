@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Brak aplikacji startujących wraz z systemem.</string>
+  <string name="no_receivers_filtered">W twoim zaznaczeniu brak aplikacji uruchamianych automatycznie.</string>
+  <string name="change_filter_settings">Zmień ustawienia filtrów.</string>
+  <string name="appliation_info">Info o aplikacji</string>
+  <string name="find_in_market">Szukaj w Markecie</string>
+  <string name="find_in_appstore">Znajdź w Appstore</string>
+  <string name="disable">Wyłącz</string>
+  <string name="enable">Włącz</string>
+  <string name="view_options">Widok</string>
+  <string name="group_by_package">Grupuj według aplikacji</string>
+  <string name="group_by_action">Grupuj według zdarzeń</string>
+  <string name="hide_sys_apps">Ukryj aplikacje systemowe</string>
+  <string name="show_changed_only">Pokaż tylko zmienione</string>
+  <string name="hide_unknown">Ukryj nierozpoznane zdarzenia</string>
+  <string name="expand_all">Rozwiń wszystko</string>
+  <string name="collapse_all">Zwiń wszystko</string>
+  <string name="reload">Przeładuj</string>
+  <string name="help">Pomoc</string>
+  <string name="error">Błąd</string>
+  <string name="warning">Ostrzeżenie</string>
+  <string name="info">Informacja</string>
+  <string name="receiver_info">"Odbiorca  &lt;b&gt;%1$s&lt;/b&gt; powiązany z akcją &lt;i&gt;%2$s&lt;/i&gt;  z priorytetem &lt;b&gt;%3$d&lt;/b&gt;.."</string>
+  <string name="sys_disable">To jest komponent systemowy. Nie wprowadzaj żadnych zmian jeśli nie wiesz co robisz.</string>
+  <string name="changing_state">Zmienianie %1$s</string>
+  <string name="state_change_failed">Nie można zmienić stanu %1$s (%2$s).\n\nPrawdopodobnie, twoje urządzenie nie ma praw roota, wymaganych do tej akcji.</string>
+  <string name="close_help">Zamknij pomoc i wróć do aplikacji</string>
+</resources>

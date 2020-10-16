@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string-array name="faq1">
+    <item>它是如何运作的？</item>
+    <item>
+      <p>" Android 允许应用程序注册一系列系统支援的事件，以在特定事件触发时启动。\n\n这可以让应用程序在后台进行重要的工作，但有时却会造成系统变得缓慢。\n\nAutostarts 可以让您了解哪些程序在后台执行，以帮助您控制您的装置。"</p>
+    </item>
+  </string-array>
+  <string-array name="faq2">
+    <item>我可以移除应用程式中特定的事件吗？</item>
+    <item>可以，但是由于 Android API 的限制，这只能在已取得 root 权限的装置上使用。当您停用应用程序时请特别小心。特定有疑问的程序可能负责该事件以外的其他程序的一些功能。因此，停用这样的程序可能导致其他超出预期的结果。然而一般来讲，您还是可以尝试停用或是再次启用多数的程序。</item>
+  </string-array>
+  <string-array name="faq3">
+    <item>当我启用「仅显示变更」过滤器时，为什么我会看到我从未实际更改过的东西？</item>
+    <item>一个组件是否被变更（因此以粗体字显示）是借由比对它预设的状态与当前的状态。有可能一个程序在安装完毕后自行停用其原本「预设」的状态，但当有需要时再由程序自身来加以启动（例如，当您使用了某些特定功能或是启用程序的某些特定选项）。</item>
+  </string-array>
+  <string-array name="faq4">
+    <item>有可能知道特定程序在特定事件中做些什么吗？</item>
+    <item>不，并非每个都可以。然而，如果您选取其中一个程序，您将会看到该组件的名称，以及其控制的事件。有时候那名字将会提供您一个提示。举例来说，一个「AlarmInitReceiver」可能是用来启用闹钟或是您在应用程序中用来提醒某些事情的。那么，当您停用该程序时，不要讶异怎么该程序的闹钟提醒失效了。</item>
+  </string-array>
+  <string-array name="faq5">
+    <item>我已经停用了一个组件，但它似乎过一阵子就会自己重新启动？</item>
+    <item>是的，应用程序可能会自己启动或是停用。有些程序会依照其设定而进行这些动作，或是某些功能被启用。不幸的是，目前没有其他的解决方法处理这种状况。</item>
+  </string-array>
+  <string-array name="faq6">
+    <item>我无法从 Google Play 正常下载。</item>
+    <item>这通常不是 Autostarts 的错。但有一个状况有可能是您造成的。也许您认为您用不到 Google Talk 而因此将其在设备开机事件当中停用，那么这可能是问题的原因（这也可能会在您利用任务管理程序关闭 Google Talk 程序时产生）。很显然的，基于某些因素，当 Google Talk 没有执行时，Google Play 无法正常下载。</item>
+  </string-array>
+</resources>

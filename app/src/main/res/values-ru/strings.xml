@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Нет программ в автозагрузке</string>
+  <string name="no_receivers_filtered">Нет программ в автозагрузке, подходящих вашему критерию отбора.</string>
+  <string name="change_filter_settings">Изменить настройки фильтра.</string>
+  <string name="appliation_info">Информация о программе.</string>
+  <string name="find_in_market">Найти в Маркете.</string>
+  <string name="find_in_appstore">Найти в Appstore</string>
+  <string name="disable">Запретить</string>
+  <string name="enable">Разрешить</string>
+  <string name="view_options">Просмотр</string>
+  <string name="group_by_package">Группировать по приложению</string>
+  <string name="group_by_action">Группировать по событию</string>
+  <string name="hide_sys_apps">Скрыть системные программы</string>
+  <string name="show_changed_only">Показывать только измененные</string>
+  <string name="hide_unknown">Скрыть неизвестные события</string>
+  <string name="expand_all">Развернуть все</string>
+  <string name="collapse_all">Свернуть все</string>
+  <string name="reload">Обновить</string>
+  <string name="help">Help</string>
+  <string name="error">Ошибка</string>
+  <string name="warning">Внимание</string>
+  <string name="info">Информация</string>
+  <string name="receiver_info">"Получатель "<b>%1$s</b>" выполняет действие "<i>%2$s</i>" с приоритетом "<b>%3$d</b>.</string>
+  <string name="close_help">Закрыть помощь и вернуться в программу</string>
+</resources>

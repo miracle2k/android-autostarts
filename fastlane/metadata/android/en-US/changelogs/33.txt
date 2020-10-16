@@ -1,0 +1,2 @@
+- Migrate to Gradle
+- Minimum SDK 21 and target SDK 29 (not sure if compile SDK needs to be set to 22 since it uses pre23 permissions)

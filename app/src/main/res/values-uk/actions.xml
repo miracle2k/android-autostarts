@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="act_airplane_mode_changed">Режим польоту змінився</string>
+  <string name="act_airplane_mode_changed_detail">Режим польоту був включений або виключений.</string>
+  <string name="act_battery_changed">Стан батареї змінився</string>
+  <string name="act_battery_changed_detail">Стан заряджання, або рівень заряду батареї змінився.</string>
+  <string name="act_battery_low">Низький заряд батареї</string>
+  <string name="act_battery_low_detail">Батарея має низький заряд.</string>
+  <string name="act_battery_okay">Батарея ОК</string>
+  <string name="act_battery_okay_detail">Пристрій вийшов зі стану низького заряду.</string>
+  <string name="act_pre_boot_completed">Під час запуску</string>
+  <string name="act_pre_boot_completed_detail">Пристрій завантажується, користувач не може нічого змінити.</string>
+  <string name="act_boot_completed">Після запуску</string>
+  <string name="act_boot_completed_detail">Пристрій завантажився, користувач може вносити зміни.</string>
+  <string name="act_power_connected">Живлення під’єднано</string>
+  <string name="act_power_connected_detail">Зовнішнє джерело живлення приєднане до пристрою.</string>
+  <string name="act_power_disconnected">Живлення від’єднано</string>
+  <string name="act_power_disconnected_detail">Зовнішнє джерело живлення від’єднане від пристрою.</string>
+  <string name="act_shutdown">Вимкнення</string>
+  <string name="act_shutdown_detail">Пристрій вимикається.</string>
+  <string name="act_dock_event">Стиковка змінилося</string>
+  <string name="act_dock_event_detail">Пристрій був стикований або відстикований.</string>
+  <string name="act_camera_button">Натиснено кнопку камери</string>
+  <string name="act_camera_button_detail">Натиснуто кнопку Камери.</string>
+  <string name="act_configuration_changed">Конфігурація змінилася</string>
+  <string name="act_locale_changed">Локаль змінилася</string>
+  <string name="act_date_changed">Дата змінилася</string>
+  <string name="act_date_changed_detail">Системна дата змінилася.</string>
+  <string name="act_device_storage_low">Мало місця на диску</string>
+  <string name="act_device_storage_ok">Місця достатньо</string>
+  <string name="act_input_method_changed">IME змінився</string>
+  <string name="act_media_checking">Перевірка медіа</string>
+</resources>

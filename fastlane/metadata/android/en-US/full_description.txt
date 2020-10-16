@@ -1,0 +1,2 @@
+<p>Apps use broadcast receivers to start or wake up automatically when various system events are triggered. Autostarts helps you keep control over your phone by letting you have a look at how an app can start automatically. For example, it shows you which apps run during or after the startup. Root users can disable the unwanted receivers and speed up their device.</p>
+<p><b>Note:</b> Root-Access <i>is</i> required to make changes. Otherwise, this application will be read-only.</p>

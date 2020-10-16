@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">アプリケーションは自動起動しません。</string>
+  <string name="no_receivers_filtered">現在の選択範囲に自動起動するアプリケーションはありません。</string>
+  <string name="change_filter_settings">フィルター設定を変更します。</string>
+  <string name="appliation_info">アプリケーション情報</string>
+  <string name="find_in_market">マーケットで検索</string>
+  <string name="find_in_appstore">アプリストアで検索</string>
+  <string name="disable">無効</string>
+  <string name="enable">有効</string>
+  <string name="view_options">表示</string>
+  <string name="group_by_package">アプリケーションでグループ化</string>
+  <string name="group_by_action">イベントでグループ化</string>
+  <string name="hide_sys_apps">システムアプリを非表示</string>
+  <string name="show_changed_only">変更済のみ表示</string>
+  <string name="hide_unknown">不明なイベントを非表示</string>
+  <string name="expand_all">すべて展開</string>
+  <string name="collapse_all">すべて折りたたむ</string>
+  <string name="reload">再読み込み</string>
+  <string name="help">ヘルプ</string>
+  <string name="error">エラー</string>
+  <string name="warning">警告</string>
+  <string name="info">情報</string>
+  <string name="receiver_info">レシーバー &lt;b&gt;%1$s&lt;/b&gt; はアクション &lt;i&gt;%2$s&lt;/i&gt; を優先度 &lt;b&gt;%3$d&lt;/b&gt; で処理します。</string>
+  <string name="sys_disable">これはシステムコンポーネントです。 何を行っているのか分かっている以外は、変更しないでください。</string>
+  <string name="changing_state">%1$s を変更中...</string>
+  <string name="state_change_failed">%1$s (%2$s) の状態を変更できません。\n\nお使いのデバイスに root アクセス権がないようです。これは必須です。</string>
+  <string name="close_help">ヘルプを閉じて、アプリに戻る</string>
+</resources>

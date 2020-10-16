@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">沒有應用程式是自動啟動的。</string>
+  <string name="no_receivers_filtered">您目前所選的類別裡沒有任何應用程式是自動啟動的。</string>
+  <string name="change_filter_settings">變更篩選設定。</string>
+  <string name="appliation_info">應用程式資訊</string>
+  <string name="find_in_market">在 Google Play 中尋找</string>
+  <string name="find_in_appstore">在 Amazon Appstore 中尋找</string>
+  <string name="disable">停用</string>
+  <string name="enable">啟用</string>
+  <string name="view_options">檢視</string>
+  <string name="group_by_package">依應用程式分組</string>
+  <string name="group_by_action">依事件類別分組</string>
+  <string name="hide_sys_apps">隱藏系統程式</string>
+  <string name="show_changed_only">僅顯示已變更項目</string>
+  <string name="hide_unknown">隱藏未知事件</string>
+  <string name="expand_all">展開全部</string>
+  <string name="collapse_all">全部折疊</string>
+  <string name="reload">重新載入</string>
+  <string name="help">說明</string>
+  <string name="error">錯誤</string>
+  <string name="warning">警告</string>
+  <string name="info">資訊</string>
+  <string name="receiver_info">接收器: &lt;b&gt;%1$s&lt;/b&gt; 控制動作: &lt;i&gt;%2$s&lt;/i&gt; 優先順序: &lt;b&gt;%3$d&lt;/b&gt;.</string>
+  <string name="sys_disable">這是系統元件。若不清楚您在做什麼請勿變更。</string>
+  <string name="changing_state">正在變更 %1$s...</string>
+  <string name="state_change_failed">無法變更 %1$s (%2$s) 的狀態。\n\n很可能是由於您的裝置尚未取得必要的 ROOT 權限。</string>
+  <string name="close_help">關閉說明並回到應用程式</string>
+</resources>

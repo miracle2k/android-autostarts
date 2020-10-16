@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="act_airplane_mode_changed">Repülőgép üzemmódot változott</string>
+  <string name="act_airplane_mode_changed_detail">Repülőgép üzemmódot ki vagy be lett kapcsolva</string>
+  <string name="act_battery_changed">Akkumulátor megváltozott</string>
+  <string name="act_battery_low">Akkutöltöttség aalcsony</string>
+  <string name="act_battery_okay">Akkumulátor rendben</string>
+  <string name="act_pre_boot_completed">Indítás közben</string>
+  <string name="act_boot_completed">Indítás után</string>
+  <string name="act_power_connected">Töltő csatlakoztatva</string>
+  <string name="act_power_disconnected">Töltő eltávolítva</string>
+  <string name="act_shutdown">Kikapcsol</string>
+  <string name="act_configuration_changed">Konfiguráció módosítása</string>
+  <string name="act_configuration_changed_detail">Az eszköz konfigurációja megváltozott. Ez magában foglalja a területi beállításokat, de a kijelző tájolását nem.</string>
+  <string name="act_date_changed">Dátum módosítva</string>
+  <string name="act_device_storage_low">Kevés tárhely</string>
+  <string name="act_device_storage_ok">Tárhely rendben</string>
+  <string name="act_gtalk_service_connected">GTalk csatlakozva</string>
+  <string name="act_package_install">Alkalmazás telepítése</string>
+  <string name="act_screen_off">Kijelző kikapcsolása</string>
+  <string name="act_screen_off_detail">A kijelző kikapcsolódik</string>
+  <string name="act_screen_on">Kijelző bekapcsolása</string>
+  <string name="act_screen_on_detail">A kijelző bekapcsolódik</string>
+  <string name="act_ums_connected">USB csatlakoztatva</string>
+  <string name="act_ums_disconnected">USB leválasztva</string>
+  <string name="act_sim_full">A SIM megtelt</string>
+</resources>

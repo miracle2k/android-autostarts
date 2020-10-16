@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="disable">Devre dışı</string>
+  <string name="help">Yardım</string>
+  <string name="error">Hata</string>
+  <string name="warning">Uyarı</string>
+</resources>

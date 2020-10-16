@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Žiadne aplikácie neštartujú automaticky.</string>
+  <string name="no_receivers_filtered">Žiadne aplikácie neštartujú automaticky v tomto výbere</string>
+  <string name="change_filter_settings">Zmeňte nastavenie Filtra</string>
+  <string name="appliation_info">Informácie o Aplikácii</string>
+  <string name="find_in_market">Nájsť v Markete</string>
+  <string name="find_in_appstore">Nájsť na Appstore</string>
+  <string name="disable">Zakázať</string>
+  <string name="enable">Povoliť</string>
+  <string name="view_options">Zobraziť</string>
+  <string name="group_by_package">Zoskupiť podľa aplikácií</string>
+  <string name="group_by_action">Zoskupiť podľa udalostí</string>
+  <string name="hide_sys_apps">Skryť systémové aplikácie</string>
+  <string name="show_changed_only">Zobraziť iba zmenené</string>
+  <string name="hide_unknown">Skryť neznáme udalosti</string>
+  <string name="expand_all">Rozbaliť všetko</string>
+  <string name="collapse_all">Zbaliť všetko</string>
+  <string name="reload">Znova načítať</string>
+  <string name="help">Pomoc</string>
+  <string name="error">Chyba</string>
+  <string name="warning">Upozornenie</string>
+  <string name="info">Informácia</string>
+  <string name="receiver_info">Príjmač &lt;b&gt;%1$s&lt;/b&gt; sa zaoberá akciou &lt;i&gt;%2$s&lt;/i&gt; s prioritou &lt;b&gt;%3$d&lt;/b&gt;.</string>
+  <string name="close_help">Zatvoriť pomocníka a vrátiť sa k aplikácii.</string>
+</resources>

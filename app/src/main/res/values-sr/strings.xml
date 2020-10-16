@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Ниједна апликација се не покреће аутоматски.</string>
+  <string name="no_receivers_filtered">Ниједна апликација унутар вашег текућег избора се не покреће аутоматски.</string>
+  <string name="change_filter_settings">Измените поставке филтера.</string>
+  <string name="appliation_info">Информације о апликацији</string>
+  <string name="find_in_market">Нађи у Маркету</string>
+  <string name="find_in_appstore">Нађи у продавници</string>
+  <string name="disable">Искључи</string>
+  <string name="enable">Укључи</string>
+  <string name="view_options">Приказ</string>
+  <string name="group_by_package">Групиши по апл.</string>
+  <string name="group_by_action">Групиши по дог.</string>
+  <string name="hide_sys_apps">Сакриј системске апликације</string>
+  <string name="show_changed_only">Прикажи само измењене</string>
+  <string name="hide_unknown">Сакриј непознате догађаје</string>
+  <string name="expand_all">Рашири све</string>
+  <string name="collapse_all">Сажми све</string>
+  <string name="reload">Поново учитај</string>
+  <string name="help">Помоћ</string>
+  <string name="error">Грешка</string>
+  <string name="warning">Упозорење</string>
+  <string name="info">Инфо</string>
+  <string name="receiver_info">Прималац &lt;b&gt;%1$s&lt;/b&gt; рукује радњом &lt;i&gt;%2$s&lt;/i&gt; са приоритетом &lt;b&gt;%3$d&lt;/b&gt;.</string>
+  <string name="sys_disable">Ово је системска компонента. Не радите измене осим ако знате шта радите.</string>
+  <string name="changing_state">Мењам %1$s...</string>
+  <string name="state_change_failed">Не могу да изменим стање %1$s (%2$s).\n\nВероватно ваш уређај нема потребни корени приступ.</string>
+  <string name="close_help">Затвори помоћ и назад на апликацију</string>
+</resources>

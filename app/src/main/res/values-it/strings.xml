@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Nessuna applicazione in autoavvio.</string>
+  <string name="no_receivers_filtered">Nessuna applicazione in autoavvio all\'interno della corrente selezione.</string>
+  <string name="change_filter_settings">Modifica le impostazioni del filtro.</string>
+  <string name="appliation_info">Info Applicazione</string>
+  <string name="find_in_market">Trova nel Market</string>
+  <string name="find_in_appstore">Trova nell\'Appstore</string>
+  <string name="disable">Disabilita</string>
+  <string name="enable">Abilita</string>
+  <string name="view_options">Mostra</string>
+  <string name="group_by_package">Gruppo secondo applicazione</string>
+  <string name="group_by_action">Gruppo secondo evento</string>
+  <string name="hide_sys_apps">Nascondi applicazioni di sistema</string>
+  <string name="show_changed_only">Mostra solo quelli cambiati</string>
+  <string name="hide_unknown">Nascondi eventi sconosciuti</string>
+  <string name="expand_all">Espandi tutto</string>
+  <string name="collapse_all">Comprimi tutto</string>
+  <string name="reload">Ricarica</string>
+  <string name="help">Aiuto</string>
+  <string name="error">Errore</string>
+  <string name="warning">Attenzione</string>
+  <string name="info">Info</string>
+  <string name="close_help">Chiudere aiuto e tornare all\'applicazione</string>
+</resources>

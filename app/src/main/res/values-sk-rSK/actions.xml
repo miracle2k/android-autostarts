@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="act_airplane_mode_changed">Lietadlový Mód Zmenený</string>
+  <string name="act_airplane_mode_changed_detail">Lietadlový mód bol zapnutý apebo vypnutý</string>
+  <string name="act_battery_changed">Batéria zmenené</string>
+  <string name="act_battery_changed_detail">Stav nabíjania, alebo úroveň nabitia sa zmenil.</string>
+  <string name="act_battery_low">Nízky stav batérie</string>
+  <string name="act_battery_low_detail">Zariadenie je v stave nízkej batérie</string>
+  <string name="act_battery_okay">Batéria v poriadku</string>
+  <string name="act_battery_okay_detail">Zariadenie nieje v stave nízkej batérie</string>
+  <string name="act_pre_boot_completed">Počas Spúšťania</string>
+  <string name="act_pre_boot_completed_detail">Zariadenie bootuje, užívateľ nedokáže zasahovať.</string>
+  <string name="act_boot_completed">Po Štarte</string>
+  <string name="act_boot_completed_detail">Zariadenie nabootovalo, užívateľ dokáže zasiahnúť.</string>
+  <string name="act_power_connected">Napájanie pripojené</string>
+  <string name="act_power_connected_detail">Externé napájanie bolo pripojené k zariadeniu.</string>
+  <string name="act_power_disconnected">Napájanie odpojené</string>
+  <string name="act_power_disconnected_detail">Externé napájanie bolo odpojené od zariadenia.</string>
+  <string name="act_shutdown">Vypnúť</string>
+  <string name="act_shutdown_detail">Zariadene sa vypína</string>
+  <string name="act_dock_event">Dokovanie zmenené</string>
+  <string name="act_dock_event_detail">Zariadenie bolo dokované, alebo odomknuté.</string>
+  <string name="act_camera_button">Tlačidlo kamery stlačené</string>
+  <string name="act_camera_button_detail">Bolo stlačené tlačidlo kamery</string>
+  <string name="act_close_system_dialogs">Zatvorenie systémových dialógov</string>
+  <string name="act_close_system_dialogs_detail">Počas akcií užívateľa budú systémové dialógy zakázané</string>
+  <string name="act_configuration_changed">Konfigurácia zmenená</string>
+  <string name="act_configuration_changed_detail">Konfigurácia zariadenia zmenená. Toto zahŕňa veci ako nastavenia jazyka , ale tiež orientáciu zariadenia.</string>
+  <string name="act_locale_changed">Miestne nastavenia zmenené</string>
+  <string name="act_locale_changed_detail">Miestne nastavenia zariadenia sa zmenili.</string>
+  <string name="act_date_changed">Dátum zmenený</string>
+  <string name="act_date_changed_detail">Systémový dátum bol zmenený.</string>
+  <string name="act_device_storage_low">Málo priestoru</string>
+  <string name="act_device_storage_low_detail">Ukladací priestor na zariadení je pod určitou hranicou.</string>
+  <string name="act_device_storage_ok">Úložisko v poriadku</string>
+  <string name="act_device_storage_ok_detail">Ukladací priestor na zariadení je narástol nad určitú hranicu.</string>
+  <string name="act_gtalk_service_connected">GTalk pripojený</string>
+  <string name="act_gtalk_service_connected_detail">GTalk pripojenie nadviazané.</string>
+  <string name="act_gtalk_service_disconnected">GTalk odpojený</string>
+  <string name="act_gtalk_service_disconnected_detail">GTalk bol odpojený.</string>
+  <string name="act_headset_plug">Náhlavna sada pripojená, alebo odpojená</string>
+  <string name="act_headset_plug_detail">Nahlavná sada bola pripojená, alebo odpojená.</string>
+  <string name="act_input_method_changed">IME zmenené</string>
+  <string name="act_input_method_changed_detail">Vstupná metóda zmenená, použitá je virtuálna klávesnica.</string>
+  <string name="act_manage_package_storage">Vyžadované pre správu balíčkov</string>
+</resources>

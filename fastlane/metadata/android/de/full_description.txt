@@ -1,0 +1,4 @@
+<p>Apps verwenden so genannte <i>Broadcast-Receiver,</i> um sich bei bestimmten Systemereignissen „wecken“ zu lassen. <i>Autostarts</i> hilft die zugehörigen „Listener“ aufzuspüren und – mit Hilfe von „root-Power“ zu deaktivieren. Damit gibt <i>Autostarts</i> dem Anwender die Kontrolle daürber zurück, was wann automatisch startet.</p>
+<p>Beispiel: <i>Autostarts</i> zeigt, welche Apps beim Booten gestartet werden, wenn sich die Netzwerkverbindung ändert, der Bildschirm abgeschaltet oder ein Ladekabel angeschlossen wird.</p>
+<p>Durch Deaktivieren unerwünschter „Startrampen“ können Anwender mit root-Rechten ihre Androiden wieder flüssiger laufen lassen – und längere Akku-Laufzeiten erreichen.</p>
+<p><b>Hinweis:</b> Root-Zugriff wird benötigt, um Änderungen vorzunehmen. Ohne root-Rechte lassen sich „Startrampen“ lediglich anzeigen.</p>

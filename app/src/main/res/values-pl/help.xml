@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string-array name="faq1">
+    <item>Jak to działa?</item>
+    <item>
+      <p>" Android pozwala aplikacją na rejestracje niektórych zdarzeń obsługiwanych przez system, co pozwala na uruchomienie aplikacji, w przypadku wywołania danego zdarzenia.\n\nPozwala to aplikacjom na wykonywanie potrzebnych czynności w tle, jednak może prowadzić do obniżenia wydajności systemu.\n\nAutostarts pomaga kontrolować telefon, dzięki czemu wiesz co dzieje się za twoimi plecami. "</p>
+    </item>
+  </string-array>
+  <string-array name="faq2">
+    <item>Czy mogę usunąć konkretne wydarzenie aplikacji?</item>
+    <item>Tak, jednak istnieją ograniczenia w Android API, i jest to możliwe tylko na zrootowanych urządzeniach.\n<b>Bądź ostrożny wyłączając dany element</b>. Niektóre komponenty mogą wymagać danych zdarzeń aby w ogóle działać. W tym przypadku wyłączenie danego elementu może powodować niespodziewane efekty. W większości przypadków powinno pomóc włączenie wyłączonego elementu.</item>
+  </string-array>
+  <string-array name="faq3">
+    <item>Dlaczego kiedy aktywuję \"pokaż tylko zmodyfikowane\", widzę również rzeczy których nigdy nie modyfikowałem?</item>
+    <item>"Czy dany składnik został zmodyfikowany(i pokazanie go) jest sprawdzane poprzez spojrzenie na domyślny status, a stan aktualny. Istnieję możliwość, że program był "<i>domyślnie</i>" wyłączony po instalacji, ale został aktywowany gdy któraś aplikacja go potrzebowała (na przykład używasz specyficznych możliwości, lub włączysz to w konfiguracji aplikacji)."</item>
+  </string-array>
+  <string-array name="faq4">
+    <item>Czy istnieję możliwość poznania która cześć aplikacji, odpowiada za daną część zdarzenia?</item>
+    <item>"Nie. Jednak jeśli zaznaczysz daną pozycję zobaczysz nazwę "<i>komponentu</i>" który odpowiada za zdarzenie. Czasami owa nazwa jest wskazówką. Na przykład "<i>AlarmInitReceiver</i>" powinno opowiadać za inicjalizację alarmu lub powiadomienia które jest włączone w twojej aplikacji. Więc nie zdziw się jeśli powiadomienia aplikacji przestaną działać gdy to wyłączysz."</item>
+  </string-array>
+  <string-array name="faq5">
+    <item>Wyłączyłem pewien komponent, czy możliwe jest aby włączył się samoczynnie po jakimś czasie?</item>
+    <item>Tak, niektóre aplikacje mogą uruchamiać, lub zamykać ich własne komponenty. Niektóre z nich zależne są od ustawień, lub możliwości programu. Niestety, nie ma na to sposobu.</item>
+  </string-array>
+  <string-array name="faq6">
+    <item>Ściąganie z Marketu przestało działać.</item>
+    <item>"Zazwyczaj nie jest to wina "<i>Autostarts</i>", i nie mam w tym przypadku pomysłu dlaczego tak się dzieję.\nJednakże jest jeden problem na który możesz natrafić. Jeśli nie używasz Google Talk i wyłączysz go w zdarzeniu "<i>Na Starcie</i>" może wystąpić owy problem (to samo dzieje się, gdy zamkniesz proces Google Talk). Wydaje się, że z jakiegoś powodu, market nie ściąga plików gdy Google Talk jest wyłączony."</item>
+  </string-array>
+</resources>

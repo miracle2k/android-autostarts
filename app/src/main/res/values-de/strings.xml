@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="no_receivers">Es gibt keine automatisch startende Anwendungen.</string>
+  <string name="no_receivers_filtered">Keine automatisch startende Anwendungen innerhalb der aktuellen Filterauswahl.</string>
+  <string name="change_filter_settings">Filtereinstellungen ändern.</string>
+  <string name="appliation_info">Anwendungsinformationen</string>
+  <string name="find_in_market">Im Market finden</string>
+  <string name="find_in_appstore">Im Appstore finden</string>
+  <string name="disable">Deaktivieren</string>
+  <string name="enable">Aktivieren</string>
+  <string name="view_options">Ansicht</string>
+  <string name="group_by_package">Nach Anwendung</string>
+  <string name="group_by_action">Nach Ereignis</string>
+  <string name="hide_sys_apps">Systemanwendungen ausblenden</string>
+  <string name="show_changed_only">Nur Geänderte anzeigen</string>
+  <string name="hide_unknown">Unbekannte ausblenden</string>
+  <string name="expand_all">Alle ausklappen</string>
+  <string name="collapse_all">Alle einklappen</string>
+  <string name="reload">Neu laden</string>
+  <string name="help">Hilfe</string>
+  <string name="error">Fehler</string>
+  <string name="warning">Warnung</string>
+  <string name="info">Info</string>
+  <string name="changing_state">Ändere %1$s...</string>
+  <string name="close_help">Hilfe schließen und zurück</string>
+</resources>

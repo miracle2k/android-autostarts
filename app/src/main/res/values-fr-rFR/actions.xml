@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="act_battery_low">Batterie faible</string>
+  <string name="act_battery_okay">Batterie ok</string>
+  <string name="act_pre_boot_completed">Pendant le démarrage</string>
+  <string name="act_boot_completed">Après le démarrage</string>
+  <string name="act_shutdown">Éteindre</string>
+  <string name="act_shutdown_detail">L\'appareil s’éteint</string>
+  <string name="act_camera_button">Bouton de la camera appuyé</string>
+  <string name="act_device_storage_low">Stockage faible</string>
+  <string name="act_device_storage_ok">Stockage ok</string>
+  <string name="act_gtalk_service_connected">GTalk connecté</string>
+  <string name="act_gtalk_service_disconnected">GTalk déconnecté</string>
+  <string name="act_media_bad_removal">Mauvais retrait du media</string>
+  <string name="act_media_eject">Éjection du media</string>
+  <string name="act_media_mounted">Media monté</string>
+  <string name="act_media_unmountable">Media non démontable</string>
+  <string name="act_media_unmounted">Media démonté</string>
+  <string name="act_new_outgoing_call">Nouvel appel sortant</string>
+  <string name="act_package_added">Application installée</string>
+  <string name="act_package_install">Installation de l\'application</string>
+  <string name="act_package_removed">Application supprimée</string>
+  <string name="act_package_replaced">Application remplacée</string>
+  <string name="act_package_restarted">Application redémarrée</string>
+  <string name="act_reboot">Redémarrer</string>
+  <string name="act_uid_removed">Utilisateur supprimé</string>
+  <string name="act_sms_received">SMS reçu</string>
+  <string name="act_sms_rejected">SMS rejeté</string>
+  <string name="act_scan_results_available">Scan Wi-Fi fini</string>
+  <string name="act_network_state_changed">Changement de l\'état du Wi-Fi</string>
+  <string name="act_network_state_changed_detail">L\'état du Wi-Fi a changé</string>
+  <string name="act_supplicant_connection_change">La connexion Wi-Fi a changé</string>
+  <string name="act_suplicant_state_changed">L\'état de la connexion Wi-Fi a changé</string>
+  <string name="act_sink_state_changed_detail">(Événement Bluetooth)</string>
+  <string name="act_bonding_created_detail">(Événement Bluetooth)</string>
+  <string name="act_bonding_removed_detail">(Événement Bluetooth)</string>
+  <string name="act_disabled">Bluetooth désactivé</string>
+  <string name="act_disabled_detail">(Événement Bluetooth)</string>
+  <string name="act_discovery_completed_detail">(Événement Bluetooth)</string>
+  <string name="act_enabled_detail">(Événement Bluetooth)</string>
+  <string name="act_headset_state_changed_detail">(Événement Bluetooth)</string>
+  <string name="act_remote_device_found">Appareil BT trouvé</string>
+  <string name="act_anr">L\'application ne répond pas</string>
+  <string name="act_install_shortcut">Installer un raccourci</string>
+  <string name="act_uninstall_shortcut">Désinstaller un raccourci</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string-array name="faq1">
+    <item>它是如何運作的？</item>
+    <item>
+      <p>" Android 允許應用程式註冊一系列系統支援的事件，以在特定事件觸發時啟動。\n\n這可以讓應用程式在後台進行重要的工作，但有時卻會造成系統變得緩慢。\n\nAutostarts 藉由讓您了解哪些程式在後台執行，以幫助您控制您的裝置。"</p>
+    </item>
+  </string-array>
+  <string-array name="faq2">
+    <item>我可以移除應用程式中特定的事件嗎？</item>
+    <item>可以，但是由於 Android API 的限制，這只能在已取得 root 權限的裝置上使用。當您停用應用程式時請特別小心。特定有疑問的程式可能負責該事件以外的其他程式的一些功能。因此，停用這樣的程式可能導致其他不預期的結果。然而大部分來講，您還是可以嘗試停用或是再次啟用多數的程式。</item>
+  </string-array>
+  <string-array name="faq3">
+    <item>當我啟用「僅顯示變更」篩選器時，為什麼我會看到我從未實際變更過的東西？</item>
+    <item>一個元件是否被變更（因此以粗體字顯示）是藉由比對它預設的狀態與當前的狀態。有可能一個程式在安裝完畢後自行停用其原本「預設」的狀態，但當有需要時再由程式自身來加以啟動（例如，當您使用了某些特定功能或是啟用程式的某些特定選項）。</item>
+  </string-array>
+  <string-array name="faq4">
+    <item>有可能知道特定程式在特定事件中做些什麼嗎？</item>
+    <item>不，並非每個都可以。然而，如果您選取其中一個程式，您將會看到該元件的名稱，以及其控制的事件。有時候那名字將會提供您一個提示。舉例來說，一個「AlarmInitReceiver」可能是用來啟用鬧鐘或是您在應用程式中用來提醒某些事情的。那麼，當您停用該程式時，不要訝異怎麼該程式的鬧鐘提醒失效了。</item>
+  </string-array>
+  <string-array name="faq5">
+    <item>我已經停用了一個元件，但它似乎過一陣子就會自己重新啟動？</item>
+    <item>是的，應用程式可能會自己啟動或是停用。有些程式會依照其設定而進行這些動作，或是某些功能被啟用。不幸的是，目前沒有其他的解決方法處理這種狀況。</item>
+  </string-array>
+  <string-array name="faq6">
+    <item>我的 Google Play 下載無法正常運作。</item>
+    <item>這通常不是 Autostarts 的錯。但有一個狀況有可能是您造成的。也許您認為您用不到 Google Talk 而因此將其在裝置開機事件當中停用，那麼這可能是問題的原因（這也可能會在您利用任務管理員程式關閉 Google Talk 程式時產生）。很顯然的，基於某些因素，當 Google Talk 沒有執行時，Google Play 的下載無法正常運作。</item>
+  </string-array>
+</resources>

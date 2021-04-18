@@ -24,7 +24,7 @@
   <string name="error">错误</string>
   <string name="warning">警告</string>
   <string name="info">信息</string>
-  <string name="receiver_info">"接收  &lt;b&gt;%1$s&lt;/b&gt; 处理操作 &lt;i&gt;%2$s&lt;/i&gt; 优先 &lt;b&gt;%3$d&lt;/b&gt;."</string>
+  <string name="receiver_info">"接收器  &lt;b&gt;%1$s&lt;/b&gt; 处理操作 &lt;i&gt;%2$s&lt;/i&gt; 优先级为 &lt;b&gt;%3$d&lt;/b&gt;."</string>
   <string name="sys_disable">这是系统组件。若不清楚您在做什么请不要更改。</string>
   <string name="changing_state">正在更改 %1$s...</string>
   <string name="state_change_failed">无法更改 %1$s (%2$s) 的状态。\n\n很可能是由于您的设备还未获取必要的 ROOT 权限。</string>

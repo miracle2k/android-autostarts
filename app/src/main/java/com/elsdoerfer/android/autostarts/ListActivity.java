@@ -31,6 +31,7 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final String PREFS_NAME = "common";
 	static final String PREF_FILTER_SYS_APPS = "filter-sys-apps";
+	static final String PREF_FILTER_SHOW_ENABLED = "show-enabled-only";
 	static final String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
 	static final String PREF_FILTER_UNKNOWN = "filter-unknown-events";
 	static final String PREF_GROUPING = "grouping";
@@ -332,6 +333,7 @@ public class ListActivity extends ExpandableListActivity {
 		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
 
 		// View/Filter Submenu
+		menu.findItem(R.id.view_enabled_only).setChecked(mListAdapter.getShowEnabledOnly());
 		menu.findItem(R.id.view_changed_only).setChecked(mListAdapter.getShowChangedOnly());
 		menu.findItem(R.id.view_hide_sys_apps).setChecked(mListAdapter.getFilterSystemApps());
 		menu.findItem(R.id.view_hide_unknown).setChecked(mListAdapter.getFilterUnknown());
@@ -364,6 +366,15 @@ public class ListActivity extends ExpandableListActivity {
 			mListAdapter.notifyDataSetChanged();
 			updateEmptyText();
 			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SYS_APPS, item.isChecked()).commit();
+			return true;
+		}
+
+		else if (id == R.id.view_enabled_only) {
+			item.setChecked(!item.isChecked());
+			mListAdapter.setShowEnabledOnly(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SHOW_ENABLED, item.isChecked()).commit();
 			return true;
 		}
 

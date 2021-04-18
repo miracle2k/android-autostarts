@@ -18,6 +18,9 @@
             <item android:id="@+id/view_hide_sys_apps"
                   android:title="@string/hide_sys_apps"
                   android:checkable="true"/>
+            <item android:id="@+id/view_enabled_only"
+                android:title="@string/show_enabled_only"
+                android:checkable="true"/>
             <item android:id="@+id/view_changed_only"
                   android:title="@string/show_changed_only"
                   android:checkable="true"/>

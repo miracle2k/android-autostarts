@@ -1,8 +1,9 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="no_receivers">アプリケーションは自動起動しません。</string>
   <string name="no_receivers_filtered">現在の選択範囲に自動起動するアプリケーションはありません。</string>
   <string name="change_filter_settings">フィルター設定を変更します。</string>
+  <string name="no_search_match">検索クエリと一致するアプリケーションは一致しません。</string>
   <string name="appliation_info">アプリケーション情報</string>
   <string name="find_in_market">マーケットで検索</string>
   <string name="find_in_appstore">アプリストアで検索</string>
@@ -12,11 +13,13 @@
   <string name="group_by_package">アプリケーションでグループ化</string>
   <string name="group_by_action">イベントでグループ化</string>
   <string name="hide_sys_apps">システムアプリを非表示</string>
+  <string name="show_enabled_only">有効なみ表示されます</string>
   <string name="show_changed_only">変更済のみ表示</string>
   <string name="hide_unknown">不明なイベントを非表示</string>
   <string name="expand_all">すべて展開</string>
   <string name="collapse_all">すべて折りたたむ</string>
   <string name="reload">再読み込み</string>
+  <string name="search">探す</string>
   <string name="help">ヘルプ</string>
   <string name="error">エラー</string>
   <string name="warning">警告</string>

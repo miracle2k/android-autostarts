@@ -3,6 +3,7 @@
   <string name="no_receivers">没有应用程序是自动启动的。</string>
   <string name="no_receivers_filtered">您当前所选的类别里没有任何应用程序是自动启动的。</string>
   <string name="change_filter_settings">更改筛选设置。</string>
+  <string name="no_search_match">没有应用程序匹配您的搜索查询。</string>
   <string name="appliation_info">应用程序信息</string>
   <string name="find_in_market">在 Google Play 中寻找</string>
   <string name="find_in_appstore">在 Amazon Appstore 中寻找</string>
@@ -12,11 +13,13 @@
   <string name="group_by_package">按应用程序分组</string>
   <string name="group_by_action">按事件类别分组</string>
   <string name="hide_sys_apps">隐藏系统程序</string>
+  <string name="show_enabled_only">仅显示启用项</string>
   <string name="show_changed_only">只显示更改项目</string>
   <string name="hide_unknown">隐藏未知事件</string>
   <string name="expand_all">全部展开</string>
   <string name="collapse_all">全部折叠</string>
   <string name="reload">重新载入</string>
+  <string name="search">搜索</string>
   <string name="help">帮助</string>
   <string name="error">错误</string>
   <string name="warning">警告</string>

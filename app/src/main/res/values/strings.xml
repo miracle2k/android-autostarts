@@ -15,6 +15,7 @@
     <string name="group_by_package">Group by application</string>
     <string name="group_by_action">Group by event</string>
     <string name="hide_sys_apps">Hide system apps</string>
+    <string name="show_enabled_only">Show enabled only</string>
     <string name="show_changed_only">Show changed only</string>
     <string name="hide_unknown">Hide unknown events</string>
     <string name="expand_all">Expand all</string>

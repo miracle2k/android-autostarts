@@ -147,6 +147,8 @@ public class ListActivity extends ExpandableListActivity {
 		// Restore preferences
 		mListAdapter.setFilterSystemApps(
 				mPrefs.getBoolean(PREF_FILTER_SYS_APPS, false));
+		mListAdapter.setShowEnabledOnly(
+				mPrefs.getBoolean(PREF_FILTER_SHOW_ENABLED, false));
 		mListAdapter.setShowChangedOnly(
 				mPrefs.getBoolean(PREF_FILTER_SHOW_CHANGED, false));
 		mListAdapter.setFilterUnknown(

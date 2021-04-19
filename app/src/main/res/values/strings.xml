@@ -15,6 +15,7 @@
     <string name="group_by_package">Group by application</string>
     <string name="group_by_action">Group by event</string>
     <string name="hide_sys_apps">Hide system apps</string>
+    <string name="show_enabled_only">Show enabled only</string>
     <string name="show_changed_only">Show changed only</string>
     <string name="hide_unknown">Hide unknown events</string>
     <string name="expand_all">Expand all</string>
@@ -31,4 +32,7 @@
     <string name="changing_state">Changing %1$s...</string>
     <string name="state_change_failed">Unable to change the state of %1$s (%2$s).\n\nMost likely, your device does not have root access, which is required.</string>
     <string name="close_help">Close help and return to app</string>
+    <string name="enable_long_click">Enable long click</string>
+    <string name="disable_all_warning">disable all in this app?</string>
+    <string name="disable_all">disable all</string>
 </resources>

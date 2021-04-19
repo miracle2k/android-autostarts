@@ -238,10 +238,10 @@
   <string name="act_bt_pan_connection_state_changed_detail">当个人蓝牙区域网络变更时提醒。</string>
   <string name="act_background_data_setting_changed">后台数据设置变更。</string>
   <string name="act_background_data_setting_changed_detail">设置为后台数据的使用已变更的值。</string>
-  <string name="act_appwidget_enabled">允许桌面小部件。</string>
+  <string name="act_appwidget_enabled">启用桌面小部件</string>
   <string name="act_appwidget_enabled_detail">桌面小部件的第一个副本已加入。</string>
-  <string name="act_appwidget_update">正在桌面小部件更新</string>
-  <string name="act_appwidget_update_detail">一个桌面小部件要求自更新。多久触发一次是个问题，但设为「从不」会使桌面小部件无效。\n\n<b>请注意，禁用此事件很可能会呈现小部件失效。</b></string>
+  <string name="act_appwidget_update">桌面小部件更新中</string>
+  <string name="act_appwidget_update_detail">一个桌面小部件要求自更新。不确定多久触发一次，但设为「从不」会使桌面小部件无效。\n\n<b>请注意，禁用此事件很可能会使小部件失效。</b></string>
   <string name="act_appwidget_disabled">禁用桌面小部件</string>
   <string name="act_appwidget_disabled_detail">桌面小部件最后一个副本已移除。</string>
   <string name="act_appwidget_deleted">桌面小部件移除</string>

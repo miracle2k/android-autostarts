@@ -45,6 +45,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private boolean mHideSystemApps = false;
 	private boolean mHideUnknownEvents = false;
+	private boolean mShowEnabledOnly = false;
 	private boolean mShowChangedOnly = false;
 	private String mTextFilter = "";
 
@@ -91,6 +92,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 		}
 
 		if (mHideSystemApps && comp.packageInfo.isSystem)
+			return false;
+		if (mShowEnabledOnly && !comp.isCurrentlyEnabled())
 			return false;
 		if (mShowChangedOnly && comp.isCurrentlyEnabled() ==
 			    comp.defaultEnabled)
@@ -168,7 +171,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	 */
 	public boolean isFiltered() {
 
-		return mHideSystemApps || mShowChangedOnly || mHideUnknownEvents || !mTextFilter.equals("");
+		return mHideSystemApps || mShowEnabledOnly || mShowChangedOnly || mHideUnknownEvents || !mTextFilter.equals("");
 	}
 
 	/**
@@ -206,6 +209,17 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			mShowChangedOnly = newState;
 			rebuildGroupDisplay();
 		}
+	}
+
+	public void setShowEnabledOnly(boolean newState) {
+		if (newState != mShowEnabledOnly) {
+			mShowEnabledOnly = newState;
+			rebuildGroupDisplay();
+		}
+	}
+
+	public boolean getShowEnabledOnly() {
+		return mShowEnabledOnly;
 	}
 
 	public boolean getShowChangedOnly() {

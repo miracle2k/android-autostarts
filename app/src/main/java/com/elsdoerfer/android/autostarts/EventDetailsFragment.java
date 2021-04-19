@@ -38,12 +38,17 @@ public class EventDetailsFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final IntentFilterInfo event = getArguments().getParcelable("event");
         final ListActivity activity = (ListActivity)getActivity();
+        Object[] data = Actions.MAP.get(event.action);
+        CharSequence info = "";
+        if (data!=null && data[1] != null&& data[2] != null)  // Hide info text both for null and empty string values.
+            info = "<p>"+getResources().getString((Integer)data[1])+":"+getResources().getText((Integer)data[2])+"</p>";
 
         View v = activity.getLayoutInflater().inflate(
                 R.layout.receiver_info_panel, null, false);
                 String formattedString = String.format(
 				getString(R.string.receiver_info),
-				event.componentInfo.componentName, event.action, event.priority);
+				event.componentInfo.componentName, event.action, event.priority)
+                +info;
 		((TextView)v.findViewById(R.id.message)).setText(
 				Html.fromHtml(formattedString));
 

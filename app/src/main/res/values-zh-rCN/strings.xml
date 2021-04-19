@@ -30,4 +30,6 @@
   <string name="state_change_failed">无法更改 %1$s (%2$s) 的状态。\n\n很可能是由于您的设备还未获取必要的 ROOT 权限。</string>
   <string name="close_help">关闭帮助并返回程序</string>
   <string name="enable_long_click">启用长按</string>
+  <string name="disable_all_warning">禁用该App下的全部项目?</string>
+  <string name="disable_all">禁用全部</string>
 </resources>

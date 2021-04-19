@@ -30,4 +30,6 @@
   <string name="state_change_failed">無法變更 %1$s (%2$s) 的狀態。\n\n很可能是由於您的裝置尚未取得必要的 ROOT 權限。</string>
   <string name="close_help">關閉說明並回到應用程式</string>
   <string name="enable_long_click">啟用長點擊</string>
+  <string name="disable_all_warning">停用该應用程式下的全部項目?</string>
+  <string name="disable_all">停用全部</string>
 </resources>

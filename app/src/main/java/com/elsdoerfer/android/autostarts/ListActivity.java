@@ -2,6 +2,7 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.ExpandableListActivity;
 import android.app.Fragment;
@@ -158,6 +159,7 @@ public class ListActivity extends ExpandableListActivity {
 				: MyExpandableListAdapter.GROUP_BY_ACTION);
 		mEnableLongClick = mPrefs.getBoolean(PREF_LONGCLICK, false);
 
+		// LongClickListener
 		getExpandableListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,int position, long id) {
@@ -168,7 +170,7 @@ public class ListActivity extends ExpandableListActivity {
 					int childPosition = ExpandableListView.getPackedPositionChild(pos);
 					int groupPosition = ExpandableListView.getPackedPositionGroup(pos);
 					if(childPosition == AdapterView.INVALID_POSITION){//group long click
-						//onGroupLongClick(expandableListView,view, groupPosition,id);
+						onGroupLongClick(expandableListView,view, groupPosition,id);
 					}else{// child long click
 						onChildLongClick(expandableListView,view, groupPosition,childPosition,id);
 					}
@@ -473,6 +475,36 @@ public class ListActivity extends ExpandableListActivity {
 		if (mEnableLongClick)
 			showEventDetails((IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition));
 		return false;
+	}
+
+
+	private void onGroupLongClick(ExpandableListView expandableListView, View view, final int groupPosition, long id) {
+		if (mEnableLongClick){
+			if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_PACKAGE){
+				AlertDialog.Builder bb = new AlertDialog.Builder(this);
+				bb.setCancelable(true);
+				bb.setTitle(R.string.warning);
+				bb.setMessage(R.string.disable_all_warning);
+				//bb.setNeutralButton(R.string.enable_all,);
+				bb.setPositiveButton(R.string.disable_all, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						int ChildrenCount = mListAdapter.getChildrenCount(groupPosition);
+						for (int childPosition = 0; childPosition <ChildrenCount ; childPosition++) {
+							IntentFilterInfo event = (IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition);
+							addJob(event.componentInfo, false);
+						}
+					}
+				});
+				bb.show();
+			} else {
+				View v = view.findViewById(R.id.show_info);
+				if (v!=null)
+					v.callOnClick();
+				//if (Actions.MAP.containsKey(action))
+				//	showInfoToast(action);
+			}
+		}
 	}
 
 	void apply() {

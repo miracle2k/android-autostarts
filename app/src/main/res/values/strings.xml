@@ -33,4 +33,6 @@
     <string name="state_change_failed">Unable to change the state of %1$s (%2$s).\n\nMost likely, your device does not have root access, which is required.</string>
     <string name="close_help">Close help and return to app</string>
     <string name="enable_long_click">Enable long click</string>
+    <string name="disable_all_warning">disable all in this app?</string>
+    <string name="disable_all">disable all</string>
 </resources>

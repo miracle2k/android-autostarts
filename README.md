@@ -15,7 +15,7 @@ App
 Legend
 
  * <sup>1</sup>This F-Droid release is managed by a third party. The author of AAMU is aware of this third party release, thankful for it, but cannot vouch for it. Related discussion at https://github.com/miracle2k/android-autostarts/issues/39
- * <sup>2</sup>This Google Play release is managed by the author of AAMU
+ * <sup>2</sup>This Google Play release is managed by the author of AAMU.
 
 Support & Contribute
 

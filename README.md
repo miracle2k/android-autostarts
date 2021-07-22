@@ -1,5 +1,5 @@
-Android Autostarts Management Utility (AAMU)
---------------------------------------------
+Android Autostarts Management Utility
+-------------------------------------
 
 [![BundleCop](https://api.bundlecop.com/badge/268318521568755716.svg?file=Android-Autostarts-Full.apk&label=APK%20Size)](https://app.bundlecop.com/project/268318521535987716)
 
@@ -14,8 +14,8 @@ App
 
 Legend
 
- * <sup>1</sup>This F-Droid release is managed by a third party. The author of AAMU is aware of this third party release, thankful for it, but cannot vouch for it. Related discussion at https://github.com/miracle2k/android-autostarts/issues/39
- * <sup>2</sup>This Google Play release is managed by the author of AAMU.
+ * <sup>1</sup>This F-Droid release is managed by a third party. The author of Autostarts is aware of this third party release, thankful for it, but cannot vouch for it. Related discussion at https://github.com/miracle2k/android-autostarts/issues/39
+ * <sup>2</sup>This Google Play release is managed by the author.
 
 Support & Contribute
 

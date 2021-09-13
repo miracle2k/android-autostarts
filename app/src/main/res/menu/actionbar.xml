@@ -18,6 +18,9 @@
             <item android:id="@+id/view_hide_sys_apps"
                   android:title="@string/hide_sys_apps"
                   android:checkable="true"/>
+            <item android:id="@+id/view_enabled_only"
+                android:title="@string/show_enabled_only"
+                android:checkable="true"/>
             <item android:id="@+id/view_changed_only"
                   android:title="@string/show_changed_only"
                   android:checkable="true"/>
@@ -26,6 +29,11 @@
                   android:checkable="true"/>
         </menu>
     </item>
+
+    <item android:id="@+id/enable_long_click"
+        android:title="@string/enable_long_click"
+        android:checkable="true"
+        android:showAsAction="never"/>
 
     <item android:id="@+id/expand"
           android:icon="@drawable/ic_action_navigation_expand_more"

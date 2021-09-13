@@ -6,8 +6,8 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.elsdoerfer.android.autostarts.opt.RootFeatures;
 
@@ -63,9 +63,7 @@ public class HelpActivity extends Activity {
 	        }
         }
         fullText.append("</body></html>");
-
-        ((WebView)findViewById(R.id.faq_text)).loadData(
-        		fullText.toString(), "text/html", "utf-8");
+		((TextView)findViewById(R.id.faq_text)).setText(Html.fromHtml(fullText.toString()));
 
         ((Button)findViewById(R.id.close)).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

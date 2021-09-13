@@ -2,6 +2,7 @@ package com.elsdoerfer.android.autostarts;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.ExpandableListActivity;
 import android.app.Fragment;
@@ -17,6 +18,7 @@ import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.*;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -31,9 +33,12 @@ public class ListActivity extends ExpandableListActivity {
 
 	static final String PREFS_NAME = "common";
 	static final String PREF_FILTER_SYS_APPS = "filter-sys-apps";
+	static final String PREF_FILTER_SHOW_ENABLED = "show-enabled-only";
 	static final String PREF_FILTER_SHOW_CHANGED = "show-changed-only";
 	static final String PREF_FILTER_UNKNOWN = "filter-unknown-events";
 	static final String PREF_GROUPING = "grouping";
+	static final String PREF_LONGCLICK = "enable_long_click";
+	static Boolean mEnableLongClick  = false;
 
 	private Menu mActionBarMenu;
 	private MenuItem mExpandCollapseToggleItem;
@@ -143,6 +148,8 @@ public class ListActivity extends ExpandableListActivity {
 		// Restore preferences
 		mListAdapter.setFilterSystemApps(
 				mPrefs.getBoolean(PREF_FILTER_SYS_APPS, false));
+		mListAdapter.setShowEnabledOnly(
+				mPrefs.getBoolean(PREF_FILTER_SHOW_ENABLED, false));
 		mListAdapter.setShowChangedOnly(
 				mPrefs.getBoolean(PREF_FILTER_SHOW_CHANGED, false));
 		mListAdapter.setFilterUnknown(
@@ -150,7 +157,27 @@ public class ListActivity extends ExpandableListActivity {
 		mListAdapter.setGrouping(mPrefs.getString(PREF_GROUPING, "action").equals("package")
 				? MyExpandableListAdapter.GROUP_BY_PACKAGE
 				: MyExpandableListAdapter.GROUP_BY_ACTION);
+		mEnableLongClick = mPrefs.getBoolean(PREF_LONGCLICK, false);
 
+		// LongClickListener
+		getExpandableListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,int position, long id) {
+				//int position = expandableListView.pointToPosition((int)view.getX(), (int)view.getY());
+				if (position != AdapterView.INVALID_POSITION) {
+					ExpandableListView expandableListView = (ExpandableListView)parent;
+					long pos = expandableListView.getExpandableListPosition(position);
+					int childPosition = ExpandableListView.getPackedPositionChild(pos);
+					int groupPosition = ExpandableListView.getPackedPositionGroup(pos);
+					if(childPosition == AdapterView.INVALID_POSITION){//group long click
+						onGroupLongClick(expandableListView,view, groupPosition,id);
+					}else{// child long click
+						onChildLongClick(expandableListView,view, groupPosition,childPosition,id);
+					}
+				}
+				return true;
+			}
+		});
 		bindService(new Intent(this, ToggleService.class),
 				mToggleServiceConnection, Context.BIND_AUTO_CREATE);
 
@@ -331,7 +358,9 @@ public class ListActivity extends ExpandableListActivity {
 		// Reload button disabled while reloading
 		mReloadItem.setEnabled(mLoadTask == null || mLoadTask.getStatus() != AsyncTask.Status.RUNNING);
 
+		menu.findItem(R.id.enable_long_click).setChecked(mEnableLongClick);
 		// View/Filter Submenu
+		menu.findItem(R.id.view_enabled_only).setChecked(mListAdapter.getShowEnabledOnly());
 		menu.findItem(R.id.view_changed_only).setChecked(mListAdapter.getShowChangedOnly());
 		menu.findItem(R.id.view_hide_sys_apps).setChecked(mListAdapter.getFilterSystemApps());
 		menu.findItem(R.id.view_hide_unknown).setChecked(mListAdapter.getFilterUnknown());
@@ -367,6 +396,15 @@ public class ListActivity extends ExpandableListActivity {
 			return true;
 		}
 
+		else if (id == R.id.view_enabled_only) {
+			item.setChecked(!item.isChecked());
+			mListAdapter.setShowEnabledOnly(item.isChecked());
+			mListAdapter.notifyDataSetChanged();
+			updateEmptyText();
+			mPrefs.edit().putBoolean(ListActivity.PREF_FILTER_SHOW_ENABLED, item.isChecked()).commit();
+			return true;
+		}
+
 		else if (id == R.id.view_changed_only) {
 			item.setChecked(!item.isChecked());
 			mListAdapter.setShowChangedOnly(item.isChecked());
@@ -396,6 +434,12 @@ public class ListActivity extends ExpandableListActivity {
 			return true;
 		}
 
+		else if (id == R.id.enable_long_click) {
+			item.setChecked(!item.isChecked());
+			mEnableLongClick = item.isChecked();
+			mPrefs.edit().putBoolean(ListActivity.PREF_LONGCLICK, mEnableLongClick).commit();
+			return true;
+		}
 		else if (id == R.id.reload) {
 			loadAndApply();
 			return true;
@@ -414,8 +458,53 @@ public class ListActivity extends ExpandableListActivity {
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		showEventDetails((IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition));
+		if (mEnableLongClick){
+			IntentFilterInfo event = (IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition);
+			final boolean componentIsEnabled = mToggleService.getQueuedState(
+					event.componentInfo, event.componentInfo.isCurrentlyEnabled());
+			boolean doEnable = !componentIsEnabled;
+			addJob(event.componentInfo, doEnable);
+		}
+		else
+			showEventDetails((IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition));
 		return super.onChildClick(parent, v, groupPosition, childPosition, id);
+	}
+
+	public boolean onChildLongClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
+		if (mEnableLongClick)
+			showEventDetails((IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition));
+		return false;
+	}
+
+
+	private void onGroupLongClick(ExpandableListView expandableListView, View view, final int groupPosition, long id) {
+		if (mEnableLongClick){
+			if (mListAdapter.getGrouping() == MyExpandableListAdapter.GROUP_BY_PACKAGE){
+				AlertDialog.Builder bb = new AlertDialog.Builder(this);
+				bb.setCancelable(true);
+				bb.setTitle(R.string.warning);
+				bb.setMessage(R.string.disable_all_warning);
+				//bb.setNeutralButton(R.string.enable_all,);
+				bb.setPositiveButton(R.string.disable_all, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						int ChildrenCount = mListAdapter.getChildrenCount(groupPosition);
+						for (int childPosition = 0; childPosition <ChildrenCount ; childPosition++) {
+							IntentFilterInfo event = (IntentFilterInfo) mListAdapter.getChild(groupPosition, childPosition);
+							addJob(event.componentInfo, false);
+						}
+					}
+				});
+				bb.show();
+			} else {
+				View v = view.findViewById(R.id.show_info);
+				if (v!=null)
+					v.callOnClick();
+				//if (Actions.MAP.containsKey(action))
+				//	showInfoToast(action);
+			}
+		}
 	}
 
 	void apply() {
